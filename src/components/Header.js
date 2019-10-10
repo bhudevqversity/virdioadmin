@@ -68,13 +68,13 @@ class Header extends Component {
 
                         <div className="row mt-4">
                                 <div className="col-lg-6">
-                                    <input type="email" className="form-control"   placeholder="Enter email"/>
+                                    <input type="email" className="form-control"   placeholder="Enter password"/>
                                 </div>
                                 <div className="col-lg-3">
-                                    <input type="email" className="form-control"   placeholder="Enter email"/>
+                                    <input type="email" className="form-control"   placeholder="Enter password"/>
                                 </div>
                                 <div className="col-lg-3">
-                                    <input type="email" className="form-control"   placeholder="Enter email"/>
+                                    <input type="email" className="form-control"   placeholder="Enter password"/>
                                 </div>
                         </div>
 
