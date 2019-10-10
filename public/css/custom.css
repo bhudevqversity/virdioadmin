@@ -1,0 +1,49 @@
+/*-------------------------------
+Contents:
+1. Fonts
+2. Header
+
+
+
+
+
+------------------------------------*/
+
+@font-face {
+    font-family: "Avenir-Book";
+    src: url("../fonts/Avenir-Book.ttf") format("truetype");
+}
+
+body{
+    background: #000;
+    padding: 0px;
+	position: relative;
+    height:100vh;
+}
+#root, 
+.App{
+	height:100%;
+}
+.container{
+    
+}
+img.logo{
+	width:120px;
+}
+.top-header{
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
