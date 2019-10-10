@@ -17,6 +17,16 @@ Contents:
     font-family: "Avenir-Medium";
     src: url("../fonts/Avenir-Medium.ttf") format("truetype");
 }
+}
+@font-face {
+    font-family: "AvenirNextLMedium";
+    src: url("../fonts/AvenirNextLMedium.otf") format("opentype");
+}
+}
+@font-face {
+    font-family: "AvenirNextRegular";
+    src: url("../fonts/AvenirNextRegular.otf") format("opentype");
+}
 
 body{
     background: #000;
@@ -94,14 +104,79 @@ img.logo{
     color: #BD00FF;
     top: 5px;
 }
+.message-notification{
+	position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.message-count{
+	position: absolute;
+    background: #bd00ff;
+    color: #fff;
+    border-radius: 15px;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+    right: -19px;
+    top: 3px;
+    font-size: 13px;
+
+
+}
 .message-notification img{
-	
+	    width: 33px;
 }
 
+.gray-border{
+    border-color: #474747 !important;
+}
+
+.gray-box{
+    height: 600px;
+    margin: 0 auto;
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+
+.info{
+    border-left: 5px solid #bd00ff;
+    color: #fff;
+    font-size: 24px;
+    padding: 0px 0px 0px 30px;
+
+}
+.session{
+    float: left;
+    margin-top: 59px;
+    height: 35px;
+    width: 100%;
+    
+}
+
+@media only screen and (max-width: 420px) {
+  .user-info img.user-avtar{
+    width: : 30px !important; 
+    height: 30px !important;
+  }
+
+  .message-count{
+    position: absolute;
+    background: #bd00ff;
+    color: #fff;
+    border-radius: 15px;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+    right: -19px;
+    top: 14px;
+    font-size: 13px;
 
 
-
-
+}
+}
 
 
 
