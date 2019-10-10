@@ -13,6 +13,10 @@ Contents:
     font-family: "Avenir-Book";
     src: url("../fonts/Avenir-Book.ttf") format("truetype");
 }
+@font-face {
+    font-family: "Avenir-Medium";
+    src: url("../fonts/Avenir-Medium.ttf") format("truetype");
+}
 
 body{
     background: #000;
@@ -31,13 +35,68 @@ img.logo{
 	width:120px;
 }
 .top-header{
+	align-items: center;	
+}
+.user-info{
 	
 }
-
-
-
-
-
+.user-info h3{
+	    color: #fff;
+    font-size: 22px;
+    font-family: Avenir-Medium;
+	    margin-bottom: 2px;
+}
+.user-info img.user-avtar{
+	border: 2px solid #BD00FF;
+    border-radius: 10px;
+}
+.user-info p{
+	color: #9B9B9B;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    font-family: "Avenir-Medium";
+}
+.header-info-right p{
+	    color: #9B9B9B;
+    font-size: 13px;
+    margin: 5px 0;
+    padding: 0;
+    line-height: normal;
+    font-family: "Avenir-Medium";
+}
+.header-info-right h3{
+	color: #fff;
+    font-size: 22px;
+    font-family: Avenir-Medium;
+    margin-bottom: 2px;
+    text-align: center;
+	position: relative;
+	    margin: 3px;
+    padding: 3px 0;
+}
+.header-info-right:nth-child(1) h3::before{
+    content: "\f0d9";
+    font-family: FontAwesome;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+    color: #BD00FF;
+    top: 5px;
+}
+.header-info-right:nth-child(1) h3::after{
+	content: "\f0da";
+	font-family: FontAwesome;
+    font-size: 16px;
+    position: absolute;
+    right: 0;
+    color: #BD00FF;
+    top: 5px;
+}
+.message-notification img{
+	
+}
 
 
 
