@@ -17,6 +17,16 @@ Contents:
     font-family: "Avenir-Medium";
     src: url("../fonts/Avenir-Medium.ttf") format("truetype");
 }
+}
+@font-face {
+    font-family: "AvenirNextLMedium";
+    src: url("../fonts/AvenirNextLMedium.otf") format("opentype");
+}
+}
+@font-face {
+    font-family: "AvenirNextRegular";
+    src: url("../fonts/AvenirNextRegular.otf") format("opentype");
+}
 
 body{
     background: #000;
@@ -94,8 +104,17 @@ img.logo{
     color: #BD00FF;
     top: 5px;
 }
-.message-notification img{
+.message-notification{
+	position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.message-count{
 	
+}
+.message-notification img{
+	    width: 33px;
 }
 
 

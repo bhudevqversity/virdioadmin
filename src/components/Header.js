@@ -34,6 +34,7 @@ class Header extends Component {
                             </div>
                             <div className="message-notification">
                                 <img src="/images/message.png" />
+                                <span className="message-count">2</span>
                             </div>
                         </div>
                     </div>
