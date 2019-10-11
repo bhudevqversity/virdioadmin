@@ -61,15 +61,17 @@ class Header extends Component {
                     <div className="row">
                         <div className="col-md-4">
                             <div className="form-group">
-                                <input type="text" className="input-field" placeholder="Session Name" value=""/>
+                                <input type="text" className="input-field" placeholder="Session Name"/>
                             </div>
                             <div className="form-group">
-                                <input type="text" className="input-field" placeholder="Phone Number *" value=""/>
+                            <span className="cover-border"></span>
+                           
+                                <input type="text" className="input-field" placeholder="Phone Number *" />
                             </div>
                         </div>
                         <div className="col-md-4">
                             <div className="form-group">
-                                <input type="text" className="input-field" placeholder="When" value=""/>
+                                <input type="text" className="input-field" placeholder="When" />
                             </div>
                             <div className="form-group">
                                 <select className="input-field" id="exampleFormControlSelect1">
@@ -92,7 +94,7 @@ class Header extends Component {
 
                         <div className="col-md-4">
                             <div className="form-group">
-                                <input type="text" className="input-field" placeholder="Session Name" value=""/>
+                                <input type="text" className="input-field" placeholder="Session Name" />
                             </div>
                             <div className="form-group">
                                 <select className="input-field" >
@@ -106,17 +108,18 @@ class Header extends Component {
                         </div>
                         <div className="col-md-4">
                             <div className="form-group">
-                                <input type="text" className="input-field " placeholder="Minimum Participants" value=""/>
-                               
-
+                                <input type="text" className="input-field signedup_2" placeholder="Minimum Participants" />
                             </div>
                             <div className="form-group">
-                                <input type="text" className="input-field" placeholder="Confirm Password" value=""/>
+                                <input type="text" className="input-field" placeholder="Confirm Password" />
                             </div>
                         </div>
                         <div className="col-md-4">
                             <div className="form-group">
-                                <input type="text" className="input-field" placeholder="When" value=""/>
+                                <input type="text" className="input-field" placeholder="When"/>
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="input-field" placeholder="Confirm Password" />
                             </div>
                             
                         </div>
