@@ -111,16 +111,127 @@ img.logo{
     justify-content: center;
 }
 .message-count{
-	
+	position: absolute;
+    background: #bd00ff;
+    color: #fff;
+    border-radius: 15px;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+    right: -19px;
+    top: 3px;
+    font-size: 13px;
+
+
+}
+.message-notification img{
+	    width: 33px;
 }
 .message-notification img{
 	    width: 33px;
 }
 
+.gray-border{
+    border-color: #474747 !important;
+}
+
+.gray-box{
+    margin: 0 auto;
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+
+.info{
+    border-left: 5px solid #bd00ff;
+    color: #fff;
+    font-size: 24px;
+    padding: 0px 0px 0px 30px;
+
+}
+.session{
+    float: left;
+    margin: 59px 0px 40px 0px;
+    height: 44px;
+    height: 35px;
+    width: 100%;
+    
+}
+.note
+{
+    text-align: center;
+    height: 80px;
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    color: #fff;
+    font-weight: bold;
+    line-height: 80px;
+
+}
+.form-content
+{
+
+    margin-bottom: 2%;
+
+}
+.form-control{
+    border-radius:1.5rem;
+}
+.btnSubmit
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+}
+.input-field{
+    border-radius: 0px 15px 15px 15px;
+    background: #34213b;
+    color: #fff;
+    border:2px solid #b002ed;
+    height: 71px;
+    width: 100%;
+    margin-bottom: 22px;
+    padding-left: 18px;
+    font-size: 18px;
+
+}
+.input-txt{
+    color: #fff;
+    font-size: 22px;
+
+}
+.signedup_2{
+    background-image: url('./images/signedup.png');
+}
 
 
 
 
+@media only screen and (max-width: 420px) {
+  .user-info img.user-avtar{
+    width: 30px !important; 
+    height: 30px !important;
+  }
+
+  .message-count{
+    position: absolute;
+    background: #bd00ff;
+    color: #fff;
+    border-radius: 15px;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+    right: -19px;
+    top: 14px;
+    font-size: 13px;
+
+
+}
+}
 
 
 
