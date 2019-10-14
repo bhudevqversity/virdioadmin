@@ -27,7 +27,10 @@ Contents:
     font-family: "AvenirNextRegular";
     src: url("../fonts/AvenirNextRegular.otf") format("opentype");
 }
-
+.gray-text{
+	color:#ccc;
+	font-size:18px;
+}
 body{
     background: #000;
     padding: 0px;
@@ -137,10 +140,20 @@ img.logo{
 
 .gray-box{
     margin: 0 auto;
-    background: #1a1a1a;
-    border-radius: 10px;
+    background: #131313;
+    border-radius: 10px 10px 0 0;
+	overflow: hidden;
 }
-
+.gray-box2{
+	background:#212121;
+	overflow: hidden;
+}
+.no-border-radius{
+	border-radius:0 !important;
+}
+.gray-box3{
+	background:#212121;
+}
 .info{
     border-left: 5px solid #bd00ff;
     color: #fff;
@@ -199,8 +212,9 @@ img.logo{
     position: relative;
 }
 textarea.input-field{
-	height: 150px;
+    height: 180px;
     padding: 20px 18px;
+    margin-bottom: 17px;
 }
 select.input-field{
     -moz-appearance:none; /* Firefox */
@@ -210,7 +224,7 @@ select.input-field{
 .cover-border::before{
     content: '';
     position: absolute;
-    width: 80px;
+    width: 40px;
     height: 2.5px;
     float: left;
     right: 0px;
@@ -246,6 +260,18 @@ select.input-field{
     right: 16px;
     top: 19px;
 }
+.clock-icon{
+    background: url(../images/clock.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px;
+    width: 28px;
+    height: 28px;
+    float: right;
+    position: absolute;
+    right: 16px;
+    top: 19px;
+}
 .dropdown-icon{
     background: url(../images/dropdown.png);
     background-repeat: no-repeat;
@@ -263,6 +289,11 @@ select.input-field{
     font-size: 22px;
 
 }
+.text1{
+	color: #ccc;
+    font-family: Avenir-Book;
+    font-size: 22px;
+}
 .signedup_2{
     background-image: url("../images/signedup.png");
     background-repeat: no-repeat;
@@ -274,6 +305,27 @@ select.input-field{
     right: 12px;
     top: 15px;
 
+}
+.dollar{
+    background-image: url("../images/dollar.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 33px;
+    height: 33px;
+    float: right;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+
+}
+.pick{
+    color: #fff;
+    font-size: 20px;
+    font-family: Avenir-Book;
+}
+.pick:hover{
+	color:#fff;
+	text-decoration:none;
 }
 .form-group{
     position: relative;
@@ -322,10 +374,12 @@ select.input-field{
 }
 
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+    vertical-align: sub;
+    margin-right: 17px;
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
 }
 
 .switch input { 
@@ -349,27 +403,27 @@ select.input-field{
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+      height: 14px;
+    width: 14px;
+    left: 4px;
+    bottom: 3px;
   background-color: #BD00FF;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #fff;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #fff;
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
 }
 
 .slider.round {
