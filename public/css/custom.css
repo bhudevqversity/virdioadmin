@@ -80,7 +80,7 @@ Contents:
 }
 .text-gray{
 	color:#eee;
-}
+}				  
 body{
     background: #000;
     padding: 0px;
@@ -94,6 +94,8 @@ input:focus{
 .App{
 	height:100%;
 }
+
+
 
 img.logo{
 	width:120px;
@@ -182,7 +184,7 @@ img.logo{
 }
 .message-notification img{
 	    width: 33px;
-}
+}						  
 
 .gray-border{
     border-color: #474747 !important;
@@ -334,6 +336,55 @@ select.input-field{
     right: 16px;
     top: 21px;
 }
+.input-field::placeholder{
+    color:#ccc;
+}
+.cover-border::after{
+    content: '';
+    position: absolute;
+    width: 19px;
+    height: 2.5px;
+    float: left;
+    left: 0px;
+    top: 0;
+    background: #b002ed;
+}
+.when-icon{
+    background: url(../images/calendar.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 28px;
+    width: 28px;
+    height: 28px;
+    float: right;
+    position: absolute;
+    right: 16px;
+    top: 19px;
+}
+.clock-icon{
+    background: url(../images/clock.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px;
+    width: 28px;
+    height: 28px;
+    float: right;
+    position: absolute;
+    right: 16px;
+    top: 19px;
+}
+.dropdown-icon{
+    background: url(../images/dropdown.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 19px;
+    width: 28px;
+    height: 28px;
+    float: right;
+    position: absolute;
+    right: 16px;
+    top: 21px;
+}					   
 .input-txt{
     color: #fff;
     font-size: 22px;
@@ -397,6 +448,8 @@ select.input-field{
     font-size: 18px;
     left: 30px;
     top: -12px;
+					
+					 
     }
 
 
@@ -419,9 +472,237 @@ select.input-field{
     top: 14px;
     font-size: 13px;
 
+}
+}
+.switch {
+    vertical-align: sub;
+    margin-right: 17px;
+    position: relative;
+    display: inline-block;
+    width: 36px;							 
+    height: 20px;						
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;					 
 }
+
+.slider:before {
+  position: absolute;
+  content: "";
+      height: 14px;
+    width: 14px;
+    left: 4px;
+    bottom: 3px;
+  background-color: #BD00FF;
+  -webkit-transition: .4s;
+  transition: .4s;				  
 }
+
+input:checked + .slider {							
+  background-color: #fff;							 
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #fff;								
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);					
+}
+
+.slider.round {		 
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+.white-text{
+	color: #eee;
+    font-family: Avenir-Book;
+    font-size: 22px;
+    padding: 0 20px;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+.activity-table.table th{
+    border-top: 1px solid #bd00ff;
+    font-family: Avenir-Medium;
+    font-weight: normal;
+    color: #ccc;
+    font-size: 18px;
+	    border-bottom: none
+}
+.activity-table.table td{
+	font-family: Avenir-Book;
+    font-size: 20px;					 
+    color: #fff;
+	border-top: none;
+}
+.bg-circle{
+	background: #bd00ff;
+    padding: 3px;
+    width: 28px;
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    display: inline;
+    border-radius: 50px;	
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;			 
+    float: left;						
+}
+.activity-table{
+	border-bottom: 1px solid #777!important;					
+}
+.activity-form .label{
+	    top: -40px;
+		left: 2px;					
+}
+.activity-form  .input-field{		 
+	    margin-bottom: 6px;
+}
+.border-bottom{
+	border-bottom: 1px solid #777!important;				 
+}
+.activity-link{
+	color: #eee;
+    font-family: Avenir-Book;
+    font-size: 22px;				  
+}
+.activity-link span{
+	color: #bd00ff;
+    font-size: 46px;
+    line-height: normal;
+    vertical-align: sub;
+    margin-right: 6px;
+}
+.activity-link:hover{
+	color: #eee;
+	text-decoration:none;
+}
+.save-btn{
+	display: table;
+    border-radius: 40px;
+    font-size: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: Avenir-Medium;
+    font-weight: 600;
+    background: #570078 !important;
+    border-color: #570078 !important;
+}
+
+
+/*-------------------------------
+Popup
+------------------------------------*/
+.white{
+    color: #fff !important;
+    text-shadow: none !important;
+    font-size: 23px;
+    font-family: "Avenir-Medium";
+}
+.modalbg{
+    background: #343434 !important;
+}
+.cardbg{
+  background: none !important;
+  border:none !important; 
+  color: #fff; 
+}
+.labelborder{
+    border-bottom: 1px solid #414141;
+    padding-bottom: 20px;
+     background-image: url('../images/eye.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    font-family: "Avenir-Book";
+}
+.footerborder{
+   border:none !important;  
+}
+.headerborder{
+   border-bottom: 1px solid #414141 !important; 
+}
+.dialogwidth{
+max-width: 600px !important;
+}
+
+
+.form-radio:checked {
+    background-color: #BD00FF;
+    border: none;
+    border-radius: 50px;
+}
+
+.form-radio {
+    flex: 0 0 23px;
+    top: 7px;
+    margin-right: 9px;
+}
+.form-radio:checked::before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    left: 5px;
+    top: 2px;
+    font-size: 13px;
+    color: #fff;
+    content: '\f00c';
+}
+
+.form-radio{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    position: relative;
+        background-color: transparent;
+   border: 2px solid #BD00FF;
+    color: #666;
+    top: 7px;
+        height: 23px;
+   width: 23px;
+    border-radius: 7px;
+    cursor: pointer;
+    outline: none;
+}
+
+
+/*------------slide 45 Equipments list---------*/
+
+.equipmodalbg{
+    background: #343434 !important;
+    max-width: 850px !important;
+    margin:0 auto;
+}
+.searchbar{
+    width: 100%;
+    height: 70px;
+    /*background: #4e275d;*/
+    background-image: linear-gradient(#4e275d, #613771);
+    border-radius: 15px;
+    border:2px solid #b002ed;
+}
+
 
 .switch {
     vertical-align: sub;
@@ -563,14 +844,148 @@ input:checked + .slider:before {
 }
 
 
+.searchbar .searchbarinput{
+    width: 100%;
+    height: 70px;
+    background: none;
+    border:none;
+    color: #fff;
+    font-size: 18px; 
+    border-radius: 15px;
+    padding: 0px 60px 0px 15px;
+    border-bottom:2px solid #414141;
+     font-family: "Avenir-Book";
+}
+.searchbar .inputbtn{
+    width: 55px;
+    height: 70px;
+    background: #bd00ff;
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border:none;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+     background-image: url('../images/search.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.checkboxdiv{
+    width: 800px;
+    border-top:2px solid #414141;
+    float: left;
+    margin: 30px 0px 30px 0px;
+    padding-bottom: 22px !important;
+
+}
+.checkboxdiv_2{
+    margin: 0px 0px 0px 0px;
+}
+.checkboxdiv_3{
+    padding: 0px 0px 0px 1px;
+}
+.plusicon{
+    width: 31px;
+    height: 34px;
+    border-radius: 8px;
+    border:1px solid #b002ed;
+    color: #fff;
+    float: right;
+    position: absolute;
+    right: 0;
+    margin-right: 70px;
+    text-align: center;
+    font-weight: normal;
+    padding-top: 4px;
+    cursor: pointer;
+}
+.donebg{
+    margin: 0 auto;
+    width: 150px;
+    height: 60px;
+    }
+
+    .done{
+    border-radius: 35px;
+    background: #5d067c;
+    color: #fff;
+    text-align: center;
+    font-family: "Avenir-Book";
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    border:none;
+    width: 150px;
+    height: 60px;
+    margin-top: 80px;
+}
 
 
+.input-field-2 {
+    border-radius: 0px 15px 15px 15px;
+    background: #34213b;
+    color: #fff;
+    border: 2px solid #b002ed;
+    height: 71px;
+    width: 100%;
+    margin-bottom: 22px;
+    padding: 0px 18px 0px 18px;
+    font-size: 18px;
+}
+.form-radio:checked {
+    background-color: #BD00FF;
+    border: none;
+    border-radius: 50px;
+}
 
+.form-radio {
+    flex: 0 0 23px;
+    top: 7px;
+    margin-right: 9px;
+}
+.form-radio:checked::before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    left: 5px;
+    top: 2px;
+    font-size: 13px;
+    color: #fff;
+    content: '\f00c';
+}
 
-
-
-
-
-
-
+.form-radio{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    position: relative;
+        background-color: transparent;
+   border: 2px solid #BD00FF;
+    color: #666;
+    top: 5px;
+        height: 23px;
+   width: 23px;
+    border-radius: 7px;
+    cursor: pointer;
+    outline: none;
+}
+ .checktxt {
+    color: #878787 !important;
+    font-size: 20px;
+    font-family: "Avenir-Book";
+    line-height: 22px;
+    min-height: 25px !important;
+}
+.lebelheight{
+    min-height: 40px !important; 
+}
+.closepopup{
+    color: #bd00ff !important;
+    font-size: 32px !important;
+    font-weight: normal !importants;																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														
+}
 
