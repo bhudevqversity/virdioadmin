@@ -254,7 +254,7 @@ class Header extends Component {
             </div>
         </div>
         </div>
-        <div className="gray-box2">
+        <div className="gray-box2 pb-4">
           <div className="session"><h3 className="info">Groups</h3></div>
           <div className="col-md-6">
               <div className="form-group input-txt">
@@ -268,8 +268,9 @@ class Header extends Component {
               
             </div>
         </div>
-        <div className="p-3">
+        <div className="pb-4">
           <div className="session"><h3 className="info">Select Host(s)</h3></div>
+          <div className="p-3">
           <div className="row">
             <div className="col-md-4">
                 <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing hosts</a>
@@ -278,8 +279,10 @@ class Header extends Component {
                 <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Host</a>
             </div>
           </div>
+          </div>
+          
         </div>
-        <div className="gray-box2">
+        <div className="gray-box2 pb-4">
           <div className="session"><h3 className="info">Script</h3></div>
           <div className="row">
             <div className="col-md-5">
@@ -433,16 +436,19 @@ class Header extends Component {
           </div>
           <a href="#" className="activity-link pl-3"><span>+</span> Activity</a>
         </div>
-        <div className="p-3 gray-box no-border-radius">
+        <div className="gray-box no-border-radius pb-2">
           <div className="session"><h3 className="info">Shopping List</h3></div>
-          <div className="row">
-            <div className="col-md-4">
-                <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
-            </div>
-            <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
+          <div className="p-3">
+            <div className="row">
+              <div className="col-md-4">
+                  <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+              </div>
+              <div className="col-md-4">
+                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
+              </div>
             </div>
           </div>
+          
           <div className="row mt-5">
             <div className="col-md-4">
             <div className="form-group">
@@ -471,17 +477,20 @@ class Header extends Component {
           </div>
           
         </div>
-        <div className="p-3 gray-box2 no-border-radius">
+        <div className="gray-box2 no-border-radius">
           <div className="session"><h3 className="info">Equipment List</h3></div>
-          <div className="row">
-            <div className="col-md-4">
-                <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
-            </div>
-            <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
+          <div className="p-3">
+            <div className="row">
+              <div className="col-md-4">
+                  <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+              </div>
+              <div className="col-md-4">
+                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
+              </div>
             </div>
           </div>
-          <div className="row mt-5">
+          <div className="p-3">
+          <div className="row mt-5 pb-4">
             <div className="col-md-4">
             <div className="form-group">
                       <span className="cover-border"></span>
@@ -501,7 +510,7 @@ class Header extends Component {
               <a href="#" className="bg-circle mt-3"><i className="fa fa-minus" aria-hidden="true"></i></a>
             </div>
           </div>
-          
+          </div>
         </div>
         <a href="#" className="save-btn btn btn-primary my-5 mx-auto">Save</a>
         <div className="modal" id="myModal">
