@@ -64,24 +64,24 @@ class Header extends Component {
                       <span className="cover-border"></span>
                       <label className="label">Description</label>
                       <textarea type="text" className="input-field"></textarea>
-                    </div>
-                    <div className="form-group">
+                    </div>									 
+                    <div className="form-group">													
                       <span className="cover-border"></span>
-                      <label className="label">Level</label>
+                      <label className="label">Level</label>														
                       <select
                         className="input-field"
                         id="exampleFormControlSelect1"
                       >
-                        <option>Pick a Difficulty level</option>
+                        <option>Pick a Difficulty level</option>											
                         <option>2</option>
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                      </select>
+                      </select>						  
                       <span className="dropdown-icon"></span>
-                    </div>
                   </div>
-                  <div className="col-md-3">
+                  </div>
+                  <div className="col-md-3">																 
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">When?</label>
@@ -437,7 +437,7 @@ class Header extends Component {
           <div className="session"><h3 className="info">Shopping List</h3></div>
           <div className="row">
             <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+                <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
             </div>
             <div className="col-md-4">
                 <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
@@ -475,7 +475,7 @@ class Header extends Component {
           <div className="session"><h3 className="info">Equipment List</h3></div>
           <div className="row">
             <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+                <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
             </div>
             <div className="col-md-4">
                 <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
@@ -504,6 +504,252 @@ class Header extends Component {
           
         </div>
         <a href="#" className="save-btn btn btn-primary my-5 mx-auto">Save</a>
+        <div className="modal" id="myModal">
+    <div className="modal-dialog dialogwidth">
+      <div className="modal-content modalbg">
+      
+        <div className="modal-header headerborder">
+          <h4 className="modal-title white">Pick a Product</h4>
+          <button type="button" class="close white" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <div className="modal-body ">
+         <div className="card cardbg">
+  <article className="card-group-item">
+    <div className="filter-content">
+      <div className="card-body ">
+      <form>
+        <label className="form-check labelborder">
+         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
+          <span className="form-check-label">
+            Mersedes Benz
+          </span>
+        </label> 
+        <label className="form-check labelborder">
+          <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
+          <span className="form-check-label">
+            Nissan Altima
+          </span>
+        </label>  
+        <label className="form-check labelborder">
+         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
+          <span className="form-check-label">
+            Another Brand
+          </span>
+        </label>  
+      </form>
+
+      </div> 
+    </div>
+  </article> 
+  
+  
+</div> 
+        </div>
+        
+        <div className="modal-footer footerborder">
+          
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  
+
+  <div className="modal" id="myModal2">
+    <div className="">
+      <div className="modal-content equipmodalbg">
+      
+        <div className="modal-header headerborder">
+          <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
+          <h4 className="modal-title white">Pick from existing Equipments list</h4>
+          <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <div className="modal-body ">
+         <div className="card cardbg">
+                
+                
+                <div className="searchbar">
+                  <input type="text" className="searchbarinput" placeholder="Search for Equipment"/>
+                  <button className="inputbtn" type="button">
+                     
+                  </button>
+                </div>
+
+
+                <div className="checkboxdiv">
+                      <div className="mt-4"></div>
+                      <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">Vestibulum rutrum qu.</span>
+                      </label>
+
+                      <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">Nam dapibus nisl vit.</span>
+                      </label>
+
+                     <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">Donec facilisis tort.</span>
+                      </label>
+                </div>
+
+                <div className="row checkboxdiv_3">
+                  <div className="col-md-4">
+                    <label className="custom-control custom-checkbox lebelheight">
+                      <input type="checkbox" className="form-radio"/>
+                      <span className="checktxt">Curabitue lobortis.</span>
+                    </label>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
+                  </div>
+                </div>
+
+                
+                <div className="checkboxdiv_2">
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Donec facilisis to.</span>
+                </label>
+
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Vestibulum rutrum.</span>
+                </label>
+
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Nam dapibus nisl vit.</span>
+                </label>
+
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Fusce vehicula dolor.</span>
+                </label>
+
+        </div>
+         
+        </div>
+        
+       </div>
+      </div>
+       <div className="donebg"><button type="button" className="done">Done</button></div>
+
+    </div>
+  </div>
+ 
+
+  <div className="modal" id="myModal3">
+    <div className="">
+      <div className="modal-content equipmodalbg">
+      
+        <div className="modal-header headerborder">
+          <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
+          <h4 className="modal-title white">Pick from existing Shopping list</h4>
+          <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <div className="modal-body ">
+         <div className="card cardbg">
+                
+                
+                <div className="searchbar">
+                  <input type="text" className="searchbarinput" placeholder="Search for Equipment"/>
+                  <button className="inputbtn" type="button">
+                     
+                  </button>
+                </div>
+
+
+                <div className="checkboxdiv">
+                      <div className="mt-4"></div>
+                      <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">Nam dapibus nisl vit.</span>
+                      </label>
+
+                      <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">Donec facilisis tort.</span>
+                      </label>
+
+                     <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">In hac habitasse pla.</span>
+                      </label>
+                </div>
+
+                <div className="row checkboxdiv_3">
+                  <div className="col-md-4">
+                    <label className="custom-control custom-checkbox lebelheight">
+                      <input type="checkbox" className="form-radio"/>
+                      <span className="checktxt">In hac habitasse pla.</span>
+                    </label>
+                  </div>
+                  <div className="col-md-3">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
+                  </div>
+                  <div className="col-md-5">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item Notes"/></div>
+                  </div>
+                </div>
+
+                
+                <div className="checkboxdiv_2">
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Mauris non tempor qu.</span>
+                </label>
+
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Curabitur lobortis.</span>
+                </label>
+
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Curabitur lobortis.</span>
+                </label>
+
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Curabitur lobortis.</span>
+                </label>
+
+                <div className="row checkboxdiv_3">
+                  <div className="col-md-4">
+                    <label className="custom-control custom-checkbox lebelheight">
+                      <input type="checkbox" className="form-radio"/>
+                      <span className="checktxt">Donec facilisis tort.</span>
+                    </label>
+                  </div>
+                  <div className="col-md-3">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
+                  </div>
+                  <div className="col-md-5">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item UOM"/></div>
+                  </div>
+                </div>
+
+        </div>
+         
+        </div>
+        
+       </div>
+      </div>
+       <div className="donebg"><button type="button" className="done">Done</button></div>
+
+    </div>
+  </div>
+  
+  
+  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Pick a product
+  </button>
       </div>
     );
   }

@@ -335,6 +335,55 @@ select.input-field{
     position: absolute;
     right: 16px;
     top: 21px;
+}
+.input-field::placeholder{
+    color:#ccc;
+}
+.cover-border::after{
+    content: '';
+    position: absolute;
+    width: 19px;
+    height: 2.5px;
+    float: left;
+    left: 0px;
+    top: 0;
+    background: #b002ed;
+}
+.when-icon{
+    background: url(../images/calendar.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 28px;
+    width: 28px;
+    height: 28px;
+    float: right;
+    position: absolute;
+    right: 16px;
+    top: 19px;
+}
+.clock-icon{
+    background: url(../images/clock.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px;
+    width: 28px;
+    height: 28px;
+    float: right;
+    position: absolute;
+    right: 16px;
+    top: 19px;
+}
+.dropdown-icon{
+    background: url(../images/dropdown.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 19px;
+    width: 28px;
+    height: 28px;
+    float: right;
+    position: absolute;
+    right: 16px;
+    top: 21px;
 }					   
 .input-txt{
     color: #fff;
@@ -406,11 +455,11 @@ select.input-field{
 
 @media only screen and (max-width: 420px) {
   .user-info img.user-avtar{
-    width: : 30px !important; 
+    width: 30px !important; 
     height: 30px !important;
   }
 
-  .message-count{
+.message-count{
     position: absolute;
     background: #bd00ff;
     color: #fff;
@@ -654,6 +703,147 @@ max-width: 600px !important;
     border:2px solid #b002ed;
 }
 
+
+.switch {
+    vertical-align: sub;
+    margin-right: 17px;
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+      height: 14px;
+    width: 14px;
+    left: 4px;
+    bottom: 3px;
+  background-color: #BD00FF;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #fff;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #fff;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.white-text{
+	color: #eee;
+    font-family: Avenir-Book;
+    font-size: 22px;
+    padding: 0 20px;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+.activity-table.table th{
+    border-top: 1px solid #bd00ff;
+    font-family: Avenir-Medium;
+    font-weight: normal;
+    color: #ccc;
+    font-size: 18px;
+	    border-bottom: none
+}
+.activity-table.table td{
+	    font-family: Avenir-Book;
+    font-size: 20px;
+    color: #fff;
+	    border-top: none;
+}
+.bg-circle{
+	background: #bd00ff;
+    padding: 3px;
+    width: 28px;
+    overflow: hidden;
+    height: 28px;
+    font-size: 14px;
+    display: inline;
+    border-radius: 50px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    float: left;
+}
+.activity-table{
+	border-bottom: 1px solid #777!important;
+}
+.activity-form .label{
+	    top: -40px;
+		left: 2px;
+}
+.activity-form  .input-field{
+	    margin-bottom: 6px;
+}
+.border-bottom{
+	border-bottom: 1px solid #777!important;
+}
+.activity-link{
+	color: #eee;
+    font-family: Avenir-Book;
+    font-size: 22px;
+}
+.activity-link span{
+	color: #bd00ff;
+    font-size: 46px;
+    line-height: normal;
+    vertical-align: sub;
+    margin-right: 6px;
+}
+.activity-link:hover{
+	color: #eee;
+	text-decoration:none;
+}
+.save-btn{
+	    display: table;
+    border-radius: 40px;
+    font-size: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: Avenir-Medium;
+    font-weight: 600;
+    background: #570078 !important;
+    border-color: #570078 !important;
+}
+
+
 .searchbar .searchbarinput{
     width: 100%;
     height: 70px;
@@ -734,14 +924,7 @@ max-width: 600px !important;
     margin-top: 80px;
 }
 
-.cover-border{
-    height: 4px;
-    width: 170px;
-    float: right;
-    position: absolute;
-    right: 66px;
-    background: #343434;
-}
+
 .input-field-2 {
     border-radius: 0px 15px 15px 15px;
     background: #34213b;
