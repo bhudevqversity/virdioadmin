@@ -223,7 +223,7 @@ class Header extends Component {
         </div>
         <div className="p-3 gray-box no-border-radius">
         <div className="row">
-        <div class="session"><h3 class="info">Privacy during Session</h3></div>
+        <div className="session"><h3 className="info">Privacy during Session</h3></div>
         <div className="col-md-6">
               <div className="form-group input-txt">
               <label className="switch">
@@ -255,7 +255,7 @@ class Header extends Component {
         </div>
         </div>
         <div className="gray-box2">
-          <div class="session"><h3 class="info">Groups</h3></div>
+          <div className="session"><h3 className="info">Groups</h3></div>
           <div className="col-md-6">
               <div className="form-group input-txt">
               <label className="switch">
@@ -269,11 +269,241 @@ class Header extends Component {
             </div>
         </div>
         <div className="p-3">
-          <div class="session"><h3 class="info">Select Host(s)</h3></div>
-          <div className="col-md-4">
-              <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing hosts</a>
+          <div className="session"><h3 className="info">Select Host(s)</h3></div>
+          <div className="row">
+            <div className="col-md-4">
+                <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing hosts</a>
+            </div>
+            <div className="col-md-4">
+                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Host</a>
+            </div>
           </div>
         </div>
+        <div className="gray-box2">
+          <div className="session"><h3 className="info">Script</h3></div>
+          <div className="row">
+            <div className="col-md-5">
+              <span className="white-text">Start next activity?</span>
+              <a href="#" className="btn btn-primary text-uppercase mr-2">automatic</a>
+              <a href="#" className="btn btn-outline-secondary text-uppercase">manual</a>
+            </div>
+            <div className="col-md-3">
+              <div className="form-group">
+                  <span className="cover-border"></span>
+                  <label className="label">Pick Emojis</label>
+                  <input
+                    type="text"
+                    className="input-field"
+                    placeholder="Pick a date and time"
+                  />
+                  <span className="when-icon"></span>
+                </div>
+            </div>
+            <div className="col-md-4">
+              <div className="form-group input-txt">
+                <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                </label>
+                <span>Use Heart Rate Monitor</span>
+              </div>
+              <div className="form-group input-txt">
+                <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                </label>
+                <span>Use Zone Tracking</span>
+              </div>
+            </div>
+          </div>
+          <div className="p-3">
+            <h3 className="main-heading">Activities</h3>
+            <table className="table text-gray activity-table">
+              <thead>
+                <tr>
+                  <th>Activity name</th>
+                  <th>Activity Type</th>
+                  <th>Duration Type</th>
+                  <th>Count</th>
+                  <th>Video</th>
+                  <th>Target BPM</th>
+                  <th>Target Zone</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Jumping</td>
+                  <td>Warm Up</td>
+                  <td>Time</td>
+                  <td>30 sec</td>
+                  <td>NA</td>
+                  <td>88 bpm</td>
+                  <td>67%</td>
+                  <td className="d-flex justify-content-center">
+                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          <div className="p-3 activity-form mt-2">
+            <div className="border-bottom">
+              <div className="row">
+
+              
+              <div className="col-md-2">
+                <div className="form-group mt-3">
+                    <span className="cover-border"></span>
+                    <label className="label">Activity name</label>
+                    <input type="text" className="input-field" />
+                  </div>
+                  
+              </div>
+              <div className="col-md-2">
+                <div className="form-group mt-3">
+                    <span className="cover-border"></span>
+                    <label className="label">Activity type</label>
+                    <select
+                        className="input-field"
+                        id="exampleFormControlSelect1"
+                      >
+                        <option></option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                      <span className="dropdown-icon"></span>
+                  </div>
+              </div>
+              <div className="col-md-2">
+                <div className="form-group mt-3">
+                    <span className="cover-border"></span>
+                    <label className="label">Duration type</label>
+                    <select
+                        className="input-field"
+                        id="exampleFormControlSelect1"
+                      >
+                        <option></option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                      <span className="dropdown-icon"></span>
+                  </div>
+              </div>
+              <div className="col-md-1">
+                <div className="form-group mt-3">
+                    <span className="cover-border"></span>
+                    <label className="label">Count</label>
+                    <input type="text" className="input-field" />
+                  </div>
+                  
+              </div>
+              <div className="col-md-1">
+                <div className="form-group mt-3">
+                    <span className="cover-border"></span>
+                    <label className="label">Video</label>
+                    <input type="text" placeholder="browse" className="input-field" />
+                  </div>
+                  
+              </div>
+              <div className="col-md-2">
+                <div className="form-group mt-3">
+                    <span className="cover-border"></span>
+                    <label className="label">Target BPM</label>
+                    <input type="text" className="input-field" />
+                  </div>
+                  
+              </div>
+              <div className="col-md-2">
+                <div className="form-group mt-3">
+                    <span className="cover-border"></span>
+                    <label className="label">Target Zone</label>
+                    <input type="text" className="input-field" />
+                  </div>
+                  
+              </div>
+            </div>
+            </div>
+          </div>
+          <a href="#" className="activity-link pl-3"><span>+</span> Activity</a>
+        </div>
+        <div className="p-3 gray-box no-border-radius">
+          <div className="session"><h3 className="info">Shopping List</h3></div>
+          <div className="row">
+            <div className="col-md-4">
+                <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+            </div>
+            <div className="col-md-4">
+                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
+            </div>
+          </div>
+          <div className="row mt-5">
+            <div className="col-md-4">
+            <div className="form-group">
+                      <span className="cover-border"></span>
+                      <label className="label">item Name</label>
+                      <input type="text" className="input-field" />
+                    </div>
+            </div>
+            <div className="col-md-3">
+            <div className="form-group">
+                      <span className="cover-border"></span>
+                      <label className="label">Quantity</label>
+                      <input type="text" className="input-field" />
+                    </div>
+            </div>
+            <div className="col-md-4">
+            <div className="form-group">
+                      <span className="cover-border"></span>
+                      <label className="label">Item  notes</label>
+                      <input type="text" className="input-field" />
+                    </div>
+            </div>
+            <div className="col-md-1">
+              <a href="#" className="bg-circle mt-3"><i className="fa fa-minus" aria-hidden="true"></i></a>
+            </div>
+          </div>
+          
+        </div>
+        <div className="p-3 gray-box2 no-border-radius">
+          <div className="session"><h3 className="info">Equipment List</h3></div>
+          <div className="row">
+            <div className="col-md-4">
+                <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+            </div>
+            <div className="col-md-4">
+                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
+            </div>
+          </div>
+          <div className="row mt-5">
+            <div className="col-md-4">
+            <div className="form-group">
+                      <span className="cover-border"></span>
+                      <label className="label">item Name</label>
+                      <input type="text" className="input-field" />
+                    </div>
+            </div>
+            <div className="col-md-3">
+            <div className="form-group">
+                      <span className="cover-border"></span>
+                      <label className="label">Quantity</label>
+                      <input type="text" className="input-field" />
+                    </div>
+            </div>
+            
+            <div className="col-md-1">
+              <a href="#" className="bg-circle mt-3"><i className="fa fa-minus" aria-hidden="true"></i></a>
+            </div>
+          </div>
+          
+        </div>
+        <a href="#" className="save-btn btn btn-primary my-5 mx-auto">Save</a>
       </div>
     );
   }
