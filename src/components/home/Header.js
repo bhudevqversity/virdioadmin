@@ -1,6 +1,174 @@
 import React, { Component } from "react";
+import axios from 'axios'; 
+import SimpleReactValidator from 'simple-react-validator';
+// import Select from 'react-select';
+// const options = [
+//   { value: 'chocolate', label: 'Chocolate' },
+//   { value: 'strawberry', label: 'Strawberry' },
+//   { value: 'vanilla', label: 'Vanilla' },
+//   { value: 'chocosdsd', label: 'chocosdsd' },
+//   { value: 'chocosdnsdk', label: 'chocosdnsdk' }
+  
+// ];
+const users = [
+  {id: 1, name: 'A'},
+  {id: 2, name: 'B'},
+  {id: 3, name: 'C'},
+  {id: 4, name: 'D'},
+];
 
 class Header extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      // selectedOption: null,
+      totalViews : '',
+      weeklyAttendance:'',
+      totalRevenue:'',
+      messageCount:'',
+      //////////////////////////
+      session:[],
+      sessionName:'',
+        when:'',
+        phoneNumber:'',
+        description:'',
+        minimumParticipants:'',
+        maximumParticipants:'',
+        exampleFormControlSelect1:'Pick a Duration',
+        exampleFormControlSelect2 : 'Pick a Difficulty level',
+        heartRateMonitor:true,
+        zoneTracking : true,
+        searchParticipant: false,
+        sessionCharge:false,
+        disableParticipant:false,
+        allowParticipant:false,
+        showParticipant:false,
+        amountCharge: '',
+        hostSessionStart:'',
+        participantSessionStart:'',
+        minimumNotMet: '',
+        signUpDateTime:'',
+        ///////////////////////
+        allowLocation:false,
+        ///////////////////////
+        ActivityName: '',
+        ActivityType:2,
+        DurationType:'',
+        Count:'',
+        Video:'',
+        TargetBPM:'',
+        TargetZone:'',
+        ////////////////////////
+        scriptHeartRateMonitor : false,
+        scriptZoneTracking:false,
+        ///////////////////////////
+        Equipment:'',
+        ages : ['Mongo', 'Apple', 'Grape', 'Fruit'],
+        //////////////////////////
+      tablerows:[
+            {ActivityName:"Tom",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"},
+            {ActivityName:"Tommy",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"}
+           ],
+           rows:[]
+    }
+    this.setHeaderValue();
+    this.validator = new SimpleReactValidator();
+}
+setHeaderValue=() => {
+  axios.get(`https://jsonplaceholder.typicode.com/users`)
+    .then(res => {
+      // const persons = res.data;
+      console.log('=================',res.data);
+      this.setState({
+          weeklyAttendance : res.data[4].id,
+          totalViews:res.data[6].id,
+          totalRevenue:res.data[7].id,
+          messageCount:res.data[8].id
+      })
+    })
+}
+sessionInfo = e =>{
+  this.setState({
+      [e.target.id] : e.target.value
+  },()=>console.log('==========>',this.state))
+  
+}
+addRow = () =>{
+  // add new data from here    
+  var newdata = {ActivityName:this.state.ActivityName,ActivityType:this.state.ActivityType,DurationType:this.state.DurationType,Count:this.state.Count,Video:this.state.Video,TargetBPM:this.state.TargetBPM,TargetZone:this.state.TargetZone}    
+  //take the existing state and concat the new data and set the state again    
+this.setState({ tablerows: this.state.tablerows.concat(newdata ) });    
+}
+myFunction = () => {
+  const a = this.state.Equipment;
+  console.log(this.state.Equipment,a);
+  console.log(this.state.ages.filter(this.checkAdult));
+}
+ checkAdult=(age) => {
+  return age === this.state.Equipment;
+}
+// handleChange = selectedOption => {
+//   this.setState(
+//     { selectedOption },
+//     () => console.log(`Option selected:`, this.state.selectedOption)
+//   );
+// };
+submitForm = (event) => {
+  event.preventDefault();
+  if (this.validator.allValid()) {
+    const sessionInformation ={
+      sessionName:this.state.sessionName,
+      when:this.state.when,
+      description:this.state.description,
+      pick_Duration:this.state.exampleFormControlSelect1,
+      pick_Difficulty_level:this.setState.exampleFormControlSelect2,
+      minimumParticipants:this.state.minimumParticipants,
+      maximumParticipants:this.state.maximumParticipants,
+      searchParticipant:this.state.searchParticipant,
+      sessionCharge:this.state.sessionCharge,
+      amountCharge:this.state.amountCharge
+      }
+      const reminder = {
+        hostSessionStart:this.state.hostSessionStart,
+        participantSessionStart:this.state.participantSessionStart,
+        signUpDateTime:this.state.signUpDateTime,
+        minimumNotMet:this.state.minimumNotMet
+      }
+      const privacy ={
+        disableParticipant:this.state.disableParticipant,
+        showParticipant:this.state.showParticipant,
+        allowParticipant:this.state.allowParticipant
+      }
+      const groupLocation = {
+        groupLocation : this.state.allowLocation
+        }
+      const fitnessActivity = {
+        fitnessActivity : this.state.tablerows
+      } 
+      const script ={
+        scriptHeartRateMonitor:this.state.scriptHeartRateMonitor,
+        scriptZoneTracking:this.state.scriptZoneTracking
+
+      }  
+     //   const fitnessData = {
+    //     reminder,
+    //     sessionInformation,
+    //     privacy
+    //   }
+      axios.post(`https://jsonplaceholder.typicode.com/users`, { fitnessActivity,reminder,privacy,sessionInformation,groupLocation,script})
+      .then(res => {
+        console.log(res);
+        console.log('================================>',res.data);
+      })
+    } else {
+      this.validator.showMessages();
+      // rerender to show messages for the first time
+      // you can use the autoForceUpdate option to do this automatically`
+      this.forceUpdate();
+    }
+    }
+
+
   render() {
     return (
       <div className="container-fluid">
@@ -22,22 +190,22 @@ class Header extends Component {
             <div className="d-flex justify-content-between ">
               <div className="header-info-right">
                 <p>Weekly Attendance</p>
-                <h3>66%</h3>
+                <h3>{this.state.weeklyAttendance}%</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="header-info-right">
                 <p>Total Views</p>
-                <h3>45.6K</h3>
+                <h3>{this.state.totalViews}K</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="header-info-right">
                 <p>Total Revenue</p>
-                <h3>$44,000</h3>
+                <h3>${this.state.totalRevenue}</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="message-notification">
                 <img src="/images/message.png" />
-                <span className="message-count">2</span>
+                <span className="message-count">{this.state.messageCount}</span>
               </div>
             </div>
           </div>
@@ -58,26 +226,31 @@ class Header extends Component {
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Session Name</label>
-                      <input type="text" className="input-field" />
+                      <input type="text" id = "sessionName" value = {this.state.sessionName} onChange = {this.sessionInfo} className="input-field" />
+                      {this.validator.message('sessionName', this.state.sessionName, 'required')}
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Description</label>
-                      <textarea type="text" className="input-field"></textarea>
+                      <textarea type="text" id="description" value = {this.state.description} onChange = {this.sessionInfo} className="input-field"></textarea>
+                      {this.validator.message('description', this.state.description, 'required|min:1|max:100')}                   
                     </div>									 
                     <div className="form-group">													
                       <span className="cover-border"></span>
                       <label className="label">Level</label>														
                       <select
                         className="input-field"
-                        id="exampleFormControlSelect1"
+                        id="exampleFormControlSelect2"
+                        value = {this.state.exampleFormControlSelect2}
+                        onChange = {this.sessionInfo}
                       >
                         <option>Pick a Difficulty level</option>											
                         <option>2</option>
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                      </select>						  
+                      </select>
+                      {this.validator.message('level', this.state.exampleFormControlSelect2, 'required|numeric')}						  
                       <span className="dropdown-icon"></span>
                   </div>
                   </div>
@@ -87,6 +260,9 @@ class Header extends Component {
                       <label className="label">When?</label>
                       <input
                         type="text"
+                        id = "when" 
+                        value = {this.state.when}
+                        onChange = {this.sessionInfo}
                         className="input-field"
                         placeholder="Pick a date and time"
                       />
@@ -98,6 +274,8 @@ class Header extends Component {
                       <select
                         className="input-field"
                         id="exampleFormControlSelect1"
+                        value = {this.state.exampleFormControlSelect1}
+                        onChange = {this.sessionInfo}
                       >
                         <option>Pick a Duration</option>
                         <option>2</option>
@@ -105,6 +283,7 @@ class Header extends Component {
                         <option>4</option>
                         <option>5</option>
                       </select>
+                      {this.validator.message('How long', this.state.exampleFormControlSelect1, 'required|numeric')}
                       <span className="dropdown-icon"></span>
                     </div>
                     <div className="form-group">
@@ -114,33 +293,38 @@ class Header extends Component {
                         <input
                           type="text"
                           className="input-field"
+                          id = "minimumParticipants"
+                          value = {this.state.minimumParticipants}
+                          onChange = {this.sessionInfo}
                           placeholder="min 1"
                         />
+                        {this.validator.message('Minimum participants', this.state.minimumParticipants, 'required|numeric')}
                         <span className="signedup_2"></span>
                       </div>
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Maximum Participants</label>
-                      <input type="text" className="input-field" placeholder="max 50" />
+                      <input type="text" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50" />
+                      {this.validator.message('Maximum Participants', this.state.maximumParticipants, 'required|min:1|max:50')}
                       <span className="signedup_2"></span>
                     </div>
                   </div>
                   <div className="col-md-5">
                     <div className="form-group input-txt">
                     <label className="switch">
-                        <input type="checkbox" />
+                        <input id = "searchParticipant" checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}} type="checkbox" />
                         <span className="slider round"></span>
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span>
                     </div>
                     <div className="form-group input-txt">
                       <label className="switch">
-                          <input type="checkbox" />
+                          <input id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} type="checkbox" />
                           <span className="slider round"></span>
                       </label>
                       <span>Charging for Session?</span>
-                      <p className="gray-text ml-5 mt-3 mb-4">You have enabled it in the Channel</p>
+                      {this.state.sessionCharge?<p className="gray-text ml-5 mt-3 mb-4">You have enabled it in the Channel</p>:''}
                     </div>
                     <div className="form-group w-50 ml-5">
                       <span className="cover-border"></span>
@@ -149,14 +333,18 @@ class Header extends Component {
                         <input
                           type="text"
                           className="input-field"
+                          id = "amountCharge"
+                          value = {this.state.amountCharge}
+                          onChange = {this.sessionInfo}
                           placeholder="Enter amount"
                         />
+                        {this.validator.message('Charge Amount', this.state.amountCharge, 'required|numeric|min:1')}
                         <span className="dollar"></span>
                       </div>
                     </div>
                   </div>
 
-                  
+                  <button className="btn btn-primary" onClick={this.submitForm}>Button</button>  
 
                   
                 </div>
@@ -178,7 +366,8 @@ class Header extends Component {
                     <div className="form-group mt-2">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
-                      <input type="text" className="input-field" />
+                      <input type="text" id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" />
+                      {this.validator.message('Host Session', this.state.hostSessionStart, 'required')}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">Sign up Cut off Date/Time</p>
@@ -188,8 +377,12 @@ class Header extends Component {
                       <input
                         type="text"
                         className="input-field"
+                        id="signUpDateTime"
+                        value = {this.state.signUpDateTime}
+                        onChange = {this.sessionInfo}
                         placeholder=""
                       />
+                      {this.validator.message('Sign up Date and Time', this.state.signUpDateTime, 'required')}
                       <span className="when-icon"></span>
                     </div>
                     
@@ -199,14 +392,16 @@ class Header extends Component {
                     <div className="form-group mt-2">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
-                      <input type="text" className="input-field" />
+                      <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" />
+                      {this.validator.message('Participant Session', this.state.participantSessionStart, 'required')}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">for 'minimum not met'</p>
                     <div className="form-group mt-2">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
-                      <input type="text" className="input-field" />
+                      <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" />
+                      {this.validator.message('Minimum not met', this.state.minimumNotMet, 'required|numeric')}
                       <span className="clock-icon"></span>
                     </div>
                     
@@ -227,14 +422,24 @@ class Header extends Component {
         <div className="col-md-6">
               <div className="form-group input-txt">
               <label className="switch">
-                  <input type="checkbox" />
+                  <input type="checkbox" 
+                  defaultChecked = {this.state.disableParticipant} 
+                  id = "disableParticipant" 
+                  ref = "searchParticipant1" 
+                  onChange = {(e)=>this.setState({[e.target.id]:!this.state.disableParticipant},()=>console.log("disableParticipant",this.state.disableParticipant))}
+                  />
                   <span className="slider round"></span>
               </label>
                 <span>Participants allowed to disable DM with others</span>
               </div>
               <div className="form-group input-txt">
                 <label className="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox"  
+                    defaultChecked = {this.state.showParticipant}
+                    id = "showParticipant"
+                    ref = "searchParticipant"
+                    onChange = {(e)=>this.setState({[e.target.id]:!this.state.showParticipant},()=>console.log("showParticipant",this.state.showParticipant))}
+                    />
                     <span className="slider round"></span>
                 </label>
                 <span>Show Participants picture to other Participants?</span>
@@ -245,7 +450,12 @@ class Header extends Component {
             <div className="col-md-6">
             <div className="form-group input-txt">
                 <label className="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" 
+                     defaultChecked = {this.state.allowParticipant}
+                     id = "allowParticipant"
+                   //  ref = "searchParticipant"
+                     onChange = {(e)=> this.setState({[e.target.id]:!this.state.allowParticipant},()=>console.log("allowParticipant",this.state.allowParticipant))} 
+                    />
                     <span className="slider round"></span>
                 </label>
                 <span>Allow Participants to pick their own playlist?</span>
@@ -259,7 +469,11 @@ class Header extends Component {
           <div className="col-md-6">
               <div className="form-group input-txt">
               <label className="switch">
-                  <input type="checkbox" />
+                  <input type="checkbox" 
+                  id = "allowLocation"
+                  defaultChecked = {this.state.allowLocation}
+                  onChange = {(e)=>this.setState({[e.target.id]:!this.state.allowLocation},()=>console.log("allowLocation",this.state.allowLocation))}
+                  />
                   <span className="slider round"></span>
               </label>
                 <span>Allow Groups at a Location?</span>
@@ -302,14 +516,22 @@ class Header extends Component {
             <div className="col-md-4">
               <div className="form-group input-txt">
                 <label className="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" 
+                    id ="scriptHeartRateMonitor"
+                    defaultChecked={this.state.scriptHeartRateMonitor}
+                    onChange={(e)=>this.setState({[e.target.id]:!this.state.scriptHeartRateMonitor},()=>console.log("this.state.scriptHeartRateMonitor",this.state.scriptHeartRateMonitor))}
+                    />
                     <span className="slider round"></span>
                 </label>
                 <span>Use Heart Rate Monitor</span>
               </div>
               <div className="form-group input-txt">
                 <label className="switch">
-                    <input type="checkbox" />
+                    <input type="checkbox" 
+                    id ="scriptZoneTracking"
+                    defaultChecked={this.state.scriptZoneTracking}
+                    onChange={(e)=>this.setState({[e.target.id]:!this.state.scriptZoneTracking},()=>console.log("this.state.scriptZoneTracking",this.state.scriptZoneTracking))}
+                    />
                     <span className="slider round"></span>
                 </label>
                 <span>Use Zone Tracking</span>
@@ -331,7 +553,25 @@ class Header extends Component {
                   <th>&nbsp;</th>
                 </tr>
               </thead>
-              <tbody>
+              {this.state.tablerows.map((row,i) => (
+                <tbody key = {i}>
+                <tr>
+                  <td>{row.ActivityName}</td>
+                  <td>{row.ActivityType}</td>
+                  <td>{row.DurationType}</td>
+                  <td>{row.Count}</td>
+                  <td>{row.Video}</td>
+                  <td>{row.TargetBPM}</td>
+                  <td>{row.TargetZone}</td>
+                  <td className="d-flex justify-content-center">
+                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+                
+              </tbody>            ))}
+
+              {/* <tbody>
                 <tr>
                   <td>Jumping</td>
                   <td>Warm Up</td>
@@ -346,7 +586,8 @@ class Header extends Component {
                   </td>
                 </tr>
                 
-              </tbody>
+              </tbody> */}
+              
             </table>
           </div>
           <div className="p-3 activity-form mt-2">
@@ -358,7 +599,9 @@ class Header extends Component {
                 <div className="form-group mt-3">
                     <span className="cover-border"></span>
                     <label className="label">Activity name</label>
-                    <input type="text" className="input-field" />
+                    <input type="text" id = "ActivityName" value= {this.state.ActivityName} 
+                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log('ActivityName',this.state.ActivityName))} 
+                    className="input-field" />
                   </div>
                   
               </div>
@@ -368,13 +611,15 @@ class Header extends Component {
                     <label className="label">Activity type</label>
                     <select
                         className="input-field"
-                        id="exampleFormControlSelect1"
+                        id="ActivityType"
+                        value = {this.state.ActivityType}
+                        onChange = {(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log('Activity Type',this.state.ActivityType))}
                       >
                         <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option value ='2'>2</option>
+                        <option value ='3'>3</option>
+                        <option value ='4'>4</option>
+                        <option value ='5'>5</option>
                       </select>
                       <span className="dropdown-icon"></span>
                   </div>
@@ -385,13 +630,15 @@ class Header extends Component {
                     <label className="label">Duration type</label>
                     <select
                         className="input-field"
-                        id="exampleFormControlSelect1"
+                        id="DurationType"
+                        value = {this.state.DurationType}
+                        onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log('Duration Type',this.state.DurationType))}
                       >
                         <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option value = '2'>2</option>
+                        <option value = '3'>3</option>
+                        <option value = '4'>4</option>
+                        <option value = '5'>5</option>
                       </select>
                       <span className="dropdown-icon"></span>
                   </div>
@@ -400,7 +647,11 @@ class Header extends Component {
                 <div className="form-group mt-3">
                     <span className="cover-border"></span>
                     <label className="label">Count</label>
-                    <input type="text" className="input-field" />
+                    <input type="text"
+                    id = "Count"
+                    value = {this.state.Count}
+                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Count",this.state.Count))} 
+                    className="input-field" />
                   </div>
                   
               </div>
@@ -408,7 +659,11 @@ class Header extends Component {
                 <div className="form-group mt-3">
                     <span className="cover-border"></span>
                     <label className="label">Video</label>
-                    <input type="text" placeholder="browse" className="input-field" />
+                    <input type="text" placeholder="browse" 
+                    id = "Video"
+                    value = {this.state.Video}
+                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Video",this.state.Video))} 
+                    className="input-field" />
                   </div>
                   
               </div>
@@ -416,7 +671,11 @@ class Header extends Component {
                 <div className="form-group mt-3">
                     <span className="cover-border"></span>
                     <label className="label">Target BPM</label>
-                    <input type="text" className="input-field" />
+                    <input type="text" 
+                    id = "TargetBPM"
+                    value = {this.state.TargetBPM}
+                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("TargetBPM",this.state.TargetBPM))}
+                    className="input-field" />
                   </div>
                   
               </div>
@@ -424,14 +683,18 @@ class Header extends Component {
                 <div className="form-group mt-3">
                     <span className="cover-border"></span>
                     <label className="label">Target Zone</label>
-                    <input type="text" className="input-field" />
+                    <input type="text" 
+                    id = "TargetZone"
+                    value = {this.state.TargetZone}
+                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("TargetZone",this.state.TargetZone))}
+                    className="input-field" />
                   </div>
                   
               </div>
             </div>
             </div>
           </div>
-          <a href="#" className="activity-link pl-3"><span>+</span> Activity</a>
+          <a href="#" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</a>
         </div>
         <div className="p-3 gray-box no-border-radius">
           <div className="session"><h3 className="info">Shopping List</h3></div>
@@ -510,7 +773,7 @@ class Header extends Component {
       
         <div className="modal-header headerborder">
           <h4 className="modal-title white">Pick a Product</h4>
-          <button type="button" class="close white" data-dismiss="modal">&times;</button>
+          <button type="button" className="close white" data-dismiss="modal">&times;</button>
         </div>
         
         <div className="modal-body ">
@@ -572,21 +835,25 @@ class Header extends Component {
                 
                 
                 <div className="searchbar">
-                  <input type="text" className="searchbarinput" placeholder="Search for Equipment"/>
-                  <button className="inputbtn" type="button">
+                  <input type="text" id ="Equipment" value = {this.state.Equipment}  
+                  onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log('Equipment',this.state.Equipment))} className="searchbarinput" placeholder="Search for Equipment"/>
+                  <button className="inputbtn" onClick = {this.myFunction} type="button">
                      
                   </button>
+                  {/* <Select
+                    value={this.state.selectedOption}
+                    onChange={this.handleChange}
+                    options={options}
+                  /> */}
                 </div>
-
-
-                <div className="checkboxdiv">
+                 <div className="checkboxdiv">
                       <div className="mt-4"></div>
                       <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Vestibulum rutrum qu.</span>
+                        <input type="checkbox"  className="form-radio"/>
+                        <span className="checktxt">i</span>
                       </label>
 
-                      <label className="custom-control custom-checkbox lebelheight">
+                      {/* <label className="custom-control custom-checkbox lebelheight">
                         <input type="checkbox" className="form-radio"/>
                         <span className="checktxt">Nam dapibus nisl vit.</span>
                       </label>
@@ -594,9 +861,11 @@ class Header extends Component {
                      <label className="custom-control custom-checkbox lebelheight">
                         <input type="checkbox" className="form-radio"/>
                         <span className="checktxt">Donec facilisis tort.</span>
-                      </label>
+                      </label> */}
                 </div>
-
+                
+           
+{/* 
                 <div className="row checkboxdiv_3">
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
@@ -605,12 +874,14 @@ class Header extends Component {
                     </label>
                   </div>
                   <div className="col-md-4">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
+                    <div className="form-group">
+                      <span className="cover-border"></span>
+                      <input type="text" className="input-field-2" placeholder="Quantity"/></div>
                   </div>
-                </div>
+                </div> */}
 
                 
-                <div className="checkboxdiv_2">
+                {/* <div className="checkboxdiv_2">
                 <label className="custom-control custom-checkbox lebelheight">
                   <input type="checkbox" className="form-radio"/>
                   <span className="checktxt">Donec facilisis to.</span>
@@ -631,7 +902,7 @@ class Header extends Component {
                   <span className="checktxt">Fusce vehicula dolor.</span>
                 </label>
 
-        </div>
+        </div> */}
          
         </div>
         
