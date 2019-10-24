@@ -1,35 +1,31 @@
-<<<<<<< HEAD
+
 import React, { Component } from "react";
-import axios from 'axios'; 
-import SimpleReactValidator from 'simple-react-validator';
-// import Select from 'react-select';
-// const options = [
-//   { value: 'chocolate', label: 'Chocolate' },
-//   { value: 'strawberry', label: 'Strawberry' },
-//   { value: 'vanilla', label: 'Vanilla' },
-//   { value: 'chocosdsd', label: 'chocosdsd' },
-//   { value: 'chocosdnsdk', label: 'chocosdnsdk' }
-  
-// ];
-const users = [
-  {id: 1, name: 'A'},
-  {id: 2, name: 'B'},
-  {id: 3, name: 'C'},
-  {id: 4, name: 'D'},
-];
+import axios from "axios";
+import uniqueId from 'lodash/uniqueId';
+import Sortable from 'react-sortablejs';
+import ReactLightCalendar from '@lls/react-light-calendar'
+import '@lls/react-light-calendar/dist/index.css'
+
 
 class Header extends Component {
-  constructor(props){
+  
+  constructor(props) {
     super(props);
+    const date = new Date();
+    const startDate = date.getTime();
     this.state = {
-      // selectedOption: null,
-      totalViews : '',
-      weeklyAttendance:'',
-      totalRevenue:'',
-      messageCount:'',
-      //////////////////////////
-      session:[],
-      sessionName:'',
+        sessions: [],
+        session_details:'',
+        //////////Calender /////////////
+        startDate, // Today
+        endDate: new Date(startDate).setDate(date.getDate() ), // Today + 6 days
+        //////////header state////////
+        totalViews : '',
+        weeklyAttendance:'',
+        totalRevenue:'',
+        messageCount:'',
+        ///////////session info state ////////////////
+        sessionName:'',
         when:'',
         phoneNumber:'',
         description:'',
@@ -49,9 +45,12 @@ class Header extends Component {
         participantSessionStart:'',
         minimumNotMet: '',
         signUpDateTime:'',
-        ///////////////////////
+        /////////////Group Location//////////
         allowLocation:false,
-        ///////////////////////
+        ////////////Script////////////
+        scriptHeartRateMonitor : false,
+        scriptZoneTracking:false,
+        ////////////////Activity table row//////////////////////////
         ActivityName: '',
         ActivityType:2,
         DurationType:'',
@@ -59,22 +58,133 @@ class Header extends Component {
         Video:'',
         TargetBPM:'',
         TargetZone:'',
-        ////////////////////////
-        scriptHeartRateMonitor : false,
-        scriptZoneTracking:false,
-        ///////////////////////////
-        Equipment:'',
-        ages : ['Mongo', 'Apple', 'Grape', 'Fruit'],
+        tablerows:[
+          {ActivityName:"Tom",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"},
+          {ActivityName:"Tommy",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"}
+          // {
+          //   "name": "Jumping",
+          //   "attributes" : [
+          //     {
+          //      "attrKey": "Activity Type",
+          //      "attrValue": "Warm Up",
+          //      "orderNo": 1
+          //     },
+          //     {
+          //      "attrKey": "Duration Type",
+          //      "attrValue": "Time",
+          //      "orderNo": 4
+          //     },
+          //     {
+          //      "attrKey": "Count",
+          //      "attrValue": 30,
+          //      "orderNo": 5
+          //     },
+          //     {
+          //      "attrKey": "Video",
+          //      "attrValue": "NA",
+          //      "orderNo": 2
+          //     },
+          //     {
+          //      "attrKey": "Target BPM",
+          //      "attrValue": "88 bpm",
+          //      "orderNo": 6
+          //     },
+          //     {
+          //      "attrKey": "Target Zone",
+          //      "attrValue": "67%",
+          //      "orderNo": 3
+          //     }
+          //   ]
+          // } 
+        ],
+        ///////////////Equipment List
+        selectedOption: null,
+        selected: {},
+        equipmentName : '',
+        equipmentQunatity:'',
+        equipmentArray : [],
+        quantityValue:{},
+        equipmentList : [{ name: "Tom",type:false,Quantity:0 },{ name: "Tommy",type:false,Quantity:0 }],
+        equipmentList1 : [],
+        duplicateList:[],
+        addToequipmentList1 : [],
+        searchEquipment: "",
+        shoppingList : [{ itemName: "Tom",type:false,Quantity:0,itemNote:"X" },{ itemName: "Tommy",type:false,Quantity:0,itemNote:"X" }],
+        shoppingList1:[],
+        duplicateShoppingList: [],
+        shoppingListValue: "",
+        validateList:'',
+       // shareholders: [{ name: "" },{ name: "" },{ name: "" },{ name: "" }],
+       shareholders: [{ name: "",type:false,Quantity:"1" },{ name: "",type:false,Quantity:"1" }],
+        euipmentCheckBox : [false,false]
         //////////////////////////
-      tablerows:[
-            {ActivityName:"Tom",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"},
-            {ActivityName:"Tommy",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"}
-           ],
-           rows:[]
     }
     this.setHeaderValue();
-    this.validator = new SimpleReactValidator();
+    
 }
+ 
+componentDidMount(){
+  this.fetchPrevSessionList();
+  }
+
+  fetchPrevSessionList() {
+    
+      let  channelId=1;   
+      console.log(channelId);              
+        axios      
+        .get("/api/v1/session/"+channelId+"/channel")        
+        .then(res => {
+          console.log('---------forgotpasswd--------------',res.data.responseData)
+
+          this.setState({
+              sessions: res.data.responseData,
+              });
+              console.log('---------forgotsessions--------------',this.state.sessions)
+        })
+        .catch(err =>{
+            console.log('there is problem');
+            // dispatch({
+
+            //   type: GET_ERRORS,
+            //   payload: err.response.data
+            // })
+        });
+  
+    }
+
+    onSessionChanged = (e) => {
+
+      let sessionId=e.currentTarget.value;
+      console.log('-------hi-----',sessionId)
+
+      axios      
+      .get("/api/v1/session/"+sessionId+"/sess")        
+      .then(res => {
+        console.log('---------SessionId--------------',res.data)
+
+        this.setState({
+          session_details: res.data.responseData.name,
+          });
+      })
+      .catch(err =>{
+          console.log('there is problem');
+          // dispatch({
+
+          //   type: GET_ERRORS,
+          //   payload: err.response.data
+          // })
+      });
+
+    }
+//////////////////////////////Integration Api///////////////////////////////////
+//////////Calender
+onChange = (startDate, endDate) => {
+this.setState({ startDate, endDate ,when : new Date (this.state.startDate).toUTCString()},
+()=>console.log('sds',this.state.startDate,this.state.endDate))
+let dt = new Date(this.state.startDate);
+console.log('*****************',dt);
+}
+////////set header
 setHeaderValue=() => {
   axios.get(`https://jsonplaceholder.typicode.com/users`)
     .then(res => {
@@ -88,38 +198,370 @@ setHeaderValue=() => {
       })
     })
 }
+////////////set data
 sessionInfo = e =>{
   this.setState({
       [e.target.id] : e.target.value
   },()=>console.log('==========>',this.state))
-  
 }
+///////////////Add row Activity table
 addRow = () =>{
+  let activity_data ={
+    "name": this.state.ActivityName,
+    "attributes" : [
+      {
+       "attrKey": "Activity Type",
+       "attrValue": this.state.ActivityType,
+       "orderNo": 1
+      },
+      {
+       "attrKey": "Duration Type",
+       "attrValue": this.state.DurationType,
+       "orderNo": 4
+      },
+      {
+       "attrKey": "Count",
+       "attrValue": this.state.Count,
+       "orderNo": 5
+      },
+      {
+       "attrKey": "Video",
+       "attrValue": this.state.Video,
+       "orderNo": 2
+      },
+      {
+       "attrKey": "Target BPM",
+       "attrValue": this.state.TargetBPM,
+       "orderNo": 6
+      },
+      {
+       "attrKey": "Target Zone",
+       "attrValue": this.state.TargetZone,
+       "orderNo": 3
+      }
+    ]
+   }
   // add new data from here    
   var newdata = {ActivityName:this.state.ActivityName,ActivityType:this.state.ActivityType,DurationType:this.state.DurationType,Count:this.state.Count,Video:this.state.Video,TargetBPM:this.state.TargetBPM,TargetZone:this.state.TargetZone}    
   //take the existing state and concat the new data and set the state again    
-this.setState({ tablerows: this.state.tablerows.concat(newdata ) });    
+this.setState({ tablerows: this.state.tablerows.concat(newdata) });    
 }
-myFunction = () => {
-  const a = this.state.Equipment;
-  console.log(this.state.Equipment,a);
-  console.log(this.state.ages.filter(this.checkAdult));
+//////////////remove Activity
+removeActivity = (e) => {
+  console.log('=====================================',e.target);
+  var dataArray = this.state.tablerows;
+  dataArray.splice(e.target.id, 1);
+  this.setState({
+    tablerows:dataArray
+  })
 }
- checkAdult=(age) => {
-  return age === this.state.Equipment;
+////////////////// shopping List
+selectShoppingList =(e)=> {
+  let shoppingContainer = this.state.shoppingList;
+  shoppingContainer[e.target.id].type = !shoppingContainer[e.target.id].type;
+  if(shoppingContainer[e.target.id].type) {
+  //  shoppingContainer[e.target.id].itemName = e.target.name;
+      
+  } 
+  else {
+    shoppingContainer[e.target.id].Quantity = 0;
+    shoppingContainer[e.target.id].itemNote = "X";
+  }
+  this.setState({
+    shoppingList : shoppingContainer,
+    },()=>
+    { console.log('setEuipmentContainer==>',this.state.shoppingList);
+      });
 }
-// handleChange = selectedOption => {
-//   this.setState(
-//     { selectedOption },
-//     () => console.log(`Option selected:`, this.state.selectedOption)
-//   );
-// };
+handleShoppingQuantity = idx => evt => {
+  const newShareholders = this.state.shoppingList.map((shareholder, sidx) => {
+    if (idx !== sidx) return shareholder;
+    return { ...shareholder, Quantity: evt.target.value };
+  });
+
+  this.setState({ shoppingList: newShareholders },()=> {
+    console.log('equipmentList',this.state.shoppingList[idx].Quantity)
+  }
+  );
+}
+handleShoppingitemNote= idx => evt => {
+  const newShareholders = this.state.shoppingList.map((shareholder, sidx) => {
+    if (idx !== sidx) return shareholder;
+    return { ...shareholder, itemNote: evt.target.value };
+  });
+
+  this.setState({ shoppingList: newShareholders },()=> {
+    console.log('item Note',this.state.shoppingList[idx].itemNote)
+  }
+  );
+}
+setShoppingList = (e) =>{
+ if (this.state.duplicateShoppingList.length>0) { 
+    this.setState({shoppingListValue:'',
+    shoppingList:this.state.duplicateShoppingList,
+    duplicateShoppingList : []
+    },()=>console.log('setShoppingList',this.state.shoppingList))
+  }
+}
+addToShoppingList = () => {
+  // this.setState({
+  //   shoppingList1: []
+  // }, function() { // called by React after the state is updated
+  //   this.setState({
+  //     shoppingList1:this.state.equipmentList1.concat(this.state.shoppingList)
+  //   });
+  // },()=> console.log(this.state.shoppingList,'Add To equipmentlist====>',this.state.shoppingList1));
+  // else {
+  //   this.setState({
+  //     duplicateList : []
+  //   })
+  let duplicateShoppingListArray =this.state.duplicateShoppingList;
+    let x,n ;
+    // checking for new insertion or update
+    let shoppingArray = this.state.shoppingList1;
+    for (let i=0;i<this.state.shoppingList.length;i++) {
+      if(duplicateShoppingListArray.length>0){
+      this.state.duplicateShoppingList.map((row,i) => {
+        if(row.itemName === this.state.shoppingList[0].itemName){
+          duplicateShoppingListArray[i].Quantity=this.state.shoppingList[0].Quantity ;
+          duplicateShoppingListArray[i].itemNote = this.state.shoppingList[0].itemNote;
+          this.setState({
+            duplicateShoppingList : duplicateShoppingListArray
+          });
+        console.log(this.state.duplicateShoppingList,'matched*********************',this.state.shoppingList);  
+        }
+      })
+    }
+      x=0;n=0;
+      for(let l=0;l<this.state.shoppingList1.length;l++){
+        if((this.state.shoppingList[i].itemName===this.state.shoppingList1[l].itemName)){
+          x=1;n=l;
+          shoppingArray[n].Quantity=this.state.shoppingList[i].Quantity ;// default 0 qunatity will not populate list
+          shoppingArray[n].type = this.state.shoppingList[i].type;
+          shoppingArray[n].itemNote = this.state.shoppingList[i].itemNote;
+        this.setState({
+          shoppingList1 : shoppingArray
+        },()=> console.log('============>',this.state.shoppingList1))
+        }
+      }
+      if(x===1){ // update
+        console.log('Search ****************************Update');
+      } else { // new insertion
+        console.log('Search ******************************new insertion');
+        if((this.state.shoppingList[i].type==true) && (this.state.shoppingList[i].Quantity>0)){
+          let ka = this.state.shoppingList1;
+          ka.push(this.state.shoppingList[i]);
+          console.log(i,'>>>>>>>>>>>>>>>>>>>>',ka);
+         this.setState({
+           shoppingList1:ka
+         },()=>console.log(this.state.shoppingList1,'-------------------',this.state.shoppingList))
+      }
+    }
+    }
+  //}
+
+}
+findListIndex =(listItem) =>{
+  console.log(listItem,this.state.searchEquipment)
+  if (listItem.name === this.state.searchEquipment) {
+    console.log(listItem.type);
+    return listItem};
+}
+findShoppingList = (listItem) => {
+  console.log(listItem,this.state.shoppingListValue)
+  if (listItem.itemName === this.state.shoppingListValue) {
+    console.log(listItem.type);
+    return listItem};
+}
+removeShoppingList = (e) => {
+  console.log('=====================================',e.target);
+  console.log(e.target.value);
+  var dataArray1 =  this.state.shoppingList;
+ // dataArray1[e.target.id].type = !this.state.shoppingList.filter(this.findListIndex).type;
+ 
+    // this.state.validateList = this.state.shoppingList1[e.target.id].itemName;
+    // console.log('this.state.shoppingList.filter(this.findListIndex)',this.state.shoppingList.filter(this.findListIndex));
+   this.state.shoppingList.map((row,i) => {
+      if(row.itemName === this.state.shoppingList1[e.target.id].itemName){
+      dataArray1[i].type=!dataArray1[i].type  
+      console.log('matched*********************',dataArray1);  
+      }
+    })
+    var dataArray = this.state.shoppingList1;
+    dataArray.splice(e.target.id, 1);
+    this.setState({
+      shoppingList1:dataArray,
+      shoppingList:dataArray1
+    },()=>console.log('****************',this.state.shoppingList))
+  }
+////////////////Equipment List
+handleSelect = (e) => {
+  
+  let equipmentContainer = this.state.equipmentList;
+  equipmentContainer[e.target.id].type = !equipmentContainer[e.target.id].type;
+  if(equipmentContainer[e.target.id].type) {
+     // equipmentContainer[e.target.id].name = e.target.name;
+      //if(e.target.value===''){equipmentContainer[e.target.id].Quantity = 0}
+    } 
+  else {
+    equipmentContainer[e.target.id].Quantity = 0;
+  }
+  this.setState({
+    equipmentList : equipmentContainer,
+    },()=>
+    { console.log('setEuipmentContainer==>',this.state.equipmentList);
+      });
+ 
+}
+addToEquipmentList = () => {
+  console.log(this.state.searchEquipment,'****************************************************',this.state.duplicateList);
+  if((this.state.duplicateList.length > 0 && this.state.equipmentList.length>0) && this.state.searchEquipment !== "" ){
+  console.log('Search part');
+  let x =0 ,n=0;
+  this.state.duplicateList.map((row,i) => {
+    if(row.name === this.state.equipmentList[0].name){
+      this.state.duplicateList[i].Quantity=this.state.equipmentList[0].Quantity  
+    console.log(this.state.duplicateList,'matched*********************',this.state.equipmentList);  
+    }
+  })
+  // checking for new insertion or update
+  for(let i =0;i<this.state.equipmentList1.length;i++){
+    if(this.state.equipmentList1[i].name === this.state.equipmentList[0].name){
+      x=1;n=i;
+      console.log('Search ---------------Update');
+    
+   }
+  }
+  if(x==1){
+    this.state.equipmentList1[n].Quantity=this.state.equipmentList[0].Quantity // update
+  } 
+  else { // new insertion
+        console.log('Search ---------------new insertion');
+        if((this.state.equipmentList[0].type==true) && (this.state.equipmentList[0].Quantity>0)){
+        this.setState({
+          equipmentList1:this.state.equipmentList1.concat(this.state.equipmentList)
+          });
+      }
+  }
+
+} else {
+  this.setState({
+    duplicateList : []
+  })
+  let x,n ;
+  // checking for new insertion or update
+  for (let i=0;i<this.state.equipmentList.length;i++) {
+    x=0;n=0;
+    for(let l=0;l<this.state.equipmentList1.length;l++){
+      if((this.state.equipmentList[i].name==this.state.equipmentList1[l].name)){
+        x=1;n=l;
+        this.state.equipmentList1[n].Quantity=this.state.equipmentList[i].Quantity ;// default 0 qunatity will not populate list
+        this.state.equipmentList1[n].type = this.state.equipmentList[i].type;
+      }
+    }
+    if(x==1){ // update
+      console.log('Search ****************************Update');
+      // this.state.equipmentList1[n].Quantity=this.state.equipmentList[i].Quantity ;// default 0 qunatity will not populate list
+      // this.state.equipmentList1[n].type = this.state.equipmentList[i].type;
+    } else { // new insertion
+      console.log('Search ******************************new insertion');
+      if((this.state.equipmentList[i].type==true) && (this.state.equipmentList[i].Quantity>0))
+     // n = this.state.equipmentList[n];
+      this.setState({
+        equipmentList1:this.state.equipmentList1.concat(this.state.equipmentList[i])
+        },()=> console.log(this.state.equipmentList1,'>>>>>>>>>>>>>>>>@index',i,'*****',this.state.equipmentList[i]));
+    }
+  }
+}
+  
+}
+searchShoppingList = (e) => {
+  if(this.state.duplicateShoppingList.length>0){
+    this.setState({
+     shoppingList:[]
+    }, function() { // called by React after the state is updated
+      this.setState({
+        shoppingList:this.state.addToequipmentList1.concat(this.state.duplicateShoppingList.filter(this.findShoppingList)),
+        addToequipmentList1 : this.state.shoppingList
+       },()=> console.log('SearchShopiingList','duplicateList',this.state.duplicateShoppingList,'----------Check-----------',this.state.shoppingList));
+    });
+  } else {
+    this.setState({
+     duplicateShoppingList: this.state.shoppingList,
+     shoppingList:[]
+   }, function() { // called by React after the state is updated
+      this.setState({
+        shoppingList:this.state.addToequipmentList1.concat(this.state.duplicateShoppingList.filter(this.findShoppingList)),
+        addToequipmentList1 : this.state.shoppingList
+      },()=> console.log('SearchduplicateList',this.state.duplicateShoppingList,'----------Check-----------',this.state.shoppingList));
+    });
+    
+  }
+}
+searchEquipmentMethod =(e)=>{
+ 
+  if(this.state.duplicateList.length>0){
+   this.setState({
+    equipmentList:[]
+   }, function() { // called by React after the state is updated
+     this.setState({
+       equipmentList:this.state.addToequipmentList1.concat(this.state.duplicateList.filter(this.findListIndex)),
+       addToequipmentList1 : this.state.equipmentList
+      },()=> console.log('addToequipmentList',this.state.addToequipmentList1,'duplicateList',this.state.duplicateList,'----------Check-----------',this.state.equipmentList));
+   });
+ } else {
+   this.setState({
+    duplicateList: this.state.equipmentList,
+    equipmentList:[]
+  }, function() { // called by React after the state is updated
+     this.setState({
+       equipmentList:this.state.addToequipmentList1.concat(this.state.duplicateList.filter(this.findListIndex)),
+       addToequipmentList1 : this.state.equipmentList
+     },()=> console.log('addToequipmentList',this.state.addToequipmentList1,'duplicateList',this.state.duplicateList,'----------Check-----------',this.state.equipmentList));
+   });
+   
+ }
+
+
+}
+removeEquipmentList = (e) => {
+console.log('=====================================',e.target);
+  var dataArray1 =  this.state.equipmentList;
+  this.state.equipmentList.map((row,i) => {
+    if(row.name === this.state.equipmentList1[e.target.id].name){
+    dataArray1[i].type=!dataArray1[i].type;
+    dataArray1[i].Quantity = 0;  
+    console.log('matched*********************',dataArray1);  
+    }
+  })
+  var dataArray = this.state.equipmentList1;
+  dataArray.splice(e.target.id, 1);
+ 
+  this.setState({
+    equipmentList1:dataArray,
+    equipmentList:dataArray1
+  },()=>console.log('****************',this.state.equipmentList))
+}
+handleShareholderNameChange = idx => evt => {
+  const newShareholders = this.state.equipmentList.map((shareholder, sidx) => {
+    if (idx !== sidx) return shareholder;
+    return { ...shareholder, Quantity: evt.target.value };
+  });
+
+  this.setState({ equipmentList: newShareholders },()=> {
+    console.log('equipmentList',this.state.equipmentList)
+  }
+  );
+};
+////////////////Submit data
 submitForm = (event) => {
   event.preventDefault();
-  if (this.validator.allValid()) {
+  var activity_info = [];
     const sessionInformation ={
-      sessionName:this.state.sessionName,
-      when:this.state.when,
+      channelId: 1006,
+      sessionName:this.state.session_details,
+     // when:this.state.when,
+     when:"2019-10-20 15:06:01",
       description:this.state.description,
       pick_Duration:this.state.exampleFormControlSelect1,
       pick_Difficulty_level:this.setState.exampleFormControlSelect2,
@@ -143,34 +585,97 @@ submitForm = (event) => {
       const groupLocation = {
         groupLocation : this.state.allowLocation
         }
-      const fitnessActivity = {
-        fitnessActivity : this.state.tablerows
-      } 
+      // const fitnessActivity = {
+      //   fitnessActivity : this.state.tablerows
+      // } 
+      for(let v =0 ; v<this.state.tablerows.length;v++){
+        console.log(this.state.tablerows[v]);
+        let activity_data ={
+          "name": this.state.tablerows[v].ActivityName,
+          "attributes" : [
+            {
+             "attrKey": "Activity Type",
+             "attrValue": this.state.tablerows[v].ActivityType,
+             "orderNo": 1
+            },
+            {
+             "attrKey": "Duration Type",
+             "attrValue": this.state.tablerows[v].DurationType,
+             "orderNo": 4
+            },
+            {
+             "attrKey": "Count",
+             "attrValue": this.state.tablerows[v].Count,
+             "orderNo": 5
+            },
+            {
+             "attrKey": "Video",
+             "attrValue": this.state.tablerows[v].Video,
+             "orderNo": 2
+            },
+            {
+             "attrKey": "Target BPM",
+             "attrValue": this.state.tablerows[v].TargetBPM,
+             "orderNo": 6
+            },
+            {
+             "attrKey": "Target Zone",
+             "attrValue": this.state.tablerows[v].TargetZone,
+             "orderNo": 3
+            }
+          ]
+         } 
+         activity_info.push(activity_data);
+         console.log("activity_info",activity_info,'activity_data==================',activity_data);   
+      }
       const script ={
         scriptHeartRateMonitor:this.state.scriptHeartRateMonitor,
         scriptZoneTracking:this.state.scriptZoneTracking
 
-      }  
-     //   const fitnessData = {
-    //     reminder,
-    //     sessionInformation,
-    //     privacy
-    //   }
-      axios.post(`https://jsonplaceholder.typicode.com/users`, { fitnessActivity,reminder,privacy,sessionInformation,groupLocation,script})
+      }
+      const shopping_list ={
+        shoppingList:this.state.shoppingList
+      }
+      const equipment_list = {
+        equipmentList:this.state.equipmentList
+      }
+      console.log("==========================>",activity_info);  
+      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activity_info,reminder,privacy,sessionInformation,groupLocation,script})
       .then(res => {
         console.log(res);
         console.log('================================>',res.data);
       })
-    } else {
-      this.validator.showMessages();
-      // rerender to show messages for the first time
-      // you can use the autoForceUpdate option to do this automatically`
-      this.forceUpdate();
-    }
+    
     }
 
+
+////////////////////////////////////////////////////////////////////////////////
 
   render() {
+    let  arr =[];
+    let allSessions = '';
+    const { startDate, endDate } = this.state;
+
+    allSessions = this.state.sessions.map((session, idx) => {
+       
+          const { id, Name, channelId, hostId, interestId } = session;
+          return (
+            <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
+            <td>{idx+1}</td>
+            <td>{session.name.toLowerCase()}</td>
+           <td>{session.channelId}</td>
+           <td>{session.hostId}</td>
+             <td>{session.interestId}</td>
+             <td><input type="radio" name="id" 
+                            value={id}   
+                            onChange={this.onSessionChanged} /></td>
+            </tr>
+          );
+       
+      })
+
+ console.log('------lalit--------------',this.state.session_details)
+
     return (
       <div className="container-fluid">
         <div className="row top-header p-4">
@@ -214,6 +719,8 @@ submitForm = (event) => {
 
         <h4 className="text-white pb-3">CREATE SESSION</h4>
 
+        <a href="#" className="btn btn-primary" data-toggle="modal" data-target="#allprevsession"> coppy from ....</a>
+
         <div className="gray-box">
           <div className="session">
             <h3 className="info">Session Info</h3>
@@ -227,22 +734,20 @@ submitForm = (event) => {
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Session Name</label>
-                      <input type="text" id = "sessionName" value = {this.state.sessionName} onChange = {this.sessionInfo} className="input-field" />
-                      {this.validator.message('sessionName', this.state.sessionName, 'required')}
+                      <input type="text" className="input-field" id = "session_details" value= {this.state.session_details} onChange = {this.sessionInfo} placeholder="Session Name"/>
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Description</label>
                       <textarea type="text" id="description" value = {this.state.description} onChange = {this.sessionInfo} className="input-field"></textarea>
-                      {this.validator.message('description', this.state.description, 'required|min:1|max:100')}                   
                     </div>									 
                     <div className="form-group">													
                       <span className="cover-border"></span>
                       <label className="label">Level</label>														
                       <select
                         className="input-field"
-                        id="exampleFormControlSelect2"
-                        value = {this.state.exampleFormControlSelect2}
+                        id="exampleFormControlSelect1"
+                        value = {this.state.exampleFormControlSelect1}
                         onChange = {this.sessionInfo}
                       >
                         <option>Pick a Difficulty level</option>											
@@ -250,8 +755,7 @@ submitForm = (event) => {
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                      </select>
-                      {this.validator.message('level', this.state.exampleFormControlSelect2, 'required|numeric')}						  
+                      </select>						  
                       <span className="dropdown-icon"></span>
                   </div>
                   </div>
@@ -267,15 +771,16 @@ submitForm = (event) => {
                         className="input-field"
                         placeholder="Pick a date and time"
                       />
-                      <span className="when-icon"></span>
+                      {/* <span  className="when-icon"></span> */}
+                      <a href="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#calenderModel"></a>
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">How long?</label>
                       <select
                         className="input-field"
-                        id="exampleFormControlSelect1"
-                        value = {this.state.exampleFormControlSelect1}
+                        id="exampleFormControlSelect2"
+                        value = {this.state.exampleFormControlSelect2}
                         onChange = {this.sessionInfo}
                       >
                         <option>Pick a Duration</option>
@@ -284,7 +789,6 @@ submitForm = (event) => {
                         <option>4</option>
                         <option>5</option>
                       </select>
-                      {this.validator.message('How long', this.state.exampleFormControlSelect1, 'required|numeric')}
                       <span className="dropdown-icon"></span>
                     </div>
                     <div className="form-group">
@@ -299,7 +803,6 @@ submitForm = (event) => {
                           onChange = {this.sessionInfo}
                           placeholder="min 1"
                         />
-                        {this.validator.message('Minimum participants', this.state.minimumParticipants, 'required|numeric')}
                         <span className="signedup_2"></span>
                       </div>
                     </div>
@@ -307,21 +810,20 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Maximum Participants</label>
                       <input type="text" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50" />
-                      {this.validator.message('Maximum Participants', this.state.maximumParticipants, 'required|min:1|max:50')}
                       <span className="signedup_2"></span>
                     </div>
                   </div>
                   <div className="col-md-5">
                     <div className="form-group input-txt">
                     <label className="switch">
-                        <input id = "searchParticipant" checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}} type="checkbox" />
+                        <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}}/>
                         <span className="slider round"></span>
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span>
                     </div>
                     <div className="form-group input-txt">
                       <label className="switch">
-                          <input id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} type="checkbox" />
+                          <input type="checkbox" id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} />
                           <span className="slider round"></span>
                       </label>
                       <span>Charging for Session?</span>
@@ -339,13 +841,12 @@ submitForm = (event) => {
                           onChange = {this.sessionInfo}
                           placeholder="Enter amount"
                         />
-                        {this.validator.message('Charge Amount', this.state.amountCharge, 'required|numeric|min:1')}
                         <span className="dollar"></span>
                       </div>
                     </div>
                   </div>
 
-                  <button className="btn btn-primary" onClick={this.submitForm}>Button</button>  
+                  
 
                   
                 </div>
@@ -368,7 +869,6 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text" id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" />
-                      {this.validator.message('Host Session', this.state.hostSessionStart, 'required')}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">Sign up Cut off Date/Time</p>
@@ -383,7 +883,6 @@ submitForm = (event) => {
                         onChange = {this.sessionInfo}
                         placeholder=""
                       />
-                      {this.validator.message('Sign up Date and Time', this.state.signUpDateTime, 'required')}
                       <span className="when-icon"></span>
                     </div>
                     
@@ -394,7 +893,6 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" />
-                      {this.validator.message('Participant Session', this.state.participantSessionStart, 'required')}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">for 'minimum not met'</p>
@@ -402,7 +900,6 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
                       <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" />
-                      {this.validator.message('Minimum not met', this.state.minimumNotMet, 'required|numeric')}
                       <span className="clock-icon"></span>
                     </div>
                     
@@ -424,10 +921,9 @@ submitForm = (event) => {
               <div className="form-group input-txt">
               <label className="switch">
                   <input type="checkbox" 
-                  defaultChecked = {this.state.disableParticipant} 
-                  id = "disableParticipant" 
-                  ref = "searchParticipant1" 
-                  onChange = {(e)=>this.setState({[e.target.id]:!this.state.disableParticipant},()=>console.log("disableParticipant",this.state.disableParticipant))}
+                   defaultChecked = {this.state.disableParticipant} 
+                   id = "disableParticipant" 
+                   onChange = {(e)=>this.setState({[e.target.id]:!this.state.disableParticipant},()=>console.log("disableParticipant",this.state.disableParticipant))}
                   />
                   <span className="slider round"></span>
               </label>
@@ -435,10 +931,9 @@ submitForm = (event) => {
               </div>
               <div className="form-group input-txt">
                 <label className="switch">
-                    <input type="checkbox"  
+                    <input type="checkbox" 
                     defaultChecked = {this.state.showParticipant}
                     id = "showParticipant"
-                    ref = "searchParticipant"
                     onChange = {(e)=>this.setState({[e.target.id]:!this.state.showParticipant},()=>console.log("showParticipant",this.state.showParticipant))}
                     />
                     <span className="slider round"></span>
@@ -452,10 +947,9 @@ submitForm = (event) => {
             <div className="form-group input-txt">
                 <label className="switch">
                     <input type="checkbox" 
-                     defaultChecked = {this.state.allowParticipant}
-                     id = "allowParticipant"
-                   //  ref = "searchParticipant"
-                     onChange = {(e)=> this.setState({[e.target.id]:!this.state.allowParticipant},()=>console.log("allowParticipant",this.state.allowParticipant))} 
+                    defaultChecked = {this.state.allowParticipant}
+                    id = "allowParticipant"
+                    onChange = {(e)=> this.setState({[e.target.id]:!this.state.allowParticipant},()=>console.log("allowParticipant",this.state.allowParticipant))}
                     />
                     <span className="slider round"></span>
                 </label>
@@ -465,7 +959,7 @@ submitForm = (event) => {
             </div>
         </div>
         </div>
-        <div className="gray-box2">
+        <div className="gray-box2 pb-4">
           <div className="session"><h3 className="info">Groups</h3></div>
           <div className="col-md-6">
               <div className="form-group input-txt">
@@ -483,8 +977,9 @@ submitForm = (event) => {
               
             </div>
         </div>
-        <div className="p-3">
+        <div className="pb-4">
           <div className="session"><h3 className="info">Select Host(s)</h3></div>
+          <div className="p-3">
           <div className="row">
             <div className="col-md-4">
                 <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing hosts</a>
@@ -493,8 +988,10 @@ submitForm = (event) => {
                 <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Host</a>
             </div>
           </div>
+          </div>
+          
         </div>
-        <div className="gray-box2">
+        <div className="gray-box2 pb-4">
           <div className="session"><h3 className="info">Script</h3></div>
           <div className="row">
             <div className="col-md-5">
@@ -554,9 +1051,27 @@ submitForm = (event) => {
                   <th>&nbsp;</th>
                 </tr>
               </thead>
-              {this.state.tablerows.map((row,i) => (
-                <tbody key = {i}>
-                <tr>
+              <Sortable
+                  tag = "tbody"   // Defaults to "div"
+                  onChange={(order, sortable, evt) => {
+                    console.log('====================',order);
+                    for(var i=0 ;i<order.length;i++){
+                      console.log(order[i].split(','));
+                      var splitData = order[i].split(',');
+                      console.log(splitData[0]);
+                      var appendData = {ActivityName:splitData[0],ActivityType:splitData[1],DurationType:splitData[2],Count:splitData[3],Video:splitData[4],TargetBPM:splitData[5],TargetZone:splitData[6]}
+                      arr.push(appendData);
+                      console.log('==============================arr',arr);
+                    }
+                    // console.log(order)
+                    this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
+                }}
+                >
+                {this.state.tablerows.map((row,i) => (
+                // <tbody key = {i}>
+                //row.attributes.map(p =>(Object.values(p)))
+                //row.attributes.map(p =>(Object.values(p)))
+                <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
                   <td>{row.ActivityName}</td>
                   <td>{row.ActivityType}</td>
                   <td>{row.DurationType}</td>
@@ -565,13 +1080,25 @@ submitForm = (event) => {
                   <td>{row.TargetBPM}</td>
                   <td>{row.TargetZone}</td>
                   <td className="d-flex justify-content-center">
-                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
-                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></a>
+                    <a href="#" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></a>
                   </td>
+                  {/* <td>{row.name}</td>
+                  <td>{row.attributes[0].attrValue}</td>
+                  <td>{row.attributes[1].attrValue}</td>
+                  <td>{row.attributes[2].attrValue}</td>
+                  <td>{row.attributes[3].attrValue}</td>
+                  <td>{row.attributes[4].attrValue}</td>
+                  <td>{row.attributes[5].attrValue}</td>
+                  <td className="d-flex justify-content-center">
+                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></a>
+                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                  </td> */}
                 </tr>
                 
-              </tbody>            ))}
-
+                ))}
+  
+                </Sortable>
               {/* <tbody>
                 <tr>
                   <td>Jumping</td>
@@ -588,7 +1115,6 @@ submitForm = (event) => {
                 </tr>
                 
               </tbody> */}
-              
             </table>
           </div>
           <div className="p-3 activity-form mt-2">
@@ -600,7 +1126,9 @@ submitForm = (event) => {
                 <div className="form-group mt-3">
                     <span className="cover-border"></span>
                     <label className="label">Activity name</label>
-                    <input type="text" id = "ActivityName" value= {this.state.ActivityName} 
+                    <input type="text"
+                    id = "ActivityName" 
+                    value= {this.state.ActivityName} 
                     onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log('ActivityName',this.state.ActivityName))} 
                     className="input-field" />
                   </div>
@@ -617,10 +1145,10 @@ submitForm = (event) => {
                         onChange = {(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log('Activity Type',this.state.ActivityType))}
                       >
                         <option></option>
-                        <option value ='2'>2</option>
-                        <option value ='3'>3</option>
-                        <option value ='4'>4</option>
-                        <option value ='5'>5</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
                       </select>
                       <span className="dropdown-icon"></span>
                   </div>
@@ -636,10 +1164,10 @@ submitForm = (event) => {
                         onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log('Duration Type',this.state.DurationType))}
                       >
                         <option></option>
-                        <option value = '2'>2</option>
-                        <option value = '3'>3</option>
-                        <option value = '4'>4</option>
-                        <option value = '5'>5</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
                       </select>
                       <span className="dropdown-icon"></span>
                   </div>
@@ -648,10 +1176,10 @@ submitForm = (event) => {
                 <div className="form-group mt-3">
                     <span className="cover-border"></span>
                     <label className="label">Count</label>
-                    <input type="text"
+                    <input type="text" 
                     id = "Count"
                     value = {this.state.Count}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Count",this.state.Count))} 
+                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Count",this.state.Count))}
                     className="input-field" />
                   </div>
                   
@@ -663,7 +1191,7 @@ submitForm = (event) => {
                     <input type="text" placeholder="browse" 
                     id = "Video"
                     value = {this.state.Video}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Video",this.state.Video))} 
+                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Video",this.state.Video))}
                     className="input-field" />
                   </div>
                   
@@ -697,77 +1225,111 @@ submitForm = (event) => {
           </div>
           <a href="#" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</a>
         </div>
-        <div className="p-3 gray-box no-border-radius">
+        <div className="gray-box no-border-radius pb-2">
           <div className="session"><h3 className="info">Shopping List</h3></div>
-          <div className="row">
-            <div className="col-md-4">
-                <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
-            </div>
-            <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
+          <div className="p-3">
+            <div className="row">
+              <div className="col-md-4">
+                  <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+              </div>
+              <div className="col-md-4">
+                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
+              </div>
             </div>
           </div>
+          {this.state.shoppingList1.map((listInsertion,i) => (
+            (listInsertion.type && (listInsertion.Quantity!=0) && (listInsertion.itemNote!="X")?
           <div className="row mt-5">
             <div className="col-md-4">
             <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">item Name</label>
-                      <input type="text" className="input-field" />
+                      <input type="text" value  = {listInsertion.itemName} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
                     </div>
             </div>
             <div className="col-md-3">
             <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Quantity</label>
-                      <input type="text" className="input-field" />
+                      <input type="text" value  = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
                     </div>
             </div>
             <div className="col-md-4">
             <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Item  notes</label>
-                      <input type="text" className="input-field" />
+                      <input type="text" value  = {listInsertion.itemNote} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
                     </div>
             </div>
             <div className="col-md-1">
-              <a href="#" className="bg-circle mt-3"><i className="fa fa-minus" aria-hidden="true"></i></a>
+              <a href="#" className="bg-circle mt-3"><i id = {i} value = {listInsertion.itemName} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></a>
             </div>
           </div>
+          : '')
+          ))}
           
         </div>
-        <div className="p-3 gray-box2 no-border-radius">
+        <div className="gray-box2 no-border-radius">
           <div className="session"><h3 className="info">Equipment List</h3></div>
-          <div className="row">
-            <div className="col-md-4">
-                <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
-            </div>
-            <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
+          <div className="p-3">
+            <div className="row">
+              <div className="col-md-4">
+                  <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+              </div>
+              <div className="col-md-4">
+                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
+              </div>
             </div>
           </div>
-          <div className="row mt-5">
+          {this.state.equipmentList1.map((listInsertion,i) => (
+            (listInsertion.type && (listInsertion.Quantity!=0)?
+          <div className="p-3">
+          <div className="row mt-5 pb-4">
+            
             <div className="col-md-4">
+            {/* {this.state.equipmentList1.map((listInsertion) => (
+             (listInsertion.type && (listInsertion.Quantity!=0)? */}
             <div className="form-group">
                       <span className="cover-border"></span>
-                      <label className="label">item Name</label>
-                      <input type="text" className="input-field" />
+                      <label className="label">Item Name</label>
+                      <input type="text" value  = {listInsertion.name} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
                     </div>
+              {/* :''
+              )
+             ))}       */}
             </div>
             <div className="col-md-3">
+            {/* {this.state.equipmentList1.map((listInsertion,i) => (
+            (listInsertion.type && (listInsertion.Quantity!=0)? */}
             <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Quantity</label>
-                      <input type="text" className="input-field" />
+                      <input type="text" value = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled />
+                      
+                      {/* <a href="#" className="bg-circle mt-3"></a><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></a> */}
                     </div>
-            </div>
+              {/* :''
+              )
+            ))}       */}
             
+            
+            </div>
             <div className="col-md-1">
-              <a href="#" className="bg-circle mt-3"><i className="fa fa-minus" aria-hidden="true"></i></a>
+            {/* {this.state.equipmentList1.map((listInsertion,i) => (
+            (listInsertion.type && (listInsertion.Quantity!=0)? */}
+            <div className="form-group">
+              <a href="#" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></a>
+              </div>
+              {/* :''
+              )
+            ))} */}
             </div>
           </div>
-          
+          </div>
+          :'')
+          ))} 
         </div>
-        <a href="#" className="save-btn btn btn-primary my-5 mx-auto">Save</a>
+        <a href="#" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</a>
         <div className="modal" id="myModal">
     <div className="modal-dialog dialogwidth">
       <div className="modal-content modalbg">
@@ -826,9 +1388,19 @@ submitForm = (event) => {
       <div className="modal-content equipmodalbg">
       
         <div className="modal-header headerborder">
-          <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
+          <div className="plusicon"><i className="fa fa-plus" onClick = {this.addToEquipmentList} aria-hidden="true"></i></div>
           <h4 className="modal-title white">Pick from existing Equipments list</h4>
-          <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+          <button type="button" 
+          onClick ={(e)=> 
+          { this.state.duplicateList.length>0? 
+            this.setState({searchEquipment:'',addToequipmentList1:[],equipmentList:this.state.duplicateList, function() { 
+              this.setState({
+               duplicateList:[]
+              },()=> console.log('Checking Duplicate List Value',this.state.duplicateList));
+            }},()=>console.log(this.state.duplicateList,'updateEquipemntList',this.state.equipmentList))
+          :this.setState({searchEquipment:'',equipmentList:this.state.equipmentList}) }} 
+          className="close white closepopup" 
+          data-dismiss="modal">&times;</button>
         </div>
         
         <div className="modal-body ">
@@ -836,25 +1408,26 @@ submitForm = (event) => {
                 
                 
                 <div className="searchbar">
-                  <input type="text" id ="Equipment" value = {this.state.Equipment}  
-                  onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log('Equipment',this.state.Equipment))} className="searchbarinput" placeholder="Search for Equipment"/>
-                  <button className="inputbtn" onClick = {this.myFunction} type="button">
+                  <input type="text" 
+                  id = "searchEquipment" 
+                  value ={this.state.searchEquipment} 
+                  onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log(this.state.searchEquipment))}  
+                  className="searchbarinput" 
+                  placeholder="Search for Equipment"/>
+                  <button onClick = {this.searchEquipmentMethod} className="inputbtn" type="button">
                      
                   </button>
-                  {/* <Select
-                    value={this.state.selectedOption}
-                    onChange={this.handleChange}
-                    options={options}
-                  /> */}
                 </div>
-                 <div className="checkboxdiv">
+
+{/* 
+                <div className="checkboxdiv">
                       <div className="mt-4"></div>
                       <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox"  className="form-radio"/>
-                        <span className="checktxt">i</span>
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">Vestibulum rutrum qu.</span>
                       </label>
 
-                      {/* <label className="custom-control custom-checkbox lebelheight">
+                      <label className="custom-control custom-checkbox lebelheight">
                         <input type="checkbox" className="form-radio"/>
                         <span className="checktxt">Nam dapibus nisl vit.</span>
                       </label>
@@ -862,24 +1435,36 @@ submitForm = (event) => {
                      <label className="custom-control custom-checkbox lebelheight">
                         <input type="checkbox" className="form-radio"/>
                         <span className="checktxt">Donec facilisis tort.</span>
-                      </label> */}
-                </div>
-                
-           
-{/* 
+                      </label>
+                </div> */}
+                {/* Pick from existing Shopp */}
+              {this.state.equipmentList.map((row,i) => (  
                 <div className="row checkboxdiv_3">
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
-                      <input type="checkbox" className="form-radio"/>
-                      <span className="checktxt">Curabitue lobortis.</span>
+                      <input type="checkbox" 
+                       name={row.name}
+                       id ={i} 
+                       checked={row.type} 
+                       onChange={this.handleSelect}
+                       className="form-radio"/>
+                      <span className="checktxt">{row.name}</span>
                     </label>
                   </div>
+                  {this.state.equipmentList[i].type ?
                   <div className="col-md-4">
-                    <div className="form-group">
-                      <span className="cover-border"></span>
-                      <input type="text" className="input-field-2" placeholder="Quantity"/></div>
+                    <div className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={row.Quantity}
+                    onChange={this.handleShareholderNameChange(i)}
+                    className="input-field-2" 
+                    placeholder="Quantity"/></div>
                   </div>
-                </div> */}
+                  : ''
+                  }
+                </div>
+              ))}
 
                 
                 {/* <div className="checkboxdiv_2">
@@ -913,16 +1498,23 @@ submitForm = (event) => {
 
     </div>
   </div>
- 
+  <div className="modal" id="calenderModal">
+    <div className="">
+     AK
+      
+      
+    </div>
+  </div>
+
 
   <div className="modal" id="myModal3">
     <div className="">
       <div className="modal-content equipmodalbg">
       
         <div className="modal-header headerborder">
-          <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
+          <div className="plusicon"><i onClick = {this.addToShoppingList} className="fa fa-plus" aria-hidden="true"></i></div>
           <h4 className="modal-title white">Pick from existing Shopping list</h4>
-          <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+          <button type="button" onClick= {this.setShoppingList} className="close white closepopup" data-dismiss="modal">&times;</button>
         </div>
         
         <div className="modal-body ">
@@ -930,14 +1522,20 @@ submitForm = (event) => {
                 
                 
                 <div className="searchbar">
-                  <input type="text" className="searchbarinput" placeholder="Search for Equipment"/>
-                  <button className="inputbtn" type="button">
+                  <input type="text" 
+                  id = "shoppingListValue" 
+                  value ={this.state.shoppingListValue} 
+                  onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log(this.state.shoppingListValue))}  
+        
+                  className="searchbarinput" 
+                  placeholder="Search for Equipment"/>
+                  <button className="inputbtn" onClick = {this.searchShoppingList} type="button">
                      
                   </button>
                 </div>
 
 
-                <div className="checkboxdiv">
+                {/* <div className="checkboxdiv">
                       <div className="mt-4"></div>
                       <label className="custom-control custom-checkbox lebelheight">
                         <input type="checkbox" className="form-radio"/>
@@ -953,32 +1551,64 @@ submitForm = (event) => {
                         <input type="checkbox" className="form-radio"/>
                         <span className="checktxt">In hac habitasse pla.</span>
                       </label>
-                </div>
-
+                </div> */}
+                {this.state.shoppingList.map((row,i) => (
                 <div className="row checkboxdiv_3">
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
-                      <input type="checkbox" className="form-radio"/>
-                      <span className="checktxt">In hac habitasse pla.</span>
+                      <input type="checkbox" 
+                       name={row.itemName}
+                       id ={i} 
+                       checked={row.type} 
+                       onChange={this.selectShoppingList}
+                       value = '20'
+                      className="form-radio"/>
+                      <span className="checktxt">{row.itemName}</span>
                     </label>
                   </div>
-                  <div className="col-md-3">
+                  
+                  {/* <div className="col-md-3">
                     <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
                   </div>
                   <div className="col-md-5">
                     <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item Notes"/></div>
+                  </div> */}
+                  {this.state.shoppingList[i].type ?
+                  <div className="col-md-3">
+                    <div  className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={this.state.shoppingList.Quantity}
+                    onChange={this.handleShoppingQuantity(i)}
+                    className="input-field-2" 
+                    placeholder="Quantity"/></div>
+                    <div  className="col-md-5" className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={this.state.shoppingList.itemNote}
+                    onChange={this.handleShoppingitemNote(i)}
+                    className="input-field-2" 
+                    placeholder="item Note"/></div>
                   </div>
+                  
+                  : ''
+                  }
                 </div>
-
+                ))}
                 
+                {this.state.shoppingList.map((row,i) => (
                 <div className="checkboxdiv_2">
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Mauris non tempor qu.</span>
-                </label>
+               
 
+                {/* 
                 <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
+                  <input type="checkbox" 
+                    name={row.itemName}
+                       id ={i} 
+                       checked={row.type} 
+                       onChange={this.selectShoppingList}
+                       value = '20'
+                  className="form-radio"/>
                   <span className="checktxt">Curabitur lobortis.</span>
                 </label>
 
@@ -1005,869 +1635,10 @@ submitForm = (event) => {
                   <div className="col-md-5">
                     <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item UOM"/></div>
                   </div>
-                </div>
+                </div> */}
 
         </div>
-         
-        </div>
-        
-       </div>
-      </div>
-       <div className="donebg"><button type="button" className="done">Done</button></div>
-
-    </div>
-  </div>
-  
-  
-  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Pick a product
-  </button>
-      </div>
-    );
-  }
-}
-
-export default Header;
-=======
-
-import React, { Component } from "react";
-import axios from "axios";
-
-class Header extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-        sessions: [],
-        session_details: {}
-    }
-}
-
-componentDidMount(){
-  this.fetchPrevSessionList();
-  }
-
-  fetchPrevSessionList() {
-    
-      let  channelId=1;   
-      console.log(channelId);              
-        axios      
-        .get("/api/v1/session/"+channelId+"/channel")        
-        .then(res => {
-          console.log('---------forgotpasswd--------------',res.data.responseData)
-
-          this.setState({
-              sessions: res.data.responseData,
-              });
-              console.log('---------forgotsessions--------------',this.state.sessions)
-        })
-        .catch(err =>{
-            console.log('there is problem');
-            // dispatch({
-
-            //   type: GET_ERRORS,
-            //   payload: err.response.data
-            // })
-        });
-  
-    }
-
-    onSessionChanged = (e) => {
-
-      let sessionId=e.currentTarget.value;
-      console.log('-------hi-----',sessionId)
-
-      axios      
-      .get("/api/v1/session/"+sessionId+"/sess")        
-      .then(res => {
-        console.log('---------SessionId--------------',res.data)
-
-        this.setState({
-          session_details: res.data.responseData,
-          });
-      })
-      .catch(err =>{
-          console.log('there is problem');
-          // dispatch({
-
-          //   type: GET_ERRORS,
-          //   payload: err.response.data
-          // })
-      });
-
-    }
-
-
-  render() {
-
-    let allSessions = '';
-
-    allSessions = this.state.sessions.map((session, idx) => {
-       
-          const { id, Name, channelId, hostId, interestId } = session;
-          return (
-            <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
-            <td>{idx+1}</td>
-            <td>{session.name.toLowerCase()}</td>
-           <td>{session.channelId}</td>
-           <td>{session.hostId}</td>
-             <td>{session.interestId}</td>
-             <td><input type="radio" name="id" 
-                            value={id}   
-                            onChange={this.onSessionChanged} /></td>
-            </tr>
-          );
-       
-      })
-
- console.log('------lalit--------------',this.state.session_details.name)
-
-    return (
-      <div className="container-fluid">
-        <div className="row top-header p-4">
-          <div className="col-lg-2 d-flex d-md-block justify-content-center p-2">
-            <img src="/images/login-logo.png" className="logo" />
-          </div>
-          <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
-            <div className="user-info d-flex align-items-center">
-              <img src="images/attendee.png" className="user-avtar" />
-              <div className="pl-4">
-                <h3>Welcome Cersei!</h3>
-                <p>You have 3 sessions this week</p>
-                <p>Next Session, Wednesday, 24 July 2019</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 ">
-            <div className="d-flex justify-content-between ">
-              <div className="header-info-right">
-                <p>Weekly Attendance</p>
-                <h3>66%</h3>
-              </div>
-              <span className="border-right gray-border"></span>
-              <div className="header-info-right">
-                <p>Total Views</p>
-                <h3>45.6K</h3>
-              </div>
-              <span className="border-right gray-border"></span>
-              <div className="header-info-right">
-                <p>Total Revenue</p>
-                <h3>$44,000</h3>
-              </div>
-              <span className="border-right gray-border"></span>
-              <div className="message-notification">
-                <img src="/images/message.png" />
-                <span className="message-count">2</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <h4 className="text-white pb-3">CREATE SESSION</h4>
-
-        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#allprevsession"> coppy from ....</a>
-
-        <div className="gray-box">
-          <div className="session">
-            <h3 className="info">Session Info</h3>
-          </div>
-
-          <div className="container-fluid register-form">
-            <div className="form">
-              <div className="form-content">
-                <div className="row">
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Session Name</label>
-                      <input type="text" className="input-field" value= {this.state.session_details.name} placeholder="Session Name"/>
-                    </div>
-                    <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Description</label>
-                      <textarea type="text" className="input-field"></textarea>
-                    </div>									 
-                    <div className="form-group">													
-                      <span className="cover-border"></span>
-                      <label className="label">Level</label>														
-                      <select
-                        className="input-field"
-                        id="exampleFormControlSelect1"
-                      >
-                        <option>Pick a Difficulty level</option>											
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>						  
-                      <span className="dropdown-icon"></span>
-                  </div>
-                  </div>
-                  <div className="col-md-3">																 
-                    <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">When?</label>
-                      <input
-                        type="text"
-                        className="input-field"
-                        placeholder="Pick a date and time"
-                      />
-                      <span className="when-icon"></span>
-                    </div>
-                    <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">How long?</label>
-                      <select
-                        className="input-field"
-                        id="exampleFormControlSelect1"
-                      >
-                        <option>Pick a Duration</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <span className="dropdown-icon"></span>
-                    </div>
-                    <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Minimum Participants</label>
-                      <div className="">
-                        <input
-                          type="text"
-                          className="input-field"
-                          placeholder="min 1"
-                        />
-                        <span className="signedup_2"></span>
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Maximum Participants</label>
-                      <input type="text" className="input-field" placeholder="max 50" />
-                      <span className="signedup_2"></span>
-                    </div>
-                  </div>
-                  <div className="col-md-5">
-                    <div className="form-group input-txt">
-                    <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider round"></span>
-                    </label>
-                      <span>Show Participants Signed Up Count on Searches?</span>
-                    </div>
-                    <div className="form-group input-txt">
-                      <label className="switch">
-                          <input type="checkbox" />
-                          <span className="slider round"></span>
-                      </label>
-                      <span>Charging for Session?</span>
-                      <p className="gray-text ml-5 mt-3 mb-4">You have enabled it in the Channel</p>
-                    </div>
-                    <div className="form-group w-50 ml-5">
-                      <span className="cover-border"></span>
-                      <label className="label">Charge amount</label>
-                      <div className="">
-                        <input
-                          type="text"
-                          className="input-field"
-                          placeholder="Enter amount"
-                        />
-                        <span className="dollar"></span>
-                      </div>
-                    </div>
-                  </div>
-
-                  
-
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="gray-box2">
-          <div className="session">
-            <h3 className="info">Reminders</h3>
-          </div>
-
-          <div className="container-fluid register-form">
-            <div className="form">
-              <div className="form-content">
-                <div className="row">
-                  <div className="col-md-4">
-                    <p className="text1 mb-4">for Hosts prior to start of Session</p>
-                    <div className="form-group mt-2">
-                      <span className="cover-border"></span>
-                      <label className="label">Enter a value in Minutes</label>
-                      <input type="text" className="input-field" />
-                      <span className="clock-icon"></span>
-                    </div>
-                    <p className="text1 mb-4">Sign up Cut off Date/Time</p>
-                    <div className="form-group mt-2">
-                      <span className="cover-border"></span>
-                      <label className="label">Pick Date/Time</label>
-                      <input
-                        type="text"
-                        className="input-field"
-                        placeholder=""
-                      />
-                      <span className="when-icon"></span>
-                    </div>
-                    
-                  </div>
-                  <div className="col-md-4">
-                    <p className="text1 mb-4">for Participants prior to start of Session</p>
-                    <div className="form-group mt-2">
-                      <span className="cover-border"></span>
-                      <label className="label">Enter a value in Minutes</label>
-                      <input type="text" className="input-field" />
-                      <span className="clock-icon"></span>
-                    </div>
-                    <p className="text1 mb-4">for 'minimum not met'</p>
-                    <div className="form-group mt-2">
-                      <span className="cover-border"></span>
-                      <label className="label">Enter a value in days</label>
-                      <input type="text" className="input-field" />
-                      <span className="clock-icon"></span>
-                    </div>
-                    
-                  </div>
-                  
-
-                  
-
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="p-3 gray-box no-border-radius">
-        <div className="row">
-        <div className="session"><h3 className="info">Privacy during Session</h3></div>
-        <div className="col-md-6">
-              <div className="form-group input-txt">
-              <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider round"></span>
-              </label>
-                <span>Participants allowed to disable DM with others</span>
-              </div>
-              <div className="form-group input-txt">
-                <label className="switch">
-                    <input type="checkbox" />
-                    <span className="slider round"></span>
-                </label>
-                <span>Show Participants picture to other Participants?</span>
-                
-              </div>
-              
-            </div>
-            <div className="col-md-6">
-            <div className="form-group input-txt">
-                <label className="switch">
-                    <input type="checkbox" />
-                    <span className="slider round"></span>
-                </label>
-                <span>Allow Participants to pick their own playlist?</span>
-                
-              </div>
-            </div>
-        </div>
-        </div>
-        <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info">Groups</h3></div>
-          <div className="col-md-6">
-              <div className="form-group input-txt">
-              <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider round"></span>
-              </label>
-                <span>Allow Groups at a Location?</span>
-              </div>
-              
-              
-            </div>
-        </div>
-        <div className="pb-4">
-          <div className="session"><h3 className="info">Select Host(s)</h3></div>
-          <div className="p-3">
-          <div className="row">
-            <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing hosts</a>
-            </div>
-            <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Host</a>
-            </div>
-          </div>
-          </div>
-          
-        </div>
-        <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info">Script</h3></div>
-          <div className="row">
-            <div className="col-md-5">
-              <span className="white-text">Start next activity?</span>
-              <a href="#" className="btn btn-primary text-uppercase mr-2">automatic</a>
-              <a href="#" className="btn btn-outline-secondary text-uppercase">manual</a>
-            </div>
-            <div className="col-md-3">
-              <div className="form-group">
-                  <span className="cover-border"></span>
-                  <label className="label">Pick Emojis</label>
-                  <input
-                    type="text"
-                    className="input-field"
-                    placeholder="Pick a date and time"
-                  />
-                  <span className="when-icon"></span>
-                </div>
-            </div>
-            <div className="col-md-4">
-              <div className="form-group input-txt">
-                <label className="switch">
-                    <input type="checkbox" />
-                    <span className="slider round"></span>
-                </label>
-                <span>Use Heart Rate Monitor</span>
-              </div>
-              <div className="form-group input-txt">
-                <label className="switch">
-                    <input type="checkbox" />
-                    <span className="slider round"></span>
-                </label>
-                <span>Use Zone Tracking</span>
-              </div>
-            </div>
-          </div>
-          <div className="p-3">
-            <h3 className="main-heading">Activities</h3>
-            <table className="table text-gray activity-table">
-              <thead>
-                <tr>
-                  <th>Activity name</th>
-                  <th>Activity Type</th>
-                  <th>Duration Type</th>
-                  <th>Count</th>
-                  <th>Video</th>
-                  <th>Target BPM</th>
-                  <th>Target Zone</th>
-                  <th>&nbsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Jumping</td>
-                  <td>Warm Up</td>
-                  <td>Time</td>
-                  <td>30 sec</td>
-                  <td>NA</td>
-                  <td>88 bpm</td>
-                  <td>67%</td>
-                  <td className="d-flex justify-content-center">
-                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
-                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
-                  </td>
-                </tr>
-                
-              </tbody>
-            </table>
-          </div>
-          <div className="p-3 activity-form mt-2">
-            <div className="border-bottom">
-              <div className="row">
-
-              
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Activity name</label>
-                    <input type="text" className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Activity type</label>
-                    <select
-                        className="input-field"
-                        id="exampleFormControlSelect1"
-                      >
-                        <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <span className="dropdown-icon"></span>
-                  </div>
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Duration type</label>
-                    <select
-                        className="input-field"
-                        id="exampleFormControlSelect1"
-                      >
-                        <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <span className="dropdown-icon"></span>
-                  </div>
-              </div>
-              <div className="col-md-1">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Count</label>
-                    <input type="text" className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-1">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Video</label>
-                    <input type="text" placeholder="browse" className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Target BPM</label>
-                    <input type="text" className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Target Zone</label>
-                    <input type="text" className="input-field" />
-                  </div>
-                  
-              </div>
-            </div>
-            </div>
-          </div>
-          <a href="#" className="activity-link pl-3"><span>+</span> Activity</a>
-        </div>
-        <div className="gray-box no-border-radius pb-2">
-          <div className="session"><h3 className="info">Shopping List</h3></div>
-          <div className="p-3">
-            <div className="row">
-              <div className="col-md-4">
-                  <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
-              </div>
-              <div className="col-md-4">
-                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="row mt-5">
-            <div className="col-md-4">
-            <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">item Name</label>
-                      <input type="text" className="input-field" />
-                    </div>
-            </div>
-            <div className="col-md-3">
-            <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Quantity</label>
-                      <input type="text" className="input-field" />
-                    </div>
-            </div>
-            <div className="col-md-4">
-            <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Item  notes</label>
-                      <input type="text" className="input-field" />
-                    </div>
-            </div>
-            <div className="col-md-1">
-              <a href="#" className="bg-circle mt-3"><i className="fa fa-minus" aria-hidden="true"></i></a>
-            </div>
-          </div>
-          
-        </div>
-        <div className="gray-box2 no-border-radius">
-          <div className="session"><h3 className="info">Equipment List</h3></div>
-          <div className="p-3">
-            <div className="row">
-              <div className="col-md-4">
-                  <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
-              </div>
-              <div className="col-md-4">
-                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
-              </div>
-            </div>
-          </div>
-          <div className="p-3">
-          <div className="row mt-5 pb-4">
-            <div className="col-md-4">
-            <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">item Name</label>
-                      <input type="text" className="input-field" />
-                    </div>
-            </div>
-            <div className="col-md-3">
-            <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Quantity</label>
-                      <input type="text" className="input-field" />
-                    </div>
-            </div>
-            
-            <div className="col-md-1">
-              <a href="#" className="bg-circle mt-3"><i className="fa fa-minus" aria-hidden="true"></i></a>
-            </div>
-          </div>
-          </div>
-        </div>
-        <a href="#" className="save-btn btn btn-primary my-5 mx-auto">Save</a>
-        <div className="modal" id="myModal">
-    <div className="modal-dialog dialogwidth">
-      <div className="modal-content modalbg">
-      
-        <div className="modal-header headerborder">
-          <h4 className="modal-title white">Pick a Product</h4>
-          <button type="button" class="close white" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <div className="modal-body ">
-         <div className="card cardbg">
-  <article className="card-group-item">
-    <div className="filter-content">
-      <div className="card-body ">
-      <form>
-        <label className="form-check labelborder">
-         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Mersedes Benz
-          </span>
-        </label> 
-        <label className="form-check labelborder">
-          <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Nissan Altima
-          </span>
-        </label>  
-        <label className="form-check labelborder">
-         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Another Brand
-          </span>
-        </label>  
-      </form>
-
-      </div> 
-    </div>
-  </article> 
-  
-  
-</div> 
-        </div>
-        
-        <div className="modal-footer footerborder">
-          
-        </div>
-        
-      </div>
-      
-    </div>
-  </div>
-  
-
-  <div className="modal" id="myModal2">
-    <div className="">
-      <div className="modal-content equipmodalbg">
-      
-        <div className="modal-header headerborder">
-          <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
-          <h4 className="modal-title white">Pick from existing Equipments list</h4>
-          <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <div className="modal-body ">
-         <div className="card cardbg">
-                
-                
-                <div className="searchbar">
-                  <input type="text" className="searchbarinput" placeholder="Search for Equipment"/>
-                  <button className="inputbtn" type="button">
-                     
-                  </button>
-                </div>
-
-
-                <div className="checkboxdiv">
-                      <div className="mt-4"></div>
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Vestibulum rutrum qu.</span>
-                      </label>
-
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Nam dapibus nisl vit.</span>
-                      </label>
-
-                     <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Donec facilisis tort.</span>
-                      </label>
-                </div>
-
-                <div className="row checkboxdiv_3">
-                  <div className="col-md-4">
-                    <label className="custom-control custom-checkbox lebelheight">
-                      <input type="checkbox" className="form-radio"/>
-                      <span className="checktxt">Curabitue lobortis.</span>
-                    </label>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
-                  </div>
-                </div>
-
-                
-                <div className="checkboxdiv_2">
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Donec facilisis to.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Vestibulum rutrum.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Nam dapibus nisl vit.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Fusce vehicula dolor.</span>
-                </label>
-
-        </div>
-         
-        </div>
-        
-       </div>
-      </div>
-       <div className="donebg"><button type="button" className="done">Done</button></div>
-
-    </div>
-  </div>
- 
-
-  <div className="modal" id="myModal3">
-    <div className="">
-      <div className="modal-content equipmodalbg">
-      
-        <div className="modal-header headerborder">
-          <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
-          <h4 className="modal-title white">Pick from existing Shopping list</h4>
-          <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <div className="modal-body ">
-         <div className="card cardbg">
-                
-                
-                <div className="searchbar">
-                  <input type="text" className="searchbarinput" placeholder="Search for Equipment"/>
-                  <button className="inputbtn" type="button">
-                     
-                  </button>
-                </div>
-
-
-                <div className="checkboxdiv">
-                      <div className="mt-4"></div>
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Nam dapibus nisl vit.</span>
-                      </label>
-
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Donec facilisis tort.</span>
-                      </label>
-
-                     <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">In hac habitasse pla.</span>
-                      </label>
-                </div>
-
-                <div className="row checkboxdiv_3">
-                  <div className="col-md-4">
-                    <label className="custom-control custom-checkbox lebelheight">
-                      <input type="checkbox" className="form-radio"/>
-                      <span className="checktxt">In hac habitasse pla.</span>
-                    </label>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
-                  </div>
-                  <div className="col-md-5">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item Notes"/></div>
-                  </div>
-                </div>
-
-                
-                <div className="checkboxdiv_2">
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Mauris non tempor qu.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <div className="row checkboxdiv_3">
-                  <div className="col-md-4">
-                    <label className="custom-control custom-checkbox lebelheight">
-                      <input type="checkbox" className="form-radio"/>
-                      <span className="checktxt">Donec facilisis tort.</span>
-                    </label>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
-                  </div>
-                  <div className="col-md-5">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item UOM"/></div>
-                  </div>
-                </div>
-
-        </div>
-         
+        ))}
         </div>
         
        </div>
@@ -1882,17 +1653,17 @@ componentDidMount(){
     Pick a product
   </button>
 
-  <div class="modal" id="allprevsession">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <div className="modal" id="allprevsession">
+  <div className="modal-dialog">
+    <div className="modal-content">
 
-      <div class="modal-header">
-        <h4 class="modal-title">Session List</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div className="modal-header">
+        <h4 className="modal-title">Session List</h4>
+        <button type="button" className="close" data-dismiss="modal">&times;</button>
       </div>
 
 
-      <div class="modal-body">
+      <div className="modal-body">
 
 
              <table className="table">
@@ -1919,10 +1690,33 @@ componentDidMount(){
     </div>
   </div>
 </div>  
+
+<div className="modal" id="calenderModel">
+  <div className="modal-dialog">
+    <div className="modal-content">
+
+      <div className="modal-header">
+        <h4 className="modal-title">Select Duration</h4>
+        <button type="button" className="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <div className="modal-body">
+      <h3>Calender</h3>
+      <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
+         </div>
+
+
+      {/* <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> */}
+
+    </div>
+  </div>
+</div>  
       </div>
     );
   }
 }
 
 export default Header;
->>>>>>> 052e2c753a6583c80eae62cbc5501b7f2b61ed29
