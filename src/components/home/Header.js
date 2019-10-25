@@ -5,7 +5,8 @@ import uniqueId from 'lodash/uniqueId';
 import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
-
+//import $ from 'jquery';
+//import DateTimeField from "react-bootstrap-datetimepicker";
 
 class Header extends Component {
   
@@ -18,7 +19,7 @@ class Header extends Component {
         session_details:'',
         //////////Calender /////////////
         startDate, // Today
-        endDate: new Date(startDate).setDate(date.getDate() ), // Today + 6 days
+        endDate: '', // Today + 6 days
         //////////header state////////
         totalViews : '',
         weeklyAttendance:'',
@@ -179,9 +180,17 @@ componentDidMount(){
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
 onChange = (startDate, endDate) => {
-this.setState({ startDate, endDate ,when : new Date (this.state.startDate).toUTCString()},
+  let dt = new Date(startDate).toUTCString();
+
+  console.log(typeof(startDate),'dt==',dt.split('GMT'));
+  dt = dt.split('GMT')
+  this.setState({ startDate, endDate },
 ()=>console.log('sds',this.state.startDate,this.state.endDate))
-let dt = new Date(this.state.startDate);
+
+
+this.setState({
+  when : dt[0]
+},()=>console.log('Duration ===================================>',this.state.when))
 console.log('*****************',dt);
 }
 ////////set header
@@ -348,7 +357,7 @@ addToShoppingList = () => {
         console.log('Search ****************************Update');
       } else { // new insertion
         console.log('Search ******************************new insertion');
-        if((this.state.shoppingList[i].type==true) && (this.state.shoppingList[i].Quantity>0)){
+        if((this.state.shoppingList[i].type===true) && (this.state.shoppingList[i].Quantity>0)){
           let ka = this.state.shoppingList1;
           ka.push(this.state.shoppingList[i]);
           console.log(i,'>>>>>>>>>>>>>>>>>>>>',ka);
@@ -404,7 +413,20 @@ handleSelect = (e) => {
       //if(e.target.value===''){equipmentContainer[e.target.id].Quantity = 0}
     } 
   else {
+    let arrayCheck = [];
     equipmentContainer[e.target.id].Quantity = 0;
+    if(this.state.equipmentList1.length>0){
+      this.state.equipmentList1.map((row,i)=>{
+        if(row.name === equipmentContainer[e.target.id].name){
+          arrayCheck = this.state.equipmentList1;
+          arrayCheck[i].Quantity = 0;
+          arrayCheck[i].type = equipmentContainer[e.target.id].type;
+          this.setState({
+            equipmentList1 : arrayCheck 
+          },()=> console.log('check or uncheck equipmentList', this.state.equipmentList1))
+        }
+      })
+    }
   }
   this.setState({
     equipmentList : equipmentContainer,
@@ -415,12 +437,19 @@ handleSelect = (e) => {
 }
 addToEquipmentList = () => {
   console.log(this.state.searchEquipment,'****************************************************',this.state.duplicateList);
+  let addToEquipmentListArray = [];
+  let ka = [];
   if((this.state.duplicateList.length > 0 && this.state.equipmentList.length>0) && this.state.searchEquipment !== "" ){
   console.log('Search part');
   let x =0 ,n=0;
   this.state.duplicateList.map((row,i) => {
     if(row.name === this.state.equipmentList[0].name){
-      this.state.duplicateList[i].Quantity=this.state.equipmentList[0].Quantity  
+      //this.state.duplicateList[i].Quantity=this.state.equipmentList[0].Quantity  ;
+      addToEquipmentListArray = this.state.duplicateList;
+      addToEquipmentListArray[i].Quantity=this.state.equipmentList[0].Quantity  ;
+      this.setState({
+        duplicateList : addToEquipmentListArray
+      })
     console.log(this.state.duplicateList,'matched*********************',this.state.equipmentList);  
     }
   })
@@ -432,12 +461,17 @@ addToEquipmentList = () => {
     
    }
   }
-  if(x==1){
-    this.state.equipmentList1[n].Quantity=this.state.equipmentList[0].Quantity // update
+  if(x===1){
+    //this.state.equipmentList1[n].Quantity=this.state.equipmentList[0].Quantity // update
+    addToEquipmentListArray = this.state.equipmentList1; 
+    addToEquipmentListArray[n].Quantity=this.state.equipmentList[0].Quantity // update
+    this.setState({
+      equipmentList1:addToEquipmentListArray
+    })
   } 
   else { // new insertion
         console.log('Search ---------------new insertion');
-        if((this.state.equipmentList[0].type==true) && (this.state.equipmentList[0].Quantity>0)){
+        if((this.state.equipmentList[0].type===true) && (this.state.equipmentList[0].Quantity>0)){
         this.setState({
           equipmentList1:this.state.equipmentList1.concat(this.state.equipmentList)
           });
@@ -453,23 +487,33 @@ addToEquipmentList = () => {
   for (let i=0;i<this.state.equipmentList.length;i++) {
     x=0;n=0;
     for(let l=0;l<this.state.equipmentList1.length;l++){
-      if((this.state.equipmentList[i].name==this.state.equipmentList1[l].name)){
+      if((this.state.equipmentList[i].name===this.state.equipmentList1[l].name)){
         x=1;n=l;
-        this.state.equipmentList1[n].Quantity=this.state.equipmentList[i].Quantity ;// default 0 qunatity will not populate list
-        this.state.equipmentList1[n].type = this.state.equipmentList[i].type;
+        //this.state.equipmentList1[n].Quantity=this.state.equipmentList[i].Quantity ;// default 0 qunatity will not populate list
+        //this.state.equipmentList1[n].type = this.state.equipmentList[i].type;
+        addToEquipmentListArray = this.state.equipmentList1;
+        addToEquipmentListArray[n].Quantity=this.state.equipmentList[i].Quantity ;// default 0 qunatity will not populate list
+        addToEquipmentListArray[n].type = this.state.equipmentList[i].type;
+        this.setState({
+          equipmentList1 : addToEquipmentListArray
+        }, ()=> console.log('!!!!!!!!!!!!!!!!!!!!!!!! update euipment List',this.state.equipmentList1 ))  
       }
     }
-    if(x==1){ // update
+    if(x===1){ // update
       console.log('Search ****************************Update');
       // this.state.equipmentList1[n].Quantity=this.state.equipmentList[i].Quantity ;// default 0 qunatity will not populate list
       // this.state.equipmentList1[n].type = this.state.equipmentList[i].type;
     } else { // new insertion
       console.log('Search ******************************new insertion');
-      if((this.state.equipmentList[i].type==true) && (this.state.equipmentList[i].Quantity>0))
+      if((this.state.equipmentList[i].type===true) && (this.state.equipmentList[i].Quantity>0)){
      // n = this.state.equipmentList[n];
+     ka = [];
+     ka = this.state.equipmentList1;
+     ka.push(this.state.equipmentList[i]);
       this.setState({
-        equipmentList1:this.state.equipmentList1.concat(this.state.equipmentList[i])
+        equipmentList1:ka
         },()=> console.log(this.state.equipmentList1,'>>>>>>>>>>>>>>>>@index',i,'*****',this.state.equipmentList[i]));
+      }
     }
   }
 }
@@ -1283,7 +1327,7 @@ submitForm = (event) => {
           </div>
           {this.state.equipmentList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!=0)?
-          <div className="p-3">
+          <div className="p-3" key = {i}>
           <div className="row mt-5 pb-4">
             
             <div className="col-md-4">
@@ -1439,7 +1483,7 @@ submitForm = (event) => {
                 </div> */}
                 {/* Pick from existing Shopp */}
               {this.state.equipmentList.map((row,i) => (  
-                <div className="row checkboxdiv_3">
+                <div className="row checkboxdiv_3" key = {i}>
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
@@ -1553,7 +1597,7 @@ submitForm = (event) => {
                       </label>
                 </div> */}
                 {this.state.shoppingList.map((row,i) => (
-                <div className="row checkboxdiv_3">
+                <div className="row checkboxdiv_3" key = {i}>
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
@@ -1597,7 +1641,7 @@ submitForm = (event) => {
                 ))}
                 
                 {this.state.shoppingList.map((row,i) => (
-                <div className="checkboxdiv_2">
+                <div className="checkboxdiv_2" key = {i}>
                
 
                 {/* 
@@ -1704,10 +1748,10 @@ submitForm = (event) => {
       <div className="modal-body">
       <h3>Calender</h3>
       <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
-         </div>
+      {/* <DateTimeField defaultText="Please select a date" />  */}
+    </div>
 
-
-      {/* <div class="modal-footer">
+    {/* <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div> */}
 
