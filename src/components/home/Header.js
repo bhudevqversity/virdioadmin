@@ -6,8 +6,8 @@ import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 //import $ from 'jquery';
-//import DateTimeField from "react-bootstrap-datetimepicker";
-
+// import DeviceInfo from 'react-native-device-info';
+import TimezonePicker from 'react-timezone';
 class Header extends Component {
   
   constructor(props) {
@@ -20,6 +20,11 @@ class Header extends Component {
         //////////Calender /////////////
         startDate, // Today
         endDate: '', // Today + 6 days
+        date: "1990-06-05",
+        format: "YYYY-MM-DD",
+        inputFormat: "DD/MM/YYYY",
+        mode: "date",
+        dateFormat : '',
         //////////header state////////
         totalViews : '',
         weeklyAttendance:'',
@@ -180,18 +185,18 @@ componentDidMount(){
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
 onChange = (startDate, endDate) => {
+  const dateFormat = startDate;
   let dt = new Date(startDate).toUTCString();
-
   console.log(typeof(startDate),'dt==',dt.split('GMT'));
   dt = dt.split('GMT')
-  this.setState({ startDate, endDate },
+  this.setState({ startDate, endDate,dateFormat },
 ()=>console.log('sds',this.state.startDate,this.state.endDate))
 
 
 this.setState({
   when : dt[0]
 },()=>console.log('Duration ===================================>',this.state.when))
-console.log('*****************',dt);
+console.log('*****************',dt,this.state.dateFormat);
 }
 ////////set header
 setHeaderValue=() => {
@@ -606,6 +611,7 @@ submitForm = (event) => {
       sessionName:this.state.session_details,
      // when:this.state.when,
      when:"2019-10-20 15:06:01",
+     start_date : this.state.dateFormat,
       description:this.state.description,
       pick_Duration:this.state.exampleFormControlSelect1,
       pick_Difficulty_level:this.setState.exampleFormControlSelect2,
@@ -699,6 +705,7 @@ submitForm = (event) => {
     let  arr =[];
     let allSessions = '';
     const { startDate, endDate } = this.state;
+    const {date, format, mode, inputFormat} = this.state;
 
     allSessions = this.state.sessions.map((session, idx) => {
        
@@ -1747,14 +1754,19 @@ submitForm = (event) => {
 
       <div className="modal-body">
       <h3>Calender</h3>
-      <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
-      {/* <DateTimeField defaultText="Please select a date" />  */}
+      <ReactLightCalendar  disableDates={date => date <= (new Date().getTime())}  startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+        {/* <TimezonePicker
+      value="Asia/Yerevan"
+      onChange={timezone => console.log('New Timezone Selected:', timezone)}
+      inputProps={{
+        placeholder: 'Select Timezone...',
+        name: 'timezone',
+      }}/> */}
     </div>
 
-    {/* <div class="modal-footer">
+    {/* <div class="modal-footer"> timezone = 'Asia/kolkata'
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div> */}
-
     </div>
   </div>
 </div>  
