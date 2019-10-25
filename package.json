@@ -5,12 +5,19 @@
   "dependencies": {
     "@lls/react-light-calendar": "^2.0.7",
     "axios": "^0.19.0",
+<<<<<<< HEAD
     "expo": "^35.0.0",
+=======
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+>>>>>>> 5c28a84bb26f2877286b474a3ddbeb043b8ebcfa
     "jquery": "^3.4.1",
-    "react": "^16.10.2",
     "react-bootstrap-datetimepicker": "0.0.22",
+<<<<<<< HEAD
     "react-dom": "^16.10.2",
     "react-native-device-info": "^5.0.1",
+=======
+>>>>>>> 5c28a84bb26f2877286b474a3ddbeb043b8ebcfa
     "react-scripts": "3.1.2",
     "react-sortablejs": "^1.5.1",
     "react-timezone": "^2.4.0",
