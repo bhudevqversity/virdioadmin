@@ -20,6 +20,12 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/bootstrap-grid.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+		<link rel="stylesheet" type="text/css" href="assets/slick.css">
+ 	<link rel="stylesheet" type="text/css" href="assets/slick-theme.css">
+	<link href="css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	
 	  <link rel="stylesheet" href="css/custom.css" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -46,8 +52,56 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	  
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+ <script src="assets/slick.js"></script>
+	  
+	  
 
   </body>
+  <script>
+$(document).ready(function(){
+
+$('.slides_inner_part').slick({
+  infinite: true,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  dots:false,
+  autoplay:true,
+  arrows:false,
+  pauseOnHover:true,
+  responsive: [
+		{
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+		arrows:false
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+		arrows:false
+      }
+    }
+	]
+});
+
+});
+</script>
 </html>
