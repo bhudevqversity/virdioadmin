@@ -670,7 +670,7 @@ submitForm = (event) => {
           ]
          } 
          activity_info.push(activity_data);
-         console.log("activity_info",activity_info,'activity_data==================',activity_data);   
+         console.log("------activity_info-----",activity_info,'activity_data========lalit==========',activity_data);   
       }
       const script ={
         scriptHeartRateMonitor:this.state.scriptHeartRateMonitor,
@@ -683,12 +683,12 @@ submitForm = (event) => {
       const equipment_list = {
         equipmentList:this.state.equipmentList
       }
-      console.log("==========================>",activity_info);  
-      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activity_info,reminder,privacy,sessionInformation,groupLocation,script})
-      .then(res => {
-        console.log(res);
-        console.log('================================>',res.data);
-      })
+      console.log("=============lalit=============>",activity_info);  
+      // axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activity_info,reminder,privacy,sessionInformation,groupLocation,script})
+      // .then(res => {
+      //   console.log(res);
+      //   console.log('================================>',res.data);
+      // })
     
     }
 
