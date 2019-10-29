@@ -5,7 +5,7 @@ import uniqueId from 'lodash/uniqueId';
 import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
-//import $ from 'jquery';
+import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class Header extends Component {
@@ -17,6 +17,7 @@ class Header extends Component {
     this.state = {
         sessions: [],
         session_details:'',
+        send_input:'',
         //////////Calender /////////////
         startDate, // Today
         endDate: '', // Today + 6 days
@@ -32,6 +33,7 @@ class Header extends Component {
         description:'',
         minimumParticipants:'',
         maximumParticipants:'',
+        sessionAmount:'',
         exampleFormControlSelect1:'Pick a Duration',
         exampleFormControlSelect2 : 'Pick a Difficulty level',
         heartRateMonitor:true,
@@ -165,6 +167,13 @@ componentDidMount(){
 
         this.setState({
           session_details: res.data.responseData.name,
+          description: res.data.responseData.description,
+          exampleFormControlSelect1: res.data.responseData.duration,
+          minimumParticipants: res.data.responseData.minAttendee,
+          sessionCharge: res.data.responseData.chargeForSession,
+          sessionDlevel: res.data.responseData.level,
+          maximumParticipants: res.data.responseData.maxAttendee,
+          sessionParticipantDisableDM: res.data.responseData.participantDisableDM,
           });
       })
       .catch(err =>{
@@ -601,33 +610,37 @@ handleShareholderNameChange = idx => evt => {
 submitForm = (event) => {
   event.preventDefault();
   var activity_info = [];
-    const sessionInformation ={
+  var activities = [];
+  let input_result=[];
+    const session ={
       channelId: 1006,
-      sessionName:this.state.session_details,
+      name:this.state.session_details,
      // when:this.state.when,
-     when:"2019-10-20 15:06:01",
-      description:this.state.description,
-      pick_Duration:this.state.exampleFormControlSelect1,
-      pick_Difficulty_level:this.setState.exampleFormControlSelect2,
-      minimumParticipants:this.state.minimumParticipants,
-      maximumParticipants:this.state.maximumParticipants,
+     start_date:"2019-10-20 15:06:01",
+     description:this.state.description,
+     duration:this.state.exampleFormControlSelect1,
+      level:this.setState.exampleFormControlSelect2,
+      min_participants:this.state.minimumParticipants,
+      max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
-      sessionCharge:this.state.sessionCharge,
+      session_charge:this.state.sessionCharge,
+      currency:"USD",
+      show_particpants_count:"false",
       amountCharge:this.state.amountCharge
       }
       const reminder = {
-        hostSessionStart:this.state.hostSessionStart,
-        participantSessionStart:this.state.participantSessionStart,
-        signUpDateTime:this.state.signUpDateTime,
-        minimumNotMet:this.state.minimumNotMet
+        host_reminder:this.state.hostSessionStart,
+        participants_reminder:this.state.participantSessionStart,
+        cutoff_date_time:this.state.signUpDateTime,
+        min_participants_not_met:this.state.minimumNotMet
       }
       const privacy ={
-        disableParticipant:this.state.disableParticipant,
-        showParticipant:this.state.showParticipant,
-        allowParticipant:this.state.allowParticipant
+        allow_participants_disable_dm:this.state.disableParticipant,
+        show_part_pic_to_other_part:this.state.showParticipant,
+        allow_participants_pick_playlist:this.state.allowParticipant
       }
-      const groupLocation = {
-        groupLocation : this.state.allowLocation
+      const groups = {
+        allow_group_location : this.state.allowLocation
         }
       // const fitnessActivity = {
       //   fitnessActivity : this.state.tablerows
@@ -669,12 +682,13 @@ submitForm = (event) => {
             }
           ]
          } 
-         activity_info.push(activity_data);
-         console.log("activity_info",activity_info,'activity_data==================',activity_data);   
+         activities.push(activity_data);
+         console.log("activities",activities,'activity_data=======lalit222222===========',activity_data);   
       }
       const script ={
-        scriptHeartRateMonitor:this.state.scriptHeartRateMonitor,
-        scriptZoneTracking:this.state.scriptZoneTracking
+        next_activity : "automatic",
+        heart_rate_monitor:this.state.scriptHeartRateMonitor,
+        zone_tracking:this.state.scriptZoneTracking
 
       }
       const shopping_list ={
@@ -683,12 +697,34 @@ submitForm = (event) => {
       const equipment_list = {
         equipmentList:this.state.equipmentList
       }
-      console.log("==========================>",activity_info);  
-      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activity_info,reminder,privacy,sessionInformation,groupLocation,script})
+   //   console.log("========lalit11111==================>",activity_info);   
+      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script); 
+      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
       .then(res => {
-        console.log(res);
-        console.log('================================>',res.data);
+        //console.log(res);
+
+        this.setState({
+          send_input: res.data,
+          });
+        input_result=this.state.send_input;
+        console.log('=============lallittiwari===================>',input_result);
+
+
+        let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
+      
+        // axios.post("/api/v1/session/create",input_result,{headers : {'Authorization': token}})
+         axios.post("/api/v1/session/create",this.state.send_input)
+         .then(res => {
+   
+           console.log('=============lallittiwari12345===================>',res.data);
+         })
+
       })
+     
+
+     // console.log('=============lallit===================>',input_result);
+
+
     
     }
 
@@ -718,7 +754,7 @@ submitForm = (event) => {
        
       })
 
- console.log('------lalit--------------',this.state.session_details)
+ //console.log('------lalit--------------',this.state.session_details)
 
     return (
 	
@@ -883,7 +919,7 @@ submitForm = (event) => {
                           type="text"
                           className="input-field"
                           id = "amountCharge"
-                          value = {this.state.amountCharge}
+                          value = {this.state.sessionCharge}
                           onChange = {this.sessionInfo}
                           placeholder="Enter amount"
                         />
