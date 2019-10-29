@@ -5,12 +5,14 @@ import uniqueId from 'lodash/uniqueId';
 import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
+//import $ from 'jquery';
+//import DateTimeField from "react-bootstrap-datetimepicker";
+
 class Header extends Component {
   
   constructor(props) {
     super(props);
     const date = new Date();
-    console.log(Intl.DateTimeFormat().resolvedOptions().timeZone,date,'*********',date.getTimezoneOffset(),date.getTime());
     const startDate = date.getTime();
     this.state = {
         sessions: [],
@@ -18,8 +20,6 @@ class Header extends Component {
         //////////Calender /////////////
         startDate, // Today
         endDate: '', // Today + 6 days
-        dateFormat : '',
-        localTimeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
         //////////header state////////
         totalViews : '',
         weeklyAttendance:'',
@@ -180,20 +180,18 @@ componentDidMount(){
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
 onChange = (startDate, endDate) => {
-  const dateFormat = startDate;
   let dt = new Date(startDate).toUTCString();
-  let dt2 = new Date(startDate);
-  // console.log(dt2,new Date (dt2.getTime()).getDate(),new Date (dt2.getTime()).getMonth(),new Date (dt2.getTime()).getFullYear(),new Date (dt2.getTime()).getHours(),new Date (dt2.getTime()).getMinutes(),'============',typeof(startDate),'dt==',dt.split('GMT'));
+
+  console.log(typeof(startDate),'dt==',dt.split('GMT'));
   dt = dt.split('GMT')
-//  endDate = startDate;
-  this.setState({ startDate, endDate,dateFormat },
+  this.setState({ startDate, endDate },
 ()=>console.log('sds',this.state.startDate,this.state.endDate))
 
-dt2 = new Date (dt2.getTime()).getDate()+ '/' +new Date (dt2.getTime()).getMonth()+'/'+new Date (dt2.getTime()).getFullYear() + " " + new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes();
+
 this.setState({
-  when : dt2
+  when : dt[0]
 },()=>console.log('Duration ===================================>',this.state.when))
-console.log('*****************',dt,this.state.dateFormat);
+console.log('*****************',dt);
 }
 ////////set header
 setHeaderValue=() => {
@@ -277,22 +275,6 @@ selectShoppingList =(e)=> {
   else {
     shoppingContainer[e.target.id].Quantity = 0;
     shoppingContainer[e.target.id].itemNote = "X";
-    let arrayCheck = [];
-    //shoppingContainer[e.target.id].Quantity = 0;
-    if(this.state.shoppingList1.length>0){
-      this.state.shoppingList1.map((row,i)=>{
-        if(row.itemName === shoppingContainer[e.target.id].itemName){
-          arrayCheck = this.state.shoppingList1;
-          // arrayCheck[i].Quantity = 0;
-          // arrayCheck[i].type = shoppingContainer[e.target.id].type;
-          // arrayCheck[i].ItemNote = "X";
-          arrayCheck[i] = shoppingContainer[e.target.id];
-          this.setState({
-            shoppingList1 : arrayCheck 
-          },()=> console.log(arrayCheck,'check or uncheck shoppingList', this.state.shoppingList1))
-        }
-      })
-    }
   }
   this.setState({
     shoppingList : shoppingContainer,
@@ -331,133 +313,61 @@ setShoppingList = (e) =>{
   }
 }
 addToShoppingList = () => {
-  
-  // let duplicateShoppingListArray =this.state.duplicateShoppingList;
-  //   let x,n ;
-  //   // checking for new insertion or update
-  //   let shoppingArray = this.state.shoppingList1;
-  //   for (let i=0;i<this.state.shoppingList.length;i++) {
-  //     if(duplicateShoppingListArray.length>0){
-  //     this.state.duplicateShoppingList.map((row,i) => {
-  //       if(row.itemName === this.state.shoppingList[0].itemName){
-  //         duplicateShoppingListArray[i].Quantity=this.state.shoppingList[0].Quantity ;
-  //         duplicateShoppingListArray[i].itemNote = this.state.shoppingList[0].itemNote;
-  //         this.setState({
-  //           duplicateShoppingList : duplicateShoppingListArray
-  //         });
-  //       console.log(this.state.duplicateShoppingList,'matched*********************',this.state.shoppingList);  
-  //       }
-  //     })
-  //   }
-  //     x=0;n=0;
-  //     for(let l=0;l<this.state.shoppingList1.length;l++){
-  //       if((this.state.shoppingList[i].itemName===this.state.shoppingList1[l].itemName)){
-  //         x=1;n=l;
-  //         shoppingArray[n].Quantity=this.state.shoppingList[i].Quantity ;// default 0 qunatity will not populate list
-  //         shoppingArray[n].type = this.state.shoppingList[i].type;
-  //         shoppingArray[n].itemNote = this.state.shoppingList[i].itemNote;
-  //       this.setState({
-  //         shoppingList1 : shoppingArray
-  //       },()=> console.log('============>',this.state.shoppingList1))
-  //       }
-  //     }
-  //     if(x===1){ // update
-  //       console.log('Search ****************************Update');
-  //     } else { // new insertion
-  //       console.log('Search ******************************new insertion');
-  //       if((this.state.shoppingList[i].type===true) && (this.state.shoppingList[i].Quantity>0)){
-  //         let ka = this.state.shoppingList1;
-  //         ka.push(this.state.shoppingList[i]);
-  //         console.log(i,'>>>>>>>>>>>>>>>>>>>>',ka);
-  //        this.setState({
-  //          shoppingList1:ka
-  //        },()=>console.log(this.state.shoppingList1,'-------------------',this.state.shoppingList))
-  //     }
-  //   }
-  //   }
-  console.log(this.state.shoppingListValue,'****************************************************',this.state.duplicateShoppingList);
-  let addToShoppingListArray = [];
-  let ka = [];
-  if((this.state.duplicateShoppingList.length > 0 && this.state.shoppingList.length>0) && this.state.shoppingListValue !== "" ){
-  console.log('Search part');
-  let x =0 ,n=0;
-  this.state.duplicateShoppingList.map((row,i) => {
-    if(row.itemName === this.state.shoppingList[0].itemName){
-      //this.state.duplicateList[i].Quantity=this.state.equipmentList[0].Quantity  ;
-      addToShoppingListArray = this.state.duplicateShoppingList;
-      addToShoppingListArray[i].Quantity=this.state.shoppingList[0].Quantity;
-      addToShoppingListArray[i].itemNote=this.state.shoppingList[0].itemNote;
-      this.setState({
-        duplicateShoppingList : addToShoppingListArray
-      })
-    console.log(this.state.duplicateShoppingList,'matched*********************',this.state.shoppingList);  
-    }
-  })
-  // checking for new insertion or update
-  for(let i =0;i<this.state.shoppingList1.length;i++){
-    if(this.state.shoppingList1[i].itemName === this.state.shoppingList[0].itemName){
-      x=1;n=i;
-      console.log('Search ---------------Update');
-    
-   }
-  }
-  if(x===1){
-    //this.state.equipmentList1[n].Quantity=this.state.equipmentList[0].Quantity // update
-    addToShoppingListArray = this.state.shoppingList1; 
-    addToShoppingListArray[n].Quantity=this.state.shoppingList[0].Quantity; // update
-    addToShoppingListArray[n].ItemNote=this.state.shoppingList[0].ItemNote;
-    this.setState({
-      shoppingList1:addToShoppingListArray
-    })
-  } 
-  else { // new insertion
-        console.log('Search ---------------new insertion');
-        if((this.state.shoppingList[0].type===true) && (this.state.shoppingList[0].Quantity>0)){
-        this.setState({
-          shoppingList1:this.state.shoppingList1.concat(this.state.shoppingList)
+  // this.setState({
+  //   shoppingList1: []
+  // }, function() { // called by React after the state is updated
+  //   this.setState({
+  //     shoppingList1:this.state.equipmentList1.concat(this.state.shoppingList)
+  //   });
+  // },()=> console.log(this.state.shoppingList,'Add To equipmentlist====>',this.state.shoppingList1));
+  // else {
+  //   this.setState({
+  //     duplicateList : []
+  //   })
+  let duplicateShoppingListArray =this.state.duplicateShoppingList;
+    let x,n ;
+    // checking for new insertion or update
+    let shoppingArray = this.state.shoppingList1;
+    for (let i=0;i<this.state.shoppingList.length;i++) {
+      if(duplicateShoppingListArray.length>0){
+      this.state.duplicateShoppingList.map((row,i) => {
+        if(row.itemName === this.state.shoppingList[0].itemName){
+          duplicateShoppingListArray[i].Quantity=this.state.shoppingList[0].Quantity ;
+          duplicateShoppingListArray[i].itemNote = this.state.shoppingList[0].itemNote;
+          this.setState({
+            duplicateShoppingList : duplicateShoppingListArray
           });
-      }
-  }
-
-} else {
-  this.setState({
-    duplicateShoppingList : []
-  })
-  let x,n ;
-  // checking for new insertion or update
-  for (let i=0;i<this.state.shoppingList.length;i++) {
-    x=0;n=0;
-    for(let l=0;l<this.state.shoppingList1.length;l++){
-      if((this.state.shoppingList[i].itemName===this.state.shoppingList1[l].itemName)){
-        x=1;n=l;
-        addToShoppingListArray = this.state.shoppingList1;
-        console.log(this.state.shoppingList1,'++++++++++++++++++++++',addToShoppingListArray);
-        // addToShoppingListArray[n].Quantity=this.state.shoppingList[i].Quantity ;// default 0 qunatity will not populate list
-        // addToShoppingListArray[n].type = this.state.shoppingList[i].type;
-        // addToShoppingListArray[n].ItemNote = this.state.shoppingList[i].itemNote;
-        addToShoppingListArray[n] =this.state.shoppingList[i];
+        console.log(this.state.duplicateShoppingList,'matched*********************',this.state.shoppingList);  
+        }
+      })
+    }
+      x=0;n=0;
+      for(let l=0;l<this.state.shoppingList1.length;l++){
+        if((this.state.shoppingList[i].itemName===this.state.shoppingList1[l].itemName)){
+          x=1;n=l;
+          shoppingArray[n].Quantity=this.state.shoppingList[i].Quantity ;// default 0 qunatity will not populate list
+          shoppingArray[n].type = this.state.shoppingList[i].type;
+          shoppingArray[n].itemNote = this.state.shoppingList[i].itemNote;
         this.setState({
-          shoppingList1 : addToShoppingListArray
-        }, ()=> console.log(addToShoppingListArray,'!!!!!!!!!!!!!!!!!!!!!!!! update euipment List',this.state.shoppingList1 ))  
+          shoppingList1 : shoppingArray
+        },()=> console.log('============>',this.state.shoppingList1))
+        }
+      }
+      if(x===1){ // update
+        console.log('Search ****************************Update');
+      } else { // new insertion
+        console.log('Search ******************************new insertion');
+        if((this.state.shoppingList[i].type===true) && (this.state.shoppingList[i].Quantity>0)){
+          let ka = this.state.shoppingList1;
+          ka.push(this.state.shoppingList[i]);
+          console.log(i,'>>>>>>>>>>>>>>>>>>>>',ka);
+         this.setState({
+           shoppingList1:ka
+         },()=>console.log(this.state.shoppingList1,'-------------------',this.state.shoppingList))
       }
     }
-    if(x===1){ // update
-      console.log('Search ****************************Update');
-    } else { // new insertion
-      console.log('Search ******************************new insertion');
-      if((this.state.shoppingList[i].type===true) && (this.state.shoppingList[i].Quantity>0)){
-     // n = this.state.equipmentList[n];
-     ka = [];
-     ka = this.state.shoppingList1;
-     ka.push(this.state.shoppingList[i]);
-      this.setState({
-        shoppingList1:ka
-        },()=> console.log(this.state.shoppingList1,'>>>>>>>>>>>>>>>>@index',i,'*****',this.state.shoppingList[i]));
-      }
     }
-  }
-}
-
+  //}
 
 }
 findListIndex =(listItem) =>{
@@ -473,7 +383,7 @@ findShoppingList = (listItem) => {
     return listItem};
 }
 removeShoppingList = (e) => {
-  console.log('=====================================',e.target.id);
+  console.log('=====================================',e.target);
   console.log(e.target.value);
   var dataArray1 =  this.state.shoppingList;
  // dataArray1[e.target.id].type = !this.state.shoppingList.filter(this.findListIndex).type;
@@ -482,13 +392,8 @@ removeShoppingList = (e) => {
     // console.log('this.state.shoppingList.filter(this.findListIndex)',this.state.shoppingList.filter(this.findListIndex));
    this.state.shoppingList.map((row,i) => {
       if(row.itemName === this.state.shoppingList1[e.target.id].itemName){
-      dataArray1[i].type=!dataArray1[i].type  ;
-      dataArray1[i].itemNote= "X";
-      
-      console.log('XXXXXXXXXXXXXXXXXXXXXXxx',dataArray1[i]);
-      dataArray1[i].Quantity = 0;
-      
-      console.log('matched*********************',dataArray1[i]);  
+      dataArray1[i].type=!dataArray1[i].type  
+      console.log('matched*********************',dataArray1);  
       }
     })
     var dataArray = this.state.shoppingList1;
@@ -496,7 +401,7 @@ removeShoppingList = (e) => {
     this.setState({
       shoppingList1:dataArray,
       shoppingList:dataArray1
-    },()=>console.log('******Remove**********',this.state.shoppingList1))
+    },()=>console.log('****************',this.state.shoppingList))
   }
 ////////////////Equipment List
 handleSelect = (e) => {
@@ -701,7 +606,6 @@ submitForm = (event) => {
       sessionName:this.state.session_details,
      // when:this.state.when,
      when:"2019-10-20 15:06:01",
-     start_date : this.state.dateFormat,
       description:this.state.description,
       pick_Duration:this.state.exampleFormControlSelect1,
       pick_Difficulty_level:this.setState.exampleFormControlSelect2,
@@ -795,7 +699,6 @@ submitForm = (event) => {
     let  arr =[];
     let allSessions = '';
     const { startDate, endDate } = this.state;
-    // const {date, format, mode, inputFormat} = this.state;
 
     allSessions = this.state.sessions.map((session, idx) => {
        
@@ -818,6 +721,8 @@ submitForm = (event) => {
  console.log('------lalit--------------',this.state.session_details)
 
     return (
+	
+	
       <div className="container-fluid">
         <div className="row top-header p-4">
           <div className="col-lg-2 d-flex d-md-block justify-content-center p-2">
@@ -1380,7 +1285,7 @@ submitForm = (event) => {
           </div>
           {this.state.shoppingList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!=0) && (listInsertion.itemNote!="X")?
-          <div className="row mt-5" key = {i}>
+          <div className="row mt-5">
             <div className="col-md-4">
             <div className="form-group">
                       <span className="cover-border"></span>
@@ -1719,14 +1624,14 @@ submitForm = (event) => {
                     <div  className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.Quantity}
+                    value={this.state.shoppingList.Quantity}
                     onChange={this.handleShoppingQuantity(i)}
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
                     <div  className="col-md-5" className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.itemNote}
+                    value={this.state.shoppingList.itemNote}
                     onChange={this.handleShoppingitemNote(i)}
                     className="input-field-2" 
                     placeholder="item Note"/></div>
@@ -1843,15 +1748,15 @@ submitForm = (event) => {
 
 
       <div className="modal-body">
-      <h3>Calender{this.state.localTimeZone}</h3>
-      <ReactLightCalendar timezone = {this.state.localTimeZone}  
-      disableDates={date => date <= (new Date().getTime())}  
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
-       </div>
+      <h3>Calender</h3>
+      <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
+      {/* <DateTimeField defaultText="Please select a date" />  */}
+    </div>
 
-    {/* <div class="modal-footer"> timezone = 'Asia/kolkata'
+    {/* <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div> */}
+
     </div>
   </div>
 </div>  
