@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 import React, { Component } from "react";
 import axios from "axios";
 import uniqueId from 'lodash/uniqueId';
@@ -3546,4 +3544,3 @@ submitForm = (event) => {
 }
 
 export default Header;
->>>>>>> 090909b36416223154d808595dc0d433f3096e5c

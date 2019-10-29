@@ -431,7 +431,7 @@ a.act:before
 {
 	flex-basis: 37%;
 }
-.lower_inner_text
+.upper_inner_text
 {
 	flex-basis: 63%;
 }
