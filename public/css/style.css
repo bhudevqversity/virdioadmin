@@ -811,7 +811,7 @@ a.act:before
 	position: absolute;
 	content: "";
 	left: 50%;
-	bottom: -20px;
+	bottom: -36px;
 	transform: translateX(-50%);
 	background-color: #bd00ff;
 	width: 99%;
@@ -894,6 +894,72 @@ div.overflow-hidden p:nth-child(1):after
     color: #bd00ff;
 
 }
+
+/*---------session wine creation page CSS----------------*/
+
+.emojis-dialogwidth
+{
+	max-width: 800px !important;
+}
+.card.cardbg span img
+{
+	width: 30px;
+}
+#pick_emojis_modal .modal-header
+{
+	position: relative;
+	border-bottom: none;
+}
+#pick_emojis_modal .modal-header:after
+{
+	content: "";
+	position: absolute; 
+	bottom: 0;
+	width: 95%;
+	height: 1px;
+	background-color: #414141;
+	transform: translateX(-50%);
+	left: 50%;
+
+}
+
+#pick_emojis_modal .col-md-4:after
+{
+	content: "";
+	position: absolute; 
+	top: 0;
+	right: 0;
+	width: 1px;
+	height: 100%;
+	background-color: #414141;
+}
+#pick_emojis_modal .col-md-4:nth-child(3):after
+{
+	display: none;
+}
+#pick_emojis_modal .modal-content
+{
+	background-color: transparent;
+}
+#pick_emojis_modal button.btn-primary
+{
+	border-radius: 40px;
+	background-color: rgba(189,0,255,0.7) !important;
+	border: none;
+	cursor: pointer;
+}
+#pick_emojis_modal button.btn-primary:focus
+{
+	outline: none;
+}
+#pick_emojis_modal button.close
+{
+	color: rgba(189,0,255,1);
+	text-shadow: none;
+	font-size: 25px;
+	opacity: .8;
+}
+
 /* Responsive Code */
 
 @media(max-width: 900px)

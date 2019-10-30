@@ -1,16 +1,22 @@
 import React, { Component } from "react";
+import axios from "axios";
+import $ from 'jquery';
 
-class HostSession extends Component {
+//import $ from 'jquery';
+//import DateTimeField from "react-bootstrap-datetimepicker";
+
+class SessionWineCreation extends Component {
   
   constructor(props) {
 	super(props);
     
-}//end of Constructor
+}
+
  render() {
 
     return (
 	<div>
-		<div id="root">
+	    <div id="root">
         <div className="App">
             <div className="container-fluid">
                 <div className="row top-header p-4">
@@ -35,7 +41,7 @@ class HostSession extends Component {
                             <div className="header-info-right">
                                 <p>Total Revenue</p>
                                 <h3>$44,000</h3></div><span className="border-right gray-border"></span>
-                                  <div className="message-notification"><img src="images/message.png" />
+                                  <div className="message-notification"><img src="images/message.png" alt="message-icon" />
                               <span className="message-count">2</span></div>
                         </div>
                     </div>
@@ -102,7 +108,7 @@ class HostSession extends Component {
                                                 <input type="checkbox" />
                                                 <span className="slider round"></span>
                                             </label>
-                                            <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" />
+                                            <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" />
 
                                         </div>
 
@@ -132,7 +138,7 @@ class HostSession extends Component {
                 </div>
                 <div className="gray-box2">
                     <div className="session">
-                        <h3 className="info"><img src="images/reminder.png" className="mr-3 mb-2" />Reminders</h3></div>
+                        <h3 className="info"><img src="images/reminder.png" className="mr-3 mb-2" alt="reminder-icon" />Reminders</h3></div>
                     <div className="container-fluid register-form">
                         <div className="form">
                             <div className="form-content">
@@ -165,11 +171,11 @@ class HostSession extends Component {
                 <div className="p-3 gray-box no-border-radius">
                     <div className="row">
                         <div className="session">
-                            <h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" />Privacy during Session</h3></div>
+                            <h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" alt="privacy" />Privacy during Session</h3></div>
                         <div className="col-md-6">
                             <div className="form-group input-txt">
                                 <label className="switch">
-                                    <input type="checkbox" /><span className="slider round"></span></label><span>Participants allowed to disable DM with others</span><img src="images/bulb.png" className="ml-3 mb-2" /></div>
+                                    <input type="checkbox" /><span className="slider round"></span></label><span>Participants allowed to disable DM with others</span><img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" /></div>
                             <div className="form-group input-txt">
                                 <label className="switch">
                                     <input type="checkbox" /><span className="slider round"></span></label><span>Show Participants picture to other Participants?</span></div>
@@ -183,22 +189,22 @@ class HostSession extends Component {
                 </div>
                 <div className="gray-box2">
                     <div className="session">
-                        <h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" />Groups</h3></div>
+                        <h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" alt="team" />Groups</h3></div>
                     <div className="col-md-6 pb-4">
                         <div className="form-group input-txt">
                             <label className="switch">
-                                <input type="checkbox" /><span className="slider round"></span></label><span>Allow Groups at a Location?</span> <img src="images/bulb.png" className="ml-3 mb-2" /></div>
+                                <input type="checkbox" /><span className="slider round"></span></label><span>Allow Groups at a Location?</span> <img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" /></div>
                     </div>
                 </div>
                 <div className="p-3">
                     <div className="session">
-                        <h3 className="info"><img src="images/user.png" className="mr-3 mb-2" />Select Host(s)</h3></div>
+                        <h3 className="info"><img src="images/user.png" className="mr-3 mb-2" alt="user-icon" />Select Host(s)</h3></div>
                     <div className="row pb-4">
                         <div className="col-md-4">
-                            <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing hosts</a>
+                            <a href="#" className="pick"><img src="images/picking.png" className="mr-2" alt="pick" /> Pick from existing hosts</a>
                         </div>
                         <div className="col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Host</a>
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add a new Host</a>
                         </div>
                     </div>
                 </div>
@@ -206,36 +212,64 @@ class HostSession extends Component {
                     <div className="session px-3">
                         <h3 className="info myheading"><img src="images/msg.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
                     </div>
-                    
+                    <div className="px-3 pb-0 mt-2 add_wine_expand">
+                        <div className="row mt-5">                        
+                            <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
+                                <div className="form-group mb-0" data-toggle="modal" data-target="#myModal"><span className="cover-border"></span>
+                                    <label className="label">Pick a Wine</label>
+                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
+                            <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
+                              <div className="form-group mb-0" data-toggle="modal" data-target="#pick_emojis_modal"><span className="cover-border"></span>
+                                    <label className="label">Pick Emojis (opotional)</label>
+                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
+                            <div className="col-lg-2 col-md-6 mt-3 mt-md-0 pl-lg-0">
+                                <div className="d-flex">
+                                   <div className="form-group mb-0 input-txt">
+                                      <label className="switch mr-2">
+                                          <input type="checkbox" />
+                                          <span className="slider round"></span>
+                                      </label>
+                                    </div>
+                                    <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
+                              </div>
+                            </div>                                              
+                        </div>
+                        <div className="border-bottom mt-3"></div>                    
+                    </div>
+                    <div className="px-3 pb-0 mt-2">
                       <div className="row mt-5">
                           <div className="col-lg-3 col-md-4 mt-3 mt-md-0">
                             <p className="hdng">Wine</p>
-                            <p className="hdng1 mr-0 pl-3"><img src="images/eye.png" className="mr-3" />Lacrima Lui Ovidiu 2001</p>
+                            <p className="hdng1 mr-0 pl-3"><img src="images/eye.png" className="mr-3" alt="eye" />Lacrima Lui Ovidiu 2001</p>
                           </div>
                           <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
-                              <p className="hdng mb-2">Appearance</p>
+                              <p className="hdng">Appearance</p>
                               <div className="color-icons pl-3">
-                                <img src="images/cherry.png" className="mr-2" />
-                                <img src="images/burgundy.png" className="mr-2" />
-                                <img src="images/auburn.png" className="mr-2" />
+                                <img src="images/cherry.png" className="mr-2" alt="cherry" />
+                                <img src="images/burgundy.png" className="mr-2" alt="burgundy" />
+                                <img src="images/auburn.png" className="mr-2" alt="auburn" />
                                 <span>...</span>
                               </div>
                           </div>
                           <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
-                              <p className="hdng mb-2">Aroma</p>
+                              <p className="hdng">Aroma</p>
                               <div className="color-icons pl-3">
-                                <img src="images/apple.png" className="mr-2" />
-                                <img src="images/grapes.png" className="mr-2" />
-                                <img src="images/cheese.png" className="mr-2" />
+                                <img src="images/apple.png" className="mr-2" alt="apple" />
+                                <img src="images/grapes.png" className="mr-2" alt="grapes" />
+                                <img src="images/cheese.png" className="mr-2" alt="cheese" />
                                 <span>...</span>
                               </div>
                           </div>
                           <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
-                              <p className="hdng mb-2">Palate</p>
+                              <p className="hdng">Palate</p>
                               <div className="color-icons pl-3">
-                                <img src="images/smily.png" className="mr-2" />
-                                <img src="images/smily.png" className="mr-2" />
-                                <img src="images/smily.png" className="mr-2" />
+                                <img src="images/smily.png" className="mr-2" alt="" />
+                                <img src="images/smily.png" className="mr-2" alt="" />
+                                <img src="images/smily.png" className="mr-2" alt="" />
                                 <span>...</span>
                               </div>
                           </div>
@@ -248,63 +282,86 @@ class HostSession extends Component {
                                   </label>
                                 </div>
                                 <div><span className="hdng p-0">Allow Testers to score</span></div>
-                                <div className="">
+                                <div className="mt-2">
                                   <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
                                 </div>
-                                  <div className="pr-3">
+                                  <div className="pr-3 mt-2">
                                     <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i>
                                     </a>
                                 </div>
                           </div>
                       </div>
                   </div>
-                  <div className="p-3 mt-2">
-                        <div className="border-bottom">
-                        </div>
-                    </div>
-                  <div className="row mt-4">
-                      <div className="col-lg-6 col-md-6 mt-3 mt-md-0">
-                        <p className="hdng">Description</p>
-                        <p className="hdng1 font-18 mr-0 pl-3">In Hac Habitasse platea dictumst. Vivamus adipiscing ferm ...</p>
-                      </div>
-                      <div className="col-lg-3 col-md-6 mt-3 mt-md-0 px-lg-0">
-                          <p className="hdng mb-2">Media Added</p>
-                          <p><a href="#" className="purple_link">www.somelink.com/product</a></p>
-                      </div>
-                      <div className="col-lg-3 col-md-3 mt-3 mt-md-0">
-                          <p className="hdng mb-2">Emogis</p>
-                          <div className="d-">
-                              <div className="color-icons pl-3 float-left">
-                                <img src="images/apple.png" className="mr-2" />
-                                <img src="images/grapes.png" className="mr-2" />
-                                <img src="images/cheese.png" className="mr-2" />
-                                <span>...</span>
-                              </div>
-                              <div className="float-right pr-3">
-                                  <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
-                                  <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                  <div className="border-bottom mt-3"></div>  
+                </div>
+                <div className="p-3 pb-0 mt-2">                    
+                      <div className="row mt-4">
+                          <div className="col-lg-5 col-md-6 mt-3 mt-md-0">
+                            <div className="form-group"><span className="cover-border"></span>
+                                <label className="label">Description</label>
+                                <input type="text" className="input-field" />
+                            </div>
+                          </div>
+                          <div className="col-lg-4 col-md-6 mt-3 mt-md-0 px-lg-0">
+                              <div className="form-group"><span className="cover-border"></span>
+                                    <label className="label">Add Media</label>
+                                    <input type="text" className="input-field" /><span className="browse">Browse</span>
                                 </div>
                           </div>
+                          <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
+                                <div className="form-group"><span className="cover-border"></span>
+                                    <label className="label">Pick Emojis</label>
+                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
                       </div>
-                  </div>
-                    <div className="p-3 mt-2">
-                        <div className="border-bottom">
-                        </div>
+                      <div className="border-bottom"></div>
                     </div>
-                    <a href="#" className="activity-link pl-3"><span>+</span> Wine</a>
-                 <a href="#" className="activity-link pl-3"><span>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" /></div>
+                    <div className="p-3 pb-0">
+                        <div className="row mt-4">
+                          <div className="col-lg-6 col-md-6 mt-3 mt-md-0">
+                            <p className="hdng">Description</p>
+                            <p className="hdng1 font-18 mr-0 pl-3">In Hac Habitasse platea dictumst. Vivamus adipiscing ferm ...</p>
+                          </div>
+                          <div className="col-lg-3 col-md-6 mt-3 mt-md-0 px-lg-0">
+                              <p className="hdng mb-2">Media Added</p>
+                              <p><a href="#" className="purple_link">www.somelink.com/product</a></p>
+                          </div>
+                          <div className="col-lg-3 col-md-3 mt-3 mt-md-0">
+                              <p className="hdng mb-2">Emogis</p>
+                              <div className="overflow-hidden">
+                                  <div className="color-icons pl-3 float-left">
+                                    <img src="images/apple.png" className="mr-2" alt="" />
+                                    <img src="images/grapes.png" className="mr-2" alt="" />
+                                    <img src="images/cheese.png" className="mr-2" alt="" />
+                                    <span>...</span>
+                                  </div>
+                                  <div className="float-right pr-3">
+                                      <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                                      <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="border-bottom mt-3">
+                  </div>
+                    <div className="px-3 pt-3">                    
+                        <a href="#" className="activity-link add_wine"><span>+</span> Wine</a>
+                        <a href="#" className="activity-link ml-5"><span>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" />
+                    </div>
+                </div>
                 <div className="p-3 gray-box no-border-radius">
                     <div className="session">
-                        <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
+                        <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt="shopping" />Shopping List</h3></div>
                     <div className="row">
                         <div className="col-lg-3 col-md-4">
-                            <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+                            <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt="pick" /> Pick from existing list</a>
                         </div>
                         <div className="col-lg-4 col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add all Product from Script</a>
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add all Product from Script</a>
                         </div>
                         <div className="col-lg-3 col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add a new Product</a>
                         </div>
                     </div>
                     <div className="row mt-5">
@@ -331,13 +388,13 @@ class HostSession extends Component {
                 </div>
                 <div className="p-3 gray-box2 no-border-radius">
                     <div className="session">
-                        <h3 className="info"><img src="images/shopping icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
+                        <h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt="shopping" />Equipment List</h3></div>
                     <div className="row">
                         <div className="col-md-4">
-                            <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+                            <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt="pick" /> Pick from existing list</a>
                         </div>
                         <div className="col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add a new item</a>
                         </div>
                     </div>
                     <div className="row mt-5">
@@ -514,11 +571,72 @@ class HostSession extends Component {
             </div>
         </div>
     </div>
-	</div>
-	
-	)//return Close
+    <div className="modal show" id="pick_emojis_modal">
+        <div className="modal-dialog emojis-dialogwidth">
+            <div className="modal-content">
+                <div className="modal-header modalbg">
+                    <h4 className="modal-title white">Assign Emogis</h4>
+                    <button type="button" className="close" data-dismiss="modal">×</button>
+                </div>
+                <form>
+                <div className="modal-body modalbg">
+                    
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label ml-3">APPEARANCE</span></label>                             
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/cherry.png" className="mx-3" alt="" />Cherry</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/burgundy.png" className="mx-3" alt="" />Burgundy</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/auburn.png" className="mx-3" alt="" />Auburn</span></label>                                        
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="audio-type" id="" value="" /><span className="form-check-label ml-3">AROMA</span></label>                             
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" va alt="" lue="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" />Apple</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt=""  />Grapes</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Cheese</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Parmezan</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" alt=""  />Tomatapple</span></label>                                        
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label ml-3">PALATE</span></label>                             
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" alt="" />Example</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt="" />Another</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Few Example</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Non Selected</span></label>                                     
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+                <div className="ooterborder text-center mt-4"><button className="btn-primary" data-dismiss="modal">SELECT</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
 
-}// render Close
+	</div>
+)
+}
 }
 
-export default HostSession;
+export default SessionWineCreation;
