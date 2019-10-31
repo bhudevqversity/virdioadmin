@@ -18,9 +18,14 @@ class Header extends Component {
         sessions: [],
         session_details:'',
         send_input:'',
+        msg:'',
         //////////Calender /////////////
         startDate, // Today
         endDate: '', // Today + 6 days
+        cutoffStartDate:date.getTime(),
+        cutoffEndDate:'',
+        cutoffDateTime:'',
+        localTimeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
         //////////header state////////
         totalViews : '',
         weeklyAttendance:'',
@@ -188,19 +193,50 @@ componentDidMount(){
     }
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
+
+signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
+  const cutoffDateTime = cutoffStartDate;
+  let dt2 = new Date(cutoffStartDate);
+//  cutoffStartDate=cutoffEndDate;
+  this.setState({
+    cutoffStartDate,
+    cutoffEndDate,
+    cutoffDateTime
+  })
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  this.setState({
+  signUpDateTime : dt2
+  },()=>console.log('Duration ===================================>',this.state.when))
+console.log('*****************',this.state.dateFormat);
+}
+
 onChange = (startDate, endDate) => {
-  let dt = new Date(startDate).toUTCString();
 
-  console.log(typeof(startDate),'dt==',dt.split('GMT'));
-  dt = dt.split('GMT')
-  this.setState({ startDate, endDate },
-()=>console.log('sds',this.state.startDate,this.state.endDate))
+  const dateFormat = startDate;
+  // let dt = new Date(startDate).toUTCString();
+  let dt2 = new Date(startDate);
+  // dt = dt.split('GMT')
+//  endDate = startDate;
+  this.setState({ startDate, endDate,dateFormat },
+  ()=>console.log('sds',this.state.startDate,this.state.endDate))
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  this.setState({
+  when : dt2
+  },()=>console.log('Duration ===================================>',this.state.when))
+console.log('*****************',this.state.dateFormat);
+
+//   let dt = new Date(startDate).toUTCString();
+
+//   console.log(typeof(startDate),'dt==',dt.split('GMT'));
+//   dt = dt.split('GMT')
+//   this.setState({ startDate, endDate },
+// ()=>console.log('sds',this.state.startDate,this.state.endDate))
 
 
-this.setState({
-  when : dt[0]
-},()=>console.log('Duration ===================================>',this.state.when))
-console.log('*****************',dt);
+// this.setState({
+//   when : dt[0]
+// },()=>console.log('Duration ===================================>',this.state.when))
+// console.log('*****************',dt);
 }
 ////////set header
 setHeaderValue=() => {
@@ -616,7 +652,8 @@ submitForm = (event) => {
       channelId: 1006,
       name:this.state.session_details,
      // when:this.state.when,
-     start_date:"2019-10-20 15:06:01",
+     //start_date:"2019-10-20 15:06:01",
+     start_date:this.state.when,
      description:this.state.description,
      duration:this.state.exampleFormControlSelect1,
       level:this.setState.exampleFormControlSelect2,
@@ -631,7 +668,8 @@ submitForm = (event) => {
       const reminder = {
         host_reminder:this.state.hostSessionStart,
         participants_reminder:this.state.participantSessionStart,
-        cutoff_date_time:this.state.signUpDateTime,
+         cutoff_date_time:this.state.signUpDateTime,
+        //cutoff_date_time:"2019-11-2 15:06:01",
         min_participants_not_met:this.state.minimumNotMet
       }
       const privacy ={
@@ -718,6 +756,20 @@ submitForm = (event) => {
          .then(res => {
    
            console.log('=============lallittiwari12345===================>',res.data);
+
+           if(res.data.responseMessage == "success")
+           {
+           this.setState({
+            msg: "Session hasbeen created Successfully!!!!!!!",
+          });
+        }else{
+
+          this.setState({
+            msg: "There Is a error in session creation",
+          });
+
+        }
+
          })
 
       })
@@ -741,7 +793,7 @@ submitForm = (event) => {
           return (
             <tr data-position="100000000000000" id={"online-user-row-"+id} key={idx}>
             <td>{idx+1}</td>
-            <td>{session.name.toLowerCase()}</td>
+            <td>{session.name}</td>
            <td>{session.channelId}</td>
            <td>{session.hostId}</td>
              <td>{session.interestId}</td>
@@ -796,15 +848,17 @@ submitForm = (event) => {
           </div>
         </div>
 
-        <h4 className="text-white pb-3">CREATE SESSION</h4>
+        <h4 className="text-white pb-3 float-left">CREATE SESSION</h4>
 
-        <a href="#" className="btn btn-primary" data-toggle="modal" data-target="#allprevsession"> coppy from ....</a>
-
+        <a href="#" className="btn btn-primary float-right" data-toggle="modal" data-target="#allprevsession"> coppy from ....</a>
+      <div class="clearfix"></div>
         <div className="gray-box">
-          <div className="session">
-            <h3 className="info">Session Info</h3>
+          <div className="row session">
+            <h3 className="col-md-6 info">Session Info</h3>   
+            <div className="col-md-6" id="msg" style={{color:'green'}}>{this.state.msg}</div>                    
           </div>
-
+          
+         
           <div className="container-fluid register-form">
             <div className="form">
               <div className="form-content">
@@ -849,6 +903,7 @@ submitForm = (event) => {
                         onChange = {this.sessionInfo}
                         className="input-field"
                         placeholder="Pick a date and time"
+                        disabled
                       />
                       {/* <span  className="when-icon"></span> */}
                       <a href="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#calenderModel"></a>
@@ -908,6 +963,8 @@ submitForm = (event) => {
                       <span>Charging for Session?</span>
                       {this.state.sessionCharge?<p className="gray-text ml-5 mt-3 mb-4">You have enabled it in the Channel</p>:''}
                     </div>
+
+                    {this.state.sessionCharge?
                     <div className="form-group w-50 ml-5">
                       <span className="cover-border"></span>
                       <label className="label">Charge amount</label>
@@ -922,7 +979,9 @@ submitForm = (event) => {
                         />
                         <span className="dollar"></span>
                       </div>
-                    </div>
+                    </div>:''}
+
+                    
                   </div>
                 </div>
               </div>
@@ -957,8 +1016,10 @@ submitForm = (event) => {
                         value = {this.state.signUpDateTime}
                         onChange = {this.sessionInfo}
                         placeholder=""
+                        disabled
                       />
-                      <span className="when-icon"></span>
+                      {/* <span className="when-icon"></span> */}
+                      <a href ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></a>
                     </div>
                     
                   </div>
@@ -1569,7 +1630,7 @@ submitForm = (event) => {
         
        </div>
       </div>
-       <div className="donebg"><button type="button" className="done">Done</button></div>
+       {/* <div className="donebg"><button type="button" className="done">Done</button></div> */}
 
     </div>
   </div>
@@ -1724,9 +1785,9 @@ submitForm = (event) => {
   </div>
   
   
-  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  {/* <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Pick a product
-  </button>
+  </button> */}
 
   <div className="modal" id="allprevsession">
   <div className="modal-dialog">
@@ -1766,7 +1827,7 @@ submitForm = (event) => {
   </div>
 </div>  
 
-<div className="modal" id="calenderModel">
+{/* <div className="modal" id="calenderModel">
   <div className="modal-dialog">
     <div className="modal-content">
 
@@ -1779,16 +1840,46 @@ submitForm = (event) => {
       <div className="modal-body">
       <h3>Calender</h3>
       <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
-      {/* <DateTimeField defaultText="Please select a date" />  */}
     </div>
 
-    {/* <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> */}
-
-    </div>
+       </div>
   </div>
-</div>  
+</div>   */}
+<div className="modal" id="calenderModel">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h4 className="modal-title">Select Duration</h4>
+        <button type="button" className="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div className="modal-body">
+      <h3>Calender</h3>
+      {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date <= (new Date().getTime())}
+      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      </div>
+      </div>
+  </div>
+</div>
+
+<div className="modal" id="signUpCalenderModel">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h4 className="modal-title">Select Duration</h4>
+        <button type="button" className="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div className="modal-body">
+      <h3>Calender</h3>
+      {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date <= (new Date().getTime())}
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      </div>
+      </div>calenderModel
+  </div>
+</div>
       </div>
     );
   }
