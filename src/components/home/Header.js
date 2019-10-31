@@ -5,6 +5,9 @@ import uniqueId from 'lodash/uniqueId';
 import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
+import SimpleReactValidator from 'simple-react-validator';
+import { Link } from 'react-router'
+
 import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
@@ -22,6 +25,7 @@ class Header extends Component {
         //////////Calender /////////////
         startDate, // Today
         endDate: '', // Today + 6 days
+        dateFormat : '',
         cutoffStartDate:date.getTime(),
         cutoffEndDate:'',
         cutoffDateTime:'',
@@ -128,7 +132,7 @@ class Header extends Component {
         //////////////////////////
     }
     this.setHeaderValue();
-    
+    this.validator = new SimpleReactValidator();    
 }
  
 componentDidMount(){
@@ -193,7 +197,6 @@ componentDidMount(){
     }
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
-
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   const cutoffDateTime = cutoffStartDate;
   let dt2 = new Date(cutoffStartDate);
@@ -260,41 +263,6 @@ sessionInfo = e =>{
 }
 ///////////////Add row Activity table
 addRow = () =>{
-  let activity_data ={
-    "name": this.state.ActivityName,
-    "attributes" : [
-      {
-       "attrKey": "Activity Type",
-       "attrValue": this.state.ActivityType,
-       "orderNo": 1
-      },
-      {
-       "attrKey": "Duration Type",
-       "attrValue": this.state.DurationType,
-       "orderNo": 4
-      },
-      {
-       "attrKey": "Count",
-       "attrValue": this.state.Count,
-       "orderNo": 5
-      },
-      {
-       "attrKey": "Video",
-       "attrValue": this.state.Video,
-       "orderNo": 2
-      },
-      {
-       "attrKey": "Target BPM",
-       "attrValue": this.state.TargetBPM,
-       "orderNo": 6
-      },
-      {
-       "attrKey": "Target Zone",
-       "attrValue": this.state.TargetZone,
-       "orderNo": 3
-      }
-    ]
-   }
   // add new data from here    
   var newdata = {ActivityName:this.state.ActivityName,ActivityType:this.state.ActivityType,DurationType:this.state.DurationType,Count:this.state.Count,Video:this.state.Video,TargetBPM:this.state.TargetBPM,TargetZone:this.state.TargetZone}    
   //take the existing state and concat the new data and set the state again    
@@ -314,12 +282,22 @@ selectShoppingList =(e)=> {
   let shoppingContainer = this.state.shoppingList;
   shoppingContainer[e.target.id].type = !shoppingContainer[e.target.id].type;
   if(shoppingContainer[e.target.id].type) {
-  //  shoppingContainer[e.target.id].itemName = e.target.name;
-      
   } 
   else {
     shoppingContainer[e.target.id].Quantity = 0;
     shoppingContainer[e.target.id].itemNote = "X";
+    let arrayCheck = [];
+    if(this.state.shoppingList1.length>0){
+     for(let i=0;i<this.state.shoppingList1.length;i++){
+        if(this.state.shoppingList1[i].itemName === shoppingContainer[e.target.id].itemName){
+          arrayCheck = this.state.shoppingList1;
+          arrayCheck[i] = shoppingContainer[e.target.id];
+          this.setState({
+            shoppingList1 : arrayCheck 
+          },()=> console.log('check or uncheck shoppingList', this.state.shoppingList1))
+        }
+      }
+    }
   }
   this.setState({
     shoppingList : shoppingContainer,
@@ -358,61 +336,89 @@ setShoppingList = (e) =>{
   }
 }
 addToShoppingList = () => {
-  // this.setState({
-  //   shoppingList1: []
-  // }, function() { // called by React after the state is updated
-  //   this.setState({
-  //     shoppingList1:this.state.equipmentList1.concat(this.state.shoppingList)
-  //   });
-  // },()=> console.log(this.state.shoppingList,'Add To equipmentlist====>',this.state.shoppingList1));
-  // else {
-  //   this.setState({
-  //     duplicateList : []
-  //   })
-  let duplicateShoppingListArray =this.state.duplicateShoppingList;
-    let x,n ;
-    // checking for new insertion or update
-    let shoppingArray = this.state.shoppingList1;
-    for (let i=0;i<this.state.shoppingList.length;i++) {
-      if(duplicateShoppingListArray.length>0){
-      this.state.duplicateShoppingList.map((row,i) => {
-        if(row.itemName === this.state.shoppingList[0].itemName){
-          duplicateShoppingListArray[i].Quantity=this.state.shoppingList[0].Quantity ;
-          duplicateShoppingListArray[i].itemNote = this.state.shoppingList[0].itemNote;
-          this.setState({
-            duplicateShoppingList : duplicateShoppingListArray
-          });
-        console.log(this.state.duplicateShoppingList,'matched*********************',this.state.shoppingList);  
-        }
+  console.log(this.state.shoppingListValue,'****************************************************',this.state.duplicateShoppingList);
+  let addToShoppingListArray = [];
+  let ka = [];
+  if((this.state.duplicateShoppingList.length > 0 && this.state.shoppingList.length>0) && this.state.shoppingListValue !== "" ){
+  console.log('Search part');
+  let x =0 ,n=0;
+  for(let i =0 ;i<this.state.duplicateShoppingList.length;i++){
+    if(this.state.duplicateShoppingList[i].itemName === this.state.shoppingList[0].itemName){
+      //this.state.duplicateList[i].Quantity=this.state.equipmentList[0].Quantity  ;
+      addToShoppingListArray = this.state.duplicateShoppingList;
+      addToShoppingListArray[i].Quantity=this.state.shoppingList[0].Quantity;
+      addToShoppingListArray[i].itemNote=this.state.shoppingList[0].itemNote;
+      this.setState({
+        duplicateShoppingList : addToShoppingListArray
       })
+    console.log(this.state.duplicateShoppingList,'matched*********************',this.state.shoppingList);  
     }
-      x=0;n=0;
-      for(let l=0;l<this.state.shoppingList1.length;l++){
-        if((this.state.shoppingList[i].itemName===this.state.shoppingList1[l].itemName)){
-          x=1;n=l;
-          shoppingArray[n].Quantity=this.state.shoppingList[i].Quantity ;// default 0 qunatity will not populate list
-          shoppingArray[n].type = this.state.shoppingList[i].type;
-          shoppingArray[n].itemNote = this.state.shoppingList[i].itemNote;
+  }
+  // checking for new insertion or update
+  for(let i =0;i<this.state.shoppingList1.length;i++){
+    if(this.state.shoppingList1[i].itemName === this.state.shoppingList[0].itemName){
+      x=1;n=i;
+      console.log('Search ---------------Update');
+    
+   }
+  }
+  if(x===1){
+    //this.state.equipmentList1[n].Quantity=this.state.equipmentList[0].Quantity // update
+    addToShoppingListArray = this.state.shoppingList1; 
+    addToShoppingListArray[n].Quantity=this.state.shoppingList[0].Quantity; // update
+    addToShoppingListArray[n].ItemNote=this.state.shoppingList[0].ItemNote;
+    this.setState({
+      shoppingList1:addToShoppingListArray
+    })
+  } 
+  else { // new insertion
+        console.log('Search ---------------new insertion');
+        if((this.state.shoppingList[0].type===true) && (this.state.shoppingList[0].Quantity>0)){
         this.setState({
-          shoppingList1 : shoppingArray
-        },()=> console.log('============>',this.state.shoppingList1))
-        }
+          shoppingList1:this.state.shoppingList1.concat(this.state.shoppingList)
+          });
       }
-      if(x===1){ // update
-        console.log('Search ****************************Update');
-      } else { // new insertion
-        console.log('Search ******************************new insertion');
-        if((this.state.shoppingList[i].type===true) && (this.state.shoppingList[i].Quantity>0)){
-          let ka = this.state.shoppingList1;
-          ka.push(this.state.shoppingList[i]);
-          console.log(i,'>>>>>>>>>>>>>>>>>>>>',ka);
-         this.setState({
-           shoppingList1:ka
-         },()=>console.log(this.state.shoppingList1,'-------------------',this.state.shoppingList))
+  }
+
+} else {
+  this.setState({
+    duplicateShoppingList : []
+  })
+  let x,n ;
+  // checking for new insertion or update
+  for (let i=0;i<this.state.shoppingList.length;i++) {
+    x=0;n=0;
+    for(let l=0;l<this.state.shoppingList1.length;l++){
+      if((this.state.shoppingList[i].itemName===this.state.shoppingList1[l].itemName)){
+        x=1;n=l;
+        addToShoppingListArray = this.state.shoppingList1;
+        console.log(this.state.shoppingList1,'++++++++++++++++++++++',addToShoppingListArray);
+        // addToShoppingListArray[n].Quantity=this.state.shoppingList[i].Quantity ;// default 0 qunatity will not populate list
+        // addToShoppingListArray[n].type = this.state.shoppingList[i].type;
+        // addToShoppingListArray[n].ItemNote = this.state.shoppingList[i].itemNote;
+        addToShoppingListArray[n] =this.state.shoppingList[i];
+        this.setState({
+          shoppingList1 : addToShoppingListArray
+        }, ()=> console.log('!!!!!!!!!!!!!!!!!!!!!!!! update euipment List',this.state.shoppingList1 ))  
       }
     }
+    if(x===1){ // update
+      console.log('Search ****************************Update');
+    } else { // new insertion
+      console.log('Search ******************************new insertion');
+      if((this.state.shoppingList[i].type===true) && (this.state.shoppingList[i].Quantity>0)){
+     // n = this.state.equipmentList[n];
+     ka = [];
+     ka = this.state.shoppingList1;
+     ka.push(this.state.shoppingList[i]);
+      this.setState({
+        shoppingList1:ka
+        },()=> console.log(this.state.shoppingList1,'>>>>>>>>>>>>>>>>@index',i,'*****',this.state.shoppingList[i]));
+      }
     }
-  //}
+  }
+}
+
 
 }
 findListIndex =(listItem) =>{
@@ -428,25 +434,23 @@ findShoppingList = (listItem) => {
     return listItem};
 }
 removeShoppingList = (e) => {
-  console.log('=====================================',e.target);
+  console.log('=====================================',e.target.id);
   console.log(e.target.value);
   var dataArray1 =  this.state.shoppingList;
- // dataArray1[e.target.id].type = !this.state.shoppingList.filter(this.findListIndex).type;
- 
-    // this.state.validateList = this.state.shoppingList1[e.target.id].itemName;
-    // console.log('this.state.shoppingList.filter(this.findListIndex)',this.state.shoppingList.filter(this.findListIndex));
-   this.state.shoppingList.map((row,i) => {
-      if(row.itemName === this.state.shoppingList1[e.target.id].itemName){
-      dataArray1[i].type=!dataArray1[i].type  
-      console.log('matched*********************',dataArray1);  
+  for(let i=0;i<this.state.shoppingList.length;i++) {
+      if(this.state.shoppingList[i].itemName === this.state.shoppingList1[e.target.id].itemName){
+      dataArray1[i].type=!dataArray1[i].type  ;
+      dataArray1[i].itemNote= "X";
+      dataArray1[i].Quantity = 0;
+      console.log('matched*********************',dataArray1[i]);  
       }
-    })
+    }
     var dataArray = this.state.shoppingList1;
     dataArray.splice(e.target.id, 1);
     this.setState({
       shoppingList1:dataArray,
       shoppingList:dataArray1
-    },()=>console.log('****************',this.state.shoppingList))
+    },()=>console.log('******Remove**********',this.state.shoppingList1))
   }
 ////////////////Equipment List
 handleSelect = (e) => {
@@ -735,47 +739,43 @@ submitForm = (event) => {
       const equipment_list = {
         equipmentList:this.state.equipmentList
       }
-   //   console.log("========lalit11111==================>",activity_info);   
-      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script); 
-      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+      console.log("============abcccc==============>",activity_info);
+      console.log("============lalit==============>",this.state.minimumParticipants,this.state.maximumParticipants);
+      if (this.validator.allValid()) {
+        if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
+
+      console.log("========Mohit==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script}); 
+
+      let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
+      axios.post("/api/v1/session/create", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
       .then(res => {
 
-        //console.log(res);
+        console.log('=============lallittiwari12345===================>',res.data);
 
+        if(res.data.responseMessage == "success")
+        {
         this.setState({
-          send_input: res.data,
-          });
-        input_result=this.state.send_input;
-        console.log('=============lallittiwari===================>',input_result);
+         msg: "Session hasbeen created Successfully!!!!!!!",
+       });
+     }else{
 
+       this.setState({
+         msg: "There Is a error in session creation",
+       });
 
-        let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      
-        // axios.post("/api/v1/session/create",input_result,{headers : {'Authorization': token}})
-         axios.post("/api/v1/session/create",this.state.send_input)
-         .then(res => {
-   
-           console.log('=============lallittiwari12345===================>',res.data);
-
-           if(res.data.responseMessage == "success")
-           {
-           this.setState({
-            msg: "Session hasbeen created Successfully!!!!!!!",
-          });
-        }else{
-
-          this.setState({
-            msg: "There Is a error in session creation",
-          });
-
-        }
-
-         })
+     }
 
       })
-     
-
-     // console.log('=============lallit===================>',input_result);
+    }
+    else {
+      console.log('-------------Minimum and maximum particepent should be proper--------------------');
+    }
+    }else{
+      this.validator.showMessages();
+    // rerender to show messages for the first time
+    // you can use the autoForceUpdate option to do this automatically`
+    this.forceUpdate();
+    }
     
     }
 
@@ -811,11 +811,11 @@ submitForm = (event) => {
       <div className="container-fluid">
         <div className="row top-header p-4">
           <div className="col-lg-2 d-flex d-md-block justify-content-center p-2">
-            <img src="/images/login-logo.png" className="logo" />
+            <img src="/images/login-logo.png" className="logo"  alt = '#'/>
           </div>
           <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
             <div className="user-info d-flex align-items-center">
-              <img src="images/attendee.png" className="user-avtar" />
+              <img src="images/attendee.png" className="user-avtar" alt = '#'/>
               <div className="pl-4">
                 <h3>Welcome Cersei!</h3>
                 <p>You have 3 sessions this week</p>
@@ -841,7 +841,7 @@ submitForm = (event) => {
               </div>
               <span className="border-right gray-border"></span>
               <div className="message-notification">
-                <img src="/images/message.png" />
+                <img src="/images/message.png" alt = '#'/>
                 <span className="message-count">{this.state.messageCount}</span>
               </div>
             </div>
@@ -867,12 +867,14 @@ submitForm = (event) => {
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Session Name</label>
-                      <input type="text" className="input-field" id = "session_details" value= {this.state.session_details} onChange = {this.sessionInfo} placeholder="Session Name"/>
+                      <input type="text" className="input-field" id = "session_details" value= {this.state.session_details} onChange = {this.sessionInfo} placeholder="Session Name" />
+                      {this.validator.message('session_details', this.state.session_details, 'required')}
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Description</label>
                       <textarea type="text" id="description" value = {this.state.description} onChange = {this.sessionInfo} className="input-field"></textarea>
+                      {this.validator.message('description', this.state.description, 'required')}
                     </div>									 
                     <div className="form-group">													
                       <span className="cover-border"></span>
@@ -888,7 +890,8 @@ submitForm = (event) => {
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                      </select>						  
+                      </select>
+                      {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required|integer')}						  
                       <span className="dropdown-icon"></span>
                   </div>
                   </div>
@@ -905,8 +908,9 @@ submitForm = (event) => {
                         placeholder="Pick a date and time"
                         disabled
                       />
+                      {this.validator.message('when', this.state.when, 'required')}
                       {/* <span  className="when-icon"></span> */}
-                      <a href="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#calenderModel"></a>
+                      <Link to ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#calenderModel"></Link>
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
@@ -923,6 +927,7 @@ submitForm = (event) => {
                         <option>4</option>
                         <option>5</option>
                       </select>
+                      {this.validator.message('exampleFormControlSelect2', this.state.exampleFormControlSelect2, 'required|integer')}
                       <span className="dropdown-icon"></span>
                     </div>
                     <div className="form-group">
@@ -930,20 +935,22 @@ submitForm = (event) => {
                       <label className="label">Minimum Participants</label>
                       <div className="">
                         <input
-                          type="text"
+                          type="number"
                           className="input-field"
                           id = "minimumParticipants"
                           value = {this.state.minimumParticipants}
                           onChange = {this.sessionInfo}
                           placeholder="min 1"
-                        />
+                          />
+                        {this.validator.message('minimumParticipants', this.state.minimumParticipants, 'required|integer|between:1,50')}
                         <span className="signedup_2"></span>
                       </div>
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Maximum Participants</label>
-                      <input type="text" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50" />
+                      <input type="number" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50"/>
+                      {this.validator.message('maximumParticipants', this.state.maximumParticipants, 'required|integer|between:1,50')}
                       <span className="signedup_2"></span>
                     </div>
                   </div>
@@ -977,6 +984,7 @@ submitForm = (event) => {
                           onChange = {this.sessionInfo}
                           placeholder="Enter amount"
                         />
+                        {this.validator.message('amountCharge', this.state.amountCharge, 'required|integer')}
                         <span className="dollar"></span>
                       </div>
                     </div>:''}
@@ -1002,7 +1010,7 @@ submitForm = (event) => {
                     <div className="form-group mt-2">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
-                      <input type="text" id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" />
+                      <input type="number"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">Sign up Cut off Date/Time</p>
@@ -1019,7 +1027,7 @@ submitForm = (event) => {
                         disabled
                       />
                       {/* <span className="when-icon"></span> */}
-                      <a href ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></a>
+                      <Link to ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></Link>
                     </div>
                     
                   </div>
@@ -1028,14 +1036,14 @@ submitForm = (event) => {
                     <div className="form-group mt-2">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
-                      <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" />
+                      <input type="number" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">for 'minimum not met'</p>
                     <div className="form-group mt-2">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
-                      <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" />
+                      <input type="number" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
                       <span className="clock-icon"></span>
                     </div>
                     
@@ -1118,10 +1126,10 @@ submitForm = (event) => {
           <div className="p-3">
           <div className="row">
             <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/picking.png" className="mr-2" /> Pick from existing hosts</a>
+                <Link to="header" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4">
-                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Host</a>
+                <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
           </div>
@@ -1132,8 +1140,8 @@ submitForm = (event) => {
           <div className="row">
             <div className="col-md-5">
               <span className="white-text">Start next activity?</span>
-              <a href="#" className="btn btn-primary text-uppercase mr-2">automatic</a>
-              <a href="#" className="btn btn-outline-secondary text-uppercase">manual</a>
+              <Link to="header" className="btn btn-primary text-uppercase mr-2">automatic</Link>
+              <Link to="header" className="btn btn-outline-secondary text-uppercase">manual</Link>
             </div>
             <div className="col-md-3">
               <div className="form-group">
@@ -1216,8 +1224,8 @@ submitForm = (event) => {
                   <td>{row.TargetBPM}</td>
                   <td>{row.TargetZone}</td>
                   <td className="d-flex justify-content-center">
-                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></a>
-                    <a href="#" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></a>
+                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
+                    <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
                   </td>
                   {/* <td>{row.name}</td>
                   <td>{row.attributes[0].attrValue}</td>
@@ -1359,23 +1367,24 @@ submitForm = (event) => {
             </div>
             </div>
           </div>
-          <a href="#" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</a>
+          <Link to="header" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</Link>
         </div>
+        
         <div className="gray-box no-border-radius pb-2">
           <div className="session"><h3 className="info">Shopping List</h3></div>
           <div className="p-3">
             <div className="row">
               <div className="col-md-4">
-                  <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+                  <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               <div className="col-md-4">
-                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
+                  <Link to="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
           </div>
           {this.state.shoppingList1.map((listInsertion,i) => (
-            (listInsertion.type && (listInsertion.Quantity!=0) && (listInsertion.itemNote!="X")?
-          <div className="row mt-5">
+            (listInsertion.type && (listInsertion.Quantity!==0) && (listInsertion.itemNote!=="X")?
+          <div className="row mt-5" key = {i}>
             <div className="col-md-4">
             <div className="form-group">
                       <span className="cover-border"></span>
@@ -1398,7 +1407,7 @@ submitForm = (event) => {
                     </div>
             </div>
             <div className="col-md-1">
-              <a href="#" className="bg-circle mt-3"><i id = {i} value = {listInsertion.itemName} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></a>
+              <Link to="header" className="bg-circle mt-3"><i id = {i} value = {listInsertion.itemName} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
             </div>
           </div>
           : '')
@@ -1410,15 +1419,15 @@ submitForm = (event) => {
           <div className="p-3">
             <div className="row">
               <div className="col-md-4">
-                  <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
+                  <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4">
-                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
+                  <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
           </div>
           {this.state.equipmentList1.map((listInsertion,i) => (
-            (listInsertion.type && (listInsertion.Quantity!=0)?
+            (listInsertion.type && (listInsertion.Quantity!==0)?
           <div className="p-3" key = {i}>
           <div className="row mt-5 pb-4">
             
@@ -1454,7 +1463,7 @@ submitForm = (event) => {
             {/* {this.state.equipmentList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!=0)? */}
             <div className="form-group">
-              <a href="#" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></a>
+              <Link to="#" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></Link>
               </div>
               {/* :''
               )
@@ -1465,7 +1474,8 @@ submitForm = (event) => {
           :'')
           ))} 
         </div>
-        <a href="#" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</a>
+
+        <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
         <div className="modal" id="myModal">
     <div className="modal-dialog dialogwidth">
       <div className="modal-content modalbg">
@@ -1634,6 +1644,8 @@ submitForm = (event) => {
 
     </div>
   </div>
+
+
   <div className="modal" id="calenderModal">
     <div className="">
      AK
@@ -1714,14 +1726,14 @@ submitForm = (event) => {
                     <div  className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={this.state.shoppingList.Quantity}
+                    value={row.Quantity}
                     onChange={this.handleShoppingQuantity(i)}
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
                     <div  className="col-md-5" className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={this.state.shoppingList.itemNote}
+                    value={row.itemNote}
                     onChange={this.handleShoppingitemNote(i)}
                     className="input-field-2" 
                     placeholder="item Note"/></div>
@@ -1779,7 +1791,7 @@ submitForm = (event) => {
         
        </div>
       </div>
-       <div className="donebg"><button type="button" className="done">Done</button></div>
+       {/* <div className="donebg"><button type="button" className="done">Done</button></div> */}
 
     </div>
   </div>
