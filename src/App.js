@@ -24,7 +24,7 @@ class App extends Component {
      <div className="App">
      
        <Route exact path="/" component={Dashboard} />
-         <Route exact path="/header" component={Header} />
+         <Route exact path="/session_creation" component={Header} />
 		 </div>
      </Router>
    );
