@@ -107,23 +107,57 @@ componentDidMount(){
 	</div>
 	
 	<div className="container-fluid px-3 px-md-5 slides_sec py-4">
-		<div className="d-flex flex-wrap">
+		<div class="d-flex flex-wrap">
 			<h2>Interest</h2>
-			<div className="flex-grow-1 input-box">
-				<div className="input-group mb-3">
-			    	<input type="text" className="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
-				    <div className="input-group-append">
-				     	<span className="input-group-text"><i className="fa fa-search-minus"></i></span>
-				    </div>
-		    	</div>
-				<div className="textt d-flex">
-					<div className="sml">
+			<div class="flex-grow-1 input_field_container">
+				<div class="row mx-0">
+					<div class="col-xl-5 pr-lg-0">
+			    		<input type="text" class="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
 					</div>
-					<p>Advance</p>
+					<div class="col-xl-7 pl-4">
+						<div class="row mx-0 mt-3 mt-xl-0">
+							<div class="col-md-12">
+								<div class="custom-control custom-checkbox mb-3 text_input">
+							      <input type="checkbox" class="custom-control-input" id="customCheck1" name="example1" />
+							      <label class="custom-control-label" for="customCheck1">Advance</label>
+							    </div>
+							</div>
+						</div>
+						<div class="parent-row">
+			    			<div class="row mx-0 row1 d-flex">
+			    				<div class="col-lg-4 col-md-6">
+			    					<p>On a specific date</p>
+			    					<input type="text" name="" class="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" />
+			    				</div>
+			    				<div class="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
+			    					<p>On Demand</p>
+			    					<div class="custom-control custom-checkbox mb-3">
+								     <input type="checkbox" class="custom-control-input" id="customCheck" name="" />
+								      <label class="custom-control-label" for="customCheck"></label>
+								    </div>
+			    				</div>
+			    				<div class="col-lg-4 col-md-6">
+			    					<p>Length of session</p>
+			    					<div class="custom-select1">
+				    					<select name="">
+									      <option selected>30 min</option>
+									      <option value="">40 min</option>
+									      <option value="">30 min</option>
+									      <option value="">30 min</option>
+									    </select>
+									</div>
+			    				</div>
+			    			</div>
+			    		</div>
+			    			
+		    			</div>
+					</div>
+					<div class="right-small-box">
+						<i class="fa fa-search"></i>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div className="small_img_part">
+		<div className="small_img_part mt-4">
 			<h3 className="my-3">FITNESS<sup className="ml-2">(24)</sup></h3>
 			<div className="slides_inner_part">
 				<div className="item">

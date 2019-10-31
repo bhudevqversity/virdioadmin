@@ -739,6 +739,7 @@ submitForm = (event) => {
       console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script); 
       axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
       .then(res => {
+
         //console.log(res);
 
         this.setState({
@@ -775,8 +776,6 @@ submitForm = (event) => {
      
 
      // console.log('=============lallit===================>',input_result);
-
-
     
     }
 
@@ -805,8 +804,6 @@ submitForm = (event) => {
           );
        
       })
-
- //console.log('------lalit--------------',this.state.session_details)
 
     return (
 	
@@ -986,10 +983,6 @@ submitForm = (event) => {
 
                     
                   </div>
-
-                  
-
-                  
                 </div>
               </div>
             </div>
@@ -1891,5 +1884,5 @@ submitForm = (event) => {
     );
   }
 }
-export default Header;
 
+export default Header;

@@ -118,6 +118,10 @@ p, a
 	color: white !important;
 	font-style: italic !important;
 }
+.angle-img
+{
+	flex-basis: 44px;
+}
 .textt
 {
 	position: absolute;
@@ -427,14 +431,6 @@ a.act:before
 {
 	bottom: -63px;
 }
-.lower_inner_text
-{
-	flex-basis: 37%;
-}
-.lower_inner_text
-{
-	flex-basis: 63%;
-}
 .slider_sec .carousel-indicators li
 {
 	width: 10px;
@@ -571,6 +567,7 @@ a.act:before
 	border: 1px solid #bd00ff;
 	height: calc(1.5em + .75rem + 13px);
 	color: white;
+	border-radius: .25rem;
 }
 .footer_sec .input-group-append
 {
@@ -604,7 +601,7 @@ a.act:before
 	color: #f8f8f8 !important;
 }
 
-/*----------------SLIDE-9 CSS----------------------*/
+/*----------------SLIDE-10 CSS----------------------*/
 
 .input_field_container 
 {
@@ -655,6 +652,7 @@ a.act:before
 	background-color: transparent;
 	border: 2px solid #bd00ff;
 	color: white;
+	border-radius: .25rem;
 }
 .input_field_container ::placeholder
 {
@@ -800,6 +798,168 @@ a.act:before
 	color: #bd00ff;
 	
 }
+.parent-row
+{
+	display: none;
+}
+.myheading
+{
+	position: relative;
+}
+.myheading:after
+{
+	position: absolute;
+	content: "";
+	left: 50%;
+	bottom: -36px;
+	transform: translateX(-50%);
+	background-color: #bd00ff;
+	width: 99%;
+	height: 1px;
+}
+a.purple_link
+{
+	color: #bd00ff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 17px;
+}
+.font-18
+{
+	font-size: 18px;
+}
+.overflow-hidden
+{
+	overflow: hidden;
+}
+.purple_text
+{
+	color: #bd00ff;
+	font-size: 25px;
+}
+div.overflow-hidden .d-flex p:nth-child(1)
+{
+	position: relative;
+	font-size: 25px;
+
+
+}
+div.overflow-hidden .d-flex p:nth-child(2)
+{
+	transform: translateY(-14px);
+}
+div.overflow-hidden .d-flex p a
+{
+	font-size: 40px;
+	text-decoration: none;
+
+}
+div.overflow-hidden p:nth-child(1):after
+{
+	position: absolute;
+	width: 1px;
+	height: 20px;
+	background-color: #474747;
+	content: "";
+	top: 11px;
+    right: -39px;
+}
+.text_lft_icon
+{
+	width: 24px;
+}
+
+/*---------slide-35 CSS----------------*/
+
+.emojis-icon
+{
+	background: url(../images/picking1.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30px;
+    width: 28px;
+    height: 28px;
+    float: right;
+    position: absolute;
+    right: 16px;
+    top: 19px;
+}
+.browse
+{
+	font-size: 18px;
+	float: right;
+    position: absolute;
+    right: 16px;
+    top: 19px;
+    color: #bd00ff;
+
+}
+
+/*---------session wine creation page CSS----------------*/
+
+.emojis-dialogwidth
+{
+	max-width: 800px !important;
+}
+.card.cardbg span img
+{
+	width: 30px;
+}
+#pick_emojis_modal .modal-header
+{
+	position: relative;
+	border-bottom: none;
+}
+#pick_emojis_modal .modal-header:after
+{
+	content: "";
+	position: absolute; 
+	bottom: 0;
+	width: 95%;
+	height: 1px;
+	background-color: #414141;
+	transform: translateX(-50%);
+	left: 50%;
+
+}
+
+#pick_emojis_modal .col-md-4:after
+{
+	content: "";
+	position: absolute; 
+	top: 0;
+	right: 0;
+	width: 1px;
+	height: 100%;
+	background-color: #414141;
+}
+#pick_emojis_modal .col-md-4:nth-child(3):after
+{
+	display: none;
+}
+#pick_emojis_modal .modal-content
+{
+	background-color: transparent;
+}
+#pick_emojis_modal button.btn-primary
+{
+	border-radius: 40px;
+	background-color: rgba(189,0,255,0.7) !important;
+	border: none;
+	cursor: pointer;
+}
+#pick_emojis_modal button.btn-primary:focus
+{
+	outline: none;
+}
+#pick_emojis_modal button.close
+{
+	color: rgba(189,0,255,1);
+	text-shadow: none;
+	font-size: 25px;
+	opacity: .8;
+}
+
 /* Responsive Code */
 
 @media(max-width: 900px)
