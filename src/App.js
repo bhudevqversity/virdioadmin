@@ -27,7 +27,7 @@ class App extends Component {
      
        <Route exact path="/" component={Dashboard} />
 	   <Route exact path="/wine-creation" component={SessionWineCreation} />
-         <Route exact path="/header" component={Header} />
+      <Route exact path="/session_creation" component={Header} />
 		 <Route exact path="/Participent_Dashboard" component={PDashboard} />
 		</div>
      </Router>
