@@ -11,7 +11,7 @@ import { Link } from 'react-router'
 import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
-class Header extends Component {
+class DemoSessionWine extends Component {
   
   constructor(props) {
     super(props);
@@ -53,6 +53,7 @@ class Header extends Component {
         allowParticipant:false,
         showParticipant:false,
         amountCharge: '',
+        orderWine:false,
         hostSessionStart:'',
         participantSessionStart:'',
         minimumNotMet: '',
@@ -71,44 +72,34 @@ class Header extends Component {
         TargetBPM:'',
         TargetZone:'',
         tablerows:[
-          {ActivityName:"Tom",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"},
-          {ActivityName:"Tommy",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"}
-          // {
-          //   "name": "Jumping",
-          //   "attributes" : [
-          //     {
-          //      "attrKey": "Activity Type",
-          //      "attrValue": "Warm Up",
-          //      "orderNo": 1
-          //     },
-          //     {
-          //      "attrKey": "Duration Type",
-          //      "attrValue": "Time",
-          //      "orderNo": 4
-          //     },
-          //     {
-          //      "attrKey": "Count",
-          //      "attrValue": 30,
-          //      "orderNo": 5
-          //     },
-          //     {
-          //      "attrKey": "Video",
-          //      "attrValue": "NA",
-          //      "orderNo": 2
-          //     },
-          //     {
-          //      "attrKey": "Target BPM",
-          //      "attrValue": "88 bpm",
-          //      "orderNo": 6
-          //     },
-          //     {
-          //      "attrKey": "Target Zone",
-          //      "attrValue": "67%",
-          //      "orderNo": 3
-          //     }
-          //   ]
-          // } 
+        {
+        wineChoice:"Tom",
+        id:0,
+        listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
+        listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
+        listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}]
+        },
+        {
+        wineChoice:"Tommy",
+        id:1,
+        listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
+        listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
+        listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}]
+        }
         ],
+        wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
+         listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
+         listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
+         listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}],
+        appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
+        {emoji:"images/burgundy.png",type:false,name:"Burgundy"},
+        {emoji:"images/auburn.png",type:false,name:"Auburn"}],
+        aromaEmoji:[{emoji:"images/apple.png",type:false,name:"Apple"},
+        {emoji:"images/grapes.png",type:false,name:"Grape"},
+        {emoji:"images/cheese.png",type:false,name:"Cheese"}],
+        palateEmoji:[{emoji:"images/apple.png",type:false,name:"Example"},
+        {emoji:"images/grapes.png",type:false,name:"Another"},
+        {emoji:"images/cheese.png",type:false,name:"Few Example"}],                           
         ///////////////Equipment List
         selectedOption: null,
         selected: {},
@@ -137,6 +128,7 @@ class Header extends Component {
  
 componentDidMount(){
   this.fetchPrevSessionList();
+  console.log('---------------------',this.state.tablerows[0].id);
   }
 
   fetchPrevSessionList() {
@@ -227,19 +219,6 @@ onChange = (startDate, endDate) => {
   when : dt2
   },()=>console.log('Duration ===================================>',this.state.when))
 console.log('*****************',this.state.dateFormat);
-
-//   let dt = new Date(startDate).toUTCString();
-
-//   console.log(typeof(startDate),'dt==',dt.split('GMT'));
-//   dt = dt.split('GMT')
-//   this.setState({ startDate, endDate },
-// ()=>console.log('sds',this.state.startDate,this.state.endDate))
-
-
-// this.setState({
-//   when : dt[0]
-// },()=>console.log('Duration ===================================>',this.state.when))
-// console.log('*****************',dt);
 }
 ////////set header
 setHeaderValue=() => {
@@ -646,6 +625,29 @@ handleShareholderNameChange = idx => evt => {
   }
   );
 };
+apperanceSelect = (e) => {
+  
+    let emojiContainer = this.state.appearanceEmoji;
+    emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    this.setState({
+    appearanceEmoji : emojiContainer,
+    },()=>
+    { console.log('appearanceEmoji==>',this.state.appearanceEmoji);
+    });
+   
+  }
+
+  aromaSelect = (e) => {
+  
+    let emojiContainer = this.state.aromaEmoji;
+    emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    this.setState({
+    aromaEmoji : emojiContainer,
+    },()=>
+    { console.log('aromaEmoji==>',this.state.aromaEmoji);
+    });
+   
+  } 
 ////////////////Submit data
 submitForm = (event) => {
   event.preventDefault();
@@ -864,11 +866,11 @@ submitForm = (event) => {
 
         <h4 className="text-white pb-3 float-left">CREATE SESSION</h4>
 
-        <a href="#" className="btn btn-primary float-right" data-toggle="modal" data-target="#allprevsession"> coppy from ....</a>
-      <div class="clearfix"></div>
+        <a href="#" className="btn btn-primary float-right" data-toggle="modal" data-target="#allprevsession"> COPY FORM ....</a>
+      <div className="clearfix"></div>
         <div className="gray-box">
           <div className="row session">
-            <h3 className="col-md-6 info">Session Info</h3>   
+            <h3 className="col-md-6 info"><img src="images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
             <div className="col-md-6" id="msg" style={{color:'green'}}>{this.state.msg}</div>                    
           </div>
           
@@ -1002,6 +1004,13 @@ submitForm = (event) => {
                         <span className="dollar"></span>
                       </div>
                     </div>:''}
+                    <div className="form-group input-txt">
+                        <label className="switch">
+                        <input type="checkbox" id = "orderWine" defaultChecked = {this.state.orderWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.orderWine},()=>console.log("orderWine",this.state.orderWine))} />
+                        <span className="slider round"></span>
+                        </label>
+                        <span>Allow Participants To Order wine at end of session</span>
+                    </div>
 
                     
                   </div>
@@ -1012,7 +1021,7 @@ submitForm = (event) => {
         </div>
         <div className="gray-box2">
           <div className="session">
-            <h3 className="info">Reminders</h3>
+            <h3 className="info"><img src="images/reminder.png" className="mr-3 mb-2" alt="reminder-icon" />Reminders</h3>
           </div>
 
           <div className="container-fluid register-form">
@@ -1074,7 +1083,7 @@ submitForm = (event) => {
         </div>
         <div className="p-3 gray-box no-border-radius">
         <div className="row">
-        <div className="session"><h3 className="info">Privacy during Session</h3></div>
+        <div className="session"><h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" alt="privacy" />Privacy during Session</h3></div>
         <div className="col-md-6">
               <div className="form-group input-txt">
               <label className="switch">
@@ -1118,7 +1127,7 @@ submitForm = (event) => {
         </div>
         </div>
         <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info">Groups</h3></div>
+          <div className="session"><h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" alt="team" />Groups</h3></div>
           <div className="col-md-6">
               <div className="form-group input-txt">
               <label className="switch">
@@ -1130,13 +1139,14 @@ submitForm = (event) => {
                   <span className="slider round"></span>
               </label>
                 <span>Allow Groups at a Location?</span>
+                <img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" />
               </div>
               
               
             </div>
         </div>
         <div className="pb-4">
-          <div className="session"><h3 className="info">Select Host(s)</h3></div>
+          <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" alt="user-icon" />Select Host(s)</h3></div>
           <div className="p-3">
           <div className="row">
             <div className="col-md-4">
@@ -1149,248 +1159,279 @@ submitForm = (event) => {
           </div>
           
         </div>
+
         <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info">Script</h3></div>
-          <div className="row">
-            <div className="col-md-5">
-              <span className="white-text">Start next activity?</span>
-              <Link to="header" className="btn btn-primary text-uppercase mr-2">automatic</Link>
-              <Link to="header" className="btn btn-outline-secondary text-uppercase">manual</Link>
-            </div>
-            <div className="col-md-3">
-              <div className="form-group">
-                  <span className="cover-border"></span>
-                  <label className="label">Pick Emojis</label>
-                  <input
-                    type="text"
-                    className="input-field"
-                    placeholder="Pick a date and time"
-                  />
-                  <span className="when-icon"></span>
+          <div className="session">
+          <h3 className="info myheading"><img src="images/msg.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>   
+        </div>
+        {/* Wine Pick up */}
+        <div className="px-3 pb-0 mt-2 add_wine_expand">
+                        <div className="row mt-5">                        
+                            <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
+                                <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
+                                    <label className="label">Pick a Wine</label>
+                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
+                            <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
+                              <div className="form-group mb-0" data-toggle="modal" data-target="#pick_emojis_modal"><span className="cover-border"></span>
+                                    <label className="label">Pick Emojis (opotional)</label>
+                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
+                            <div className="col-lg-2 col-md-6 mt-3 mt-md-0 pl-lg-0">
+                                <div className="d-flex">
+                                   <div className="form-group mb-0 input-txt">
+                                      <label className="switch mr-2">
+                                          <input type="checkbox" />
+                                          <span className="slider round"></span>
+                                      </label>
+                                    </div>
+                                    <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
+                              </div>
+                            </div>                                              
+                        </div>
+                        <div className="border-bottom mt-3"></div>                    
+                    </div>
+        {/* Wine Pick up End */}
+
+        {/* Wine Apperance Start */}
+        
+                    {/* <Sortable
+                    tag = "div"   // Defaults to "div"
+                    onChange={(order, sortable, evt) => {
+                        console.log('====================',order);
+                        
+                        // console.log(order)
+                        
+                    }}
+                    > 
+                  {this.state.wineSelection.map((row,i)=>                          
+                    <div className="px-3 pb-0 mt-2" key={uniqueId()} data-id={Object.values(row)}>
+                      <div className="row mt-5">
+                          <div className="col-lg-3 col-md-4 mt-3 mt-md-0">
+                            <p className="hdng">Wine</p>
+                            <p className="hdng1 mr-0 pl-3"><img src="images/eye.png" className="mr-3" alt="eye" />{row.wineChoice}</p>
+                          </div>
+                          <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
+                              <p className="hdng">Appearance</p>
+                               <div className="color-icons pl-3">
+                               {this.state.listAppearance.map((row,i) => (
+                                <img src={row.image} className="mr-2" alt="cherry" key = {i} />
+                                ))}
+                                <span>...</span>
+                              </div>
+                          </div>
+                          <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
+                              <p className="hdng">Aroma</p>
+                              <div className="color-icons pl-3">
+                              {this.state.listAroma.map((row,i) => (    
+                                <img src={row.image} className="mr-2" alt="apple" key = {i} />
+                                ))}
+                                <span>...</span>
+                              </div>
+                          </div>
+                          <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
+                              <p className="hdng">Palate</p>
+                              <div className="color-icons pl-3">
+                              {this.state.listPalate.map((row,i) => ( 
+                                <img src={row.image} className="mr-2" alt=""  key = {i}/>
+                                ))}   
+                                <span>...</span>
+                              </div>
+                          </div>
+                          <div className="col-lg-3 col-md-4 mt-3 mt-md-0">
+                            <div className="d-flex">
+                               <div className="form-group input-txt">
+                                  <label className="switch mr-2">
+                                      <input type="checkbox" />
+                                      <span className="slider round"></span>
+                                  </label>
+                                </div>
+                                <div><span className="hdng p-0">Allow Testers to score</span></div>
+                                <div className="mt-2">
+                                  <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                                </div>
+                                  <div className="pr-3 mt-2">
+                                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="border-bottom mt-3"></div>  
                 </div>
-            </div>
-            <div className="col-md-4">
-              <div className="form-group input-txt">
-                <label className="switch">
-                    <input type="checkbox" 
-                    id ="scriptHeartRateMonitor"
-                    defaultChecked={this.state.scriptHeartRateMonitor}
-                    onChange={(e)=>this.setState({[e.target.id]:!this.state.scriptHeartRateMonitor},()=>console.log("this.state.scriptHeartRateMonitor",this.state.scriptHeartRateMonitor))}
-                    />
-                    <span className="slider round"></span>
-                </label>
-                <span>Use Heart Rate Monitor</span>
-              </div>
-              <div className="form-group input-txt">
-                <label className="switch">
-                    <input type="checkbox" 
-                    id ="scriptZoneTracking"
-                    defaultChecked={this.state.scriptZoneTracking}
-                    onChange={(e)=>this.setState({[e.target.id]:!this.state.scriptZoneTracking},()=>console.log("this.state.scriptZoneTracking",this.state.scriptZoneTracking))}
-                    />
-                    <span className="slider round"></span>
-                </label>
-                <span>Use Zone Tracking</span>
-              </div>
-            </div>
-          </div>
+                )}
+                </Sortable> */}
+        {/* Wine Apperance End */}
+        {/* Activites Start */}
           <div className="p-3">
             <h3 className="main-heading">Activities</h3>
             <table className="table text-gray activity-table">
               <thead>
                 <tr>
-                  <th>Activity name</th>
-                  <th>Activity Type</th>
-                  <th>Duration Type</th>
-                  <th>Count</th>
-                  <th>Video</th>
-                  <th>Target BPM</th>
-                  <th>Target Zone</th>
+                  <th>Wine</th>
+                  <th>Appearance</th>
+                  <th>Aroma</th>
+                  <th>Palate</th>
                   <th>&nbsp;</th>
                 </tr>
               </thead>
               <Sortable
                   tag = "tbody"   // Defaults to "div"
                   onChange={(order, sortable, evt) => {
-                    console.log('====================',order);
+                    console.log('====================',order,order.length);
+                    let arr = [];
                     for(var i=0 ;i<order.length;i++){
                       console.log(order[i].split(','));
                       var splitData = order[i].split(',');
-                      console.log(splitData[0]);
-                      var appendData = {ActivityName:splitData[0],ActivityType:splitData[1],DurationType:splitData[2],Count:splitData[3],Video:splitData[4],TargetBPM:splitData[5],TargetZone:splitData[6]}
-                      arr.push(appendData);
-                      console.log('==============================arr',arr);
+                    //   console.log('splitData**************',splitData[1]);
+                      for(let l =0;l<this.state.tablerows;l++){
+                          console.log('this.state.tablerows',this.state.tablerows[l].id);
+                          if(this.state.tablerows[l].id===splitData[1]){
+                            arr.push(this.state.tablerows[l]);
+                            console.log('*************************************',arr);
+                          }
+                          this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
+                      }
+                    //   console.log(splitData[0]);
+                    //   var appendData = {wineChoice:splitData[0],ActivityType:splitData[1],DurationType:splitData[2],Count:splitData[3],Video:splitData[4],TargetBPM:splitData[5],TargetZone:splitData[6]}
+                    //   arr.push(appendData);
+                    //   console.log('==============================arr',arr);
                     }
                     // console.log(order)
-                    this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
+                    
                 }}
                 >
                 {this.state.tablerows.map((row,i) => (
-                // <tbody key = {i}>
-                //row.attributes.map(p =>(Object.values(p)))
-                //row.attributes.map(p =>(Object.values(p)))
-                <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
-                  <td>{row.ActivityName}</td>
-                  <td>{row.ActivityType}</td>
-                  <td>{row.DurationType}</td>
-                  <td>{row.Count}</td>
-                  <td>{row.Video}</td>
-                  <td>{row.TargetBPM}</td>
-                  <td>{row.TargetZone}</td>
-                  <td className="d-flex justify-content-center">
-                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
-                    <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
+                  <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
+                  <td>{row.wineChoice}</td>
+                  <td> <div className="color-icons pl-3">
+                    {row.listAppearance.map((row,i) => (
+                    <img src={row.image} className="mr-2" alt="cherry" key = {i} />
+                    ))}
+                    <span>...</span>
+                    </div>
+                    </td>
+                  <td>
+                  <div className="color-icons pl-3">
+                  {row.listAroma.map((row,i) => (    
+                  <img src={row.image} className="mr-2" alt="apple" key = {i} />
+                  ))}
+                  <span>...</span>
+                 </div>
                   </td>
-                  {/* <td>{row.name}</td>
-                  <td>{row.attributes[0].attrValue}</td>
-                  <td>{row.attributes[1].attrValue}</td>
-                  <td>{row.attributes[2].attrValue}</td>
-                  <td>{row.attributes[3].attrValue}</td>
-                  <td>{row.attributes[4].attrValue}</td>
-                  <td>{row.attributes[5].attrValue}</td>
+                  <td> 
+                    <div className="color-icons pl-3">
+                    {row.listPalate.map((row,i) => ( 
+                    <img src={row.image} className="mr-2" alt=""  key = {i}/>
+                    ))}   
+                    <span>...</span>
+                    </div>
+                 </td>
                   <td className="d-flex justify-content-center">
-                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></a>
-                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
-                  </td> */}
-                </tr>
+                  
+                   
+                        <div className="form-group input-txt">
+                            <label className="switch mr-2">
+                                <input type="checkbox" />
+                                    <span className="slider round"></span>
+                            </label>
+                        </div>
+                        <div><span className="hdng p-0">Allow Testers to score</span></div>
+                        <div className="mt-2">
+                            <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                        </div>
+                        <div className="pr-3 mt-2">
+                        <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                        </div>
+                        
+                      
+                  </td>
+                  </tr>
                 
                 ))}
   
                 </Sortable>
-              {/* <tbody>
-                <tr>
-                  <td>Jumping</td>
-                  <td>Warm Up</td>
-                  <td>Time</td>
-                  <td>30 sec</td>
-                  <td>NA</td>
-                  <td>88 bpm</td>
-                  <td>67%</td>
-                  <td className="d-flex justify-content-center">
-                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
-                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
-                  </td>
-                </tr>
-                
-              </tbody> */}
-            </table>
+               </table>
           </div>
-          <div className="p-3 activity-form mt-2">
-            <div className="border-bottom">
-              <div className="row">
-
-              
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Activity name</label>
-                    <input type="text"
-                    id = "ActivityName" 
-                    value= {this.state.ActivityName} 
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log('ActivityName',this.state.ActivityName))} 
-                    className="input-field" />
+          {/*  */}
+          {/* Description Start */}
+          <div className="p-3 pb-0 mt-2">                    
+                      <div className="row mt-4">
+                          <div className="col-lg-5 col-md-6 mt-3 mt-md-0">
+                            <div className="form-group"><span className="cover-border"></span>
+                                <label className="label">Description</label>
+                                <input type="text" className="input-field" />
+                            </div>
+                          </div>
+                          <div className="col-lg-4 col-md-6 mt-3 mt-md-0 px-lg-0">
+                              <div className="form-group"><span className="cover-border"></span>
+                                    <label className="label">Add Media</label>
+                                    <input type="text" className="input-field" /><span className="browse">Browse</span>
+                                </div>
+                          </div>
+                          <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
+                                <div className="form-group"><span className="cover-border"></span>
+                                    <label className="label">Pick Emojis</label>
+                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
+                      </div>
+                      <div className="border-bottom"></div>
+                    </div>
+                    <div className="p-3 pb-0">
+                        <div className="row mt-4">
+                          <div className="col-lg-6 col-md-6 mt-3 mt-md-0">
+                            <p className="hdng">Description</p>
+                            <p className="hdng1 font-18 mr-0 pl-3">In Hac Habitasse platea dictumst. Vivamus adipiscing ferm ...</p>
+                          </div>
+                          <div className="col-lg-3 col-md-6 mt-3 mt-md-0 px-lg-0">
+                              <p className="hdng mb-2">Media Added</p>
+                              <p><a href="#" className="purple_link">www.somelink.com/product</a></p>
+                          </div>
+                          <div className="col-lg-3 col-md-3 mt-3 mt-md-0">
+                              <p className="hdng mb-2">Emogis</p>
+                              <div className="overflow-hidden">
+                                  <div className="color-icons pl-3 float-left">
+                                    <img src="images/apple.png" className="mr-2" alt="" />
+                                    <img src="images/grapes.png" className="mr-2" alt="" />
+                                    <img src="images/cheese.png" className="mr-2" alt="" />
+                                    <span>...</span>
+                                  </div>
+                                  <div className="float-right pr-3">
+                                      <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                                      <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="border-bottom mt-3">
                   </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Activity type</label>
-                    <select
-                        className="input-field"
-                        id="ActivityType"
-                        value = {this.state.ActivityType}
-                        onChange = {(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log('Activity Type',this.state.ActivityType))}
-                      >
-                        <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <span className="dropdown-icon"></span>
-                  </div>
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Duration type</label>
-                    <select
-                        className="input-field"
-                        id="DurationType"
-                        value = {this.state.DurationType}
-                        onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log('Duration Type',this.state.DurationType))}
-                      >
-                        <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <span className="dropdown-icon"></span>
-                  </div>
-              </div>
-              <div className="col-md-1">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Count</label>
-                    <input type="text" 
-                    id = "Count"
-                    value = {this.state.Count}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Count",this.state.Count))}
-                    className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-1">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Video</label>
-                    <input type="text" placeholder="browse" 
-                    id = "Video"
-                    value = {this.state.Video}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Video",this.state.Video))}
-                    className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Target BPM</label>
-                    <input type="text" 
-                    id = "TargetBPM"
-                    value = {this.state.TargetBPM}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("TargetBPM",this.state.TargetBPM))}
-                    className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Target Zone</label>
-                    <input type="text" 
-                    id = "TargetZone"
-                    value = {this.state.TargetZone}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("TargetZone",this.state.TargetZone))}
-                    className="input-field" />
-                  </div>
-                  
-              </div>
-            </div>
-            </div>
-          </div>
-          <Link to="header" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</Link>
+                    <div className="px-3 pt-3">                    
+                        <a href="#" className="activity-link add_wine"><span>+</span> Wine</a>
+                        <a href="#" className="activity-link ml-5"><span>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" />
+                    </div>
+                </div>
+          {/* Description End */}
+          
+        
         </div>
         
         <div className="gray-box no-border-radius pb-2">
-          <div className="session"><h3 className="info">Shopping List</h3></div>
+          <div className="session">
+              <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt="shopping" />Shopping List</h3>
+              </div>
           <div className="p-3">
             <div className="row">
               <div className="col-md-4">
                   <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
+              {/* Add all Products Start*/}
+              <div className="col-lg-4 col-md-4">
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add all Product from Script</a>
+               </div>
+              {/* Add all Products End */}
               <div className="col-md-4">
                   <Link to="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
@@ -1429,7 +1470,7 @@ submitForm = (event) => {
           
         </div>
         <div className="gray-box2 no-border-radius">
-          <div className="session"><h3 className="info">Equipment List</h3></div>
+          <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt="shopping" />Equipment List</h3></div>
           <div className="p-3">
             <div className="row">
               <div className="col-md-4">
@@ -1906,9 +1947,135 @@ submitForm = (event) => {
       </div>calenderModel
   </div>
 </div>
+
+<div className="modal" id="myPickWineModel">
+                    <div className="modal-dialog dialogwidth">
+                        <div className="modal-content modalbg">
+                            <div className="modal-header headerborder">
+                                <h4 className="modal-title white">Pick a Product</h4>
+                                <button type="button" className="close white" data-dismiss="modal">×</button>
+                            </div>
+                            <div className="modal-body ">
+                                <div className="card cardbg">
+                                    <article className="card-group-item">
+                                        <div className="filter-content">
+                                            <div className="card-body ">
+                                                <form>
+                                                    <label className="form-check labelborder">
+                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Mersedes Benz</span></label>
+                                                    <label className="form-check labelborder">
+                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
+                                                    <label className="form-check labelborder">
+                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                            <div className="modal-footer footerborder"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="modal show" id="pick_emojis_modal">
+        <div className="modal-dialog emojis-dialogwidth">
+            <div className="modal-content">
+                <div className="modal-header modalbg">
+                    <h4 className="modal-title white">Assign Emogis</h4>
+                    <button type="button" className="close" data-dismiss="modal">×</button>
+                </div>
+                <form>
+                <div className="modal-body modalbg">
+                    
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label ml-3">APPEARANCE</span></label>                             
+                                    {this.state.appearanceEmoji.map((row,i) => (
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" 
+                                       type="checkbox" 
+                                       name={row.name}
+                                       id ={i} 
+                                       checked={row.type} 
+                                       onChange={this.apperanceSelect} />
+                                        <span className="form-check-label">
+                                        <img src={row.emoji} className="mx-3" alt="" />
+                                        {row.name}</span>
+                                    </label>
+                                    ))}
+                                    {/* <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/burgundy.png" className="mx-3" alt="" />Burgundy</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/auburn.png" className="mx-3" alt="" />Auburn</span></label>                                         */}
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="audio-type" id="" value="" /><span className="form-check-label ml-3">AROMA</span></label>                             
+                                        {this.state.aromaEmoji.map((row,i) => (
+                                    <label className="form-check mb-4">
+                                       <input className="form-radio" 
+                                        type="checkbox" 
+                                        name={row.name}
+                                        id ={i} 
+                                        checked={row.type} 
+                                        onChange={this.aromaSelect} />
+                                        <span className="form-check-label">
+                                        <img src={row.emoji} className="mx-3" />{row.name}</span>
+                                        </label>
+                                    ))}
+                                    {/* <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt=""  />Grapes</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Cheese</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Parmezan</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" alt=""  />Tomatapple</span></label>                                         */}
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label ml-3">PALATE</span></label>                             
+                                    {this.state.palateEmoji.map((row,i) => (
+                                    <label className="form-check mb-4">
+                                        <input 
+                                        className="form-radio" 
+                                        type="checkbox" 
+                                        name={row.name}
+                                        id ={i} 
+                                        checked={row.type} 
+                                        onChange={this.aromaSelect} />
+                                        <span className="form-check-label">
+                                        <img src={row.emoji} className="mx-3" alt="" />
+                                        {row.name}</span>
+                                       
+                                    </label>
+                                     ))}
+                                    {/* <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt="" />Another</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Few Example</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Non Selected</span></label> */}
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+                <div className="ooterborder text-center mt-4"><button className="btn-primary" data-dismiss="modal">SELECT</button></div>
+                </form>
+            </div>
+        </div>
+    </div>                
       </div>
     );
   }
 }
 
-export default Header;
+export default DemoSessionWine;

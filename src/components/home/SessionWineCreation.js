@@ -77,14 +77,45 @@ class SessionWineCreation extends Component {
          shoppingListValue: "",
          validateList:'',
          //////////Wine Creation /////////////////
+         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
          listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
          listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
-         listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}]
+         listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}],
+         wineSelection: [
+            {ActivityName:"Tom",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"},
+          {ActivityName:"Tommy",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"}
+         ] 
         }
     this.setHeaderValue();
     this.validator = new SimpleReactValidator();
 }
 ////////set header
+// componentDidMount=()=>{
+//    let newData = {
+    
+    
+//         wineChoice:this.state.wineChoice[0],   
+//     // wineChoice:this.state.wineChoice[0],
+//     // apperance:this.state.listAppearance,
+//     // aroma:this.state.listAroma,
+//     // palate:this.state.listPalate
+//     //     
+       
+//         wineChoice:this.state.wineChoice[1]
+//         // wineChoice:this.state.wineChoice[1],
+//         // apperance:this.state.listAppearance,
+//         // aroma:this.state.listAroma,
+//         // palate:this.state.listPalate
+        
+      
+//     }; 
+
+// //arr.push(newData)
+// this.setState({
+//     wineSelection : this.state.wineSelection.concat({wineChoice:this.state.wineChoice[0]},{wineChoice:this.state.wineChoice[1]})
+// },()=>console.log('WineSesskdl;lslection---------------',this.state.wineSelection[0]));
+
+// }
 setHeaderValue=() => {
     axios.get(`https://jsonplaceholder.typicode.com/users`)
       .then(res => {
@@ -798,6 +829,7 @@ handleSelect = (e) => {
                         </div>
                     </div>
                 </div>
+                {/* Testing Script */}
                 <div className="gray-box2 pb-4">
                     <div className="session px-3">
                         <h3 className="info myheading"><img src="images/msg.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
@@ -830,11 +862,22 @@ handleSelect = (e) => {
                         </div>
                         <div className="border-bottom mt-3"></div>                    
                     </div>
-                    <div className="px-3 pb-0 mt-2">
+
+                    {/* <Sortable
+                    tag = "div"   // Defaults to "div"
+                    onChange={(order, sortable, evt) => {
+                        console.log('====================',order);
+                        
+                        // console.log(order)
+                        
+                    }}
+                    > 
+                  {this.state.wineSelection.map((row,i)=>                          
+                    <div className="px-3 pb-0 mt-2" key={uniqueId()} data-id={Object.values(row)}>
                       <div className="row mt-5">
                           <div className="col-lg-3 col-md-4 mt-3 mt-md-0">
                             <p className="hdng">Wine</p>
-                            <p className="hdng1 mr-0 pl-3"><img src="images/eye.png" className="mr-3" alt="eye" />Lacrima Lui Ovidiu 2001</p>
+                            <p className="hdng1 mr-0 pl-3"><img src="images/eye.png" className="mr-3" alt="eye" />{row.wineChoice}</p>
                           </div>
                           <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
                               <p className="hdng">Appearance</p>
@@ -884,6 +927,85 @@ handleSelect = (e) => {
                   </div>
                   <div className="border-bottom mt-3"></div>  
                 </div>
+                )}
+                </Sortable> */}
+
+                {/* Sortable Start */}
+                <div className="p-3">
+            <h3 className="main-heading">Activities</h3>
+            <table className="table text-gray activity-table">
+              <thead>
+                <tr>
+                  <th>Activity name</th>
+                  <th>Activity Type</th>
+                  <th>Duration Type</th>
+                  <th>Count</th>
+                  <th>Video</th>
+                  <th>Target BPM</th>
+                  <th>Target Zone</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <Sortable
+                  tag = "tbody"   // Defaults to "div"
+                  onChange={(order, sortable, evt) => {
+                    console.log('====================',order);
+                   
+                }}
+                >
+                {this.state.wineSelection.map((row,i) => (
+                // <tbody key = {i}>
+                //row.attributes.map(p =>(Object.values(p)))
+                //row.attributes.map(p =>(Object.values(p)))
+                <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
+                  <td>{row.ActivityName}</td>
+                  <td>{row.ActivityType}</td>
+                  <td>{row.DurationType}</td>
+                  <td>{row.Count}</td>
+                  <td>{row.Video}</td>
+                  <td>{row.TargetBPM}</td>
+                  <td>{row.TargetZone}</td>
+                  <td className="d-flex justify-content-center">
+                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
+                    <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
+                  </td>
+                  {/* <td>{row.name}</td>
+                  <td>{row.attributes[0].attrValue}</td>
+                  <td>{row.attributes[1].attrValue}</td>
+                  <td>{row.attributes[2].attrValue}</td>
+                  <td>{row.attributes[3].attrValue}</td>
+                  <td>{row.attributes[4].attrValue}</td>
+                  <td>{row.attributes[5].attrValue}</td>
+                  <td className="d-flex justify-content-center">
+                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></a>
+                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                  </td> */}
+                </tr>
+                
+                ))}
+  
+                </Sortable>
+              {/* <tbody>
+                <tr>
+                  <td>Jumping</td>
+                  <td>Warm Up</td>
+                  <td>Time</td>
+                  <td>30 sec</td>
+                  <td>NA</td>
+                  <td>88 bpm</td>
+                  <td>67%</td>
+                  <td className="d-flex justify-content-center">
+                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+                
+              </tbody> */}
+            </table>
+          </div>
+
+                {/* Sortable  End */}
+
                 <div className="p-3 pb-0 mt-2">                    
                       <div className="row mt-4">
                           <div className="col-lg-5 col-md-6 mt-3 mt-md-0">

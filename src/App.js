@@ -7,6 +7,7 @@ import Dashboard from "./components/home/Dashboard";
 import PDashboard from "./components/home/PDashboard";
 
 import SessionWineCreation from "./components/home/SessionWineCreation"
+import DemoSessionWine from "./components/DemoSessionWine"
 /*function App() {
   return (
     <div className="App">
@@ -26,7 +27,8 @@ class App extends Component {
      <div className="App">
      
        <Route exact path="/" component={Dashboard} />
-	   <Route exact path="/wine-creation" component={SessionWineCreation} />
+	   <Route exact path="/wine-demo" component={DemoSessionWine} />
+     <Route exact path="/wine-creation" component={SessionWineCreation} />
       <Route exact path="/session_creation" component={Header} />
 		 <Route exact path="/Participent_Dashboard" component={PDashboard} />
 		</div>
