@@ -43,8 +43,8 @@ class Header extends Component {
         minimumParticipants:'',
         maximumParticipants:'',
         sessionAmount:'',
-        exampleFormControlSelect2:'Pick a Duration',
-        exampleFormControlSelect1 : 'Pick a Difficulty level',
+        exampleFormControlSelect1:'Pick a Duration',
+        exampleFormControlSelect2 : 'Pick a Difficulty level',
         heartRateMonitor:true,
         zoneTracking : true,
         searchParticipant: false,
@@ -71,7 +71,6 @@ class Header extends Component {
         TargetBPM:'',
         TargetZone:'',
         tablerows:[
-          
           // {
           //   "name": "Jumping",
           //   "attributes" : [
@@ -166,7 +165,6 @@ componentDidMount(){
     onSessionChanged = (e) => {
 
       let sessionId=e.currentTarget.value;
-
       console.log('-------hi-----',sessionId)
 
       axios      
@@ -174,21 +172,15 @@ componentDidMount(){
       .then(res => {
         console.log('---------SessionId--------------',res.data)
 
- 
         this.setState({
           session_details: res.data.responseData.name,
           description: res.data.responseData.description,
-          exampleFormControlSelect2: res.data.responseData.duration,
+          exampleFormControlSelect1: res.data.responseData.duration,
           minimumParticipants: res.data.responseData.minAttendee,
-          amountCharge: res.data.responseData.chargeForSession,
-          sessionCharge: res.data.responseData.sessionChargeAllowed,
-          exampleFormControlSelect1: res.data.responseData.level,
+          sessionCharge: res.data.responseData.chargeForSession,
+          sessionDlevel: res.data.responseData.level,
           maximumParticipants: res.data.responseData.maxAttendee,
           sessionParticipantDisableDM: res.data.responseData.participantDisableDM,
-          hostSessionStart: res.data.responseData.hostReminder,
-          participantSessionStart: res.data.responseData.participantReminder,
-          minimumNotMet: res.data.responseData.minNotMetNoticeTime,
-         // signUpDateTime: res.data.responseData.cutOffTime,
           });
       })
       .catch(err =>{
@@ -665,8 +657,8 @@ submitForm = (event) => {
      //start_date:"2019-10-20 15:06:01",
      start_date:this.state.when,
      description:this.state.description,
-     duration:this.state.exampleFormControlSelect2,
-      level:this.setState.exampleFormControlSelect1,
+     duration:this.state.exampleFormControlSelect1,
+      level:this.setState.exampleFormControlSelect2,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
@@ -745,36 +737,50 @@ submitForm = (event) => {
       const equipment_list = {
         equipmentList:this.state.equipmentList
       }
-      console.log("============abcccc==============>",activity_info);
-     
+      console.log("==========================>",activity_info);
       if (this.validator.allValid()) {
         if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
-
-      //console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script}); 
-
-      let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+       //   console.log("========lalit11111==================>",activity_info);   
+      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script); 
+      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
       .then(res => {
 
-       // console.log('=============12345===================>',res.data);
+        //console.log(res);
 
-        if(res.data.responseMessage == "success")
-        {
         this.setState({
-         msg: "Session hasbeen created Successfully!!!!!!!",
-       });
-     }else{
+          send_input: res.data,
+          });
+        input_result=this.state.send_input;
+        console.log('=============lallittiwari===================>',input_result);
 
-       this.setState({
-         msg: "There Is a error in session creation",
-       });
 
-     }
+        let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
+      
+        // axios.post("/api/v1/session/create",input_result,{headers : {'Authorization': token}})
+         axios.post("/api/v1/session/create",this.state.send_input)
+         .then(res => {
+   
+           console.log('=============lallittiwari12345===================>',res.data);
+
+           if(res.data.responseMessage == "success")
+           {
+           this.setState({
+            msg: "Session hasbeen created Successfully!!!!!!!",
+          });
+        }else{
+
+          this.setState({
+            msg: "There Is a error in session creation",
+          });
+
+        }
+
+         })
 
       })
     }
     else {
-      console.log('-------------Minimum and maximum particepent should be proper--------------------');
+      console.log('Wrong');
     }
     }else{
       this.validator.showMessages();
@@ -1141,6 +1147,7 @@ submitForm = (event) => {
           </div>
           
         </div>
+        {/* Script Start */}
         <div className="gray-box2 pb-4">
           <div className="session"><h3 className="info">Script</h3></div>
           <div className="row">
@@ -1375,6 +1382,8 @@ submitForm = (event) => {
           </div>
           <Link to="header" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</Link>
         </div>
+
+        {/* Script End */}
         
         <div className="gray-box no-border-radius pb-2">
           <div className="session"><h3 className="info">Shopping List</h3></div>
@@ -1797,7 +1806,7 @@ submitForm = (event) => {
         
        </div>
       </div>
-       {/* <div className="donebg"><button type="button" className="done">Done</button></div> */}
+       <div className="donebg"><button type="button" className="done">Done</button></div>
 
     </div>
   </div>

@@ -71,38 +71,39 @@ class DemoSessionWine extends Component {
         Video:'',
         TargetBPM:'',
         TargetZone:'',
-        tablerows:[
-        {
-        wineChoice:"Tom",
-        id:0,
-        listAppearance:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
-        listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-        listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
-        },
-        {
-        wineChoice:"Tommy",
-        id:1,
-        listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
-        listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-        listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
-        }
-        ],
-        ///////////////////duplicate tablerow////////////////////
-        tablerows1:[
-          {
-          wineChoice:"Tom",
-          id:0,
-          listAppearance:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
-          listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-          listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+        tablerows2:[
+          { id:0,
+            wineChoice:"Tom",
+            ActivityType:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+            DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"
           },
           {
+          id:1,  
           wineChoice:"Tommy",
-          id:1,
-          listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
-          listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-          listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
-          }
+          ActivityType:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"},
+        ],
+        // tablerows:[
+        //   {ActivityName:"Tom",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"},
+        //   {ActivityName:"Tommy",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"}
+        // ],
+        ///////////////////duplicate tablerow////////////////////
+        chooseWine: false,
+        tablerows:[
+          // {
+          // wineChoice:"Tom",
+          // id:0,
+          // listAppearance:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          // listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+          // listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+          // },
+          // {
+          // wineChoice:"Tommy",
+          // id:1,
+          // listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          // listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+          // listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+          // }
           ],
         emojiForWineProduct:0,
         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
@@ -149,7 +150,6 @@ class DemoSessionWine extends Component {
  
 componentDidMount(){
   this.fetchPrevSessionList();
-  console.log('---------------------',this.state.tablerows[0].listAppearance);
   }
 
   fetchPrevSessionList() {
@@ -1229,24 +1229,57 @@ submitForm = (event) => {
           </div>
           
         </div>
-
+        {/* Testing Script Start */}
         <div className="gray-box2 pb-4">
           <div className="session">
-          <h3 className="info myheading"><img src="images/msg.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>   
-        </div>
-        {/* Wine Pick up */}
-        <div className="px-3 pb-0 mt-2 add_wine_expand">
-          {/* {this.state.tablerows.map((row,i)=> */}
-                        <div className="row mt-5">
+          <h3 className="info myheading"><img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
+            </div>
+            {/* Choose Wine */}
+            {this.state.chooseWine?
+            <div className="px-3 pb-0 mt-2 add_wine_expand">
+                <div className="row mt-5">                        
+                    <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
+                        <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
+                        <label className="label">Pick a Wine</label>
+                        <input type="text"  className="input-field" disabled /><span className="emojis-icon"></span>
+                        </div>
+                    </div>
+                    <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
+                        <div className="form-group mb-0" data-toggle="modal"  data-target="#pick_emojis_modal"><span className="cover-border"></span>
+                            <label className="label">Pick Emojis (optional)</label>
+                            <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                            </div>
+                        </div>
+                        <div className="col-lg-2 col-md-6 mt-3 mt-md-0 pl-lg-0">
+                        <div className="d-flex">
+                        <div className="form-group mb-0 input-txt">
+                        <label className="switch mr-2">
+                        <input type="checkbox" />
+                        <span className="slider round"></span>
+                        </label>
+                        </div>
+                        <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
+                        </div>
+                        </div>                                              
+                        </div>
+                        {/* <div className="border-bottom mt-3"></div>*/}
+                    </div>
+                 : ''
+                }         
+
+            {/* ===================================================================== */}
+            <div className="px-3 pb-0 mt-2 add_wine_expand">
+              {this.state.tablerows.map((row,i)=>
+                        <div className="row mt-5" key= {i}>                        
                             <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
                                 <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
                                     <label className="label">Pick a Wine</label>
-                                    <input type="text"  className="input-field" disabled /><span className="emojis-icon"></span>
+                                    <input type="text" value = {row.wineChoice} className="input-field" disabled /><span className="emojis-icon"></span>
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
-                              <div className="form-group mb-0" onClick ={(e)=> this.setState({emojiForWineProduct:1},()=>console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct)) } data-toggle="modal" data-target="#pick_emojis_modal"><span className="cover-border"></span>
-                                    <label className="label">Pick Emojis (opotional)</label>
+                              <div className="form-group mb-0" data-toggle="modal" onClick ={(e)=> this.setState({emojiForWineProduct:i},()=>console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct)) } data-target="#pick_emojis_modal"><span className="cover-border"></span>
+                                    <label className="label">Pick Emojis (optional)</label>
                                     <input type="text" className="input-field" /><span className="emojis-icon"></span>
                                 </div>
                             </div>
@@ -1260,83 +1293,13 @@ submitForm = (event) => {
                                     </div>
                                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                               </div>
-                            </div>
+                            </div>                                              
                         </div>
-                        
-                        {/* <div className="border-bottom mt-3"></div>                     */}
+                          )}
+                        {/* <div className="border-bottom mt-3"></div>*/}
                     </div>
-        {/* Wine Pick up End */}
+              {/* Choose Wine End  */}
 
-        {/* Wine Apperance Start */}
-        
-                    {/* <Sortable
-                    tag = "div"   // Defaults to "div"
-                    onChange={(order, sortable, evt) => {
-                        console.log('====================',order);
-                        
-                        // console.log(order)
-                        
-                    }}
-                    > 
-                  {this.state.wineSelection.map((row,i)=>                          
-                    <div className="px-3 pb-0 mt-2" key={uniqueId()} data-id={Object.values(row)}>
-                      <div className="row mt-5">
-                          <div className="col-lg-3 col-md-4 mt-3 mt-md-0">
-                            <p className="hdng">Wine</p>
-                            <p className="hdng1 mr-0 pl-3"><img src="images/eye.png" className="mr-3" alt="eye" />{row.wineChoice}</p>
-                          </div>
-                          <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
-                              <p className="hdng">Appearance</p>
-                               <div className="color-icons pl-3">
-                               {this.state.listAppearance.map((row,i) => (
-                                <img src={row.image} className="mr-2" alt="cherry" key = {i} />
-                                ))}
-                                <span>...</span>
-                              </div>
-                          </div>
-                          <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
-                              <p className="hdng">Aroma</p>
-                              <div className="color-icons pl-3">
-                              {this.state.listAroma.map((row,i) => (    
-                                <img src={row.image} className="mr-2" alt="apple" key = {i} />
-                                ))}
-                                <span>...</span>
-                              </div>
-                          </div>
-                          <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
-                              <p className="hdng">Palate</p>
-                              <div className="color-icons pl-3">
-                              {this.state.listPalate.map((row,i) => ( 
-                                <img src={row.image} className="mr-2" alt=""  key = {i}/>
-                                ))}   
-                                <span>...</span>
-                              </div>
-                          </div>
-                          <div className="col-lg-3 col-md-4 mt-3 mt-md-0">
-                            <div className="d-flex">
-                               <div className="form-group input-txt">
-                                  <label className="switch mr-2">
-                                      <input type="checkbox" />
-                                      <span className="slider round"></span>
-                                  </label>
-                                </div>
-                                <div><span className="hdng p-0">Allow Testers to score</span></div>
-                                <div className="mt-2">
-                                  <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
-                                </div>
-                                  <div className="pr-3 mt-2">
-                                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div className="border-bottom mt-3"></div>  
-                </div>
-                )}
-                </Sortable> */}
-        {/* Wine Apperance End */}
-        {/* Activites Start */}
           <div className="p-3">
             <table className="table text-gray activity-table">
               <thead>
@@ -1350,41 +1313,39 @@ submitForm = (event) => {
               </thead>
               <Sortable
                   tag = "tbody"   // Defaults to "div"
-                  onChange={(order, sortable, evt) => {
-                    //console.log('====================',order,order.length);
-                    //console.log(order[0].split(',')[1]);
-                    
+                   onChange={(order, sortable, evt) => {
+                   console.log('====================',order);
                     let arr = [];
-                     for(var i=0 ;i<order.length;i++){
-                       console.log(order[i].split(','));
-                       var splitData = order[i].split(',');
-                       console.log('splitData**************',splitData[1]);
-                       for(let l =0;l<this.state.tablerows;l++){
-                     }
-                    }
-                    //   for(let l =0;l<this.state.tablerows;l++){
-                    //       console.log('this.state.tablerows',this.state.tablerows[l].id);
-                    //       if(this.state.tablerows[l].id===splitData[1]){
-                    //         arr.push(this.state.tablerows[l]);
-                    //         console.log('*************************************',arr);
-                    //       }
-                    //       this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
-                    //   }
-                    // }
+                    for(var i=0 ;i<order.length;i++){
+                     var splitData = order[i].split(',');
+                       for(let l =0;l<this.state.tablerows.length;l++){
+                          console.log(splitData[1],'this.state.tablerows',this.state.tablerows[l].id);
+                            if(this.state.tablerows[l].id==splitData[1]){
+                            arr.push(this.state.tablerows[l]);
+                            console.log(this.state.tablerows[l],'*************************************',arr);
+                          }
+                          
+                      }
+                   }
+
+                    this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
+                    // console.log(order)
+                    
                     // console.log(order)
                     
                 }}
                 >
-                {this.state.tablerows1.map((row,i) => (
-                  <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
+                {this.state.tablerows.map((row,i) => (
+                 <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
                   <td>{row.wineChoice}</td>
-                  <td> <div className="color-icons pl-3">
+                  <td>
+                  <div className="color-icons pl-3">
                     {row.listAppearance.map((row,i) => (
-                    <img src={row.emoji} className="mr-2" alt="cherry" key = {i} />
+                    (row.type) ?<img src={row.emoji} className="mr-2" alt="cherry" key = {i} />:''
                     ))}
                     <span>...</span>
                     </div>
-                    </td>
+                  </td>
                   <td>
                   <div className="color-icons pl-3">
                   {row.listAroma.map((row,i) => (    
@@ -1393,42 +1354,25 @@ submitForm = (event) => {
                   <span>...</span>
                  </div>
                   </td>
-                  <td> 
-                    <div className="color-icons pl-3">
-                    {row.listPalate.map((row,i) => ( 
-                    <img src={row.emoji} className="mr-2" alt=""  key = {i}/>
-                    ))}   
-                    <span>...</span>
-                    </div>
-                 </td>
-                  <td className="d-flex justify-content-center">
-                  
-                   
-                        <div className="form-group input-txt">
-                            <label className="switch mr-2">
-                                <input type="checkbox" />
-                                    <span className="slider round"></span>
-                            </label>
-                        </div>
-                        <div><span className="hdng p-0">Allow Testers to score</span></div>
-                        <div className="mt-2">
-                            <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
-                        </div>
-                        <div className="pr-3 mt-2">
-                        <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
-                        </div>
-                        
-                      
+                  <td>
+                  <div className="color-icons pl-3">
+                  {row.listPalate.map((row,i) => (    
+                  <img src={row.emoji} className="mr-2" alt="apple" key = {i} />
+                  ))}
+                  <span>...</span>
+                 </div>
                   </td>
-                  </tr>
-                
+                  <td className="d-flex justify-content-center">
+                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
+                    <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
+                  </td>
+                 </tr>
                 ))}
-  
-                </Sortable>
-               </table>
+              </Sortable>
+             </table>
           </div>
-          {/*  */}
-          {/* Description Start */}
+          {/* Description start */}
+
           <div className="p-3 pb-0 mt-2">                    
                       <div className="row mt-4">
                           <div className="col-lg-5 col-md-6 mt-3 mt-md-0">
@@ -1452,7 +1396,10 @@ submitForm = (event) => {
                       </div>
                       <div className="border-bottom"></div>
                     </div>
-                    <div className="p-3 pb-0">
+          {/* description end */}
+
+          {/* Next Description Box */}
+          <div className="p-3 pb-0">
                         <div className="row mt-4">
                           <div className="col-lg-6 col-md-6 mt-3 mt-md-0">
                             <p className="hdng">Description</p>
@@ -1466,9 +1413,9 @@ submitForm = (event) => {
                               <p className="hdng mb-2">Emogis</p>
                               <div className="overflow-hidden">
                                   <div className="color-icons pl-3 float-left">
-                                    <img src="images/apple.png" className="mr-2" alt="" />
-                                    <img src="images/grapes.png" className="mr-2" alt="" />
-                                    <img src="images/cheese.png" className="mr-2" alt="" />
+                                    <img src="images/apple.png" className="mr-2" />
+                                    <img src="images/grapes.png" className="mr-2" />
+                                    <img src="images/cheese.png" className="mr-2" />
                                     <span>...</span>
                                   </div>
                                   <div className="float-right pr-3">
@@ -1481,14 +1428,16 @@ submitForm = (event) => {
                       <div className="border-bottom mt-3">
                   </div>
                     <div className="px-3 pt-3">                    
-                        <a href="#" className="activity-link add_wine"><span>+</span> Wine</a>
+                        <a href="#" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</a>
                         <a href="#" className="activity-link ml-5"><span>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
                 </div>
-          {/* Description End */}
+          {/* Next Description Box End */}
           
-        
+          {/* <Link to="header" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</Link> */}
         </div>
+
+        {/* Testing Script End */}
         
         <div className="gray-box no-border-radius pb-2">
           <div className="session">
@@ -1603,58 +1552,7 @@ submitForm = (event) => {
         </div>
 
         <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
-        <div className="modal" id="myModal">
-    <div className="modal-dialog dialogwidth">
-      <div className="modal-content modalbg">
-      
-        <div className="modal-header headerborder">
-          <h4 className="modal-title white">Pick a Product</h4>
-          <button type="button" className="close white" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <div className="modal-body ">
-         <div className="card cardbg">
-  <article className="card-group-item">
-    <div className="filter-content">
-      <div className="card-body ">
-      <form>
-        <label className="form-check labelborder">
-         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Mersedes Benz
-          </span>
-        </label> 
-        <label className="form-check labelborder">
-          <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Nissan Altima
-          </span>
-        </label>  
-        <label className="form-check labelborder">
-         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Another Brand
-          </span>
-        </label>  
-      </form>
-
-      </div> 
-    </div>
-  </article> 
-  
-  
-</div> 
-        </div>
-        
-        <div className="modal-footer footerborder">
-          
-        </div>
-        
-      </div>
-      
-    </div>
-  </div>
-  
+         
 
   <div className="modal" id="myModal2">
     <div className="">
@@ -2075,7 +1973,9 @@ submitForm = (event) => {
                                 <div className="card cardbg"> 
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label ml-3">APPEARANCE</span></label>                             
-                                    {this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => (
+                                    {/* {this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => ( */}
+                                    {this.state.tablerows.length>0?
+                                    (this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => (
                                     <label className="form-check mb-4" key = {i}>
                                         <input className="form-radio" 
                                        type="checkbox" 
@@ -2087,7 +1987,7 @@ submitForm = (event) => {
                                         <img src={row.emoji} className="mx-3" alt="" />
                                         {row.name}</span>
                                     </label>
-                                    ))}
+                                    ))) :''}
                                     {/* <label className="form-check mb-4">
                                         <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/burgundy.png" className="mx-3" alt="" />Burgundy</span></label>
                                     <label className="form-check mb-4">
@@ -2098,8 +1998,9 @@ submitForm = (event) => {
                                 <div className="card cardbg"> 
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="checkbox" name="audio-type" id="" value="" /><span className="form-check-label ml-3">AROMA</span></label>                             
-                                        {this.state.aromaEmoji.map((row,i) => (
-                                    <label className="form-check mb-4">
+                                    {this.state.tablerows.length>0?
+                                    (this.state.tablerows[this.state.emojiForWineProduct].listAroma.map((row,i) => (
+                                    <label className="form-check mb-4" key = {i}>
                                        <input className="form-radio" 
                                         type="checkbox" 
                                         name={row.name}
@@ -2109,7 +2010,7 @@ submitForm = (event) => {
                                         <span className="form-check-label">
                                         <img src={row.emoji} className="mx-3" />{row.name}</span>
                                         </label>
-                                    ))}
+                                    ))):''}
                                     {/* <label className="form-check mb-4">
                                         <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt=""  />Grapes</span></label>
                                     <label className="form-check mb-4">
@@ -2124,8 +2025,9 @@ submitForm = (event) => {
                                 <div className="card cardbg"> 
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label ml-3">PALATE</span></label>                             
-                                    {this.state.palateEmoji.map((row,i) => (
-                                    <label className="form-check mb-4">
+                                    {this.state.tablerows.length>0?
+                                    (this.state.tablerows[this.state.emojiForWineProduct].listPalate.map((row,i) => (
+                                    <label className="form-check mb-4" key = {i}>
                                         <input 
                                         className="form-radio" 
                                         type="checkbox" 
@@ -2138,7 +2040,7 @@ submitForm = (event) => {
                                         {row.name}</span>
                                        
                                     </label>
-                                     ))}
+                                     ))):''}
                                     {/* <label className="form-check mb-4">
                                         <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt="" />Another</span></label>
                                     <label className="form-check mb-4">
