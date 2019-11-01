@@ -680,7 +680,7 @@ handleSelect = (e) => {
                                                 <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}} />
                                                 <span className="slider round"></span>
                                             </label>
-                                            <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" />
+                                            <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" />
 
                                         </div>
 
@@ -722,7 +722,7 @@ handleSelect = (e) => {
                 </div>
                 <div className="gray-box2">
                     <div className="session">
-                        <h3 className="info"><img src="images/reminder.png" className="mr-3 mb-2" alt="reminder-icon" />Reminders</h3></div>
+                        <h3 className="info"><img src="images/reminder.png" className="mr-3 mb-2" />Reminders</h3></div>
                     <div className="container-fluid register-form">
                         <div className="form">
                             <div className="form-content">
@@ -767,7 +767,7 @@ handleSelect = (e) => {
                 <div className="p-3 gray-box no-border-radius">
                     <div className="row">
                         <div className="session">
-                            <h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" alt="privacy" />Privacy during Session</h3></div>
+                            <h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" />Privacy during Session</h3></div>
                         <div className="col-md-6">
                             <div className="form-group input-txt">
                                 <label className="switch">
@@ -805,7 +805,7 @@ handleSelect = (e) => {
                 </div>
                 <div className="gray-box2">
                     <div className="session">
-                        <h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" alt="team" />Groups</h3></div>
+                        <h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" />Groups</h3></div>
                     <div className="col-md-6 pb-4">
                         <div className="form-group input-txt">
                             <label className="switch">
@@ -819,20 +819,20 @@ handleSelect = (e) => {
                 </div>
                 <div className="p-3">
                     <div className="session">
-                        <h3 className="info"><img src="images/user.png" className="mr-3 mb-2" alt="user-icon" />Select Host(s)</h3></div>
+                        <h3 className="info"><img src="images/user.png" className="mr-3 mb-2" />Select Host(s)</h3></div>
                     <div className="row pb-4">
                         <div className="col-md-4">
-                            <a href="#" className="pick"><img src="images/picking.png" className="mr-2" alt="pick" /> Pick from existing hosts</a>
+                            <a href="#" className="pick" data-toggle="modal" data-target="#pick_host_modal"><img src="images/picking.png" className="mr-2" /> Pick from existing hosts</a>
                         </div>
                         <div className="col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add a new Host</a>
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new Host</a>
                         </div>
                     </div>
                 </div>
                 {/* Testing Script */}
                 <div className="gray-box2 pb-4">
                     <div className="session px-3">
-                        <h3 className="info myheading"><img src="images/msg.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
+                        <h3 className="info myheading"><img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
                     </div>
                     <div className="px-3 pb-0 mt-2 add_wine_expand">
                         <div className="row mt-5">                        
@@ -877,7 +877,7 @@ handleSelect = (e) => {
                       <div className="row mt-5">
                           <div className="col-lg-3 col-md-4 mt-3 mt-md-0">
                             <p className="hdng">Wine</p>
-                            <p className="hdng1 mr-0 pl-3"><img src="images/eye.png" className="mr-3" alt="eye" />{row.wineChoice}</p>
+                            <p className="hdng1 mr-0 pl-3"><img src="images/eye.png" className="mr-3" />Lacrima Lui Ovidiu 2001</p>
                           </div>
                           <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
                               <p className="hdng">Appearance</p>
@@ -1043,9 +1043,9 @@ handleSelect = (e) => {
                               <p className="hdng mb-2">Emogis</p>
                               <div className="overflow-hidden">
                                   <div className="color-icons pl-3 float-left">
-                                    <img src="images/apple.png" className="mr-2" alt="" />
-                                    <img src="images/grapes.png" className="mr-2" alt="" />
-                                    <img src="images/cheese.png" className="mr-2" alt="" />
+                                    <img src="images/apple.png" className="mr-2" />
+                                    <img src="images/grapes.png" className="mr-2" />
+                                    <img src="images/cheese.png" className="mr-2" />
                                     <span>...</span>
                                   </div>
                                   <div className="float-right pr-3">
@@ -1065,16 +1065,16 @@ handleSelect = (e) => {
                 
                 <div className="p-3 gray-box no-border-radius">
                     <div className="session">
-                        <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt="shopping" />Shopping List</h3></div>
+                        <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
                     <div className="row">
                         <div className="col-lg-3 col-md-4">
-                            <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt="pick" /> Pick from existing list</a>
+                            <a href="#" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
                         </div>
                         <div className="col-lg-4 col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add all Product from Script</a>
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add all Product from Script</a>
                         </div>
                         <div className="col-lg-3 col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add a new Product</a>
+                            <a href="#" className="pick" data-toggle="modal" data-target="#add_product_modal"><img src="images/add.png" className="mr-2" /> Add a new Product</a>
                         </div>
                     </div>
                     {this.state.shoppingList1.map((listInsertion,i) => (
@@ -1108,13 +1108,13 @@ handleSelect = (e) => {
 
                 <div className="p-3 gray-box2 no-border-radius">
                     <div className="session">
-                        <h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt="shopping" />Equipment List</h3></div>
+                        <h3 className="info"><img src="images/shopping icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
                     <div className="row">
                         <div className="col-md-4">
-                            <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt="pick" /> Pick from existing list</a>
+                            <a href="#" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" /> Pick from existing list</a>
                         </div>
                         <div className="col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add a new item</a>
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add a new item</a>
                         </div>
                     </div>
                     {this.state.equipmentList1.map((listInsertion,i) => (
@@ -1156,11 +1156,11 @@ handleSelect = (e) => {
                                             <div className="card-body ">
                                                 <form>
                                                     <label className="form-check labelborder">
-                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Mersedes Benz</span></label>
+                                                        <input className="form-radio" type="radio" name="audio-type" id="" value="" /><span className="form-check-label">Mersedes Benz</span></label>
                                                     <label className="form-check labelborder">
-                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
+                                                        <input className="form-radio" type="radio" name="audio-type" id="" value="" /><span className="form-check-label">Nissan Altima</span></label>
                                                     <label className="form-check labelborder">
-                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label>
+                                                        <input className="form-radio" type="radio" name="audio-type" id="" value="" /><span className="form-check-label">Another Brand</span></label>
                                                 </form>
                                             </div>
                                         </div>
@@ -1196,7 +1196,7 @@ handleSelect = (e) => {
                                     </div>
                                     <div className="row checkboxdiv_3">
                                         <div className="col-md-4">
-                                            <label className="custom-control custom-checkbox lebelheight">
+                                            <label className="custom-control cust /om-checkbox lebelheight">
                                                 <input type="checkbox" className="form-radio" /><span className="checktxt">Curabitue lobortis.</span></label>
                                         </div>
                                         <div className="col-md-4">
@@ -1515,7 +1515,7 @@ handleSelect = (e) => {
                                             <div className="form-group"><span className="cover-border"></span>
                                                 <input type="text" className="input-field-2" placeholder="Quantity" />
                                             </div>
-                                        </div>
+                                        </div> /
                                         <div className="col-md-5">
                                             <div className="form-group"><span className="cover-border"></span>
                                                 <input type="text" className="input-field-2" placeholder="Item Notes" />
@@ -1563,6 +1563,8 @@ handleSelect = (e) => {
             </div>
         </div>
     </div>
+</div>
+   
     <div className="modal show" id="pick_emojis_modal">
         <div className="modal-dialog emojis-dialogwidth">
             <div className="modal-content">
@@ -1579,11 +1581,11 @@ handleSelect = (e) => {
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label ml-3">APPEARANCE</span></label>                             
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/cherry.png" className="mx-3" alt="" />Cherry</span></label>
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/cherry.png" className="mx-3" />Cherry</span></label>
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/burgundy.png" className="mx-3" alt="" />Burgundy</span></label>
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/burgundy.png" className="mx-3" />Burgundy</span></label>
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/auburn.png" className="mx-3" alt="" />Auburn</span></label>                                        
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/auburn.png" className="mx-3" />Auburn</span></label>                                        
                                 </div>
                             </div>
                             <div className="col-md-4">
@@ -1593,13 +1595,13 @@ handleSelect = (e) => {
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="checkbox" name="" id=""  value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" />Apple</span></label>
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt=""  />Grapes</span></label>
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" />Grapes</span></label>
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Cheese</span></label> 
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" />Cheese</span></label> 
                                         <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Parmezan</span></label> 
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" />Parmezan</span></label> 
                                         <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" alt=""  />Tomatapple</span></label>                                        
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" />Tomatapple</span></label>                                        
                                 </div>
                             </div>
                             <div className="col-md-4">
@@ -1607,23 +1609,254 @@ handleSelect = (e) => {
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label ml-3">PALATE</span></label>                             
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" alt="" />Example</span></label>
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" />Example</span></label>
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt="" />Another</span></label>
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" />Another</span></label>
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Few Example</span></label> 
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" />Few Example</span></label> 
                                         <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Non Selected</span></label>                                     
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" />Non Selected</span></label>                                     
                                 </div>
                             </div>
                         </div>
                     
                 </div>
-                <div className="ooterborder text-center mt-4"><button className="btn-primary" data-dismiss="modal">SELECT</button></div>
+                <div className="footerborder text-center mt-4"><button className="btn-primary" data-dismiss="modal">SELECT</button></div>
                 </form>
             </div>
         </div>
     </div>
+
+    <div className="modal" id="pick_host_modal">
+        <div className="">
+            <div className="modal-content equipmodalbg">
+                <div className="modal-header">
+                    <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
+                    <h4 className="modal-title white">Pick from existing Equipments list</h4>
+                    <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
+                </div>
+                <div className="modal-body ">
+                    <div className="card cardbg headerborder pb-4">
+                        <div className="searchbar">
+                            <input type="text" className="searchbarinput" placeholder="Search for Host" />
+                            <button className="inputbtn" type="button"></button>
+                        </div>
+                    </div>
+                    <div className="card cardbg">
+                        <div className="row mt-4">
+                            <div className="col-md-6 pl-md-0">
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                            </div>
+                            <div className="col-md-6">
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox" className="form-radio" />
+                                    <img src="images/pic.jpg" className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">Nathan Taylor</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="donebg">
+                <button type="button" className="done mt-4">Done</button>
+            </div>
+        </div>
+    </div>
+
+     <div className="modal" id="add_product_modal">
+        <div className="">
+            <div className="modal-content equipmodalbg">
+                <div className="modal-header">
+                    <h4 className="modal-title white">Add a new Product<span>Tap on an attribute to make it active in the Product list</span></h4>
+                    
+                    <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
+                </div>
+                <div className="modal-body ">
+                    <div className="card cardbg mt-4">
+                        <div className="form-group mb-0"><span className="cover-border"></span>
+                            <label className="label">Name of the Product</label>
+                            <input type="text" className="input-field" />
+                        </div>
+                    </div>
+                    <div className="card cardbg">
+                        <h4 className="white mt-4 mb-3">Add Attribute</h4>
+                        <div className="d-flex flex-wrap">
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">year</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">country</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">applellation</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">harvest date</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">price</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</a>
+                            <a href="#" className="btn btn-primary mr-2 mt-2">pH</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">palate</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</a>
+                        </div>
+                    </div>
+                    <div className="card cardbg mt-5">
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Varietal</label>
+                                    <input type="text" className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Price</label>
+                                    <input type="text" className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0">
+                                    <label className="label">pH</label>
+                                    <input type="text" className="input-field footerborder" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row mt-4">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Appearance</label>
+                                    <input type="text" className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Aroma</label>
+                                    <input type="text" className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0">
+                                    <label className="label">Palate</label>
+                                    <input type="text" className="input-field footerborder" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row mt-4">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Testing Notes</label>
+                                    <textarea rows="5" className="input-field"></textarea>
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Winemaking Notes</label>
+                                    <textarea rows="5" className="input-field"></textarea>
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0">
+                                    <label className="label">Pairs With</label>
+                                    <textarea rows="5" className="input-field"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="donebg">
+                <button type="button" className="done mt-4">Done</button>
+            </div>
+        </div>
     </div>
   <div className="modal" id="calenderModel">
   <div className="modal-dialog">
