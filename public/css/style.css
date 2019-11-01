@@ -94,6 +94,7 @@ p, a
 	border-top-right-radius: 8px;
 	border-bottom-right-radius: 8px;
 	border-bottom-left-radius: 8px;
+	border-top-left-radius: 8px;
 	background-color: #492158;
 	height: 60px;
 	color: white;
@@ -372,10 +373,7 @@ a.act:before
     border: none;
 }
 
-/*----------------SLIDE-9 CSS----------------------*/
-
-
-/* Header Part CSS taken from style.sss */
+/*----------------Home Page CSS----------------------*/
 
 
 .logo-text
@@ -450,6 +448,14 @@ a.act:before
 	left: 2%;
 	text-align: initial;
 	bottom: 0;
+}
+.upper_inner_text
+{
+	flex-basis: 63%;
+}
+.lower_inner_text
+{
+	flex-basis: 37%;
 }
 .learn_more
 {
@@ -600,8 +606,6 @@ a.act:before
 {
 	color: #f8f8f8 !important;
 }
-
-/*----------------SLIDE-10 CSS----------------------*/
 
 .input_field_container 
 {
@@ -958,6 +962,61 @@ div.overflow-hidden p:nth-child(1):after
 	text-shadow: none;
 	font-size: 25px;
 	opacity: .8;
+}
+.searchbar .inputbtn
+{
+	background-size: 20px;
+}
+#pick_host_modal label img
+{
+	width: 65px;
+	align-self: baseline;
+}
+#pick_host_modal .checktxt
+{
+	font-size: 16px;
+}
+#pick_host_modal label.custom-control
+{
+	display: flex;
+}
+#pick_host_modal input[type="checkbox"]
+{
+	transform: translateY(19px);
+} 
+#pick_host_modal .modal-header, #add_product_modal .modal-header
+{
+	border-bottom: none;
+}
+.checktxt_name
+{
+	color: white;
+	border-bottom: 1px solid #bd00ff;
+	font-size: 20px;
+	font-family: "Avenir-Book";
+	display: inline-block;
+}
+
+#add_product_modal h4.modal-header
+{
+	position: relative;
+}
+#add_product_modal h4.modal-title span
+{
+	position: absolute;
+	top: 50px;
+	left: 15px;
+	font-size: 13px;
+	color: #878787;
+}
+#add_product_modal .equipmodalbg
+{
+	max-width: 1120px !important;
+}
+#add_product_modal .btn-outline-secondary, #add_product_modal .btn-primary
+{
+	padding: 12px 15px;
+	font-size: 14px;
 }
 
 /* Responsive Code */
