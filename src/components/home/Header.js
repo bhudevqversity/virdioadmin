@@ -42,6 +42,8 @@ class Header extends Component {
         description:'',
         minimumParticipants:'',
         maximumParticipants:'',
+        min_participants : '',
+        max_participants :'',
         sessionAmount:'',
         exampleFormControlSelect2:'Pick a Duration',
         exampleFormControlSelect1 : 'Pick a Difficulty level',
@@ -182,14 +184,23 @@ componentDidMount(){
           exampleFormControlSelect2: res.data.responseData.duration,
           minimumParticipants: res.data.responseData.minAttendee,
           amountCharge: res.data.responseData.chargeForSession,
-          sessionCharge: res.data.responseData.sessionChargeAllowed,
+          sessionCharge: res.data.responseData.sessionChargeAllowed == 1 ? true : false,
           exampleFormControlSelect1: res.data.responseData.level,
           maximumParticipants: res.data.responseData.maxAttendee,
           sessionParticipantDisableDM: res.data.responseData.participantDisableDM,
           hostSessionStart: res.data.responseData.hostReminder,
           participantSessionStart: res.data.responseData.participantReminder,
           minimumNotMet: res.data.responseData.minNotMetNoticeTime,
+          scriptZoneTracking: res.data.responseData.zoneTracking == 1 ? true : false,
+          scriptHeartRateMonitor: res.data.responseData.heartRateMonitor == 1 ? true : false,
+          next_activity: "automatic",
          // signUpDateTime: res.data.responseData.cutOffTime,
+        // req.body.session.session_charge == true ? 1 : 0,
+
+        // next_activity : "automatic",
+        // heart_rate_monitor:this.state.scriptHeartRateMonitor,
+        // zone_tracking:this.state.scriptZoneTracking
+
           });
       })
       .catch(err =>{
@@ -659,6 +670,8 @@ submitForm = (event) => {
   var activity_info = [];
   var activities = [];
   let input_result=[];
+  let min_participants='';
+  let max_participants='';
     const session ={
       channelId: 1006,
       name:this.state.session_details,
@@ -746,12 +759,17 @@ submitForm = (event) => {
       const equipment_list = {
         equipmentList:this.state.equipmentList
       }
-      console.log("============abcccc==============>",activity_info);
+
+      console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
      
       if (this.validator.allValid()) {
-        if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
 
-      //console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script}); 
+        console.log("========sessioncreation111==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
+
+        
+
+        if(this.state.minimumParticipants >= 1 && this.state.maximumParticipants <= 50 ){  
+
 
       let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
       axios.post("/api/v1/session/create", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
@@ -778,6 +796,8 @@ submitForm = (event) => {
       console.log('-------------Minimum and maximum particepent should be proper--------------------');
     }
     }else{
+
+      console.log('----------------This is a error--------------------')
       this.validator.showMessages();
     // rerender to show messages for the first time
     // you can use the autoForceUpdate option to do this automatically`
@@ -811,6 +831,8 @@ submitForm = (event) => {
           );
        
       })
+
+      //console.log('----------lalitsession------------------',this.state.sessionCharge);
 
     return (
 	
@@ -949,7 +971,7 @@ submitForm = (event) => {
                           onChange = {this.sessionInfo}
                           placeholder="min 1"
                           />
-                        {this.validator.message('minimumParticipants', this.state.minimumParticipants, 'required|integer|between:1,50')}
+                        {this.validator.message('minimumParticipants', this.state.minimumParticipants, 'required|integer')}
                         <span className="signedup_2"></span>
                       </div>
                     </div>
@@ -957,7 +979,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Maximum Participants</label>
                       <input type="number" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50"/>
-                      {this.validator.message('maximumParticipants', this.state.maximumParticipants, 'required|integer|between:1,50')}
+                      {this.validator.message('maximumParticipants', this.state.maximumParticipants, 'required|integer')}
                       <span className="signedup_2"></span>
                     </div>
                   </div>
@@ -1689,24 +1711,6 @@ submitForm = (event) => {
                   </button>
                 </div>
 
-
-                {/* <div className="checkboxdiv">
-                      <div className="mt-4"></div>
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Nam dapibus nisl vit.</span>
-                      </label>
-
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Donec facilisis tort.</span>
-                      </label>
-
-                     <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">In hac habitasse pla.</span>
-                      </label>
-                </div> */}
                 {this.state.shoppingList.map((row,i) => (
                 <div className="row checkboxdiv_3" key = {i}>
                   <div className="col-md-4">
@@ -1722,12 +1726,6 @@ submitForm = (event) => {
                     </label>
                   </div>
                   
-                  {/* <div className="col-md-3">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
-                  </div>
-                  <div className="col-md-5">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item Notes"/></div>
-                  </div> */}
                   {this.state.shoppingList[i].type ?
                   <div className="col-md-3">
                     <div  className="form-group"><span className="cover-border"></span>
@@ -1754,44 +1752,6 @@ submitForm = (event) => {
                 {this.state.shoppingList.map((row,i) => (
                 <div className="checkboxdiv_2" key = {i}>
                
-
-                {/* 
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" 
-                    name={row.itemName}
-                       id ={i} 
-                       checked={row.type} 
-                       onChange={this.selectShoppingList}
-                       value = '20'
-                  className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <div className="row checkboxdiv_3">
-                  <div className="col-md-4">
-                    <label className="custom-control custom-checkbox lebelheight">
-                      <input type="checkbox" className="form-radio"/>
-                      <span className="checktxt">Donec facilisis tort.</span>
-                    </label>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
-                  </div>
-                  <div className="col-md-5">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item UOM"/></div>
-                  </div>
-                </div> */}
-
         </div>
         ))}
         </div>

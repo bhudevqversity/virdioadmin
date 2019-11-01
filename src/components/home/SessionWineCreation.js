@@ -251,7 +251,7 @@ handleSelect = (e) => {
   }
     
   }  
-  
+
 
   removeEquipmentList = (e) => {
     console.log('=====================================',e.target);
