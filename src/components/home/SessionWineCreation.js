@@ -513,7 +513,7 @@ handleSelect = (e) => {
         <div className="App">
             <div className="container-fluid">
                 <div className="row top-header p-4">
-                    <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="/images/login-logo.png" className="logo" /></div>
+                    <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="images/login-logo.png" className="logo" /></div>
                     <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
                         <div className="user-info d-flex align-items-center"><img src="images/pic.jpg" className="user-avtar pic" />
                             <div className="pl-4">
@@ -533,15 +533,9 @@ handleSelect = (e) => {
                                 <h3>{this.state.totalViews}K</h3></div><span className="border-right gray-border"></span>
                             <div className="header-info-right">
                                 <p>Total Revenue</p>
-<<<<<<< HEAD
-                                <h3>$44,000</h3></div><span className="border-right gray-border"></span>
-                                  <div className="message-notification"><img src="images/message.png" />
-                              <span className="message-count">2</span></div>
-=======
                                 <h3>${this.state.totalRevenue}</h3></div><span className="border-right gray-border"></span>
                                   <div className="message-notification"><img src="images/message.png" alt="message-icon" />
                               <span className="message-count">{this.state.messageCount}</span></div>
->>>>>>> 61a935d6e5d1947bd2d0ad304cf8c6cb1e84b500
                         </div>
                     </div>
                 </div>
@@ -746,9 +740,6 @@ handleSelect = (e) => {
                         <div className="col-md-6">
                             <div className="form-group input-txt">
                                 <label className="switch">
-<<<<<<< HEAD
-                                    <input type="checkbox" /><span className="slider round"></span></label><span>Participants allowed to disable DM with others</span><img src="images/bulb.png" className="ml-3 mb-2" /></div>
-=======
                                     <input 
                                     type="checkbox" 
                                     defaultChecked = {this.state.disableParticipant} 
@@ -760,7 +751,6 @@ handleSelect = (e) => {
                                     </label>
                                     <span>Participants allowed to disable DM with others
                                 </span><img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" /></div>
->>>>>>> 61a935d6e5d1947bd2d0ad304cf8c6cb1e84b500
                             <div className="form-group input-txt">
                                 <label className="switch">
                                     <input 
@@ -788,16 +778,12 @@ handleSelect = (e) => {
                     <div className="col-md-6 pb-4">
                         <div className="form-group input-txt">
                             <label className="switch">
-<<<<<<< HEAD
-                                <input type="checkbox" /><span className="slider round"></span></label><span>Allow Groups at a Location?</span> <img src="images/bulb.png" className="ml-3 mb-2" /></div>
-=======
                                 <input 
                                 type="checkbox" 
                                 id = "allowLocation"
                                 defaultChecked = {this.state.allowLocation}
                                 onChange = {(e)=>this.setState({[e.target.id]:!this.state.allowLocation},()=>console.log("allowLocation",this.state.allowLocation))} 
                                 /><span className="slider round"></span></label><span>Allow Groups at a Location?</span> <img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" /></div>
->>>>>>> 61a935d6e5d1947bd2d0ad304cf8c6cb1e84b500
                     </div>
                 </div>
                 <div className="p-3">
@@ -852,47 +838,28 @@ handleSelect = (e) => {
                           </div>
                           <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
                               <p className="hdng">Appearance</p>
-<<<<<<< HEAD
-                              <div className="color-icons pl-3">
-                                <img src="images/cherry.png" className="mr-2" />
-                                <img src="images/burgundy.png" className="mr-2" />
-                                <img src="images/auburn.png" className="mr-2" />
-=======
                                <div className="color-icons pl-3">
                                {this.state.listAppearance.map((row,i) => (
                                 <img src={row.image} className="mr-2" alt="cherry" key = {i} />
                                 ))}
->>>>>>> 61a935d6e5d1947bd2d0ad304cf8c6cb1e84b500
                                 <span>...</span>
                               </div>
                           </div>
                           <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
                               <p className="hdng">Aroma</p>
                               <div className="color-icons pl-3">
-<<<<<<< HEAD
-                                <img src="images/apple.png" className="mr-2" />
-                                <img src="images/grapes.png" className="mr-2" />
-                                <img src="images/cheese.png" className="mr-2" />
-=======
                               {this.state.listAroma.map((row,i) => (    
                                 <img src={row.image} className="mr-2" alt="apple" key = {i} />
                                 ))}
->>>>>>> 61a935d6e5d1947bd2d0ad304cf8c6cb1e84b500
                                 <span>...</span>
                               </div>
                           </div>
                           <div className="col-lg-2 col-md-4 mt-3 mt-md-0">
                               <p className="hdng">Palate</p>
                               <div className="color-icons pl-3">
-<<<<<<< HEAD
-                                <img src="images/smily.png" className="mr-2" />
-                                <img src="images/smily.png" className="mr-2" />
-                                <img src="images/smily.png" className="mr-2" />
-=======
                               {this.state.listPalate.map((row,i) => ( 
                                 <img src={row.image} className="mr-2" alt=""  key = {i}/>
                                 ))}   
->>>>>>> 61a935d6e5d1947bd2d0ad304cf8c6cb1e84b500
                                 <span>...</span>
                               </div>
                           </div>
@@ -1017,7 +984,7 @@ handleSelect = (e) => {
                     ))}
                    </div>
 
-                <div className="p-3 gray-box2 no-border-radius">
+                <div className="px-3 pb-4 gray-box2 no-border-radius">
                     <div className="session">
                         <h3 className="info"><img src="images/shopping icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
                     <div className="row">
@@ -1504,11 +1471,7 @@ handleSelect = (e) => {
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="checkbox" name="audio-type" id="" value="" /><span className="form-check-label ml-3">AROMA</span></label>                             
                                     <label className="form-check mb-4">
-<<<<<<< HEAD
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" />Apple</span></label>
-=======
                                         <input className="form-radio" type="checkbox" name="" id=""  value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" />Apple</span></label>
->>>>>>> 61a935d6e5d1947bd2d0ad304cf8c6cb1e84b500
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" />Grapes</span></label>
                                     <label className="form-check mb-4">
@@ -1547,7 +1510,7 @@ handleSelect = (e) => {
             <div className="modal-content equipmodalbg">
                 <div className="modal-header">
                     <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
-                    <h4 className="modal-title white">Pick from existing Equipments list</h4>
+                    <h4 className="modal-title white">Pick Session Host(s)</h4>
                     <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
                 </div>
                 <div className="modal-body ">

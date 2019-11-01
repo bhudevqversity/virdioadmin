@@ -22,13 +22,30 @@ p, a
 	font-family: Avenir-Book;
 }
 
-/*---------slide-22 CSS----------------*/
-
-/* Outer container CSS */
-.outer-container
+.modal-dialog
 {
 	
+    max-width: 850px;
 }
+.modal-content
+{
+	background: #343434;
+	border: none;
+}
+/*---------Session Creation page CSS----------------*/
+#allprevsession .table td, .table th
+{
+	border-top: none;
+}
+#allprevsession .table thead th
+{
+	color: white;
+	border-bottom: 1px solid #414141;
+	font-weight: 500;
+}
+/*---------slide-22 CSS----------------*/
+
+
 /* Header Part CSS */
 
 
@@ -909,7 +926,7 @@ div.overflow-hidden p:nth-child(1):after
 {
 	width: 30px;
 }
-#pick_emojis_modal .modal-header
+#pick_emojis_modal .modal-header, #pick_channel .modal-header
 {
 	position: relative;
 	border-bottom: none;
