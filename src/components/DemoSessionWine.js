@@ -11,7 +11,7 @@ import { Link } from 'react-router'
 import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
-class Header extends Component {
+class DemoSessionWine extends Component {
   
   constructor(props) {
     super(props);
@@ -42,8 +42,6 @@ class Header extends Component {
         description:'',
         minimumParticipants:'',
         maximumParticipants:'',
-        min_participants : '',
-        max_participants :'',
         sessionAmount:'',
         exampleFormControlSelect1:'Pick a Duration',
         exampleFormControlSelect2 : 'Pick a Difficulty level',
@@ -55,6 +53,7 @@ class Header extends Component {
         allowParticipant:false,
         showParticipant:false,
         amountCharge: '',
+        orderWine:false,
         hostSessionStart:'',
         participantSessionStart:'',
         minimumNotMet: '',
@@ -72,43 +71,57 @@ class Header extends Component {
         Video:'',
         TargetBPM:'',
         TargetZone:'',
+        tablerows2:[
+          { id:0,
+            wineChoice:"Tom",
+            ActivityType:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+            DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"
+          },
+          {
+          id:1,  
+          wineChoice:"Tommy",
+          ActivityType:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"},
+        ],
+        // tablerows:[
+        //   {ActivityName:"Tom",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"},
+        //   {ActivityName:"Tommy",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"}
+        // ],
+        ///////////////////duplicate tablerow////////////////////
+        chooseWine: false,
         tablerows:[
           // {
-          //   "name": "Jumping",
-          //   "attributes" : [
-          //     {
-          //      "attrKey": "Activity Type",
-          //      "attrValue": "Warm Up",
-          //      "orderNo": 1
-          //     },
-          //     {
-          //      "attrKey": "Duration Type",
-          //      "attrValue": "Time",
-          //      "orderNo": 4
-          //     },
-          //     {
-          //      "attrKey": "Count",
-          //      "attrValue": 30,
-          //      "orderNo": 5
-          //     },
-          //     {
-          //      "attrKey": "Video",
-          //      "attrValue": "NA",
-          //      "orderNo": 2
-          //     },
-          //     {
-          //      "attrKey": "Target BPM",
-          //      "attrValue": "88 bpm",
-          //      "orderNo": 6
-          //     },
-          //     {
-          //      "attrKey": "Target Zone",
-          //      "attrValue": "67%",
-          //      "orderNo": 3
-          //     }
-          //   ]
-          // } 
-        ],
+          // wineChoice:"Tom",
+          // id:0,
+          // listAppearance:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          // listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+          // listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+          // },
+          // {
+          // wineChoice:"Tommy",
+          // id:1,
+          // listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          // listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+          // listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+          // }
+          ],
+        emojiForWineProduct:0,
+        wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
+         listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
+         listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
+         listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}],
+        appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
+        {emoji:"images/burgundy.png",type:false,name:"Burgundy"},
+        {emoji:"images/auburn.png",type:false,name:"Auburn"}],
+        aromaEmoji:[{emoji:"images/apple.png",type:false,name:"Apple"},
+        {emoji:"images/grapes.png",type:false,name:"Grape"},
+        {emoji:"images/cheese.png",type:false,name:"Cheese"}],
+        palateEmoji:[{emoji:"images/apple.png",type:false,name:"Example"},
+        {emoji:"images/grapes.png",type:false,name:"Another"},
+        {emoji:"images/cheese.png",type:false,name:"Few Example"}], 
+        wineProduct:[{type:false,name:"Mersedes Benz"},
+        {type:false,name:"Nissan Altima"},
+        {type:false,name:"Another Brand"}],                          
         ///////////////Equipment List
         selectedOption: null,
         selected: {},
@@ -179,24 +192,10 @@ componentDidMount(){
           description: res.data.responseData.description,
           exampleFormControlSelect1: res.data.responseData.duration,
           minimumParticipants: res.data.responseData.minAttendee,
-          amountCharge: res.data.responseData.chargeForSession,
-          sessionCharge: res.data.responseData.sessionChargeAllowed == 1 ? true : false,
-          exampleFormControlSelect1: res.data.responseData.level,
+          sessionCharge: res.data.responseData.chargeForSession,
+          sessionDlevel: res.data.responseData.level,
           maximumParticipants: res.data.responseData.maxAttendee,
           sessionParticipantDisableDM: res.data.responseData.participantDisableDM,
-          hostSessionStart: res.data.responseData.hostReminder,
-          participantSessionStart: res.data.responseData.participantReminder,
-          minimumNotMet: res.data.responseData.minNotMetNoticeTime,
-          scriptZoneTracking: res.data.responseData.zoneTracking == 1 ? true : false,
-          scriptHeartRateMonitor: res.data.responseData.heartRateMonitor == 1 ? true : false,
-          next_activity: "automatic",
-         // signUpDateTime: res.data.responseData.cutOffTime,
-        // req.body.session.session_charge == true ? 1 : 0,
-
-        // next_activity : "automatic",
-        // heart_rate_monitor:this.state.scriptHeartRateMonitor,
-        // zone_tracking:this.state.scriptZoneTracking
-
           });
       })
       .catch(err =>{
@@ -241,19 +240,6 @@ onChange = (startDate, endDate) => {
   when : dt2
   },()=>console.log('Duration ===================================>',this.state.when))
 console.log('*****************',this.state.dateFormat);
-
-//   let dt = new Date(startDate).toUTCString();
-
-//   console.log(typeof(startDate),'dt==',dt.split('GMT'));
-//   dt = dt.split('GMT')
-//   this.setState({ startDate, endDate },
-// ()=>console.log('sds',this.state.startDate,this.state.endDate))
-
-
-// this.setState({
-//   when : dt[0]
-// },()=>console.log('Duration ===================================>',this.state.when))
-// console.log('*****************',dt);
 }
 ////////set header
 setHeaderValue=() => {
@@ -660,14 +646,84 @@ handleShareholderNameChange = idx => evt => {
   }
   );
 };
+wineProductSelect = (e) => {
+  let wineContainer = this.state.wineProduct;
+  let addWine;
+  let wineArray = this.state.tablerows;
+  wineContainer[e.target.id].type = !wineContainer[e.target.id].type;
+  if(wineContainer[e.target.id].type){
+    
+    addWine = {
+      wineChoice:wineContainer[e.target.id].name,
+      id:wineArray.length+1,
+      listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+      listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+      listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      }
+      wineArray.push(addWine);
+      this.setState({
+        wineProduct : wineContainer,
+        tablerows:wineArray
+        },()=>
+        { console.log(this.state.tablerows,'Wine Product==>',this.state.wineProduct);
+      });
+  }else{
+    for(let i =0 ;i<wineArray.length;i++){
+      if(wineArray[i].wineChoice == wineContainer[e.target.id].name){
+        wineArray.splice(i,1);
+        this.setState({
+          wineProduct : wineContainer,
+          tablerows:wineArray
+          },()=>
+          { console.log(this.state.tablerows,'Wine Product==>',this.state.wineProduct);
+        });
+      }
+    }
+
+  }
+  
+}
+apperanceSelect = (e) => {
+  
+    let emojiContainer = this.state.tablerows;
+    emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type;
+    this.setState({
+    tablerows : emojiContainer,
+    },()=>
+    { console.log('appearanceEmoji==>',this.state.tablerows);
+    });
+   
+  }
+
+  aromaSelect = (e) => {
+  
+    let emojiContainer = this.state.aromaEmoji;
+    emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    this.setState({
+    aromaEmoji : emojiContainer,
+    },()=>
+    { console.log('aromaEmoji==>',this.state.aromaEmoji);
+    });
+   
+  }
+  
+  palateSelect = (e) => {
+  
+    let emojiContainer = this.state.palateEmoji;
+    emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    this.setState({
+    palateEmoji : emojiContainer,
+    },()=>
+    { console.log('palateEmoji==>',this.state.palateEmoji);
+    });
+   
+  }
 ////////////////Submit data
 submitForm = (event) => {
   event.preventDefault();
   var activity_info = [];
   var activities = [];
   let input_result=[];
-  let min_participants='';
-  let max_participants='';
     const session ={
       channelId: 1006,
       name:this.state.session_details,
@@ -755,20 +811,12 @@ submitForm = (event) => {
       const equipment_list = {
         equipmentList:this.state.equipmentList
       }
-
-      console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
-     
+      console.log("==========================>",activity_info);
       if (this.validator.allValid()) {
-
-        console.log("========sessioncreation111==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
-
-        
-
-        if(this.state.minimumParticipants >= 1 && this.state.maximumParticipants <= 50 ){  
-
-
-      let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+        if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
+       //   console.log("========lalit11111==================>",activity_info);   
+      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script); 
+      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
       .then(res => {
 
         //console.log(res);
@@ -809,8 +857,6 @@ submitForm = (event) => {
       console.log('Wrong');
     }
     }else{
-
-      console.log('----------------This is a error--------------------')
       this.validator.showMessages();
     // rerender to show messages for the first time
     // you can use the autoForceUpdate option to do this automatically`
@@ -844,8 +890,6 @@ submitForm = (event) => {
           );
        
       })
-
-      //console.log('----------lalitsession------------------',this.state.sessionCharge);
 
     return (
 	
@@ -889,15 +933,14 @@ submitForm = (event) => {
             </div>
           </div>
         </div>
-        <div className="overflow-hidden">
-        <h4 className="text-white mb-0 mt-3 float-left">CREATE SESSION</h4>
 
-        <a href="#" className="btn btn-primary mb-3 float-right" data-toggle="modal" data-target="#allprevsession"> copy from ....</a>
-        </div>
-      <div class="clearfix"></div>
+        <h4 className="text-white pb-3 float-left">CREATE SESSION</h4>
+
+        <a href="#" className="btn btn-primary float-right" data-toggle="modal" data-target="#allprevsession"> COPY FORM ....</a>
+      <div className="clearfix"></div>
         <div className="gray-box">
           <div className="row session">
-            <h3 className="col-md-6 info">Session Info</h3>   
+            <h3 className="col-md-6 info"><img src="images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
             <div className="col-md-6" id="msg" style={{color:'green'}}>{this.state.msg}</div>                    
           </div>
           
@@ -953,7 +996,7 @@ submitForm = (event) => {
                       />
                       {this.validator.message('when', this.state.when, 'required')}
                       {/* <span  className="when-icon"></span> */}
-                      <a href="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></a>
+                      <Link to ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#calenderModel"></Link>
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
@@ -985,7 +1028,7 @@ submitForm = (event) => {
                           onChange = {this.sessionInfo}
                           placeholder="min 1"
                           />
-                        {this.validator.message('minimumParticipants', this.state.minimumParticipants, 'required|integer')}
+                        {this.validator.message('minimumParticipants', this.state.minimumParticipants, 'required|integer|between:1,50')}
                         <span className="signedup_2"></span>
                       </div>
                     </div>
@@ -993,7 +1036,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Maximum Participants</label>
                       <input type="number" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50"/>
-                      {this.validator.message('maximumParticipants', this.state.maximumParticipants, 'required|integer')}
+                      {this.validator.message('maximumParticipants', this.state.maximumParticipants, 'required|integer|between:1,50')}
                       <span className="signedup_2"></span>
                     </div>
                   </div>
@@ -1031,6 +1074,13 @@ submitForm = (event) => {
                         <span className="dollar"></span>
                       </div>
                     </div>:''}
+                    <div className="form-group input-txt">
+                        <label className="switch">
+                        <input type="checkbox" id = "orderWine" defaultChecked = {this.state.orderWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.orderWine},()=>console.log("orderWine",this.state.orderWine))} />
+                        <span className="slider round"></span>
+                        </label>
+                        <span>Allow Participants To Order wine at end of session</span>
+                    </div>
 
                     
                   </div>
@@ -1041,7 +1091,7 @@ submitForm = (event) => {
         </div>
         <div className="gray-box2">
           <div className="session">
-            <h3 className="info">Reminders</h3>
+            <h3 className="info"><img src="images/reminder.png" className="mr-3 mb-2" alt="reminder-icon" />Reminders</h3>
           </div>
 
           <div className="container-fluid register-form">
@@ -1070,7 +1120,7 @@ submitForm = (event) => {
                         disabled
                       />
                       {/* <span className="when-icon"></span> */}
-                      <a href ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></a>
+                      <Link to ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></Link>
                     </div>
                     
                   </div>
@@ -1103,7 +1153,7 @@ submitForm = (event) => {
         </div>
         <div className="p-3 gray-box no-border-radius">
         <div className="row">
-        <div className="session"><h3 className="info">Privacy during Session</h3></div>
+        <div className="session"><h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" alt="privacy" />Privacy during Session</h3></div>
         <div className="col-md-6">
               <div className="form-group input-txt">
               <label className="switch">
@@ -1147,7 +1197,7 @@ submitForm = (event) => {
         </div>
         </div>
         <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info">Groups</h3></div>
+          <div className="session"><h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" alt="team" />Groups</h3></div>
           <div className="col-md-6">
               <div className="form-group input-txt">
               <label className="switch">
@@ -1159,13 +1209,14 @@ submitForm = (event) => {
                   <span className="slider round"></span>
               </label>
                 <span>Allow Groups at a Location?</span>
+                <img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" />
               </div>
               
               
             </div>
         </div>
         <div className="pb-4">
-          <div className="session"><h3 className="info">Select Host(s)</h3></div>
+          <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" alt="user-icon" />Select Host(s)</h3></div>
           <div className="p-3">
           <div className="row">
             <div className="col-md-4">
@@ -1178,251 +1229,230 @@ submitForm = (event) => {
           </div>
           
         </div>
-        {/* Script Start */}
+        {/* Testing Script Start */}
         <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info">Script</h3></div>
-          <div className="row">
-            <div className="col-md-5">
-              <span className="white-text">Start next activity?</span>
-              <Link to="header" className="btn btn-primary text-uppercase mr-2">automatic</Link>
-              <Link to="header" className="btn btn-outline-secondary text-uppercase">manual</Link>
+          <div className="session">
+          <h3 className="info myheading"><img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
             </div>
-            <div className="col-md-3">
-              <div className="form-group">
-                  <span className="cover-border"></span>
-                  <label className="label">Pick Emojis</label>
-                  <input
-                    type="text"
-                    className="input-field"
-                    placeholder=""
-                  />
-                  <span className="emojis-icon"></span>
-                </div>
-            </div>
-            <div className="col-md-4">
-              <div className="form-group input-txt">
-                <label className="switch">
-                    <input type="checkbox" 
-                    id ="scriptHeartRateMonitor"
-                    defaultChecked={this.state.scriptHeartRateMonitor}
-                    onChange={(e)=>this.setState({[e.target.id]:!this.state.scriptHeartRateMonitor},()=>console.log("this.state.scriptHeartRateMonitor",this.state.scriptHeartRateMonitor))}
-                    />
-                    <span className="slider round"></span>
-                </label>
-                <span>Use Heart Rate Monitor</span>
-              </div>
-              <div className="form-group input-txt">
-                <label className="switch">
-                    <input type="checkbox" 
-                    id ="scriptZoneTracking"
-                    defaultChecked={this.state.scriptZoneTracking}
-                    onChange={(e)=>this.setState({[e.target.id]:!this.state.scriptZoneTracking},()=>console.log("this.state.scriptZoneTracking",this.state.scriptZoneTracking))}
-                    />
-                    <span className="slider round"></span>
-                </label>
-                <span>Use Zone Tracking</span>
-              </div>
-            </div>
-          </div>
+            {/* Choose Wine */}
+            {this.state.chooseWine?
+            <div className="px-3 pb-0 mt-2 add_wine_expand">
+                <div className="row mt-5">                        
+                    <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
+                        <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
+                        <label className="label">Pick a Wine</label>
+                        <input type="text"  className="input-field" disabled /><span className="emojis-icon"></span>
+                        </div>
+                    </div>
+                    <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
+                        <div className="form-group mb-0" data-toggle="modal"  data-target="#pick_emojis_modal"><span className="cover-border"></span>
+                            <label className="label">Pick Emojis (optional)</label>
+                            <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                            </div>
+                        </div>
+                        <div className="col-lg-2 col-md-6 mt-3 mt-md-0 pl-lg-0">
+                        <div className="d-flex">
+                        <div className="form-group mb-0 input-txt">
+                        <label className="switch mr-2">
+                        <input type="checkbox" />
+                        <span className="slider round"></span>
+                        </label>
+                        </div>
+                        <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
+                        </div>
+                        </div>                                              
+                        </div>
+                        {/* <div className="border-bottom mt-3"></div>*/}
+                    </div>
+                 : ''
+                }         
+
+            {/* ===================================================================== */}
+            <div className="px-3 pb-0 mt-2 add_wine_expand">
+              {this.state.tablerows.map((row,i)=>
+                        <div className="row mt-5" key= {i}>                        
+                            <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
+                                <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
+                                    <label className="label">Pick a Wine</label>
+                                    <input type="text" value = {row.wineChoice} className="input-field" disabled /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
+                            <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
+                              <div className="form-group mb-0" data-toggle="modal" onClick ={(e)=> this.setState({emojiForWineProduct:i},()=>console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct)) } data-target="#pick_emojis_modal"><span className="cover-border"></span>
+                                    <label className="label">Pick Emojis (optional)</label>
+                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
+                            <div className="col-lg-2 col-md-6 mt-3 mt-md-0 pl-lg-0">
+                                <div className="d-flex">
+                                   <div className="form-group mb-0 input-txt">
+                                      <label className="switch mr-2">
+                                          <input type="checkbox" />
+                                          <span className="slider round"></span>
+                                      </label>
+                                    </div>
+                                    <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
+                              </div>
+                            </div>                                              
+                        </div>
+                          )}
+                        {/* <div className="border-bottom mt-3"></div>*/}
+                    </div>
+              {/* Choose Wine End  */}
+
           <div className="p-3">
-            <h3 className="main-heading">Activities</h3>
             <table className="table text-gray activity-table">
               <thead>
                 <tr>
-                  <th>Activity name</th>
-                  <th>Activity Type</th>
-                  <th>Duration Type</th>
-                  <th>Count</th>
-                  <th>Video</th>
-                  <th>Target BPM</th>
-                  <th>Target Zone</th>
+                  <th>Wine</th>
+                  <th>Appearance</th>
+                  <th>Aroma</th>
+                  <th>Palate</th>
                   <th>&nbsp;</th>
                 </tr>
               </thead>
               <Sortable
                   tag = "tbody"   // Defaults to "div"
-                  onChange={(order, sortable, evt) => {
-                    console.log('====================',order);
+                   onChange={(order, sortable, evt) => {
+                   console.log('====================',order);
+                    let arr = [];
                     for(var i=0 ;i<order.length;i++){
-                      console.log(order[i].split(','));
-                      var splitData = order[i].split(',');
-                      console.log(splitData[0]);
-                      var appendData = {ActivityName:splitData[0],ActivityType:splitData[1],DurationType:splitData[2],Count:splitData[3],Video:splitData[4],TargetBPM:splitData[5],TargetZone:splitData[6]}
-                      arr.push(appendData);
-                      console.log('==============================arr',arr);
-                    }
-                    // console.log(order)
+                     var splitData = order[i].split(',');
+                       for(let l =0;l<this.state.tablerows.length;l++){
+                          console.log(splitData[1],'this.state.tablerows',this.state.tablerows[l].id);
+                            if(this.state.tablerows[l].id==splitData[1]){
+                            arr.push(this.state.tablerows[l]);
+                            console.log(this.state.tablerows[l],'*************************************',arr);
+                          }
+                          
+                      }
+                   }
+
                     this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
+                    // console.log(order)
+                    
+                    // console.log(order)
+                    
                 }}
                 >
                 {this.state.tablerows.map((row,i) => (
-                // <tbody key = {i}>
-                //row.attributes.map(p =>(Object.values(p)))
-                //row.attributes.map(p =>(Object.values(p)))
-                <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
-                  <td>{row.ActivityName}</td>
-                  <td>{row.ActivityType}</td>
-                  <td>{row.DurationType}</td>
-                  <td>{row.Count}</td>
-                  <td>{row.Video}</td>
-                  <td>{row.TargetBPM}</td>
-                  <td>{row.TargetZone}</td>
+                 <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
+                  <td>{row.wineChoice}</td>
+                  <td>
+                  <div className="color-icons pl-3">
+                    {row.listAppearance.map((row,i) => (
+                    (row.type) ?<img src={row.emoji} className="mr-2" alt="cherry" key = {i} />:''
+                    ))}
+                    <span>...</span>
+                    </div>
+                  </td>
+                  <td>
+                  <div className="color-icons pl-3">
+                  {row.listAroma.map((row,i) => (    
+                  <img src={row.emoji} className="mr-2" alt="apple" key = {i} />
+                  ))}
+                  <span>...</span>
+                 </div>
+                  </td>
+                  <td>
+                  <div className="color-icons pl-3">
+                  {row.listPalate.map((row,i) => (    
+                  <img src={row.emoji} className="mr-2" alt="apple" key = {i} />
+                  ))}
+                  <span>...</span>
+                 </div>
+                  </td>
                   <td className="d-flex justify-content-center">
                     <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
                     <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
                   </td>
-                  {/* <td>{row.name}</td>
-                  <td>{row.attributes[0].attrValue}</td>
-                  <td>{row.attributes[1].attrValue}</td>
-                  <td>{row.attributes[2].attrValue}</td>
-                  <td>{row.attributes[3].attrValue}</td>
-                  <td>{row.attributes[4].attrValue}</td>
-                  <td>{row.attributes[5].attrValue}</td>
-                  <td className="d-flex justify-content-center">
-                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></a>
-                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
-                  </td> */}
-                </tr>
-                
+                 </tr>
                 ))}
-  
-                </Sortable>
-              {/* <tbody>
-                <tr>
-                  <td>Jumping</td>
-                  <td>Warm Up</td>
-                  <td>Time</td>
-                  <td>30 sec</td>
-                  <td>NA</td>
-                  <td>88 bpm</td>
-                  <td>67%</td>
-                  <td className="d-flex justify-content-center">
-                    <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
-                    <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
-                  </td>
-                </tr>
-                
-              </tbody> */}
-            </table>
+              </Sortable>
+             </table>
           </div>
-          <div className="p-3 activity-form mt-2">
-            <div className="border-bottom">
-              <div className="row">
+          {/* Description start */}
 
-              
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Activity name</label>
-                    <input type="text"
-                    id = "ActivityName" 
-                    value= {this.state.ActivityName} 
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log('ActivityName',this.state.ActivityName))} 
-                    className="input-field" />
+          <div className="p-3 pb-0 mt-2">                    
+                      <div className="row mt-4">
+                          <div className="col-lg-5 col-md-6 mt-3 mt-md-0">
+                            <div className="form-group"><span className="cover-border"></span>
+                                <label className="label">Description</label>
+                                <input type="text" className="input-field" />
+                            </div>
+                          </div>
+                          <div className="col-lg-4 col-md-6 mt-3 mt-md-0 px-lg-0">
+                              <div className="form-group"><span className="cover-border"></span>
+                                    <label className="label">Add Media</label>
+                                    <input type="text" className="input-field" /><span className="browse">Browse</span>
+                                </div>
+                          </div>
+                          <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
+                                <div className="form-group"><span className="cover-border"></span>
+                                    <label className="label">Pick Emojis</label>
+                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                </div>
+                            </div>
+                      </div>
+                      <div className="border-bottom"></div>
+                    </div>
+          {/* description end */}
+
+          {/* Next Description Box */}
+          <div className="p-3 pb-0">
+                        <div className="row mt-4">
+                          <div className="col-lg-6 col-md-6 mt-3 mt-md-0">
+                            <p className="hdng">Description</p>
+                            <p className="hdng1 font-18 mr-0 pl-3">In Hac Habitasse platea dictumst. Vivamus adipiscing ferm ...</p>
+                          </div>
+                          <div className="col-lg-3 col-md-6 mt-3 mt-md-0 px-lg-0">
+                              <p className="hdng mb-2">Media Added</p>
+                              <p><a href="#" className="purple_link">www.somelink.com/product</a></p>
+                          </div>
+                          <div className="col-lg-3 col-md-3 mt-3 mt-md-0">
+                              <p className="hdng mb-2">Emogis</p>
+                              <div className="overflow-hidden">
+                                  <div className="color-icons pl-3 float-left">
+                                    <img src="images/apple.png" className="mr-2" />
+                                    <img src="images/grapes.png" className="mr-2" />
+                                    <img src="images/cheese.png" className="mr-2" />
+                                    <span>...</span>
+                                  </div>
+                                  <div className="float-right pr-3">
+                                      <a href="#" className="mr-2 bg-circle"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                                      <a href="#" className="bg-circle"><i className="fa fa-minus" aria-hidden="true"></i></a>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="border-bottom mt-3">
                   </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Activity type</label>
-                    <select
-                        className="input-field"
-                        id="ActivityType"
-                        value = {this.state.ActivityType}
-                        onChange = {(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log('Activity Type',this.state.ActivityType))}
-                      >
-                        <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <span className="dropdown-icon"></span>
-                  </div>
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Duration type</label>
-                    <select
-                        className="input-field"
-                        id="DurationType"
-                        value = {this.state.DurationType}
-                        onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log('Duration Type',this.state.DurationType))}
-                      >
-                        <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <span className="dropdown-icon"></span>
-                  </div>
-              </div>
-              <div className="col-md-1">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Count</label>
-                    <input type="text" 
-                    id = "Count"
-                    value = {this.state.Count}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Count",this.state.Count))}
-                    className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-1">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Video</label>
-                    <input type="text" placeholder="browse" 
-                    id = "Video"
-                    value = {this.state.Video}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("Video",this.state.Video))}
-                    className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Target BPM</label>
-                    <input type="text" 
-                    id = "TargetBPM"
-                    value = {this.state.TargetBPM}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("TargetBPM",this.state.TargetBPM))}
-                    className="input-field" />
-                  </div>
-                  
-              </div>
-              <div className="col-md-2">
-                <div className="form-group mt-3">
-                    <span className="cover-border"></span>
-                    <label className="label">Target Zone</label>
-                    <input type="text" 
-                    id = "TargetZone"
-                    value = {this.state.TargetZone}
-                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log("TargetZone",this.state.TargetZone))}
-                    className="input-field" />
-                  </div>
-                  
-              </div>
-            </div>
-            </div>
-          </div>
-          <Link to="header" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</Link>
+                    <div className="px-3 pt-3">                    
+                        <a href="#" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</a>
+                        <a href="#" className="activity-link ml-5"><span>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" />
+                    </div>
+                </div>
+          {/* Next Description Box End */}
+          
+          {/* <Link to="header" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</Link> */}
         </div>
 
-        {/* Script End */}
+        {/* Testing Script End */}
         
         <div className="gray-box no-border-radius pb-2">
-          <div className="session"><h3 className="info">Shopping List</h3></div>
-          <div className="px-3 pb-5">
+          <div className="session">
+              <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt="shopping" />Shopping List</h3>
+              </div>
+          <div className="p-3">
             <div className="row">
               <div className="col-md-4">
                   <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
+              {/* Add all Products Start*/}
+              <div className="col-lg-4 col-md-4">
+                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add all Product from Script</a>
+               </div>
+              {/* Add all Products End */}
               <div className="col-md-4">
                   <Link to="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
@@ -1439,11 +1469,11 @@ submitForm = (event) => {
                     </div>
             </div>
             <div className="col-md-3">
-              <div className="form-group">
-                <span className="cover-border"></span>
-                <label className="label">Quantity</label>
-                <input type="text" value  = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
-              </div>
+            <div className="form-group">
+                      <span className="cover-border"></span>
+                      <label className="label">Quantity</label>
+                      <input type="text" value  = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
+                    </div>
             </div>
             <div className="col-md-4">
             <div className="form-group">
@@ -1461,8 +1491,8 @@ submitForm = (event) => {
           
         </div>
         <div className="gray-box2 no-border-radius">
-          <div className="session"><h3 className="info">Equipment List</h3></div>
-          <div className="px-3 pb-5">
+          <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt="shopping" />Equipment List</h3></div>
+          <div className="p-3">
             <div className="row">
               <div className="col-md-4">
                   <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
@@ -1522,62 +1552,11 @@ submitForm = (event) => {
         </div>
 
         <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
-        <div className="modal" id="myModal">
-    <div className="modal-dialog dialogwidth modal-dialog-centered">
-      <div className="modal-content modalbg">
-      
-        <div className="modal-header headerborder">
-          <h4 className="modal-title white">Pick a Product</h4>
-          <button type="button" className="close white" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <div className="modal-body ">
-         <div className="card cardbg">
-  <article className="card-group-item">
-    <div className="filter-content">
-      <div className="card-body ">
-      <form>
-        <label className="form-check labelborder">
-         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Mersedes Benz
-          </span>
-        </label> 
-        <label className="form-check labelborder">
-          <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Nissan Altima
-          </span>
-        </label>  
-        <label className="form-check labelborder">
-         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications"/>
-          <span className="form-check-label">
-            Another Brand
-          </span>
-        </label>  
-      </form>
-
-      </div> 
-    </div>
-  </article> 
-  
-  
-</div> 
-        </div>
-        
-        <div className="modal-footer footerborder">
-          
-        </div>
-        
-      </div>
-      
-    </div>
-  </div>
-  
+         
 
   <div className="modal" id="myModal2">
-    <div className="modal-dialog modal-dialog-centered">
-      <div className="modal-content">
+    <div className="">
+      <div className="modal-content equipmodalbg">
       
         <div className="modal-header headerborder">
           <div className="plusicon"><i className="fa fa-plus" onClick = {this.addToEquipmentList} aria-hidden="true"></i></div>
@@ -1653,7 +1632,6 @@ submitForm = (event) => {
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
                   </div>
-                         
                   : ''
                   }
                 </div>
@@ -1703,8 +1681,8 @@ submitForm = (event) => {
 
 
   <div className="modal" id="myModal3">
-    <div className="modal-dialog modal-dialog-centered">
-      <div className="modal-content">
+    <div className="">
+      <div className="modal-content equipmodalbg">
       
         <div className="modal-header headerborder">
           <div className="plusicon"><i onClick = {this.addToShoppingList} className="fa fa-plus" aria-hidden="true"></i></div>
@@ -1729,8 +1707,26 @@ submitForm = (event) => {
                   </button>
                 </div>
 
+
+                {/* <div className="checkboxdiv">
+                      <div className="mt-4"></div>
+                      <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">Nam dapibus nisl vit.</span>
+                      </label>
+
+                      <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">Donec facilisis tort.</span>
+                      </label>
+
+                     <label className="custom-control custom-checkbox lebelheight">
+                        <input type="checkbox" className="form-radio"/>
+                        <span className="checktxt">In hac habitasse pla.</span>
+                      </label>
+                </div> */}
                 {this.state.shoppingList.map((row,i) => (
-                <div className="row checkboxdiv_3 mt-4" key = {i}>
+                <div className="row checkboxdiv_3" key = {i}>
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
@@ -1744,6 +1740,12 @@ submitForm = (event) => {
                     </label>
                   </div>
                   
+                  {/* <div className="col-md-3">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
+                  </div>
+                  <div className="col-md-5">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item Notes"/></div>
+                  </div> */}
                   {this.state.shoppingList[i].type ?
                   <div className="col-md-3">
                     <div  className="form-group"><span className="cover-border"></span>
@@ -1770,6 +1772,44 @@ submitForm = (event) => {
                 {this.state.shoppingList.map((row,i) => (
                 <div className="checkboxdiv_2" key = {i}>
                
+
+                {/* 
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" 
+                    name={row.itemName}
+                       id ={i} 
+                       checked={row.type} 
+                       onChange={this.selectShoppingList}
+                       value = '20'
+                  className="form-radio"/>
+                  <span className="checktxt">Curabitur lobortis.</span>
+                </label>
+
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Curabitur lobortis.</span>
+                </label>
+
+                <label className="custom-control custom-checkbox lebelheight">
+                  <input type="checkbox" className="form-radio"/>
+                  <span className="checktxt">Curabitur lobortis.</span>
+                </label>
+
+                <div className="row checkboxdiv_3">
+                  <div className="col-md-4">
+                    <label className="custom-control custom-checkbox lebelheight">
+                      <input type="checkbox" className="form-radio"/>
+                      <span className="checktxt">Donec facilisis tort.</span>
+                    </label>
+                  </div>
+                  <div className="col-md-3">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
+                  </div>
+                  <div className="col-md-5">
+                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item UOM"/></div>
+                  </div>
+                </div> */}
+
         </div>
         ))}
         </div>
@@ -1788,11 +1828,11 @@ submitForm = (event) => {
 
   <div className="modal" id="allprevsession">
   <div className="modal-dialog">
-    <div className="modal-content equipmodalbg">
+    <div className="modal-content">
 
-      <div className="modal-header headerborder">
-        <h4 className="modal-title white">Session List</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+      <div className="modal-header">
+        <h4 className="modal-title">Session List</h4>
+        <button type="button" className="close" data-dismiss="modal">&times;</button>
       </div>
 
 
@@ -1844,10 +1884,10 @@ submitForm = (event) => {
 </div>   */}
 <div className="modal" id="calenderModel">
   <div className="modal-dialog">
-    <div className="modal-content modalbg">
+    <div className="modal-content">
       <div className="modal-header">
-        <h4 className="white modal-title">Select Duration</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+        <h4 className="modal-title">Select Duration</h4>
+        <button type="button" className="close" data-dismiss="modal">&times;</button>
       </div>
       <div className="modal-body">
       <h3>Calender</h3>
@@ -1855,27 +1895,6 @@ submitForm = (event) => {
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
       startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
-      <div className="botm_container">
-        <div className="row mt-4">
-          <div className="col-md-5 mt-2">
-            <div class="form-group"><span class="cover-border"></span>
-                <label class="label">Enter Time</label>
-                <input type="text" class="input-field" placeholder="max 50" />
-                <span class="clock-icon"></span>
-            </div>
-          </div>
-          <div className="col-md-7">
-          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
-          <div class="form-group input-txt">
-              <label class="switch">
-                  <input type="checkbox" />
-                  <span class="slider round"></span>
-              </label>
-              <span>This is a repeated session</span>
-            </div>
-          </div>
-        </div>
-      </div>
       </div>
       </div>
   </div>
@@ -1889,26 +1908,158 @@ submitForm = (event) => {
         <button type="button" className="close" data-dismiss="modal">&times;</button>
       </div>
       <div className="modal-body">
-      
+      <h3>Calender</h3>
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date < (new Date().getTime())}
       startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
-      <div className="row">
-      <div className="col-md-6">
-      <div class="form-group"><span class="cover-border"></span>
-        <label class="label">Enter Time</label>
-        <input type="text" class="input-field" />
-      </div>
-      </div>
-      </div>
       </div>
       </div>calenderModel
   </div>
 </div>
+
+<div className="modal" id="myPickWineModel">
+                    <div className="modal-dialog dialogwidth">
+                        <div className="modal-content modalbg">
+                            <div className="modal-header headerborder">
+                                <h4 className="modal-title white">Pick a Product</h4>
+                                <button type="button" className="close white" data-dismiss="modal">×</button>
+                            </div>
+                            <div className="modal-body ">
+                                <div className="card cardbg">
+                                    <article className="card-group-item">
+                                        <div className="filter-content">
+                                            <div className="card-body ">
+                                                <form>
+                                                  {this.state.wineProduct.map((row,i) =>
+                                                    <label className="form-check labelborder" key ={i}>
+                                                        <input 
+                                                        className="form-radio" 
+                                                        type="checkbox" 
+                                                        name={row.name} 
+                                                        id={i} 
+                                                        value={row.name} 
+                                                        onChange={this.wineProductSelect}/>
+                                                        <span className="form-check-label">{row.name}</span>
+                                                        </label>
+                                                      )}
+                                                    {/* <label className="form-check labelborder">
+                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
+                                                    <label className="form-check labelborder">
+                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label> */}
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                            <div className="modal-footer footerborder"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="modal show" id="pick_emojis_modal">
+        <div className="modal-dialog emojis-dialogwidth">
+            <div className="modal-content">
+                <div className="modal-header modalbg">
+                    <h4 className="modal-title white">Assign Emogis</h4>
+                    <button type="button" className="close" data-dismiss="modal">×</button>
+                </div>
+                <form>
+                <div className="modal-body modalbg">
+                    
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label ml-3">APPEARANCE</span></label>                             
+                                    {/* {this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => ( */}
+                                    {this.state.tablerows.length>0?
+                                    (this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => (
+                                    <label className="form-check mb-4" key = {i}>
+                                        <input className="form-radio" 
+                                       type="checkbox" 
+                                       name={row.name}
+                                       id ={i} 
+                                       checked={row.type} 
+                                       onChange={this.apperanceSelect} />
+                                        <span className="form-check-label">
+                                        <img src={row.emoji} className="mx-3" alt="" />
+                                        {row.name}</span>
+                                    </label>
+                                    ))) :''}
+                                    {/* <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/burgundy.png" className="mx-3" alt="" />Burgundy</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/auburn.png" className="mx-3" alt="" />Auburn</span></label>                                         */}
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="audio-type" id="" value="" /><span className="form-check-label ml-3">AROMA</span></label>                             
+                                    {this.state.tablerows.length>0?
+                                    (this.state.tablerows[this.state.emojiForWineProduct].listAroma.map((row,i) => (
+                                    <label className="form-check mb-4" key = {i}>
+                                       <input className="form-radio" 
+                                        type="checkbox" 
+                                        name={row.name}
+                                        id ={i} 
+                                        checked={row.type} 
+                                        onChange={this.aromaSelect} />
+                                        <span className="form-check-label">
+                                        <img src={row.emoji} className="mx-3" />{row.name}</span>
+                                        </label>
+                                    ))):''}
+                                    {/* <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt=""  />Grapes</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Cheese</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Parmezan</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" alt=""  />Tomatapple</span></label>                                         */}
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="card cardbg"> 
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label ml-3">PALATE</span></label>                             
+                                    {this.state.tablerows.length>0?
+                                    (this.state.tablerows[this.state.emojiForWineProduct].listPalate.map((row,i) => (
+                                    <label className="form-check mb-4" key = {i}>
+                                        <input 
+                                        className="form-radio" 
+                                        type="checkbox" 
+                                        name={row.name}
+                                        id ={i} 
+                                        checked={row.type} 
+                                        onChange={this.palateSelect} />
+                                        <span className="form-check-label">
+                                        <img src={row.emoji} className="mx-3" alt="" />
+                                        {row.name}</span>
+                                       
+                                    </label>
+                                     ))):''}
+                                    {/* <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt="" />Another</span></label>
+                                    <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Few Example</span></label> 
+                                        <label className="form-check mb-4">
+                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Non Selected</span></label> */}
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+                <div className="ooterborder text-center mt-4"><button className="btn-primary" data-dismiss="modal">SELECT</button></div>
+                </form>
+            </div>
+        </div>
+    </div>                
       </div>
     );
   }
 }
 
-export default Header;
+export default DemoSessionWine;
