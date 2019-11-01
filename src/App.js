@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router,Switch,Route,Link}from "react-router-dom";
+import { Router, Route, browserHistory } from 'react-router'
 
 
 import Header from './components/home/Header';
@@ -22,13 +22,13 @@ class App extends Component {
  render() {
    return (
    
-       <Router>
+    <Router history = {browserHistory}>
      <div className="App">
      
        <Route exact path="/" component={Dashboard} />
 	   <Route exact path="/wine-creation" component={SessionWineCreation} />
-      <Route exact path="/session_creation" component={Header} />
-		 <Route exact path="/Participent_Dashboard" component={PDashboard} />
+      <Route exact path="/session-creation" component={Header} />
+		 <Route exact path="/participent-dashboard" component={PDashboard} />
 		</div>
      </Router>
    );
