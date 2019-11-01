@@ -847,10 +847,11 @@ submitForm = (event) => {
             </div>
           </div>
         </div>
+        <div className="overflow-hidden">
+        <h4 className="text-white mb-0 mt-3 float-left">CREATE SESSION</h4>
 
-        <h4 className="text-white pb-3 float-left">CREATE SESSION</h4>
-
-        <a href="#" className="btn btn-primary float-right" data-toggle="modal" data-target="#allprevsession"> coppy from ....</a>
+        <a href="#" className="btn btn-primary mb-3 float-right" data-toggle="modal" data-target="#allprevsession"> copy from ....</a>
+        </div>
       <div class="clearfix"></div>
         <div className="gray-box">
           <div className="row session">
@@ -906,7 +907,7 @@ submitForm = (event) => {
                         disabled
                       />
                       {/* <span  className="when-icon"></span> */}
-                      <a href="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#calenderModel"></a>
+                      <a href="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></a>
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
@@ -1019,7 +1020,7 @@ submitForm = (event) => {
                         disabled
                       />
                       {/* <span className="when-icon"></span> */}
-                      <a href ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></a>
+                      <a href ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></a>
                     </div>
                     
                   </div>
@@ -1142,9 +1143,9 @@ submitForm = (event) => {
                   <input
                     type="text"
                     className="input-field"
-                    placeholder="Pick a date and time"
+                    placeholder=""
                   />
-                  <span className="when-icon"></span>
+                  <span className="emojis-icon"></span>
                 </div>
             </div>
             <div className="col-md-4">
@@ -1384,11 +1385,11 @@ submitForm = (event) => {
                     </div>
             </div>
             <div className="col-md-3">
-            <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Quantity</label>
-                      <input type="text" value  = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
-                    </div>
+              <div className="form-group">
+                <span className="cover-border"></span>
+                <label className="label">Quantity</label>
+                <input type="text" value  = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
+              </div>
             </div>
             <div className="col-md-4">
             <div className="form-group">
@@ -1597,6 +1598,7 @@ submitForm = (event) => {
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
                   </div>
+                         
                   : ''
                   }
                 </div>
@@ -1689,7 +1691,7 @@ submitForm = (event) => {
                       </label>
                 </div> */}
                 {this.state.shoppingList.map((row,i) => (
-                <div className="row checkboxdiv_3" key = {i}>
+                <div className="row checkboxdiv_3 mt-4" key = {i}>
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
@@ -1847,10 +1849,10 @@ submitForm = (event) => {
 </div>   */}
 <div className="modal" id="calenderModel">
   <div className="modal-dialog">
-    <div className="modal-content">
+    <div className="modal-content modalbg">
       <div className="modal-header">
-        <h4 className="modal-title">Select Duration</h4>
-        <button type="button" className="close" data-dismiss="modal">&times;</button>
+        <h4 className="white modal-title">Select Duration</h4>
+        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
       <div className="modal-body">
       <h3>Calender</h3>
@@ -1858,6 +1860,27 @@ submitForm = (event) => {
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
       startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      <div className="botm_container">
+        <div className="row mt-4">
+          <div className="col-md-5 mt-2">
+            <div class="form-group"><span class="cover-border"></span>
+                <label class="label">Enter Time</label>
+                <input type="text" class="input-field" placeholder="max 50" />
+                <span class="clock-icon"></span>
+            </div>
+          </div>
+          <div className="col-md-7">
+          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
+          <div class="form-group input-txt">
+              <label class="switch">
+                  <input type="checkbox" />
+                  <span class="slider round"></span>
+              </label>
+              <span>This is a repeated session</span>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
       </div>
   </div>
@@ -1871,11 +1894,19 @@ submitForm = (event) => {
         <button type="button" className="close" data-dismiss="modal">&times;</button>
       </div>
       <div className="modal-body">
-      <h3>Calender</h3>
+      
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
       startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      <div className="row">
+      <div className="col-md-6">
+      <div class="form-group"><span class="cover-border"></span>
+        <label class="label">Enter Time</label>
+        <input type="text" class="input-field" />
+      </div>
+      </div>
+      </div>
       </div>
       </div>calenderModel
   </div>

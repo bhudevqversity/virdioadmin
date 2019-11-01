@@ -1018,7 +1018,89 @@ div.overflow-hidden p:nth-child(1):after
 	padding: 12px 15px;
 	font-size: 14px;
 }
+.input-field-2
+{
+	border-radius: 0px 0px 15px 15px;
+	border-top: none;
+}
 
+/*---------Header page calendar CSS----------------*/
+
+.rlc-calendar
+{
+	color: #959595 !important;
+	border: none !important;
+	border-top: 1px solid #414141 !important;
+	border-bottom: 1px solid #414141 !important;
+	box-shadow: none !important;
+	width: 385px !important;
+	margin: auto !important;
+}
+.rlc-day-disabled, .rlc-day-disabled:hover
+{
+	background-color: #343434 !important;
+}
+#calenderModel .modal-header
+{
+	border-bottom: none;
+}
+#calenderModel .modal-dialog
+{
+	max-width: 450px;
+}
+#calenderModel .modal-body h3
+{
+	display: none;
+}
+.rlc-day
+{
+	font-size: 14px !important;
+	width: 55px !important;
+	height: 55px !important;
+}
+.rlc-navigation-button
+{
+    color: #bd00ff;
+    font-weight: bold;
+    font-size: 20px;
+}
+.rlc-month-and-year
+{
+	color: white;
+}
+.rlc-month-and-year-wrapper
+{
+	border: none !important;
+}
+.rlc-day, .rlc-day-label
+{
+	width: 55px !important;
+	height: 55px !important;
+}
+.rlc-days-label
+{
+	color: white;
+	font-size: 12px !important;
+	
+}
+#calenderModel input.input-field
+{
+	height: 55px;
+}
+#calenderModel .label
+{
+	font-size: 14px;
+	
+}
+#calenderModel .clock-icon
+{
+	top: 14px;
+	background-size: 19px;
+}
+#calenderModel .input-txt
+{
+	font-size: 14px;
+}
 /* Responsive Code */
 
 @media(max-width: 900px)
