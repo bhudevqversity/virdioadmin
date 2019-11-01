@@ -75,7 +75,7 @@ class DemoSessionWine extends Component {
         {
         wineChoice:"Tom",
         id:0,
-        listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+        listAppearance:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
         listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
         listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
         },
@@ -87,6 +87,24 @@ class DemoSessionWine extends Component {
         listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
         }
         ],
+        ///////////////////duplicate tablerow////////////////////
+        tablerows1:[
+          {
+          wineChoice:"Tom",
+          id:0,
+          listAppearance:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+          listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+          },
+          {
+          wineChoice:"Tommy",
+          id:1,
+          listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+          listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+          }
+          ],
+        emojiForWineProduct:0,
         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
          listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
          listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
@@ -131,7 +149,7 @@ class DemoSessionWine extends Component {
  
 componentDidMount(){
   this.fetchPrevSessionList();
-  console.log('---------------------',this.state.tablerows[0].id);
+  console.log('---------------------',this.state.tablerows[0].listAppearance);
   }
 
   fetchPrevSessionList() {
@@ -630,21 +648,49 @@ handleShareholderNameChange = idx => evt => {
 };
 wineProductSelect = (e) => {
   let wineContainer = this.state.wineProduct;
+  let addWine;
+  let wineArray = this.state.tablerows;
   wineContainer[e.target.id].type = !wineContainer[e.target.id].type;
-    this.setState({
-    wineProduct : wineContainer,
-    },()=>
-    { console.log('Wine Product==>',this.state.wineProduct);
-    });
+  if(wineContainer[e.target.id].type){
+    
+    addWine = {
+      wineChoice:wineContainer[e.target.id].name,
+      id:wineArray.length+1,
+      listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+      listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+      listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      }
+      wineArray.push(addWine);
+      this.setState({
+        wineProduct : wineContainer,
+        tablerows:wineArray
+        },()=>
+        { console.log(this.state.tablerows,'Wine Product==>',this.state.wineProduct);
+      });
+  }else{
+    for(let i =0 ;i<wineArray.length;i++){
+      if(wineArray[i].wineChoice == wineContainer[e.target.id].name){
+        wineArray.splice(i,1);
+        this.setState({
+          wineProduct : wineContainer,
+          tablerows:wineArray
+          },()=>
+          { console.log(this.state.tablerows,'Wine Product==>',this.state.wineProduct);
+        });
+      }
+    }
+
+  }
+  
 }
 apperanceSelect = (e) => {
   
-    let emojiContainer = this.state.appearanceEmoji;
-    emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    let emojiContainer = this.state.tablerows;
+    emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type;
     this.setState({
-    appearanceEmoji : emojiContainer,
+    tablerows : emojiContainer,
     },()=>
-    { console.log('appearanceEmoji==>',this.state.appearanceEmoji);
+    { console.log('appearanceEmoji==>',this.state.tablerows);
     });
    
   }
@@ -1190,15 +1236,16 @@ submitForm = (event) => {
         </div>
         {/* Wine Pick up */}
         <div className="px-3 pb-0 mt-2 add_wine_expand">
-                        <div className="row mt-5">                        
+          {/* {this.state.tablerows.map((row,i)=> */}
+                        <div className="row mt-5">
                             <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
                                 <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
                                     <label className="label">Pick a Wine</label>
-                                    <input type="text" className="input-field" /><span className="emojis-icon"></span>
+                                    <input type="text"  className="input-field" disabled /><span className="emojis-icon"></span>
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
-                              <div className="form-group mb-0" data-toggle="modal" data-target="#pick_emojis_modal"><span className="cover-border"></span>
+                              <div className="form-group mb-0" onClick ={(e)=> this.setState({emojiForWineProduct:1},()=>console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct)) } data-toggle="modal" data-target="#pick_emojis_modal"><span className="cover-border"></span>
                                     <label className="label">Pick Emojis (opotional)</label>
                                     <input type="text" className="input-field" /><span className="emojis-icon"></span>
                                 </div>
@@ -1213,8 +1260,9 @@ submitForm = (event) => {
                                     </div>
                                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                               </div>
-                            </div>                                              
+                            </div>
                         </div>
+                        
                         {/* <div className="border-bottom mt-3"></div>                     */}
                     </div>
         {/* Wine Pick up End */}
@@ -1303,30 +1351,31 @@ submitForm = (event) => {
               <Sortable
                   tag = "tbody"   // Defaults to "div"
                   onChange={(order, sortable, evt) => {
-                    console.log('====================',order,order.length);
+                    //console.log('====================',order,order.length);
+                    //console.log(order[0].split(',')[1]);
+                    
                     let arr = [];
-                    for(var i=0 ;i<order.length;i++){
-                      console.log(order[i].split(','));
-                      var splitData = order[i].split(',');
-                    //   console.log('splitData**************',splitData[1]);
-                      for(let l =0;l<this.state.tablerows;l++){
-                          console.log('this.state.tablerows',this.state.tablerows[l].id);
-                          if(this.state.tablerows[l].id===splitData[1]){
-                            arr.push(this.state.tablerows[l]);
-                            console.log('*************************************',arr);
-                          }
-                          this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
-                      }
-                    //   console.log(splitData[0]);
-                    //   var appendData = {wineChoice:splitData[0],ActivityType:splitData[1],DurationType:splitData[2],Count:splitData[3],Video:splitData[4],TargetBPM:splitData[5],TargetZone:splitData[6]}
-                    //   arr.push(appendData);
-                    //   console.log('==============================arr',arr);
+                     for(var i=0 ;i<order.length;i++){
+                       console.log(order[i].split(','));
+                       var splitData = order[i].split(',');
+                       console.log('splitData**************',splitData[1]);
+                       for(let l =0;l<this.state.tablerows;l++){
+                     }
                     }
+                    //   for(let l =0;l<this.state.tablerows;l++){
+                    //       console.log('this.state.tablerows',this.state.tablerows[l].id);
+                    //       if(this.state.tablerows[l].id===splitData[1]){
+                    //         arr.push(this.state.tablerows[l]);
+                    //         console.log('*************************************',arr);
+                    //       }
+                    //       this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
+                    //   }
+                    // }
                     // console.log(order)
                     
                 }}
                 >
-                {this.state.tablerows.map((row,i) => (
+                {this.state.tablerows1.map((row,i) => (
                   <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
                   <td>{row.wineChoice}</td>
                   <td> <div className="color-icons pl-3">
@@ -2026,7 +2075,7 @@ submitForm = (event) => {
                                 <div className="card cardbg"> 
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label ml-3">APPEARANCE</span></label>                             
-                                    {this.state.appearanceEmoji.map((row,i) => (
+                                    {this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => (
                                     <label className="form-check mb-4" key = {i}>
                                         <input className="form-radio" 
                                        type="checkbox" 

@@ -71,8 +71,7 @@ class Header extends Component {
         TargetBPM:'',
         TargetZone:'',
         tablerows:[
-          {ActivityName:"Tom",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"},
-          {ActivityName:"Tommy",ActivityType:"Moody",DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"}
+          
           // {
           //   "name": "Jumping",
           //   "attributes" : [
