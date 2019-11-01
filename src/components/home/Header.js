@@ -43,8 +43,8 @@ class Header extends Component {
         minimumParticipants:'',
         maximumParticipants:'',
         sessionAmount:'',
-        exampleFormControlSelect1:'Pick a Duration',
-        exampleFormControlSelect2 : 'Pick a Difficulty level',
+        exampleFormControlSelect2:'Pick a Duration',
+        exampleFormControlSelect1 : 'Pick a Difficulty level',
         heartRateMonitor:true,
         zoneTracking : true,
         searchParticipant: false,
@@ -166,6 +166,7 @@ componentDidMount(){
     onSessionChanged = (e) => {
 
       let sessionId=e.currentTarget.value;
+
       console.log('-------hi-----',sessionId)
 
       axios      
@@ -173,15 +174,21 @@ componentDidMount(){
       .then(res => {
         console.log('---------SessionId--------------',res.data)
 
+ 
         this.setState({
           session_details: res.data.responseData.name,
           description: res.data.responseData.description,
-          exampleFormControlSelect1: res.data.responseData.duration,
+          exampleFormControlSelect2: res.data.responseData.duration,
           minimumParticipants: res.data.responseData.minAttendee,
-          sessionCharge: res.data.responseData.chargeForSession,
-          sessionDlevel: res.data.responseData.level,
+          amountCharge: res.data.responseData.chargeForSession,
+          sessionCharge: res.data.responseData.sessionChargeAllowed,
+          exampleFormControlSelect1: res.data.responseData.level,
           maximumParticipants: res.data.responseData.maxAttendee,
           sessionParticipantDisableDM: res.data.responseData.participantDisableDM,
+          hostSessionStart: res.data.responseData.hostReminder,
+          participantSessionStart: res.data.responseData.participantReminder,
+          minimumNotMet: res.data.responseData.minNotMetNoticeTime,
+         // signUpDateTime: res.data.responseData.cutOffTime,
           });
       })
       .catch(err =>{
@@ -658,8 +665,8 @@ submitForm = (event) => {
      //start_date:"2019-10-20 15:06:01",
      start_date:this.state.when,
      description:this.state.description,
-     duration:this.state.exampleFormControlSelect1,
-      level:this.setState.exampleFormControlSelect2,
+     duration:this.state.exampleFormControlSelect2,
+      level:this.setState.exampleFormControlSelect1,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
@@ -739,17 +746,17 @@ submitForm = (event) => {
         equipmentList:this.state.equipmentList
       }
       console.log("============abcccc==============>",activity_info);
-      console.log("============lalit==============>",this.state.minimumParticipants,this.state.maximumParticipants);
+     
       if (this.validator.allValid()) {
         if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
 
-      console.log("========Mohit==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script}); 
+      //console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script}); 
 
       let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
       axios.post("/api/v1/session/create", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
       .then(res => {
 
-        console.log('=============lallittiwari12345===================>',res.data);
+       // console.log('=============12345===================>',res.data);
 
         if(res.data.responseMessage == "success")
         {

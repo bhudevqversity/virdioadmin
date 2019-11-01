@@ -26,11 +26,11 @@ class App extends Component {
     <Router history = {browserHistory}>
      <div className="App">
      
-       <Route exact path="/" component={Dashboard} />
-	   <Route exact path="/wine-demo" component={DemoSessionWine} />
-     <Route exact path="/wine-creation" component={SessionWineCreation} />
-      <Route exact path="/session_creation" component={Header} />
-		 <Route exact path="/Participent_Dashboard" component={PDashboard} />
+      <Route exact path="/" component={Dashboard} />
+      <Route exact path="/wine-demo" component={DemoSessionWine} />
+	    <Route exact path="/wine-creation" component={SessionWineCreation} />
+      <Route exact path="/session-creation" component={Header} />
+		  <Route exact path="/participent-dashboard" component={PDashboard} />
 		</div>
      </Router>
    );
