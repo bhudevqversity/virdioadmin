@@ -283,6 +283,7 @@ handleSelect = (e) => {
     
   }  
 
+
   removeEquipmentList = (e) => {
     console.log('=====================================',e.target);
       var dataArray1 =  this.state.equipmentList;
