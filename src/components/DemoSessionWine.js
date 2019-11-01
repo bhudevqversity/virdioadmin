@@ -75,16 +75,16 @@ class DemoSessionWine extends Component {
         {
         wineChoice:"Tom",
         id:0,
-        listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
-        listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
-        listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}]
+        listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+        listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+        listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
         },
         {
         wineChoice:"Tommy",
         id:1,
-        listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
-        listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
-        listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}]
+        listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+        listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
+        listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
         }
         ],
         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
@@ -99,7 +99,10 @@ class DemoSessionWine extends Component {
         {emoji:"images/cheese.png",type:false,name:"Cheese"}],
         palateEmoji:[{emoji:"images/apple.png",type:false,name:"Example"},
         {emoji:"images/grapes.png",type:false,name:"Another"},
-        {emoji:"images/cheese.png",type:false,name:"Few Example"}],                           
+        {emoji:"images/cheese.png",type:false,name:"Few Example"}], 
+        wineProduct:[{type:false,name:"Mersedes Benz"},
+        {type:false,name:"Nissan Altima"},
+        {type:false,name:"Another Brand"}],                          
         ///////////////Equipment List
         selectedOption: null,
         selected: {},
@@ -625,6 +628,15 @@ handleShareholderNameChange = idx => evt => {
   }
   );
 };
+wineProductSelect = (e) => {
+  let wineContainer = this.state.wineProduct;
+  wineContainer[e.target.id].type = !wineContainer[e.target.id].type;
+    this.setState({
+    wineProduct : wineContainer,
+    },()=>
+    { console.log('Wine Product==>',this.state.wineProduct);
+    });
+}
 apperanceSelect = (e) => {
   
     let emojiContainer = this.state.appearanceEmoji;
@@ -647,7 +659,19 @@ apperanceSelect = (e) => {
     { console.log('aromaEmoji==>',this.state.aromaEmoji);
     });
    
-  } 
+  }
+  
+  palateSelect = (e) => {
+  
+    let emojiContainer = this.state.palateEmoji;
+    emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    this.setState({
+    palateEmoji : emojiContainer,
+    },()=>
+    { console.log('palateEmoji==>',this.state.palateEmoji);
+    });
+   
+  }
 ////////////////Submit data
 submitForm = (event) => {
   event.preventDefault();
@@ -1191,7 +1215,7 @@ submitForm = (event) => {
                               </div>
                             </div>                                              
                         </div>
-                        <div className="border-bottom mt-3"></div>                    
+                        {/* <div className="border-bottom mt-3"></div>                     */}
                     </div>
         {/* Wine Pick up End */}
 
@@ -1266,7 +1290,6 @@ submitForm = (event) => {
         {/* Wine Apperance End */}
         {/* Activites Start */}
           <div className="p-3">
-            <h3 className="main-heading">Activities</h3>
             <table className="table text-gray activity-table">
               <thead>
                 <tr>
@@ -1308,7 +1331,7 @@ submitForm = (event) => {
                   <td>{row.wineChoice}</td>
                   <td> <div className="color-icons pl-3">
                     {row.listAppearance.map((row,i) => (
-                    <img src={row.image} className="mr-2" alt="cherry" key = {i} />
+                    <img src={row.emoji} className="mr-2" alt="cherry" key = {i} />
                     ))}
                     <span>...</span>
                     </div>
@@ -1316,7 +1339,7 @@ submitForm = (event) => {
                   <td>
                   <div className="color-icons pl-3">
                   {row.listAroma.map((row,i) => (    
-                  <img src={row.image} className="mr-2" alt="apple" key = {i} />
+                  <img src={row.emoji} className="mr-2" alt="apple" key = {i} />
                   ))}
                   <span>...</span>
                  </div>
@@ -1324,7 +1347,7 @@ submitForm = (event) => {
                   <td> 
                     <div className="color-icons pl-3">
                     {row.listPalate.map((row,i) => ( 
-                    <img src={row.image} className="mr-2" alt=""  key = {i}/>
+                    <img src={row.emoji} className="mr-2" alt=""  key = {i}/>
                     ))}   
                     <span>...</span>
                     </div>
@@ -1961,12 +1984,22 @@ submitForm = (event) => {
                                         <div className="filter-content">
                                             <div className="card-body ">
                                                 <form>
-                                                    <label className="form-check labelborder">
-                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Mersedes Benz</span></label>
-                                                    <label className="form-check labelborder">
+                                                  {this.state.wineProduct.map((row,i) =>
+                                                    <label className="form-check labelborder" key ={i}>
+                                                        <input 
+                                                        className="form-radio" 
+                                                        type="checkbox" 
+                                                        name={row.name} 
+                                                        id={i} 
+                                                        value={row.name} 
+                                                        onChange={this.wineProductSelect}/>
+                                                        <span className="form-check-label">{row.name}</span>
+                                                        </label>
+                                                      )}
+                                                    {/* <label className="form-check labelborder">
                                                         <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
                                                     <label className="form-check labelborder">
-                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label>
+                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label> */}
                                                 </form>
                                             </div>
                                         </div>
@@ -1994,7 +2027,7 @@ submitForm = (event) => {
                                     <label className="form-check mb-4">
                                         <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label ml-3">APPEARANCE</span></label>                             
                                     {this.state.appearanceEmoji.map((row,i) => (
-                                    <label className="form-check mb-4">
+                                    <label className="form-check mb-4" key = {i}>
                                         <input className="form-radio" 
                                        type="checkbox" 
                                        name={row.name}
@@ -2050,7 +2083,7 @@ submitForm = (event) => {
                                         name={row.name}
                                         id ={i} 
                                         checked={row.type} 
-                                        onChange={this.aromaSelect} />
+                                        onChange={this.palateSelect} />
                                         <span className="form-check-label">
                                         <img src={row.emoji} className="mx-3" alt="" />
                                         {row.name}</span>
