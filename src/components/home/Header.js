@@ -19,7 +19,7 @@ class Header extends Component {
     const startDate = date.getTime();
     this.state = {
         sessions: [],
-        host_list:[],
+        hostList:[],
         session_details:'',
         send_input:'',
         msg:'',
@@ -123,7 +123,7 @@ class Header extends Component {
         equipmentArray : [],
         quantityValue:{},
         equipmentList : [{ name: "Tom",type:false,Quantity:0,Link:'X' },{ name: "Tommy",type:false,Quantity:0,Link:'X' }],
-        hostList : [{ name: "Arjun",type:false,hostId:"A1001" },{name: "Lalit",type:false,hostId:"A1002"}],
+        //hostList : [{ name: "Arjun",type:false,hostId:"A1001" },{name: "Lalit",type:false,hostId:"A1002"}],
         equipmentList1 : [],
         duplicateList:[],
         addToequipmentList1 : [],
@@ -159,7 +159,7 @@ componentDidMount(){
         console.log('---------channelHost--------------',res.data.responseData)
 
         this.setState({
-            host_list: res.data.responseData,
+          hostList: res.data.responseData,
             });
             console.log('---------forgotsessions--------------',this.state.sessions)
       })
@@ -790,8 +790,8 @@ submitForm = (event) => {
       const reminder = {
         host_reminder:this.state.hostSessionStart,
         participants_reminder:this.state.participantSessionStart,
-         cutoff_date_time:this.state.signUpDateTime,
-        //cutoff_date_time:"2019-11-2 15:06:01",
+         //cutoff_date_time:this.state.signUpDateTime,
+        cutoff_date_time:"2019-11-2 15:06:01",
         min_participants_not_met:this.state.minimumNotMet
       }
       const privacy ={
@@ -861,11 +861,11 @@ submitForm = (event) => {
         hostList : this.state.hostList
       }
 
-      //console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
+      console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
      
       if (this.validator.allValid()) {
 
-        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
+        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
 
         
 
@@ -873,7 +873,7 @@ submitForm = (event) => {
 
 
       let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
         //console.log(res);
@@ -935,7 +935,7 @@ submitForm = (event) => {
        
       })
 
-      //console.log('----------lalitsession------------------',this.state.sessionCharge);
+      console.log('----------lalitsession------------------',this.state.hostList);
 
     return (
 	
@@ -1790,12 +1790,12 @@ submitForm = (event) => {
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
-                       name={row.name}
+                       name={row.username}
                        id ={i} 
                        checked={row.type} 
                        onChange={this.selectHost}
                        className="form-radio"/>
-                      <span className="checktxt">{row.name}</span>
+                      <span className="checktxt">{row.username}</span>
                     </label>
                   </div>
                  </div>
