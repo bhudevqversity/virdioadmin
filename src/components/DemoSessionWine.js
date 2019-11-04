@@ -89,22 +89,10 @@ class DemoSessionWine extends Component {
         // ],
         ///////////////////duplicate tablerow////////////////////
         chooseWine: false,
-        tablerows:[
-          // {
-          // wineChoice:"Tom",
-          // id:0,
-          // listAppearance:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
-          // listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-          // listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
-          // },
-          // {
-          // wineChoice:"Tommy",
-          // id:1,
-          // listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
-          // listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-          // listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
-          // }
-          ],
+        tablerows:[],
+        wineInfoArray:[],
+        wineDescription:'',
+        wineMedia:'',
         emojiForWineProduct:0,
         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
          listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
@@ -121,7 +109,8 @@ class DemoSessionWine extends Component {
         {emoji:"images/cheese.png",type:false,name:"Few Example"}], 
         wineProduct:[{type:false,name:"Mersedes Benz"},
         {type:false,name:"Nissan Altima"},
-        {type:false,name:"Another Brand"}],                          
+        {type:false,name:"Another Brand"}],
+        wineIndexValue:0,                          
         ///////////////Equipment List
         selectedOption: null,
         selected: {},
@@ -652,10 +641,11 @@ wineProductSelect = (e) => {
   let wineArray = this.state.tablerows;
   wineContainer[e.target.id].type = !wineContainer[e.target.id].type;
   if(wineContainer[e.target.id].type){
-    
+    let indexValue = (this.state.wineIndexValue+1);
+    console.log('wineIndexValue',this.state.wineIndexValue,'IndexValue',indexValue);
     addWine = {
       wineChoice:wineContainer[e.target.id].name,
-      id:wineArray.length+1,
+      id:indexValue,
       listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
       listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
       listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
@@ -663,25 +653,57 @@ wineProductSelect = (e) => {
       wineArray.push(addWine);
       this.setState({
         wineProduct : wineContainer,
+        wineIndexValue:indexValue,
         tablerows:wineArray
         },()=>
-        { console.log(this.state.tablerows,'Wine Product==>',this.state.wineProduct);
+        { console.log(this.state.wineIndexValue,'===WindeIndexvalue',this.state.tablerows,'Wine Product==>',this.state.wineProduct);
       });
   }else{
     for(let i =0 ;i<wineArray.length;i++){
       if(wineArray[i].wineChoice == wineContainer[e.target.id].name){
-        wineArray.splice(i,1);
+        console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct);
+        let indexValue = ((wineArray.length+1)-1);
+         wineArray.splice(i,1);
         this.setState({
           wineProduct : wineContainer,
-          tablerows:wineArray
+          tablerows:wineArray,
+          wineIndexValue:indexValue,
+          emojiForWineProduct:0
           },()=>
-          { console.log(this.state.tablerows,'Wine Product==>',this.state.wineProduct);
+          { console.log(this.state.wineIndexValue,'*****',this.state.tablerows,'Wine Product==>',this.state.wineProduct);
         });
       }
     }
 
   }
   
+}
+addToWineDescription = (e) => {
+  let addWine;
+  let wineArray = this.state.wineInfoArray;
+    addWine = {
+      wineDescription:this.state.wineDescription,
+      id:wineArray.length+1,
+      wineMedia:this.state.wineMedia,
+      listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      }
+      wineArray.push(addWine);
+      this.setState({
+        wineInfoArray:wineArray
+        },()=>
+        { console.log(this.state.wineInfoArray,'Wine Product==>',this.state.wineInfoArray);
+      });
+  
+}
+removeToWineDescription = (e) => {
+  let wineArray = this.state.wineInfoArray;
+  wineArray.splice(e.target.id,1);
+  this.setState({
+    wineInfoArray:wineArray
+    },()=>
+    { console.log(this.state.wineInfoArray,'Wine Product==>',this.state.wineInfoArray);
+  });
+
 }
 apperanceSelect = (e) => {
   
@@ -697,13 +719,20 @@ apperanceSelect = (e) => {
 
   aromaSelect = (e) => {
   
-    let emojiContainer = this.state.aromaEmoji;
-    emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    let emojiContainer = this.state.tablerows;
+    emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type;
     this.setState({
-    aromaEmoji : emojiContainer,
+    tablerows : emojiContainer,
     },()=>
-    { console.log('aromaEmoji==>',this.state.aromaEmoji);
+    { console.log('appearanceEmoji==>',this.state.tablerows);
     });
+    // let emojiContainer = this.state.aromaEmoji;
+    // emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    // this.setState({
+    // aromaEmoji : emojiContainer,
+    // },()=>
+    // { console.log('aromaEmoji==>',this.state.aromaEmoji);
+    // });
    
   }
   
@@ -1234,6 +1263,93 @@ submitForm = (event) => {
           <div className="session">
           <h3 className="info myheading"><img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
             </div>
+          {/* Wine Product With Testing Sortable  */}
+          {this.state.tablerows.length>0?      
+          <div className="p-3">
+            <table className="table text-gray activity-table">
+              <thead>
+                <tr>
+                  <th>Wine</th>
+                  <th>Appearance</th>
+                  <th>Aroma</th>
+                  <th>Palate</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <Sortable
+                  tag = "tbody"   // Defaults to "div"
+                   onChange={(order, sortable, evt) => {
+                   console.log('====================',order);
+                    let arr = [];
+                    for(var i=0 ;i<order.length;i++){
+                     var splitData = order[i].split(',');
+                       for(let l =0;l<this.state.tablerows.length;l++){
+                          console.log(splitData[1],'this.state.tablerows',this.state.tablerows[l].id);
+                            if(this.state.tablerows[l].id==splitData[1]){
+                            arr.push(this.state.tablerows[l]);
+                            console.log(this.state.tablerows[l],'*************************************',arr);
+                          }
+                          
+                      }
+                   }
+
+                    this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
+                    // console.log(order)
+                    
+                    // console.log(order)
+                    
+                }}
+                >
+                {this.state.tablerows.map((row,i) => (
+                 <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
+                  <td>{row.wineChoice}</td>
+                  <td>
+                  <div className="color-icons pl-3">
+                    {row.listAppearance.map((row,i) => (
+                    (row.type) ?<img src={row.emoji} className="mr-2" alt="cherry" key = {i} />:''
+                    ))}
+                    <span>...</span>
+                    </div>
+                  </td>
+                  <td>
+                  <div className="color-icons pl-3">
+                  {row.listAroma.map((row,i) => (    
+                  (row.type) ?<img src={row.emoji} className="mr-2" alt="apple" key = {i} />:''
+                  ))}
+                  <span>...</span>
+                 </div>
+                  </td>
+                  <td>
+                  <div className="color-icons pl-3">
+                  {row.listPalate.map((row,i) => (    
+                  (row.type) ?<img src={row.emoji} className="mr-2" alt="apple" key = {i} />:''
+                  ))}
+                  <span>...</span>
+                 </div>
+                  </td>
+                  <td className="d-flex justify-content-center">
+                  <div className="col-lg-2 col-md-6 mt-3 mt-md-0 pl-lg-0">
+                    <div className="d-flex">
+                     <div className="form-group mb-0 input-txt">
+                      <label className="switch mr-2">
+                      <input type="checkbox" />
+                      <span className="slider round"></span>
+                      </label>
+                      </div>
+                    <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
+                    </div>
+                  </div>
+                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
+                    <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
+                  </td>
+                 </tr>
+                ))}
+              </Sortable>
+             </table>
+          </div>
+          :''}
+          {/* Wine Product With Testing Sortable End */}
+
             {/* Choose Wine */}
             {this.state.chooseWine?
             <div className="px-3 pb-0 mt-2 add_wine_expand">
@@ -1299,78 +1415,9 @@ submitForm = (event) => {
                         {/* <div className="border-bottom mt-3"></div>*/}
                     </div>
               {/* Choose Wine End  */}
-
-          <div className="p-3">
-            <table className="table text-gray activity-table">
-              <thead>
-                <tr>
-                  <th>Wine</th>
-                  <th>Appearance</th>
-                  <th>Aroma</th>
-                  <th>Palate</th>
-                  <th>&nbsp;</th>
-                </tr>
-              </thead>
-              <Sortable
-                  tag = "tbody"   // Defaults to "div"
-                   onChange={(order, sortable, evt) => {
-                   console.log('====================',order);
-                    let arr = [];
-                    for(var i=0 ;i<order.length;i++){
-                     var splitData = order[i].split(',');
-                       for(let l =0;l<this.state.tablerows.length;l++){
-                          console.log(splitData[1],'this.state.tablerows',this.state.tablerows[l].id);
-                            if(this.state.tablerows[l].id==splitData[1]){
-                            arr.push(this.state.tablerows[l]);
-                            console.log(this.state.tablerows[l],'*************************************',arr);
-                          }
-                          
-                      }
-                   }
-
-                    this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
-                    // console.log(order)
-                    
-                    // console.log(order)
-                    
-                }}
-                >
-                {this.state.tablerows.map((row,i) => (
-                 <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
-                  <td>{row.wineChoice}</td>
-                  <td>
-                  <div className="color-icons pl-3">
-                    {row.listAppearance.map((row,i) => (
-                    (row.type) ?<img src={row.emoji} className="mr-2" alt="cherry" key = {i} />:''
-                    ))}
-                    <span>...</span>
-                    </div>
-                  </td>
-                  <td>
-                  <div className="color-icons pl-3">
-                  {row.listAroma.map((row,i) => (    
-                  <img src={row.emoji} className="mr-2" alt="apple" key = {i} />
-                  ))}
-                  <span>...</span>
-                 </div>
-                  </td>
-                  <td>
-                  <div className="color-icons pl-3">
-                  {row.listPalate.map((row,i) => (    
-                  <img src={row.emoji} className="mr-2" alt="apple" key = {i} />
-                  ))}
-                  <span>...</span>
-                 </div>
-                  </td>
-                  <td className="d-flex justify-content-center">
-                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
-                    <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
-                  </td>
-                 </tr>
-                ))}
-              </Sortable>
-             </table>
-          </div>
+          {/* Wine Product Sortable Start */}
+        
+          {/* Wine Product Sortable End */}
           {/* Description start */}
 
           <div className="p-3 pb-0 mt-2">                    
@@ -1378,13 +1425,21 @@ submitForm = (event) => {
                           <div className="col-lg-5 col-md-6 mt-3 mt-md-0">
                             <div className="form-group"><span className="cover-border"></span>
                                 <label className="label">Description</label>
-                                <input type="text" className="input-field" />
+                                <input type="text" 
+                                id="wineDescription"  
+                                value = {this.state.wineDescription}
+                                onChange = {(e)=> this.setState({[e.target.id]:e.target.value})} 
+                                className="input-field" />
                             </div>
                           </div>
                           <div className="col-lg-4 col-md-6 mt-3 mt-md-0 px-lg-0">
                               <div className="form-group"><span className="cover-border"></span>
                                     <label className="label">Add Media</label>
-                                    <input type="text" className="input-field" /><span className="browse">Browse</span>
+                                    <input type="text" 
+                                    id="wineMedia"  
+                                    value = {this.state.wineMedia}
+                                    onChange = {(e)=> this.setState({[e.target.id]:e.target.value})}
+                                    className="input-field" /><span className="browse">Browse</span>
                                 </div>
                           </div>
                           <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
@@ -1399,8 +1454,64 @@ submitForm = (event) => {
           {/* description end */}
 
           {/* Next Description Box */}
+          {/* Sortable test start*/}
+          {this.state.wineInfoArray.length>0 ? 
+          <div className="p-3">
+            <table className="table text-gray activity-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Media Added</th>
+                  <th>Emogis</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <Sortable
+                  tag = "tbody"   // Defaults to "div"
+                   onChange={(order, sortable, evt) => {
+                   console.log('====================',order);
+                    let arr = [];
+                    for(var i=0 ;i<order.length;i++){
+                     var splitData = order[i].split(',');
+                       for(let l =0;l<this.state.wineInfoArray.length;l++){
+                          console.log(splitData[1],'this.state.tablerows',this.state.wineInfoArray[l].id);
+                            if(this.state.wineInfoArray[l].id==splitData[1]){
+                            arr.push(this.state.wineInfoArray[l]);
+                            console.log(this.state.wineInfoArray[l],'*************************************',arr);
+                          }
+                          
+                      }
+                   }
+                  this.setState({ wineInfoArray: arr },()=>console.log('*******',this.state.wineInfoArray));
+                }}
+                >
+                {this.state.wineInfoArray.map((row,i) => (
+                 <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
+                  <td>{row.wineDescription}</td>
+                  <td>
+                  <p><a href="#" className="purple_link">{row.wineMedia}</a></p>
+                  </td>
+                  <td>
+                  <div className="color-icons pl-3">
+                  {row.listPalate.map((row,i) => (    
+                  <img src={row.emoji} className="mr-2" alt="apple" key = {i} />
+                  ))}
+                  <span>...</span>
+                 </div>
+                  </td>
+                  <td className="d-flex justify-content-center">
+                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"   aria-hidden="true"></i></Link>
+                    <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeToWineDescription} aria-hidden="true"></i></Link>
+                  </td>
+                 </tr>
+                ))}
+              </Sortable>
+             </table>
+          </div>
+          :''}
+          {/* Sortable test end */}
           <div className="p-3 pb-0">
-                        <div className="row mt-4">
+                        {/* <div className="row mt-4">
                           <div className="col-lg-6 col-md-6 mt-3 mt-md-0">
                             <p className="hdng">Description</p>
                             <p className="hdng1 font-18 mr-0 pl-3">In Hac Habitasse platea dictumst. Vivamus adipiscing ferm ...</p>
@@ -1424,12 +1535,12 @@ submitForm = (event) => {
                                     </div>
                               </div>
                           </div>
-                      </div>
-                      <div className="border-bottom mt-3">
-                  </div>
+                      </div> */}
+                      {/* <div className="border-bottom mt-3">
+                  </div> */}
                     <div className="px-3 pt-3">                    
                         <a href="#" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</a>
-                        <a href="#" className="activity-link ml-5"><span>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" />
+                        <a href="#" className="activity-link ml-5"><span onClick = {this.addToWineDescription}>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
                 </div>
           {/* Next Description Box End */}
@@ -1958,7 +2069,7 @@ submitForm = (event) => {
                     </div>
                 </div>
 
-                <div className="modal show" id="pick_emojis_modal">
+        <div className="modal show" id="pick_emojis_modal">
         <div className="modal-dialog emojis-dialogwidth">
             <div className="modal-content">
                 <div className="modal-header modalbg">
