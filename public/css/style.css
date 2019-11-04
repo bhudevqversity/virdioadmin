@@ -80,6 +80,26 @@ p, a
 	line-height: 20px;
 	font-size: 14px;
 }
+.hdr .input_field_container .col-xl-4:before
+{
+	content: "";
+	position: absolute;
+	top: 11px;
+	left: 0;
+	width: 1px;
+	height: 64%;
+	background-color: #898989;
+}
+.hdr .input-box:after
+{
+	content: "";
+    position: absolute;
+    width: 1px;
+    height: 74%;
+    background-color: gray;
+    top: 8px;
+    right: -16px;
+}
 .icons
 {
 	display: inline-block;
@@ -148,32 +168,6 @@ p, a
 	padding-left: 15px;
 	z-index: 99;
 }
-.sml
-{
-	border: 1px solid #bd00ff;
-	width: 20px;
-	height: 20px;
-	border-radius: 3px;
-	margin-right: 8px;
-	
-}
-.textt p
-{
-	color: white;
-	font-size: 19px;
-}
-.sml:before
-{
-	position: absolute;
-	content: "";
-	left: 0;
-	top: -4px;
-	height: 30px;
-	width: 1px;
-	background-color: gray;
-}
-
-
 /* Tab Section CSS */
 
 .tab-sec .cont
@@ -414,8 +408,8 @@ a.act:before
     border-color: #bd00ff;
     font-family: Avenir-Medium;
     letter-spacing: 0.5px;
-    font-size: 18px;
-    padding: 12px 25px;
+    font-size: 16px;
+    padding: 10px 15px;
 
 }
 .btn-outline-secondary:hover {
@@ -429,9 +423,10 @@ a.act:before
     background-color: #bd00ff !important;
     border-color: #bd00ff !important;
     font-family: Avenir-Book;
-    font-size: 18px;
-    padding: 12px 25px;
+    font-size: 16px;
+    padding: 10px 15px;
 }
+
 
 /*Carousel CSS */
 .slider_sec
@@ -662,7 +657,7 @@ a.act:before
 	padding: .375rem 1rem;
 	border: 1px solid #bd00ff;
 }
-.input_field_container .col-xl-5 input.form-control
+.input_field_container .col-xl-8 input.form-control, .input_field_container .col-xl-5 input.form-control
 {
 	background-color: transparent;
 	border: none;
@@ -718,7 +713,7 @@ a.act:before
 	top: 0;
 	width: 1px;
 	height: 100%;
-	background-color: white;
+	background-color: #898989;
 }
 .custom-control-input:not(:disabled):active~.custom-control-label::before
 {
@@ -1037,10 +1032,12 @@ div.overflow-hidden p:nth-child(1):after
 }
 .input-field-2
 {
-	border-radius: 0px 0px 15px 15px;
-	border-top: none;
+	border-radius: 0px 15px 15px 15px;
 }
-
+.bg_gray_clr
+{
+	background-color: #131313;
+}
 /*---------Header page calendar CSS----------------*/
 
 .rlc-calendar
@@ -1057,15 +1054,15 @@ div.overflow-hidden p:nth-child(1):after
 {
 	background-color: #343434 !important;
 }
-#calenderModel .modal-header
+.cal_modal .modal-header
 {
 	border-bottom: none;
 }
-#calenderModel .modal-dialog
+.cal_modal .modal-dialog
 {
 	max-width: 450px;
 }
-#calenderModel .modal-body h3
+.cal_modal .modal-body h3
 {
 	display: none;
 }
@@ -1100,23 +1097,35 @@ div.overflow-hidden p:nth-child(1):after
 	font-size: 12px !important;
 	
 }
-#calenderModel input.input-field
+.rlc-day-end-selection:hover, .rlc-day-inside-selection:hover, .rlc-day-selected:hover, .rlc-day-start-selection:hover
+{
+	background-color: #bd00ff !important;
+}
+.rlc-day-end-selection, .rlc-day-inside-selection, .rlc-day-selected, .rlc-day-start-selection
+{
+	background-color: #bd00ff !important;
+}
+.cal_modal input.input-field
 {
 	height: 55px;
 }
-#calenderModel .label
+.cal_modal .label
 {
 	font-size: 14px;
 	
 }
-#calenderModel .clock-icon
+.cal_modal .clock-icon
 {
 	top: 14px;
 	background-size: 19px;
 }
-#calenderModel .input-txt
+.cal_modal .input-txt
 {
 	font-size: 14px;
+}
+.modal-content .form-group .cover-border
+{
+	background-color: #343434;
 }
 /* Responsive Code */
 
@@ -1140,10 +1149,6 @@ div.overflow-hidden p:nth-child(1):after
 	line-height: 50px;
 }
 
-.sml
-{
-	margin-top: 3px;
-}
 .input-box ::placeholder
 {
 	font-size: 1.6vw !important;
@@ -1167,6 +1172,10 @@ div.overflow-hidden p:nth-child(1):after
 		padding-left: 15px;
 	}
 	.input_field_container .col-xl-7:before
+	{
+		display: none;
+	}
+	.hdr .input_field_container .col-xl-4:before
 	{
 		display: none;
 	}
@@ -1228,15 +1237,7 @@ div.overflow-hidden p:nth-child(1):after
 	  	right: 60px;
 
 	  }
-	  .sml
-	  {
-	  	width: 15px;
-	  	height: 15px;
-	  }
-	  .textt p
-	  {
-	  	font-size: 10px;
-	  }
+
 	  .input-box input.form-control
 	  {
 	  	height: 50px;
