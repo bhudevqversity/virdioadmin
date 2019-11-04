@@ -35,6 +35,11 @@ class Header extends Component {
         sessionYear:'',
         sessionDay:'',
         sessionTime:'',
+        reminderSessionTime:'',
+        reminderMonth:'',
+        reminderYear:'',
+        reminderDay:'',
+        reminderTime:'',
         localTimeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
         //////////header state////////
         totalViews : '',
@@ -124,6 +129,7 @@ class Header extends Component {
         quantityValue:{},
         equipmentList : [{ name: "Tom",type:false,Quantity:0,Link:'X' },{ name: "Tommy",type:false,Quantity:0,Link:'X' }],
         hostList : [{ name: "Arjun",type:false,hostId:"A1001" },{name: "Lalit",type:false,hostId:"A1002"}],
+        hostList2:[],
         equipmentList1 : [],
         duplicateList:[],
         addToequipmentList1 : [],
@@ -243,17 +249,39 @@ componentDidMount(){
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   const cutoffDateTime = cutoffStartDate;
+  let day;
+  let year;
+  let time;
+  let t;
   let dt2 = new Date(cutoffStartDate);
 //  cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
     cutoffDateTime
-  })
+  });
+  let timeSelection =  new Date (dt2.getTime()).getHours() ;
+  if(timeSelection>=13){
+  timeSelection =  ((new Date (dt2.getTime()).getHours())-12) + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' PM';
+  time = ((new Date (dt2.getTime()).getHours())-12)+' PM';
+  }else {
+  timeSelection =  new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' AM';  
+  time = new Date (dt2.getTime()).getHours()+' AM';
+  }
+  day = new Date (dt2.getTime()).getDate();
+  year =new Date (dt2.getTime()).getFullYear();
+  t= month[new Date (dt2.getTime()).getMonth()]; 
+ 
   dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
   this.setState({
-  signUpDateTime : dt2
+  signUpDateTime : dt2,
+  reminderSessionTime :timeSelection,
+  reminderMonth:t,
+  reminderDay:day,
+  reminderYear:year,
+  reminderTime:time
   },()=>console.log('Duration ===================================>',this.state.when))
 console.log('*****************',this.state.dateFormat);
 }
@@ -570,17 +598,30 @@ handleSelect = (e) => {
 selectHost = (e) => {
   
   let hostContainer = this.state.hostList;
+  let hostarray = [];
+  hostarray = this.state.hostList2;
   hostContainer[e.target.id].type = !hostContainer[e.target.id].type;
   if(hostContainer[e.target.id].type) {
-     // equipmentContainer[e.target.id].name = e.target.name;
-      //if(e.target.value===''){equipmentContainer[e.target.id].Quantity = 0}
-    } 
+  hostarray.push(hostContainer[e.target.id].hostId)
+  
+  } 
   else {
+    console.log('else',hostarray);
+    for(let i=0;i<hostContainer.length;i++){
+     for(let l=0;l<hostarray.length;l++){
+      if(hostarray[l] == hostContainer[e.target.id].hostId ){
+       console.log(false);
+      hostarray.splice(l,1);
+     }
+    }
+    }
+    
    }
   this.setState({
     hostList : hostContainer,
+    hostList2:hostarray
     },()=>
-    { console.log('setEuipmentContainer==>',this.state.hostList);
+    { console.log(this.state.hostList2,'setEuipmentContainer==>',this.state.hostList,);
       });
  
 }
@@ -1259,14 +1300,9 @@ submitForm = (event) => {
           <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" />Select Host(s)</h3></div>
           <div className="p-3">
           <div className="row">
-<<<<<<< HEAD
             <div className="col-md-4">
                 {/* <Link to="header" className="pick" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link> */}
                 <Link to ="header" className="pick" data-toggle="modal" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
-=======
-            <div className="col-md-4 px-4">
-                <Link to="header" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
->>>>>>> 45a423fa17df7abc9be931945f86e146994d727b
             </div>
             <div className="col-md-4 px-4">
                 <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
@@ -1776,18 +1812,10 @@ submitForm = (event) => {
     </div>
   </div>
 
-<<<<<<< HEAD
 {/* Host Selection Start*/}
  <div className="modal" id="myHost">
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content">
-=======
-
-  <div className="modal cal_modal" id="calenderModal">
-    <div className="">
-     AK
-      
->>>>>>> 45a423fa17df7abc9be931945f86e146994d727b
       
         <div className="modal-header headerborder">
           {/* <div className="plusicon"><i className="fa fa-plus"  aria-hidden="true"></i></div> */}
@@ -1853,7 +1881,7 @@ submitForm = (event) => {
 
                 {this.state.shoppingList.map((row,i) => (
                 <div className="row checkboxdiv_3 mt-4" key = {i}>
-                  <div className="col-md-4">
+                  <div className="col-md-3">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
                        name={row.itemName}
@@ -1875,7 +1903,7 @@ submitForm = (event) => {
                     onChange={this.handleShoppingQuantity(i)}
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
-                    <div  className="col-md-5" className="form-group"><span className="cover-border"></span>
+                    {/* <div  className="col-md-5" className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
                     value={row.itemNote}
@@ -1888,11 +1916,36 @@ submitForm = (event) => {
                     value={row.Link}
                     onChange={this.handleShoppingLink(i)}
                     className="input-field-2" 
-                    placeholder="Add Link"/></div>
+                    placeholder="Add Link"/></div> */}
                   </div>
                   
                   : ''
                   }
+
+                  {this.state.shoppingList[i].type ?
+                  <div className="col-md-3">
+                    <div  className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={row.itemNote}
+                    onChange={this.handleShoppingitemNote(i)}
+                    className="input-field-2" 
+                    placeholder="item Note"/></div>
+                    </div>
+                   : ''}
+                   {this.state.shoppingList[i].type ?
+                  <div className="col-md-3">
+                    <div  className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={row.Link}
+                    onChange={this.handleShoppingLink(i)}
+                    className="input-field-2" 
+                    placeholder="Add Link"/></div>
+                    </div>
+                   : ''}
+
+
                 </div>
                 ))}
                 
@@ -1905,7 +1958,7 @@ submitForm = (event) => {
         
        </div>
       </div>
-       <div className="donebg"><button type="button" className="done">Done</button></div>
+       {/* <div className="donebg"><button type="button" className="done">Done</button></div> */}
 
     </div>
   </div>
@@ -1989,11 +2042,7 @@ submitForm = (event) => {
           <div className="col-md-5 mt-2">
             <div class="form-group"><span class="cover-border"></span>
                 <label class="label">Enter Time</label>
-<<<<<<< HEAD
                 <input type="text" value = {this.state.whenTime} class="input-field" placeholder="Time" disabled />
-=======
-                <input type="text" class="input-field" placeholder="12:00 PM" />
->>>>>>> 45a423fa17df7abc9be931945f86e146994d727b
                 <span class="clock-icon"></span>
             </div>
           </div>
@@ -2040,18 +2089,18 @@ submitForm = (event) => {
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2">
             <div class="form-group"><span class="cover-border"></span>
                 <label class="label">Enter Time</label>
-                <input type="text" class="input-field" placeholder="12:00 PM" />
+                <input type="text" value = {this.state.reminderSessionTime} class="input-field" placeholder="12:00 PM" />
                 <span class="clock-icon"></span>
             </div>
           </div>
           <div className="col-md-7">
-          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
+          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
           <div class="form-group input-txt">
               <label class="switch">
                   <input type="checkbox" />
