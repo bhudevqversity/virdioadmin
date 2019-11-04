@@ -19,6 +19,7 @@ class Header extends Component {
     const startDate = date.getTime();
     this.state = {
         sessions: [],
+        host_list:[],
         session_details:'',
         send_input:'',
         msg:'',
@@ -137,6 +138,30 @@ class Header extends Component {
  
 componentDidMount(){
   this.fetchPrevSessionList();
+  this.fetchExistingHostList();
+  }
+
+
+  fetchExistingHostList() {
+    
+    let  channelId=1;   
+    console.log('-----asdfghjkl----------',channelId);              
+      axios      
+      //.get("/api/v1/session/"+channelId+"/host")
+      .get("/api/v1/session/hosts-list1/"+channelId)          
+      .then(res => {
+        console.log('---------channelHost--------------',res.data.responseData)
+
+        this.setState({
+            host_list: res.data.responseData,
+            });
+            console.log('---------forgotsessions--------------',this.state.sessions)
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
   }
 
   fetchPrevSessionList() {
