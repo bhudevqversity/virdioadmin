@@ -36,8 +36,8 @@ Contents:
     background-color: #bd00ff !important;
     border-color: #bd00ff !important;
     font-family: Avenir-Book;
-    font-size: 18px;
-    padding: 12px 25px;
+    font-size: 16px;
+    padding: 10px 15px;
 }
 .btn-primary:hover {
     color: #fff;
@@ -57,8 +57,8 @@ Contents:
     border-color: #bd00ff;
     font-family: Avenir-Medium;
     letter-spacing: 0.5px;
-        font-size: 18px;
-    padding: 12px 25px;
+        font-size: 16px;
+    padding: 10px 15px;
 
 }
 .btn-outline-secondary:hover {
@@ -210,7 +210,7 @@ img.logo{
     border-left: 5px solid #bd00ff;
     color: #fff;
     font-size: 24px;
-    padding: 0px 0px 0px 30px;
+    padding: 0px 0px 0px 20px;
 
 }
 .session{
@@ -251,12 +251,11 @@ img.logo{
     color: #fff;
 }
 .input-field{
-    border-radius: 0px 0px 15px 15px;
+    border-radius: 0px 15px 15px 15px;
     background: #34213b;
     color: #fff;
     border:2px solid #b002ed;
     height: 71px;
-    border-top: 0;
     width: 100%;
     margin-bottom: 22px;
     padding-left: 18px;
@@ -272,12 +271,14 @@ select.input-field{
     -moz-appearance:none; /* Firefox */
     -webkit-appearance:none; /* Safari and Chrome */
     appearance:none;
+    color: #605265;
 }
 .cover-border::before{
     content: '';
     position: absolute;
     width: 40px;
     height: 2.5px;
+    display: none;
     float: left;
     right: 0px;
     border-radius: 0 25px 0 0;
@@ -288,13 +289,14 @@ select.input-field{
     outline: none;
 }
 .input-field::placeholder{
-    color:#ccc;
+    color:#605265 !important;
 }
 .cover-border::after{
     content: '';
     position: absolute;
     width: 19px;
     height: 2.5px;
+    display: none;
     float: left;
     left: 0px;
     top: 0;
@@ -432,11 +434,18 @@ select.input-field{
     position: relative;
 }
 .cover-border{
-    position: absolute;
+    /*position: absolute;
     top: -1px;
     right: 0;
     z-index: 2;
     width: 100%;
+    height: 2px;*/
+    position: absolute;
+    top: 0px;
+    background-color: #212121;
+    z-index: 2;
+    left: 10px;
+    width: 80%;
     height: 2px;
 }
 

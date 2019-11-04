@@ -25,7 +25,7 @@ componentDidMount(){
 	<div>
 	
 		<div className="container-fluid px-3 px-md-5 pb-2">
-	<div className="hdr pt-4">
+	<div className="hdr pt-4 pb-3">
 		<div className="row">
 			<div className="col-lg-1 pt-2 px-lg-0">
 				<h1 className="text-center">Virdio</h1>
@@ -41,24 +41,29 @@ componentDidMount(){
 				</div>
 			</div>
 			<div className="col-lg-7 mt-3 mt-md-0">
-				<div className="row">
-					<div className="col-sm-10 col-xl-10 pr-sm-0 input-box">
-						<div className="input-group mb-3">
-						     <input type="text" className="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
-						     <div className="input-group-append">
-						     	<span className="input-group-text"><i className="fa fa-search-minus"></i></span>
-						     </div>
-					    </div>
-					    <div className="textt d-flex">
-					    	<div className="sml">
-					    	</div>
-					    	<p>Advance</p>
-					    </div>
+			<div class="row">
+					<div class="col-sm-10 col-xl-10 input-box">
+						<div class="input_field_container p-0">
+							<div class="row mx-0">
+								<div class="col-xl-8 pr-lg-0">
+						    		<input type="text" class="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
+								</div>
+								<div class="col-xl-4 pl-4 pos-relative">
+									<div class="custom-control custom-checkbox mb-3">
+								     <input type="checkbox" class="custom-control-input" id="customCheck" name="" />
+								      <label class="custom-control-label mt-3" for="customCheck">Advance</label>
+								    </div>
+								</div>
+								<div class="right-small-box">
+									<i class="fa fa-search"></i>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div className="col-sm-2 col-xl-2">
-						<div className="text-sm-center pt-sm-2">
-							<p className="mb-2 icons"><i className="fa fa-commenting"></i>
-								<span className="badge">2</span>
+					<div class="col-sm-2 col-xl-2">
+						<div class="text-sm-center pt-sm-2">
+							<p class="mb-2 icons"><i class="fa fa-commenting"></i>
+								<span class="badge">2</span>
 							</p>
 						</div>
 					</div>
