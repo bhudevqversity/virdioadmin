@@ -545,7 +545,7 @@ handleSelect = (e) => {
         <div className="App">
             <div className="container-fluid">
                 <div className="row top-header p-4">
-                    <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="/images/login-logo.png" className="logo" /></div>
+                    <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="images/login-logo.png" className="logo" /></div>
                     <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
                         <div className="user-info d-flex align-items-center"><img src="images/pic.jpg" className="user-avtar pic" />
                             <div className="pl-4">
@@ -1107,7 +1107,7 @@ handleSelect = (e) => {
                     ))}
                    </div>
 
-                <div className="p-3 gray-box2 no-border-radius">
+                <div className="px-3 pb-4 gray-box2 no-border-radius">
                     <div className="session">
                         <h3 className="info"><img src="images/shopping icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
                     <div className="row">
@@ -1633,7 +1633,7 @@ handleSelect = (e) => {
             <div className="modal-content equipmodalbg">
                 <div className="modal-header">
                     <div className="plusicon"><i className="fa fa-plus" aria-hidden="true"></i></div>
-                    <h4 className="modal-title white">Pick from existing Equipments list</h4>
+                    <h4 className="modal-title white">Pick Session Host(s)</h4>
                     <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
                 </div>
                 <div className="modal-body ">
