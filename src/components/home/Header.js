@@ -899,7 +899,7 @@ submitForm = (event) => {
         equipmentList:this.state.equipmentList
       }
       const host_list = {
-        hostList : this.state.hostList
+        hostList : this.state.hostList2
       }
 
       //console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
