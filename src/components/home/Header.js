@@ -1259,14 +1259,9 @@ submitForm = (event) => {
           <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" />Select Host(s)</h3></div>
           <div className="p-3">
           <div className="row">
-<<<<<<< HEAD
             <div className="col-md-4">
                 {/* <Link to="header" className="pick" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link> */}
                 <Link to ="header" className="pick" data-toggle="modal" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
-=======
-            <div className="col-md-4 px-4">
-                <Link to="header" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
->>>>>>> 45a423fa17df7abc9be931945f86e146994d727b
             </div>
             <div className="col-md-4 px-4">
                 <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
@@ -1776,18 +1771,10 @@ submitForm = (event) => {
     </div>
   </div>
 
-<<<<<<< HEAD
 {/* Host Selection Start*/}
  <div className="modal" id="myHost">
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content">
-=======
-
-  <div className="modal cal_modal" id="calenderModal">
-    <div className="">
-     AK
-      
->>>>>>> 45a423fa17df7abc9be931945f86e146994d727b
       
         <div className="modal-header headerborder">
           {/* <div className="plusicon"><i className="fa fa-plus"  aria-hidden="true"></i></div> */}
@@ -1989,11 +1976,7 @@ submitForm = (event) => {
           <div className="col-md-5 mt-2">
             <div class="form-group"><span class="cover-border"></span>
                 <label class="label">Enter Time</label>
-<<<<<<< HEAD
                 <input type="text" value = {this.state.whenTime} class="input-field" placeholder="Time" disabled />
-=======
-                <input type="text" class="input-field" placeholder="12:00 PM" />
->>>>>>> 45a423fa17df7abc9be931945f86e146994d727b
                 <span class="clock-icon"></span>
             </div>
           </div>
