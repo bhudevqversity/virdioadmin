@@ -29,6 +29,11 @@ class Header extends Component {
         cutoffStartDate:date.getTime(),
         cutoffEndDate:'',
         cutoffDateTime:'',
+        whenTime:'',
+        sessionMonth:'',
+        sessionYear:'',
+        sessionDay:'',
+        sessionTime:'',
         localTimeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
         //////////header state////////
         totalViews : '',
@@ -229,7 +234,11 @@ console.log('*****************',this.state.dateFormat);
 }
 
 onChange = (startDate, endDate) => {
-
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+  let day;
+  let year;
+  let time;
+  let t;
   const dateFormat = startDate;
   // let dt = new Date(startDate).toUTCString();
   let dt2 = new Date(startDate);
@@ -237,9 +246,26 @@ onChange = (startDate, endDate) => {
 //  endDate = startDate;
   this.setState({ startDate, endDate,dateFormat },
   ()=>console.log('sds',this.state.startDate,this.state.endDate))
+  let timeSelection =  new Date (dt2.getTime()).getHours() ;
+  if(timeSelection>=13){
+  timeSelection =  ((new Date (dt2.getTime()).getHours())-12) + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' PM';
+  time = ((new Date (dt2.getTime()).getHours())-12)+' PM';
+  }else {
+  timeSelection =  new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' AM';  
+  time = new Date (dt2.getTime()).getHours()+' AM';
+  }
+  day = new Date (dt2.getTime()).getDate();
+  year =new Date (dt2.getTime()).getFullYear();
+  t= month[new Date (dt2.getTime()).getMonth()]; 
+ 
   dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
   this.setState({
-  when : dt2
+  when : dt2,
+  whenTime :timeSelection,
+  sessionMonth:t,
+  sessionDay:day,
+  sessionYear:year,
+  sessionTime:time
   },()=>console.log('Duration ===================================>',this.state.when))
 console.log('*****************',this.state.dateFormat);
 
@@ -1759,15 +1785,6 @@ submitForm = (event) => {
   </div>
 {/* Host Selection End */}
 
-  <div className="modal" id="calenderModal">
-    <div className="">
-     AK
-      
-      
-    </div>
-  </div>
-
-
   <div className="modal" id="myModal3">
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content">
@@ -1933,12 +1950,12 @@ submitForm = (event) => {
           <div className="col-md-5 mt-2">
             <div class="form-group"><span class="cover-border"></span>
                 <label class="label">Enter Time</label>
-                <input type="text" class="input-field" placeholder="max 50" />
+                <input type="text" value = {this.state.whenTime} class="input-field" placeholder="Time" disabled />
                 <span class="clock-icon"></span>
             </div>
           </div>
           <div className="col-md-7">
-          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
+          <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
           <div class="form-group input-txt">
               <label class="switch">
                   <input type="checkbox" />
