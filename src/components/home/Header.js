@@ -45,8 +45,8 @@ class Header extends Component {
         min_participants : '',
         max_participants :'',
         sessionAmount:'',
-        exampleFormControlSelect1:'Pick a Duration',
-        exampleFormControlSelect2 : 'Pick a Difficulty level',
+        exampleFormControlSelect2:'Pick a Duration',
+        exampleFormControlSelect1 : 'Pick a Difficulty level',
         heartRateMonitor:true,
         zoneTracking : true,
         searchParticipant: false,
@@ -178,7 +178,7 @@ componentDidMount(){
         this.setState({
           session_details: res.data.responseData.name,
           description: res.data.responseData.description,
-          exampleFormControlSelect1: res.data.responseData.duration,
+          exampleFormControlSelect2: res.data.responseData.duration,
           minimumParticipants: res.data.responseData.minAttendee,
           amountCharge: res.data.responseData.chargeForSession,
           sessionCharge: res.data.responseData.sessionChargeAllowed == 1 ? true : false,
@@ -726,8 +726,8 @@ submitForm = (event) => {
      //start_date:"2019-10-20 15:06:01",
      start_date:this.state.when,
      description:this.state.description,
-     duration:this.state.exampleFormControlSelect1,
-      level:this.setState.exampleFormControlSelect2,
+     duration:this.state.exampleFormControlSelect2,
+    level:this.state.exampleFormControlSelect1,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
@@ -810,11 +810,11 @@ submitForm = (event) => {
         hostList : this.state.hostList
       }
 
-      console.log("========sessioncreation==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
+      //console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
      
       if (this.validator.allValid()) {
 
-        console.log("========sessioncreation111==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
+        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
 
         
 
@@ -822,40 +822,25 @@ submitForm = (event) => {
 
 
       let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
       .then(res => {
 
         //console.log(res);
 
-        this.setState({
-          send_input: res.data,
-          });
-        input_result=this.state.send_input;
-        console.log('=============lallittiwari===================>',input_result);
+        console.log('=============lallittiwari12345===================>',res.data);
 
-
-        let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      
-        // axios.post("/api/v1/session/create",input_result,{headers : {'Authorization': token}})
-         axios.post("/api/v1/session/create",this.state.send_input)
-         .then(res => {
-   
-           console.log('=============lallittiwari12345===================>',res.data);
-
-           if(res.data.responseMessage == "success")
-           {
-           this.setState({
+            if(res.data.responseMessage == "success")
+            {
+            this.setState({
             msg: "Session hasbeen created Successfully!!!!!!!",
           });
-        }else{
+           }else{
 
           this.setState({
             msg: "There Is a error in session creation",
           });
 
         }
-
-         })
 
       })
     }
