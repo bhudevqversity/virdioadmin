@@ -128,7 +128,7 @@ class Header extends Component {
         equipmentArray : [],
         quantityValue:{},
         equipmentList : [{ name: "Tom",type:false,Quantity:0,Link:'X' },{ name: "Tommy",type:false,Quantity:0,Link:'X' }],
-        hostList : [{ name: "Arjun",type:false,hostId:"A1001" },{name: "Lalit",type:false,hostId:"A1002"}],
+        hostList : [{ username: "Arjun",userId:"A1001" },{username: "Lalit",userId:"A1002"}],
         hostList2:[],
         equipmentList1 : [],
         duplicateList:[],
@@ -598,12 +598,13 @@ handleSelect = (e) => {
 selectHost = (e) => {
   
   let hostContainer = this.state.hostList;
+  console.log('this.state.hostList',this.state.hostList);
   let hostarray = [];
   hostarray = this.state.hostList2;
   hostContainer[e.target.id].type = !hostContainer[e.target.id].type;
   if(hostContainer[e.target.id].type) {
   hostarray.push(hostContainer[e.target.id].hostId)
-  
+  console.log(hostarray);
   } 
   else {
     console.log('else',hostarray);
@@ -1831,12 +1832,12 @@ submitForm = (event) => {
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
-                       name={row.name}
+                       name={row.username}
                        id ={i} 
                        checked={row.type} 
                        onChange={this.selectHost}
                        className="form-radio"/>
-                      <span className="checktxt">{row.name}</span>
+                      <span className="checktxt">{row.username}</span>
                     </label>
                   </div>
                  </div>

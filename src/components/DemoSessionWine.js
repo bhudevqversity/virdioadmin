@@ -130,7 +130,23 @@ class DemoSessionWine extends Component {
         validateList:'',
        // shareholders: [{ name: "" },{ name: "" },{ name: "" },{ name: "" }],
        shareholders: [{ name: "",type:false,Quantity:"1" },{ name: "",type:false,Quantity:"1" }],
-        euipmentCheckBox : [false,false]
+        euipmentCheckBox : [false,false],
+        ///////////Add a new Product/////////////////////////
+        shoppingProductName:'',
+        shoppingVarietal:'',
+        shoppingPrice:'',
+        shoppingPh:'',
+        shoppingAppearance:'',
+        shoppingAroma:'',
+        shoppingPalate:'',
+        shoppingTestingNote:'',
+        shoppingWineMakingNote:'',
+        shoppingPair:'',
+        addAttribute:[],
+        ///////////existing host////////////////////
+        hostList:[{userId:'100',image :'images/pic.jpg', userName:'Nathan Taylor',type:false},{userId:'101',image :'images/pic.jpg',userName:'John Taylor',type:false}],
+        hostList1:[],
+        duplicatehostList:[],
         //////////////////////////
     }
     this.setHeaderValue();
@@ -441,6 +457,112 @@ removeShoppingList = (e) => {
       shoppingList:dataArray1
     },()=>console.log('******Remove**********',this.state.shoppingList1))
   }
+  addAttribute = (e) => {
+  console.log(e.target.id);
+  let x=2,n=0;
+  console.log('e.target.id',e.target.id);
+  let attributeArray = this.state.addAttribute;
+  for(let i =0 ;i<attributeArray.length;i++){
+    if(e.target.id == attributeArray[i]){
+     x=1;n=i;
+    }
+  }
+
+  if(x==1){
+    attributeArray.splice(n,1);
+    this.setState({
+      addAttribute:attributeArray,
+      },()=>
+      { console.log('add Attribute==>',this.state.addAttribute);
+    });
+  }
+  else{
+    attributeArray.push(e.target.id);
+    this.setState({
+      addAttribute:attributeArray,
+      },()=>
+      { console.log('add Attribute==>',this.state.addAttribute);
+    });
+  }
+
+  }
+///////////////////////////Host Selection
+selectHost = (e) => {
+  
+  let hostContainer = this.state.hostList;
+  hostContainer[e.target.id].type = !hostContainer[e.target.id].type;
+  if(hostContainer[e.target.id].type) {
+    
+    } 
+  else {
+    let arrayCheck = [];
+     if(this.state.hostList1.length>0){
+      for(let i=0;i<this.state.hostList1.length;i++){
+         if(this.state.hostList1[i]=== hostContainer[e.target.id].userId){
+          arrayCheck = this.state.hostList1;
+          arrayCheck.splice(i,1);
+          this.setState({
+            hostList1 : arrayCheck 
+          },()=> console.log('check or uncheck equipmentList', this.state.hostList1))
+        }
+      }
+    }
+  }
+  this.setState({
+    hostList : hostContainer,
+    },()=>
+    { console.log('setEuipmentContainer==>',this.state.hostList);
+      });
+ 
+}
+addToHost = () => {
+  let addTohostListArray = [];
+  let ka = [];
+  if((this.state.duplicatehostList.length > 0 && this.state.hostList.length>0) && this.state.searchhostList !== "" ){
+  let x =0 ,n=0;
+  // checking for new insertion or update
+  for(let i =0;i<this.state.hostList1.length;i++){
+    if(this.state.hostList1[i].userId === this.state.hostList[0].userId){
+      x=1;n=i;
+      console.log('Search ---------------Update');
+    }
+  }
+  if(x===1){
+  } 
+  else { // new insertion
+        
+  }
+
+} else {
+  this.setState({
+    duplicatehostList : []
+  })
+  let x,n ;
+  // checking for new insertion or update
+  for (let i=0;i<this.state.hostList.length;i++) {
+    x=0;n=0;
+    for(let l=0;l<this.state.hostList1.length;l++){
+      if(this.state.hostList[i].userId==this.state.hostList1[l]){
+        x=1;n=l;
+      }
+    }
+    if(x==1){ // update
+     console.log('update');
+    } else { // new insertion
+    console.log('Search ******************************new insertion');
+    if((this.state.hostList[i].type===true)){
+    let ka = [];
+    ka = this.state.hostList1;
+    console.log('********value',ka);
+     ka.push(this.state.hostList[i].userId);
+      this.setState({
+        hostList1:ka
+        },()=> console.log(this.state.hostList1,'>>>>>>>>>>>>>>>>@index',i,'*****',this.state.hostList[i]));
+      }
+    }
+  }
+}
+}
 ////////////////Equipment List
 handleSelect = (e) => {
   
@@ -635,6 +757,30 @@ handleShareholderNameChange = idx => evt => {
   }
   );
 };
+testerStatus = (e) =>{
+  let testerContainer = this.state.tablerows;
+    testerContainer[e.target.id].testerStatus = !testerContainer[e.target.id].testerStatus;
+    this.setState({
+    tablerows : testerContainer,
+    },()=>
+    { console.log('testerContainer==>',this.state.tablerows);
+    });
+}
+removeWineActivity = (e) => {
+  console.log('e.target.id',e.target.id);
+  let wineArray = this.state.tablerows;
+  for(let i =0 ;i<wineArray.length;i++){
+    console.log(e.target.id ,'===', wineArray[i].id)
+    if(e.target.id == wineArray[i].id){
+      wineArray.splice(i,1);
+      this.setState({
+        tablerows:wineArray,
+        },()=>
+        { console.log('Wine Product==>',this.state.tablerows);
+      });
+    }
+  }
+}
 wineProductSelect = (e) => {
   let wineContainer = this.state.wineProduct;
   let addWine;
@@ -648,7 +794,8 @@ wineProductSelect = (e) => {
       id:indexValue,
       listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
       listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-      listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}],
+      testerStatus:false
       }
       wineArray.push(addWine);
       this.setState({
@@ -660,7 +807,7 @@ wineProductSelect = (e) => {
       });
   }else{
     for(let i =0 ;i<wineArray.length;i++){
-      if(wineArray[i].wineChoice == wineContainer[e.target.id].name){
+      if(wineArray[i].wineChoice === wineContainer[e.target.id].name){
         console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct);
         let indexValue = ((wineArray.length+1)-1);
          wineArray.splice(i,1);
@@ -737,14 +884,22 @@ apperanceSelect = (e) => {
   }
   
   palateSelect = (e) => {
-  
-    let emojiContainer = this.state.palateEmoji;
-    emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    
+    let emojiContainer = this.state.tablerows;
+    emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type;
     this.setState({
-    palateEmoji : emojiContainer,
+    tablerows : emojiContainer,
     },()=>
-    { console.log('palateEmoji==>',this.state.palateEmoji);
+    { console.log('PalateEmoji==>',this.state.tablerows);
     });
+
+    // let emojiContainer = this.state.palateEmoji;
+    // emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
+    // this.setState({
+    // palateEmoji : emojiContainer,
+    // },()=>
+    // { console.log('palateEmoji==>',this.state.palateEmoji);
+    // });
    
   }
 ////////////////Submit data
@@ -1249,7 +1404,7 @@ submitForm = (event) => {
           <div className="p-3">
           <div className="row">
             <div className="col-md-4">
-                <Link to="header" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
+                <Link to="header" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4">
                 <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
@@ -1332,7 +1487,7 @@ submitForm = (event) => {
                     <div className="d-flex">
                      <div className="form-group mb-0 input-txt">
                       <label className="switch mr-2">
-                      <input type="checkbox" />
+                      <input type="checkbox" id = {i} checked={row.testerStatus} onChange = {this.testerStatus}/>
                       <span className="slider round"></span>
                       </label>
                       </div>
@@ -1340,7 +1495,7 @@ submitForm = (event) => {
                     </div>
                   </div>
                     <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
-                    <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
+                    <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={row.id} onClick = {this.removeWineActivity} aria-hidden="true"></i></Link>
                   </td>
                  </tr>
                 ))}
@@ -1565,7 +1720,7 @@ submitForm = (event) => {
                </div>
               {/* Add all Products End */}
               <div className="col-md-4">
-                  <Link to="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+                  <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#add_product_modal"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
           </div>
@@ -1974,25 +2129,6 @@ submitForm = (event) => {
     </div>
   </div>
 </div>  
-
-{/* <div className="modal" id="calenderModel">
-  <div className="modal-dialog">
-    <div className="modal-content">
-
-      <div className="modal-header">
-        <h4 className="modal-title">Select Duration</h4>
-        <button type="button" className="close" data-dismiss="modal">&times;</button>
-      </div>
-
-
-      <div className="modal-body">
-      <h3>Calender</h3>
-      <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
-    </div>
-
-       </div>
-  </div>
-</div>   */}
 <div className="modal" id="calenderModel">
   <div className="modal-dialog">
     <div className="modal-content">
@@ -2030,44 +2166,44 @@ submitForm = (event) => {
 </div>
 
 <div className="modal" id="myPickWineModel">
-                    <div className="modal-dialog dialogwidth">
-                        <div className="modal-content modalbg">
-                            <div className="modal-header headerborder">
-                                <h4 className="modal-title white">Pick a Product</h4>
-                                <button type="button" className="close white" data-dismiss="modal">×</button>
-                            </div>
-                            <div className="modal-body ">
-                                <div className="card cardbg">
-                                    <article className="card-group-item">
-                                        <div className="filter-content">
-                                            <div className="card-body ">
-                                                <form>
-                                                  {this.state.wineProduct.map((row,i) =>
-                                                    <label className="form-check labelborder" key ={i}>
-                                                        <input 
-                                                        className="form-radio" 
-                                                        type="checkbox" 
-                                                        name={row.name} 
-                                                        id={i} 
-                                                        value={row.name} 
-                                                        onChange={this.wineProductSelect}/>
-                                                        <span className="form-check-label">{row.name}</span>
-                                                        </label>
-                                                      )}
-                                                    {/* <label className="form-check labelborder">
-                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
-                                                    <label className="form-check labelborder">
-                                                        <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label> */}
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-                            <div className="modal-footer footerborder"></div>
-                        </div>
-                    </div>
-                </div>
+  <div className="modal-dialog dialogwidth">
+    <div className="modal-content modalbg">
+      <div className="modal-header headerborder">
+      <h4 className="modal-title white">Pick a Product</h4>
+      <button type="button" className="close white" data-dismiss="modal">×</button>
+    </div>
+    <div className="modal-body ">
+      <div className="card cardbg">
+        <article className="card-group-item">
+          <div className="filter-content">
+          <div className="card-body ">
+          <form>
+          {this.state.wineProduct.map((row,i) =>
+          <label className="form-check labelborder" key ={i}>
+          <input 
+          className="form-radio" 
+          type="checkbox" 
+          name={row.name} 
+          id={i} 
+          value={row.name} 
+          onChange={this.wineProductSelect}/>
+          <span className="form-check-label">{row.name}</span>
+          </label>
+          )}
+          {/* <label className="form-check labelborder">
+          <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
+          <label className="form-check labelborder">
+          <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label> */}
+        </form>
+      </div>
+      </div>
+      </article>
+      </div>
+      </div>
+      <div className="modal-footer footerborder"></div>
+    </div>
+   </div>
+  </div>
 
         <div className="modal show" id="pick_emojis_modal">
         <div className="modal-dialog emojis-dialogwidth">
@@ -2083,7 +2219,7 @@ submitForm = (event) => {
                             <div className="col-md-4">
                                 <div className="card cardbg"> 
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label ml-3">APPEARANCE</span></label>                             
+                                    <span className="form-check-label ml-3">APPEARANCE</span></label>                             
                                     {/* {this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => ( */}
                                     {this.state.tablerows.length>0?
                                     (this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => (
@@ -2099,16 +2235,12 @@ submitForm = (event) => {
                                         {row.name}</span>
                                     </label>
                                     ))) :''}
-                                    {/* <label className="form-check mb-4">
-                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/burgundy.png" className="mx-3" alt="" />Burgundy</span></label>
-                                    <label className="form-check mb-4">
-                                        <input className="form-radio" type="radio" name="" id="" value="" /><span className="form-check-label"><img src="images/auburn.png" className="mx-3" alt="" />Auburn</span></label>                                         */}
-                                </div>
+                                  </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="card cardbg"> 
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="audio-type" id="" value="" /><span className="form-check-label ml-3">AROMA</span></label>                             
+                                    <span className="form-check-label ml-3">AROMA</span></label>                             
                                     {this.state.tablerows.length>0?
                                     (this.state.tablerows[this.state.emojiForWineProduct].listAroma.map((row,i) => (
                                     <label className="form-check mb-4" key = {i}>
@@ -2122,20 +2254,12 @@ submitForm = (event) => {
                                         <img src={row.emoji} className="mx-3" />{row.name}</span>
                                         </label>
                                     ))):''}
-                                    {/* <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt=""  />Grapes</span></label>
-                                    <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Cheese</span></label> 
-                                        <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt=""  />Parmezan</span></label> 
-                                        <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/apple.png" className="mx-3" alt=""  />Tomatapple</span></label>                                         */}
-                                </div>
+                                  </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="card cardbg"> 
                                     <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label ml-3">PALATE</span></label>                             
+                                    <span className="form-check-label ml-3">PALATE</span></label>                             
                                     {this.state.tablerows.length>0?
                                     (this.state.tablerows[this.state.emojiForWineProduct].listPalate.map((row,i) => (
                                     <label className="form-check mb-4" key = {i}>
@@ -2152,13 +2276,7 @@ submitForm = (event) => {
                                        
                                     </label>
                                      ))):''}
-                                    {/* <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/grapes.png" className="mx-3" alt="" />Another</span></label>
-                                    <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Few Example</span></label> 
-                                        <label className="form-check mb-4">
-                                        <input className="form-radio" type="checkbox" name="" id="" value="" /><span className="form-check-label"><img src="images/cheese.png" className="mx-3" alt="" />Non Selected</span></label> */}
-                                </div>
+                                    </div>
                             </div>
                         </div>
                     
@@ -2167,7 +2285,187 @@ submitForm = (event) => {
                 </form>
             </div>
         </div>
-    </div>                
+    </div>
+
+  {/* Add a new Product Start  */}
+  <div className="modal" id="add_product_modal">
+        <div className="">
+            <div className="modal-content equipmodalbg">
+                <div className="modal-header">
+                    <h4 className="modal-title white">Add a new Product<span>Tap on an attribute to make it active in the Product list</span></h4>
+                    
+                    <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
+                </div>
+                <div className="modal-body ">
+                    <div className="card cardbg mt-4">
+                        <div className="form-group mb-0"><span className="cover-border"></span>
+                            <label className="label">Name of the Product</label>
+                            <input type="text"  id='shoppingProductName' value={this.state.shoppingProductName} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log('*****',this.state.shoppingProductName))} className="input-field" />
+                        </div>
+                    </div>
+                    <div className="card cardbg">
+                        <h4 className="white mt-4 mb-3">Add Attribute</h4>
+                        <div className="d-flex flex-wrap">
+                            <a href="#" id ='varietal' onClick = {this.addAttribute} className="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
+                            <a href="#" id ='year' onClick = {this.addAttribute} className="btn btn-outline-secondary text-uppercase mr-2 mt-2">year</a>
+                            <a href="#" id ='country' onClick = {this.addAttribute} className="btn btn-outline-secondary text-uppercase mr-2 mt-2">country</a>
+                            <a href="#" id = 'applellation' onClick = {this.addAttribute} className="btn btn-outline-secondary text-uppercase mr-2 mt-2">applellation</a>
+                            <a href="#" id = 'harvest date' onClick = {this.addAttribute} className="btn btn-outline-secondary text-uppercase mr-2 mt-2">harvest date</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">price</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</a>
+                            <a href="#" className="btn btn-primary mr-2 mt-2">pH</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">palate</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</a>
+                        </div>
+                    </div>
+                    <div className="card cardbg mt-5">
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Varietal</label>
+                                    <input type="text" id = 'shoppingVarietal' value = {this.state.shoppingVarietal} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingVarietal))} className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Price</label>
+                                    <input type="text" id = 'shoppingPrice' value = {this.state.shoppingPrice} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPrice))} className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0">
+                                    <label className="label">pH</label>
+                                    <input type="text" id = 'shoppingPh' value = {this.state.shoppingPh} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPh))} className="input-field footerborder" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row mt-4">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Appearance</label>
+                                    <input type="text" id = 'shoppingAppearance' value = {this.state.shoppingAppearance} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingAppearance))} className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Aroma</label>
+                                    <input type="text" id = 'shoppingAroma' value = {this.state.shoppingAroma} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingAroma))} className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0">
+                                    <label className="label">Palate</label>
+                                    <input type="text" id = 'shoppingPalate' value = {this.state.shoppingPalate} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPalate))} className="input-field footerborder" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row mt-4">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Testing Notes</label>
+                                    <textarea rows="5" id = 'shoppingTestingNote' value = {this.state.shoppingTestingNote} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingTestingNote))} className="input-field"></textarea>
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Winemaking Notes</label>
+                                    <textarea rows="5" id = 'shoppingWineMakingNote' value = {this.state.shoppingWineMakingNote} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingWineMakingNote))} className="input-field"></textarea>
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0">
+                                    <label className="label">Pairs With</label>
+                                    <textarea rows="5" id = 'shoppingPair' value = {this.state.shoppingPair} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPair))} className="input-field"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="donebg">
+                <button type="button" className="done mt-4">Done</button>
+            </div>
+        </div>
+    </div>
+  {/* Add a new Product End */}
+
+  {/* Select from existing host start */}
+  <div className="modal" id="pick_host_modal">
+        <div className="">
+            <div className="modal-content equipmodalbg">
+                <div className="modal-header">
+                    <div className="plusicon"><i className="fa fa-plus" onClick={this.addToHost} aria-hidden="true"></i></div>
+                    <h4 className="modal-title white">Pick Session Host(s)</h4>
+                    <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
+                </div>
+                <div className="modal-body ">
+                    <div className="card cardbg headerborder pb-4">
+                        <div className="searchbar">
+                            <input type="text" className="searchbarinput" placeholder="Search for Host" />
+                            <button className="inputbtn" type="button"></button>
+                        </div>
+                    </div>
+                    <div className="card cardbg">
+                        <div className="row mt-4">
+                        {this.state.hostList.map((row,i) => (
+                          (i%2==0?
+                            <div className="col-md-6 pl-md-0" key = {i}>
+                                <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox"
+                                    id={i}
+                                    checked = {row.type}
+                                    onClick = {this.selectHost}
+                                    className="form-radio" />
+                                    <img src={row.image} className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">{row.userName}</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                                             
+                            </div>:''
+                         )))}
+                        {this.state.hostList.map((row,i) => (
+                        (i%2==1?
+                        <div className="col-md-6" key = {i}>
+                              <label className="custom-control custom-checkbox lebelheight">
+                                    <input type="checkbox"
+                                    id={i}
+                                    checked = {row.type}
+                                    onClick = {this.selectHost}
+                                    className="form-radio" />
+                                    <img src={row.image} className="ml-2 mr-3" alt="user-icon" />
+                                    <div>
+                                        <p className="checktxt_name pb-1">{row.userName}</p>
+                                        <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
+                                    </div>
+
+                                </label>
+                                
+                            </div>:''
+                            )))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="donebg">
+                <button type="button" className="done mt-4">Done</button>
+            </div>
+        </div>
+    </div>
+  {/* Select from existing host end */}
       </div>
     );
   }
