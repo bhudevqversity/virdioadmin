@@ -1993,12 +1993,29 @@ submitForm = (event) => {
        </div>
   </div>
 </div>   */}
-<div className="modal" id="calenderModel">
+{/* <div className="modal" id="calenderModel">
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
         <h4 className="modal-title">Select Duration</h4>
         <button type="button" className="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div className="modal-body">
+      <h3>Calender</h3>
+      
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date <= (new Date().getTime())}
+      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      </div>
+      </div>
+  </div>
+</div> */}
+<div className="modal cal_modal" id="calenderModel">
+  <div className="modal-dialog">
+    <div className="modal-content modalbg">
+      <div className="modal-header">
+        <h4 className="white modal-title">Select Duration</h4>
+        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
       <div className="modal-body">
       <h3>Calender</h3>
@@ -2006,12 +2023,32 @@ submitForm = (event) => {
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
       startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      <div className="botm_container">
+        <div className="row mt-4">
+          <div className="col-md-5 mt-2">
+            <div class="form-group"><span class="cover-border"></span>
+                <label class="label">Enter Time</label>
+                <input type="text" class="input-field" placeholder="12:00 PM" />
+                <span class="clock-icon"></span>
+            </div>
+          </div>
+          <div className="col-md-7">
+          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
+          <div class="form-group input-txt">
+              <label class="switch">
+                  <input type="checkbox" />
+                  <span class="slider round"></span>
+              </label>
+              <span>This is a repeated session</span>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
       </div>
   </div>
 </div>
-
-<div className="modal" id="signUpCalenderModel">
+{/* <div className="modal" id="signUpCalenderModel">
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
@@ -2020,10 +2057,62 @@ submitForm = (event) => {
       </div>
       <div className="modal-body">
       <h3>Calender</h3>
-      {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
+      
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date < (new Date().getTime())}
       startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      </div>
+      </div>calenderModel
+  </div>
+</div> */}
+<div className="modal cal_modal" id="signUpCalenderModel">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h4 className="modal-title white">Select Duration</h4>
+        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+      </div>
+      {/* <div className="modal-body">
+      
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date < (new Date().getTime())}
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      <div className="row">
+      <div className="col-md-6">
+      <div class="form-group"><span class="cover-border"></span>
+        <label class="label">Enter Time</label>
+        <input type="text" class="input-field" />
+      </div>
+      </div>
+      </div>
+      </div> */}
+      <div className="modal-body">
+      <h3>Calender</h3>
+      {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date <= (new Date().getTime())}
+      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      <div className="botm_container">
+        <div className="row mt-4">
+          <div className="col-md-5 mt-2">
+            <div class="form-group"><span class="cover-border"></span>
+                <label class="label">Enter Time</label>
+                <input type="text" class="input-field" placeholder="12:00 PM" />
+                <span class="clock-icon"></span>
+            </div>
+          </div>
+          <div className="col-md-7">
+          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
+          <div class="form-group input-txt">
+              <label class="switch">
+                  <input type="checkbox" />
+                  <span class="slider round"></span>
+              </label>
+              <span>This is a repeated session</span>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
       </div>calenderModel
   </div>
