@@ -2095,7 +2095,7 @@ submitForm = (event) => {
           <div className="col-md-5 mt-2">
             <div class="form-group"><span class="cover-border"></span>
                 <label class="label">Enter Time</label>
-                <input type="text" value = {this.state.reminderSessionTime} class="input-field" placeholder="12:00 PM" />
+                <input type="text" value = {this.state.reminderSessionTime} class="input-field" placeholder="12:00 PM" disabled />
                 <span class="clock-icon"></span>
             </div>
           </div>
