@@ -20,6 +20,8 @@ class Header extends Component {
     this.state = {
         sessions: [],
         hostList:[],
+        equipmentList:[],
+        shoppingList:[],
         session_details:'',
         send_input:'',
         msg:'',
@@ -35,6 +37,11 @@ class Header extends Component {
         sessionYear:'',
         sessionDay:'',
         sessionTime:'',
+        reminderSessionTime:'',
+        reminderMonth:'',
+        reminderYear:'',
+        reminderDay:'',
+        reminderTime:'',
         localTimeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
         //////////header state////////
         totalViews : '',
@@ -122,13 +129,14 @@ class Header extends Component {
         equipmentQunatity:'',
         equipmentArray : [],
         quantityValue:{},
-        equipmentList : [{ name: "Tom",type:false,Quantity:0,Link:'X' },{ name: "Tommy",type:false,Quantity:0,Link:'X' }],
+       // equipmentList : [{ name: "Tom",type:false,Quantity:0,Link:'X' },{ name: "Tommy",type:false,Quantity:0,Link:'X' }],
         //hostList : [{ name: "Arjun",type:false,hostId:"A1001" },{name: "Lalit",type:false,hostId:"A1002"}],
+        hostList2:[],
         equipmentList1 : [],
         duplicateList:[],
         addToequipmentList1 : [],
         searchEquipment: "",
-        shoppingList : [{ itemName: "Tom",type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},{ itemName: "Tommy",type:false,Quantity:0,itemNote:"X" ,Link :"addLink"}],
+       // shoppingList : [{ itemName: "Tom",type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},{ itemName: "Tommy",type:false,Quantity:0,itemNote:"X" ,Link :"addLink"}],
         shoppingList1:[],
         duplicateShoppingList: [],
         shoppingListValue: "",
@@ -145,6 +153,8 @@ class Header extends Component {
 componentDidMount(){
   this.fetchPrevSessionList();
   this.fetchExistingHostList();
+  this.fetchExistingEquipments();
+  this.fetchExistingShopping();
   }
 
 
@@ -156,12 +166,59 @@ componentDidMount(){
       //.get("/api/v1/session/"+channelId+"/host")
       .get("/api/v1/session/hosts-list1/"+channelId)          
       .then(res => {
-        console.log('---------channelHost--------------',res.data.responseData)
+        console.log('---------channelHost--------------',res.data.responseData);
+
 
         this.setState({
           hostList: res.data.responseData,
             });
-            console.log('---------forgotsessions--------------',this.state.sessions)
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
+
+  fetchExistingEquipments() {
+    
+    let  interestId=2;   
+    console.log('-----a----------',interestId);              
+      axios      
+      //.get("/api/v1/session/"+channelId+"/host")
+      .get("/api/v1/session/equipments/"+interestId)          
+      .then(res => {
+        console.log('---------channelEquipments--------------',res.data.responseData);
+
+
+        this.setState({
+          equipmentList: res.data.responseData,
+            });
+            
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
+  fetchExistingShopping() {
+    
+    let  interestId=2;   
+    console.log('-----b----------',interestId);              
+      axios      
+
+      .get("/api/v1/session/shoppinglist/"+interestId)          
+      .then(res => {
+        console.log('---------channelShopping--------------',res.data.responseData);
+
+
+        this.setState({
+          shoppingList: res.data.responseData,
+            });
+            
       })
       .catch(err =>{
           console.log('----------there is problem------------');
@@ -243,17 +300,39 @@ componentDidMount(){
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   const cutoffDateTime = cutoffStartDate;
+  let day;
+  let year;
+  let time;
+  let t;
   let dt2 = new Date(cutoffStartDate);
 //  cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
     cutoffDateTime
-  })
+  });
+  let timeSelection =  new Date (dt2.getTime()).getHours() ;
+  if(timeSelection>=13){
+  timeSelection =  ((new Date (dt2.getTime()).getHours())-12) + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' PM';
+  time = ((new Date (dt2.getTime()).getHours())-12)+' PM';
+  }else {
+  timeSelection =  new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' AM';  
+  time = new Date (dt2.getTime()).getHours()+' AM';
+  }
+  day = new Date (dt2.getTime()).getDate();
+  year =new Date (dt2.getTime()).getFullYear();
+  t= month[new Date (dt2.getTime()).getMonth()]; 
+ 
   dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
   this.setState({
-  signUpDateTime : dt2
+  signUpDateTime : dt2,
+  reminderSessionTime :timeSelection,
+  reminderMonth:t,
+  reminderDay:day,
+  reminderYear:year,
+  reminderTime:time
   },()=>console.log('Duration ===================================>',this.state.when))
 console.log('*****************',this.state.dateFormat);
 }
@@ -570,17 +649,46 @@ handleSelect = (e) => {
 selectHost = (e) => {
   
   let hostContainer = this.state.hostList;
-  hostContainer[e.target.id].type = !hostContainer[e.target.id].type;
-  if(hostContainer[e.target.id].type) {
-     // equipmentContainer[e.target.id].name = e.target.name;
-      //if(e.target.value===''){equipmentContainer[e.target.id].Quantity = 0}
-    } 
-  else {
-   }
+  let hostarray = [];
+  let x =2,n=0;
+  hostarray = this.state.hostList2;
+  console.log('************************',hostContainer[e.target.id].userId);
+  //hostContainer[e.target.id].type = !hostContainer[e.target.id].type;
+  //if(hostContainer[e.target.id].type) {
+    for(let i=0;i<hostContainer.length;i++){
+      x=0;n=0;
+     for(let l=0;l<hostarray.length;l++){
+      if(hostarray[l] == hostContainer[e.target.id].userId ){
+       x=1;n=l;
+        console.log(false);
+      //hostarray.splice(l,1);
+     }
+    }
+    if(x===0){
+      hostarray.push(hostContainer[e.target.id].userId);
+    }
+    if(x===1){
+      hostarray.splice(n,1);
+    }
+    }
+  //} 
+  // else {
+  //   console.log('else',hostarray);
+  //   for(let i=0;i<hostContainer.length;i++){
+  //    for(let l=0;l<hostarray.length;l++){
+  //     if(hostarray[l] == hostContainer[e.target.id].hostId ){
+  //      console.log(false);
+  //     hostarray.splice(l,1);
+  //    }
+  //   }
+  //   }
+    
+  //  }
   this.setState({
     hostList : hostContainer,
+    hostList2:hostarray
     },()=>
-    { console.log('setEuipmentContainer==>',this.state.hostList);
+    { console.log(this.state.hostList2,'setEuipmentContainer==>',this.state.hostList,);
       });
  
 }
@@ -770,6 +878,21 @@ submitForm = (event) => {
   let input_result=[];
   let min_participants='';
   let max_participants='';
+// console.log('-------munahostlist-----------',this.state.hostList)
+//   var datavar=this.state.hostList;
+//   datavar.forEach(ele => {
+//     console.log('--------lalithostlist------------',ele.type)
+//   if(ele.type == true)
+//   {
+//     console.log('--------lalithosttrue------------',ele.type)
+//     this.setState({
+//       hostList3: ele.userId
+//     });
+//   }
+
+//   });
+ // console.log('-------guduhostlist-----------',this.state.hostList3)
+
     const session ={
       channelId: 1006,
       name:this.state.session_details,
@@ -845,6 +968,8 @@ submitForm = (event) => {
          activities.push(activity_data);
          console.log("activities",activities,'activity_data=======lalit222222===========',activity_data);   
       }
+
+
       const script ={
         next_activity : "automatic",
         heart_rate_monitor:this.state.scriptHeartRateMonitor,
@@ -858,7 +983,7 @@ submitForm = (event) => {
         equipmentList:this.state.equipmentList
       }
       const host_list = {
-        hostList : this.state.hostList
+        hostList : this.state.hostList2
       }
 
       console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
@@ -935,7 +1060,7 @@ submitForm = (event) => {
        
       })
 
-      console.log('----------lalitsession------------------',this.state.hostList);
+     // console.log('----------lalitsession------------------',this.state.hostList2);
 
     return (
 	
@@ -1682,7 +1807,6 @@ submitForm = (event) => {
     </div>
   </div>
   
-
   <div className="modal" id="myModal2">
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content">
@@ -1738,7 +1862,7 @@ submitForm = (event) => {
                     <div className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.Quantity}
+                    value={2}
                     onChange={this.handleShareholderNameChange(i)}
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
@@ -1751,7 +1875,7 @@ submitForm = (event) => {
                     <div className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.Link}
+                    value={this.state.link}
                     onChange={this.handleShareholderLink(i)}
                     className="input-field-2" 
                     placeholder="Add Link"/></div>
@@ -1790,9 +1914,9 @@ submitForm = (event) => {
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
-                       name={row.username}
+                       name={row.userId}
                        id ={i} 
-                       checked={row.type} 
+                      //  checked={row.type} 
                        onChange={this.selectHost}
                        className="form-radio"/>
                       <span className="checktxt">{row.username}</span>
@@ -1840,16 +1964,16 @@ submitForm = (event) => {
 
                 {this.state.shoppingList.map((row,i) => (
                 <div className="row checkboxdiv_3 mt-4" key = {i}>
-                  <div className="col-md-4">
+                  <div className="col-md-3">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
-                       name={row.itemName}
+                       name={row.name}
                        id ={i} 
                        checked={row.type} 
                        onChange={this.selectShoppingList}
                        value = '20'
                       className="form-radio"/>
-                      <span className="checktxt">{row.itemName}</span>
+                      <span className="checktxt">{row.name}</span>
                     </label>
                   </div>
                   
@@ -1858,11 +1982,11 @@ submitForm = (event) => {
                     <div  className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.Quantity}
+                    value={2}
                     onChange={this.handleShoppingQuantity(i)}
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
-                    <div  className="col-md-5" className="form-group"><span className="cover-border"></span>
+                    {/* <div  className="col-md-5" className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
                     value={row.itemNote}
@@ -1875,11 +1999,36 @@ submitForm = (event) => {
                     value={row.Link}
                     onChange={this.handleShoppingLink(i)}
                     className="input-field-2" 
-                    placeholder="Add Link"/></div>
+                    placeholder="Add Link"/></div> */}
                   </div>
                   
                   : ''
                   }
+
+                  {this.state.shoppingList[i].type ?
+                  <div className="col-md-3">
+                    <div  className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={this.state.item}
+                    onChange={this.handleShoppingitemNote(i)}
+                    className="input-field-2" 
+                    placeholder="item Note"/></div>
+                    </div>
+                   : ''}
+                   {this.state.shoppingList[i].type ?
+                  <div className="col-md-3">
+                    <div  className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={this.state.link}
+                    onChange={this.handleShoppingLink(i)}
+                    className="input-field-2" 
+                    placeholder="Add Link"/></div>
+                    </div>
+                   : ''}
+
+
                 </div>
                 ))}
                 
@@ -1892,7 +2041,7 @@ submitForm = (event) => {
         
        </div>
       </div>
-       <div className="donebg"><button type="button" className="done">Done</button></div>
+       {/* <div className="donebg"><button type="button" className="done">Done</button></div> */}
 
     </div>
   </div>
@@ -2023,18 +2172,18 @@ submitForm = (event) => {
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2">
             <div class="form-group"><span class="cover-border"></span>
                 <label class="label">Enter Time</label>
-                <input type="text" class="input-field" placeholder="12:00 PM" />
+                <input type="text" value = {this.state.reminderSessionTime} class="input-field" placeholder="12:00 PM" />
                 <span class="clock-icon"></span>
             </div>
           </div>
           <div className="col-md-7">
-          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
+          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
           <div class="form-group input-txt">
               <label class="switch">
                   <input type="checkbox" />
