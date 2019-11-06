@@ -19,7 +19,9 @@ class Header extends Component {
     const startDate = date.getTime();
     this.state = {
         sessions: [],
-        host_list:[],
+        hostList:[],
+        equipmentList:[],
+        shoppingList:[],
         session_details:'',
         send_input:'',
         msg:'',
@@ -127,14 +129,14 @@ class Header extends Component {
         equipmentQunatity:'',
         equipmentArray : [],
         quantityValue:{},
-        equipmentList : [{ name: "Tom",type:false,Quantity:0,Link:'X' },{ name: "Tommy",type:false,Quantity:0,Link:'X' }],
-        hostList : [{ name: "Arjun",type:false,hostId:"A1001" },{name: "Lalit",type:false,hostId:"A1002"}],
+       // equipmentList : [{ name: "Tom",type:false,Quantity:0,Link:'X' },{ name: "Tommy",type:false,Quantity:0,Link:'X' }],
+        //hostList : [{ name: "Arjun",type:false,hostId:"A1001" },{name: "Lalit",type:false,hostId:"A1002"}],
         hostList2:[],
         equipmentList1 : [],
         duplicateList:[],
         addToequipmentList1 : [],
         searchEquipment: "",
-        shoppingList : [{ itemName: "Tom",type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},{ itemName: "Tommy",type:false,Quantity:0,itemNote:"X" ,Link :"addLink"}],
+       // shoppingList : [{ itemName: "Tom",type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},{ itemName: "Tommy",type:false,Quantity:0,itemNote:"X" ,Link :"addLink"}],
         shoppingList1:[],
         duplicateShoppingList: [],
         shoppingListValue: "",
@@ -151,6 +153,8 @@ class Header extends Component {
 componentDidMount(){
   this.fetchPrevSessionList();
   this.fetchExistingHostList();
+  this.fetchExistingEquipments();
+  this.fetchExistingShopping();
   }
 
 
@@ -162,12 +166,59 @@ componentDidMount(){
       //.get("/api/v1/session/"+channelId+"/host")
       .get("/api/v1/session/hosts-list1/"+channelId)          
       .then(res => {
-        console.log('---------channelHost--------------',res.data.responseData)
+        console.log('---------channelHost--------------',res.data.responseData);
+
 
         this.setState({
-            host_list: res.data.responseData,
+          hostList: res.data.responseData,
             });
-            console.log('---------forgotsessions--------------',this.state.sessions)
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
+
+  fetchExistingEquipments() {
+    
+    let  interestId=2;   
+    console.log('-----a----------',interestId);              
+      axios      
+      //.get("/api/v1/session/"+channelId+"/host")
+      .get("/api/v1/session/equipments/"+interestId)          
+      .then(res => {
+        console.log('---------channelEquipments--------------',res.data.responseData);
+
+
+        this.setState({
+          equipmentList: res.data.responseData,
+            });
+            
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
+  fetchExistingShopping() {
+    
+    let  interestId=2;   
+    console.log('-----b----------',interestId);              
+      axios      
+
+      .get("/api/v1/session/shoppinglist/"+interestId)          
+      .then(res => {
+        console.log('---------channelShopping--------------',res.data.responseData);
+
+
+        this.setState({
+          shoppingList: res.data.responseData,
+            });
+            
       })
       .catch(err =>{
           console.log('----------there is problem------------');
@@ -599,24 +650,40 @@ selectHost = (e) => {
   
   let hostContainer = this.state.hostList;
   let hostarray = [];
+  let x =2,n=0;
   hostarray = this.state.hostList2;
-  hostContainer[e.target.id].type = !hostContainer[e.target.id].type;
-  if(hostContainer[e.target.id].type) {
-  hostarray.push(hostContainer[e.target.id].hostId)
-  
-  } 
-  else {
-    console.log('else',hostarray);
+  console.log('************************',hostContainer[e.target.id].userId);
+  //hostContainer[e.target.id].type = !hostContainer[e.target.id].type;
+  //if(hostContainer[e.target.id].type) {
     for(let i=0;i<hostContainer.length;i++){
+      x=0;n=0;
      for(let l=0;l<hostarray.length;l++){
-      if(hostarray[l] == hostContainer[e.target.id].hostId ){
-       console.log(false);
-      hostarray.splice(l,1);
+      if(hostarray[l] == hostContainer[e.target.id].userId ){
+       x=1;n=l;
+        console.log(false);
+      //hostarray.splice(l,1);
      }
     }
+    if(x===0){
+      hostarray.push(hostContainer[e.target.id].userId);
     }
+    if(x===1){
+      hostarray.splice(n,1);
+    }
+    }
+  //} 
+  // else {
+  //   console.log('else',hostarray);
+  //   for(let i=0;i<hostContainer.length;i++){
+  //    for(let l=0;l<hostarray.length;l++){
+  //     if(hostarray[l] == hostContainer[e.target.id].hostId ){
+  //      console.log(false);
+  //     hostarray.splice(l,1);
+  //    }
+  //   }
+  //   }
     
-   }
+  //  }
   this.setState({
     hostList : hostContainer,
     hostList2:hostarray
@@ -811,6 +878,21 @@ submitForm = (event) => {
   let input_result=[];
   let min_participants='';
   let max_participants='';
+// console.log('-------munahostlist-----------',this.state.hostList)
+//   var datavar=this.state.hostList;
+//   datavar.forEach(ele => {
+//     console.log('--------lalithostlist------------',ele.type)
+//   if(ele.type == true)
+//   {
+//     console.log('--------lalithosttrue------------',ele.type)
+//     this.setState({
+//       hostList3: ele.userId
+//     });
+//   }
+
+//   });
+ // console.log('-------guduhostlist-----------',this.state.hostList3)
+
     const session ={
       channelId: 1006,
       name:this.state.session_details,
@@ -831,8 +913,8 @@ submitForm = (event) => {
       const reminder = {
         host_reminder:this.state.hostSessionStart,
         participants_reminder:this.state.participantSessionStart,
-         cutoff_date_time:this.state.signUpDateTime,
-        //cutoff_date_time:"2019-11-2 15:06:01",
+         //cutoff_date_time:this.state.signUpDateTime,
+        cutoff_date_time:"2019-11-2 15:06:01",
         min_participants_not_met:this.state.minimumNotMet
       }
       const privacy ={
@@ -886,6 +968,8 @@ submitForm = (event) => {
          activities.push(activity_data);
          console.log("activities",activities,'activity_data=======lalit222222===========',activity_data);   
       }
+
+
       const script ={
         next_activity : "automatic",
         heart_rate_monitor:this.state.scriptHeartRateMonitor,
@@ -902,11 +986,11 @@ submitForm = (event) => {
         hostList : this.state.hostList2
       }
 
-      //console.log("========sessioncreation==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
+      console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
      
       if (this.validator.allValid()) {
 
-        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script});
+        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
 
         
 
@@ -914,7 +998,7 @@ submitForm = (event) => {
 
 
       let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
         //console.log(res);
@@ -976,7 +1060,7 @@ submitForm = (event) => {
        
       })
 
-      //console.log('----------lalitsession------------------',this.state.sessionCharge);
+     // console.log('----------lalitsession------------------',this.state.hostList2);
 
     return (
 	
@@ -1723,7 +1807,6 @@ submitForm = (event) => {
     </div>
   </div>
   
-
   <div className="modal" id="myModal2">
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content">
@@ -1779,7 +1862,7 @@ submitForm = (event) => {
                     <div className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.Quantity}
+                    value={2}
                     onChange={this.handleShareholderNameChange(i)}
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
@@ -1792,7 +1875,7 @@ submitForm = (event) => {
                     <div className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.Link}
+                    value={this.state.link}
                     onChange={this.handleShareholderLink(i)}
                     className="input-field-2" 
                     placeholder="Add Link"/></div>
@@ -1831,12 +1914,12 @@ submitForm = (event) => {
                   <div className="col-md-4">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
-                       name={row.name}
+                       name={row.userId}
                        id ={i} 
-                       checked={row.type} 
+                      //  checked={row.type} 
                        onChange={this.selectHost}
                        className="form-radio"/>
-                      <span className="checktxt">{row.name}</span>
+                      <span className="checktxt">{row.username}</span>
                     </label>
                   </div>
                  </div>
@@ -1884,13 +1967,13 @@ submitForm = (event) => {
                   <div className="col-md-3">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
-                       name={row.itemName}
+                       name={row.name}
                        id ={i} 
                        checked={row.type} 
                        onChange={this.selectShoppingList}
                        value = '20'
                       className="form-radio"/>
-                      <span className="checktxt">{row.itemName}</span>
+                      <span className="checktxt">{row.name}</span>
                     </label>
                   </div>
                   
@@ -1899,7 +1982,7 @@ submitForm = (event) => {
                     <div  className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.Quantity}
+                    value={2}
                     onChange={this.handleShoppingQuantity(i)}
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
@@ -1927,7 +2010,7 @@ submitForm = (event) => {
                     <div  className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.itemNote}
+                    value={this.state.item}
                     onChange={this.handleShoppingitemNote(i)}
                     className="input-field-2" 
                     placeholder="item Note"/></div>
@@ -1938,7 +2021,7 @@ submitForm = (event) => {
                     <div  className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
-                    value={row.Link}
+                    value={this.state.link}
                     onChange={this.handleShoppingLink(i)}
                     className="input-field-2" 
                     placeholder="Add Link"/></div>
