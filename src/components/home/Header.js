@@ -1721,6 +1721,7 @@ submitForm = (event) => {
         </div>
         {/* Shopping List End  */}
 
+        {/* Equipement List Start  */}
         <div className="gray-box2 no-border-radius">
           <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
           <div className="px-3 pb-5">
@@ -1789,10 +1790,11 @@ submitForm = (event) => {
           </div>
           :'')
           ))} 
-        </div>
+      </div>
+    {/* Equipement List End  */}
 
-        <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
-        <div className="modal" id="myModal">
+    <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+    <div className="modal" id="myModal">
     <div className="modal-dialog dialogwidth modal-dialog-centered">
       <div className="modal-content modalbg">
       
@@ -1844,6 +1846,7 @@ submitForm = (event) => {
     </div>
   </div>
   
+  {/* Select Equipment List Start */}
   <div className="modal" id="myModal2">
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content">
@@ -1866,19 +1869,16 @@ submitForm = (event) => {
         
         <div className="modal-body ">
          <div className="card cardbg">
-                
-                
-                <div className="searchbar">
-                  <input type="text" 
-                  id = "searchEquipment" 
-                  value ={this.state.searchEquipment} 
-                  onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log(this.state.searchEquipment))}  
-                  className="searchbarinput" 
-                  placeholder="Search for Equipment"/>
-                  <button onClick = {this.searchEquipmentMethod} className="inputbtn" type="button">
-                     
-                  </button>
-                </div>
+          <div className="searchbar">
+            <input type="text" 
+            id = "searchEquipment" 
+            value ={this.state.searchEquipment} 
+            onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log(this.state.searchEquipment))}  
+            className="searchbarinput" 
+            placeholder="Search for Equipment"/>
+            <button onClick = {this.searchEquipmentMethod} className="inputbtn" type="button">
+            </button>
+          </div>
 
               {/* Pick from existing Shopp */}
               {this.state.equipmentList.map((row,i) => (  
@@ -1931,6 +1931,7 @@ submitForm = (event) => {
 
     </div>
   </div>
+  {/* Select Equipment List End */}
 
 {/* Host Selection Start*/}
  <div className="modal" id="myHost">
