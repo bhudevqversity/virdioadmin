@@ -830,7 +830,7 @@ a.act:before
 	bottom: -36px;
 	transform: translateX(-50%);
 	background-color: #bd00ff;
-	width: 99%;
+	width: 97%;
 	height: 1px;
 }
 a.purple_link
@@ -1037,6 +1037,10 @@ div.overflow-hidden p:nth-child(1):after
 .bg_gray_clr
 {
 	background-color: #131313;
+}
+.border_none
+{
+	border: none;
 }
 /*---------Header page calendar CSS----------------*/
 

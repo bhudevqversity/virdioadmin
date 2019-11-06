@@ -197,7 +197,7 @@ img.logo{
 	overflow: hidden;
 }
 .gray-box2{
-	background:#212121;
+	background:#262626;
 	overflow: hidden;
 }
 .no-border-radius{
@@ -442,7 +442,7 @@ select.input-field{
     height: 2px;*/
     position: absolute;
     top: 0px;
-    background-color: #212121;
+    background-color: #262626;
     z-index: 2;
     left: 10px;
     width: 80%;

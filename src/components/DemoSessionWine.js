@@ -29,6 +29,16 @@ class DemoSessionWine extends Component {
         cutoffStartDate:date.getTime(),
         cutoffEndDate:'',
         cutoffDateTime:'',
+        whenTime:'',
+        sessionMonth:'',
+        sessionYear:'',
+        sessionDay:'',
+        sessionTime:'',
+        reminderSessionTime:'',
+        reminderMonth:'',
+        reminderYear:'',
+        reminderDay:'',
+        reminderTime:'',
         localTimeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
         //////////header state////////
         totalViews : '',
@@ -200,23 +210,49 @@ componentDidMount(){
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   const cutoffDateTime = cutoffStartDate;
+  let day;
+  let year;
+  let time;
+  let t;
   let dt2 = new Date(cutoffStartDate);
 //  cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
     cutoffDateTime
-  })
+  });
+  let timeSelection =  new Date (dt2.getTime()).getHours() ;
+  if(timeSelection>=13){
+  timeSelection =  ((new Date (dt2.getTime()).getHours())-12) + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' PM';
+  time = ((new Date (dt2.getTime()).getHours())-12)+' PM';
+  }else {
+  timeSelection =  new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' AM';  
+  time = new Date (dt2.getTime()).getHours()+' AM';
+  }
+  day = new Date (dt2.getTime()).getDate();
+  year =new Date (dt2.getTime()).getFullYear();
+  t= month[new Date (dt2.getTime()).getMonth()]; 
+ 
   dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
   this.setState({
-  signUpDateTime : dt2
+  signUpDateTime : dt2,
+  reminderSessionTime :timeSelection,
+  reminderMonth:t,
+  reminderDay:day,
+  reminderYear:year,
+  reminderTime:time
   },()=>console.log('Duration ===================================>',this.state.when))
 console.log('*****************',this.state.dateFormat);
 }
 
 onChange = (startDate, endDate) => {
-
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+  let day;
+  let year;
+  let time;
+  let t;
   const dateFormat = startDate;
   // let dt = new Date(startDate).toUTCString();
   let dt2 = new Date(startDate);
@@ -224,11 +260,41 @@ onChange = (startDate, endDate) => {
 //  endDate = startDate;
   this.setState({ startDate, endDate,dateFormat },
   ()=>console.log('sds',this.state.startDate,this.state.endDate))
+  let timeSelection =  new Date (dt2.getTime()).getHours() ;
+  if(timeSelection>=13){
+  timeSelection =  ((new Date (dt2.getTime()).getHours())-12) + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' PM';
+  time = ((new Date (dt2.getTime()).getHours())-12)+' PM';
+  }else {
+  timeSelection =  new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' AM';  
+  time = new Date (dt2.getTime()).getHours()+' AM';
+  }
+  day = new Date (dt2.getTime()).getDate();
+  year =new Date (dt2.getTime()).getFullYear();
+  t= month[new Date (dt2.getTime()).getMonth()]; 
+ 
   dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
   this.setState({
-  when : dt2
+  when : dt2,
+  whenTime :timeSelection,
+  sessionMonth:t,
+  sessionDay:day,
+  sessionYear:year,
+  sessionTime:time
   },()=>console.log('Duration ===================================>',this.state.when))
 console.log('*****************',this.state.dateFormat);
+
+//   let dt = new Date(startDate).toUTCString();
+
+//   console.log(typeof(startDate),'dt==',dt.split('GMT'));
+//   dt = dt.split('GMT')
+//   this.setState({ startDate, endDate },
+// ()=>console.log('sds',this.state.startDate,this.state.endDate))
+
+
+// this.setState({
+//   when : dt[0]
+// },()=>console.log('Duration ===================================>',this.state.when))
+// console.log('*****************',dt);
 }
 ////////set header
 setHeaderValue=() => {
@@ -968,7 +1034,7 @@ submitForm = (event) => {
         <a href="#" className="btn btn-primary float-right" data-toggle="modal" data-target="#allprevsession"> COPY FORM ....</a>
       <div className="clearfix"></div>
         <div className="gray-box">
-          <div className="row session">
+          <div className="row session mx-0">
             <h3 className="col-md-6 info"><img src="images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
             <div className="col-md-6" id="msg" style={{color:'green'}}>{this.state.msg}</div>                    
           </div>
@@ -978,7 +1044,7 @@ submitForm = (event) => {
             <div className="form">
               <div className="form-content">
                 <div className="row">
-                  <div className="col-md-4">
+                  <div className="col-md-4 px-4">
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Session Name</label>
@@ -1010,7 +1076,7 @@ submitForm = (event) => {
                       <span className="dropdown-icon"></span>
                   </div>
                   </div>
-                  <div className="col-md-3">																 
+                  <div className="col-md-3 px-4">																 
                     <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">When?</label>
@@ -1025,7 +1091,7 @@ submitForm = (event) => {
                       />
                       {this.validator.message('when', this.state.when, 'required')}
                       {/* <span  className="when-icon"></span> */}
-                      <Link to ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#calenderModel"></Link>
+                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></Link>
                     </div>
                     <div className="form-group">
                       <span className="cover-border"></span>
@@ -1069,7 +1135,7 @@ submitForm = (event) => {
                       <span className="signedup_2"></span>
                     </div>
                   </div>
-                  <div className="col-md-5">
+                  <div className="col-md-5 px-4">
                     <div className="form-group input-txt">
                     <label className="switch">
                         <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}}/>
@@ -1127,16 +1193,16 @@ submitForm = (event) => {
             <div className="form">
               <div className="form-content">
                 <div className="row">
-                  <div className="col-md-4">
+                  <div className="col-md-5 px-4">
                     <p className="text1 mb-4">for Hosts prior to start of Session</p>
-                    <div className="form-group mt-2">
+                    <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="number"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">Sign up Cut off Date/Time</p>
-                    <div className="form-group mt-2">
+                    <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Pick Date/Time</label>
                       <input
@@ -1149,20 +1215,20 @@ submitForm = (event) => {
                         disabled
                       />
                       {/* <span className="when-icon"></span> */}
-                      <Link to ="#" className="btn btn-primary when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></Link>
+                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></Link>
                     </div>
                     
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-5 px-4">
                     <p className="text1 mb-4">for Participants prior to start of Session</p>
-                    <div className="form-group mt-2">
+                    <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="number" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">for 'minimum not met'</p>
-                    <div className="form-group mt-2">
+                    <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
                       <input type="number" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
@@ -1183,7 +1249,7 @@ submitForm = (event) => {
         <div className="p-3 gray-box no-border-radius">
         <div className="row">
         <div className="session"><h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" alt="privacy" />Privacy during Session</h3></div>
-        <div className="col-md-6">
+        <div className="col-md-6 px-4">
               <div className="form-group input-txt">
               <label className="switch">
                   <input type="checkbox" 
@@ -1209,7 +1275,7 @@ submitForm = (event) => {
               </div>
               
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 px-4">
             <div className="form-group input-txt">
                 <label className="switch">
                     <input type="checkbox" 
@@ -1227,7 +1293,7 @@ submitForm = (event) => {
         </div>
         <div className="gray-box2 pb-4">
           <div className="session"><h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" alt="team" />Groups</h3></div>
-          <div className="col-md-6">
+          <div className="col-md-6 px-4">
               <div className="form-group input-txt">
               <label className="switch">
                   <input type="checkbox" 
@@ -1248,10 +1314,10 @@ submitForm = (event) => {
           <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" alt="user-icon" />Select Host(s)</h3></div>
           <div className="p-3">
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-4 px-4">
                 <Link to="header" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 px-4 mt-3 mt-md-0">
                 <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
@@ -1269,11 +1335,12 @@ submitForm = (event) => {
             <table className="table text-gray activity-table">
               <thead>
                 <tr>
-                  <th>Wine</th>
-                  <th>Appearance</th>
-                  <th>Aroma</th>
-                  <th>Palate</th>
-                  <th>&nbsp;</th>
+                  <th className="border_none">Wine</th>
+                  <th className="border_none">Appearance</th>
+                  <th className="border_none">Aroma</th>
+                  <th className="border_none">Palate</th>
+                  <th className="border_none">&nbsp;</th>
+                  <th className="border_none">&nbsp;</th>
                 </tr>
               </thead>
               <Sortable
@@ -1328,8 +1395,6 @@ submitForm = (event) => {
                  </div>
                   </td>
                   <td className="d-flex justify-content-center">
-                  <div className="col-lg-2 col-md-6 mt-3 mt-md-0 pl-lg-0">
-                    <div className="d-flex">
                      <div className="form-group mb-0 input-txt">
                       <label className="switch mr-2">
                       <input type="checkbox" />
@@ -1337,8 +1402,8 @@ submitForm = (event) => {
                       </label>
                       </div>
                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
-                    </div>
-                  </div>
+                    </td>
+                    <td>
                     <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
                     <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
                   </td>
@@ -1352,7 +1417,7 @@ submitForm = (event) => {
 
             {/* Choose Wine */}
             {this.state.chooseWine?
-            <div className="px-3 pb-0 mt-2 add_wine_expand">
+            <div className="px-4 pb-0 mt-2 add_wine_expand">
                 <div className="row mt-5">                        
                     <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
                         <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
@@ -1384,7 +1449,7 @@ submitForm = (event) => {
                 }         
 
             {/* ===================================================================== */}
-            <div className="px-3 pb-0 mt-2 add_wine_expand">
+            <div className="px-4 pb-0 mt-2 add_wine_expand">
               {this.state.tablerows.map((row,i)=>
                         <div className="row mt-5" key= {i}>                        
                             <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
@@ -1420,7 +1485,7 @@ submitForm = (event) => {
           {/* Wine Product Sortable End */}
           {/* Description start */}
 
-          <div className="p-3 pb-0 mt-2">                    
+          <div className="p-4 pb-0 mt-2">                    
                       <div className="row mt-4">
                           <div className="col-lg-5 col-md-6 mt-3 mt-md-0">
                             <div className="form-group"><span className="cover-border"></span>
@@ -1510,7 +1575,7 @@ submitForm = (event) => {
           </div>
           :''}
           {/* Sortable test end */}
-          <div className="p-3 pb-0">
+          <div className="px-4 pb-0">
                         {/* <div className="row mt-4">
                           <div className="col-lg-6 col-md-6 mt-3 mt-md-0">
                             <p className="hdng">Description</p>
@@ -1538,7 +1603,7 @@ submitForm = (event) => {
                       </div> */}
                       {/* <div className="border-bottom mt-3">
                   </div> */}
-                    <div className="px-3 pt-3">                    
+                    <div className="px-3">                    
                         <a href="#" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</a>
                         <a href="#" className="activity-link ml-5"><span onClick = {this.addToWineDescription}>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
@@ -1550,21 +1615,21 @@ submitForm = (event) => {
 
         {/* Testing Script End */}
         
-        <div className="gray-box no-border-radius pb-2">
+        <div className="gray-box no-border-radius pb-5">
           <div className="session">
               <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt="shopping" />Shopping List</h3>
               </div>
-          <div className="p-3">
+          <div className="px-3">
             <div className="row">
               <div className="col-md-4">
                   <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               {/* Add all Products Start*/}
-              <div className="col-lg-4 col-md-4">
+              <div className="col-lg-4 col-md-4 mt-3 mt-md-0">
                             <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add all Product from Script</a>
                </div>
               {/* Add all Products End */}
-              <div className="col-md-4">
+              <div className="col-md-4 mt-3 mt-md-0">
                   <Link to="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
@@ -1601,14 +1666,14 @@ submitForm = (event) => {
           ))}
           
         </div>
-        <div className="gray-box2 no-border-radius">
+        <div className="gray-box2 no-border-radius pb-5">
           <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt="shopping" />Equipment List</h3></div>
-          <div className="p-3">
+          <div className="px-3">
             <div className="row">
               <div className="col-md-4">
                   <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mt-3 mt-md-0">
                   <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
@@ -1967,8 +2032,8 @@ submitForm = (event) => {
       </div>
 
 
-      {/* <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      {/* <div className="modal-footer">
+        <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
       </div> */}
 
     </div>
@@ -1993,23 +2058,6 @@ submitForm = (event) => {
        </div>
   </div>
 </div>   */}
-{/* <div className="modal" id="calenderModel">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h4 className="modal-title">Select Duration</h4>
-        <button type="button" className="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div className="modal-body">
-      <h3>Calender</h3>
-      
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
-      disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
-      </div>
-      </div>
-  </div>
-</div> */}
 <div className="modal cal_modal" id="calenderModel">
   <div className="modal-dialog">
     <div className="modal-content modalbg">
@@ -2026,18 +2074,18 @@ submitForm = (event) => {
       <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2">
-            <div class="form-group"><span class="cover-border"></span>
-                <label class="label">Enter Time</label>
-                <input type="text" class="input-field" placeholder="12:00 PM" />
-                <span class="clock-icon"></span>
+            <div className="form-group"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
+                <span className="clock-icon"></span>
             </div>
           </div>
           <div className="col-md-7">
-          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
-          <div class="form-group input-txt">
-              <label class="switch">
+          <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
+          <div className="form-group input-txt">
+              <label className="switch">
                   <input type="checkbox" />
-                  <span class="slider round"></span>
+                  <span className="slider round"></span>
               </label>
               <span>This is a repeated session</span>
             </div>
@@ -2048,23 +2096,6 @@ submitForm = (event) => {
       </div>
   </div>
 </div>
-{/* <div className="modal" id="signUpCalenderModel">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h4 className="modal-title">Select Duration</h4>
-        <button type="button" className="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div className="modal-body">
-      <h3>Calender</h3>
-      
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
-      disableDates={date => date < (new Date().getTime())}
-      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
-      </div>
-      </div>calenderModel
-  </div>
-</div> */}
 <div className="modal cal_modal" id="signUpCalenderModel">
   <div className="modal-dialog">
     <div className="modal-content">
@@ -2072,41 +2103,26 @@ submitForm = (event) => {
         <h4 className="modal-title white">Select Duration</h4>
         <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
-      {/* <div className="modal-body">
-      
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
-      disableDates={date => date < (new Date().getTime())}
-      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
-      <div className="row">
-      <div className="col-md-6">
-      <div class="form-group"><span class="cover-border"></span>
-        <label class="label">Enter Time</label>
-        <input type="text" class="input-field" />
-      </div>
-      </div>
-      </div>
-      </div> */}
       <div className="modal-body">
       <h3>Calender</h3>
-      {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2">
-            <div class="form-group"><span class="cover-border"></span>
-                <label class="label">Enter Time</label>
-                <input type="text" class="input-field" placeholder="12:00 PM" />
-                <span class="clock-icon"></span>
+            <div className="form-group"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="12:00 PM" />
+                <span className="clock-icon"></span>
             </div>
           </div>
           <div className="col-md-7">
-          <p className="mb-2 input-txt">On 22nd August 2019, at 12:00PM</p>
-          <div class="form-group input-txt">
-              <label class="switch">
+          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
+          <div className="form-group input-txt">
+              <label className="switch">
                   <input type="checkbox" />
-                  <span class="slider round"></span>
+                  <span className="slider round"></span>
               </label>
               <span>This is a repeated session</span>
             </div>
@@ -2114,7 +2130,7 @@ submitForm = (event) => {
         </div>
       </div>
       </div>
-      </div>calenderModel
+      </div>
   </div>
 </div>
 
