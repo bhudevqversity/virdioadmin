@@ -221,31 +221,40 @@ componentDidMount(){
 
   fetchExistingEquipments() {
     
-    let  interestId=2;   
-    let eqarray = [{id: 1, interestId: 2, name: "trademill", equipment_description: "This is running equipments", status: 1},
-    {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1},
-    {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1},
-    {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1}]
-    let ka = []; 
-    for(let i=0;i<eqarray.length;i++){
-      let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
-      ka.push(n);
+    let  interestId=2;  
 
-    }
-    this.setState({
-      equipmentList:ka
-    },()=>console.log('------------------------',this.state.equipmentList))
+    // let eqarray = [{id: 1, interestId: 2, name: "trademill", equipment_description: "This is running equipments", status: 1},
+    // {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1},
+    // {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1},
+    // {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1}]
+    // let ka = []; 
+    // for(let i=0;i<eqarray.length;i++){
+    //   let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
+    //   ka.push(n);
+
+    // }
+    // this.setState({
+    //   equipmentList:ka
+    // },()=>console.log('------------------------',this.state.equipmentList))
+
+
     console.log('-----a----------',interestId);              
       axios      
-      //.get("/api/v1/session/"+channelId+"/host")
       .get("/api/v1/session/equipments/"+interestId)          
       .then(res => {
         console.log('---------channelEquipments--------------',res.data.responseData);
 
+      let eqarray=res.data.responseData;
 
-        // this.setState({
-        //   equipmentList: res.data.responseData,
-        //     });
+      let ka = []; 
+      for(let i=0;i<eqarray.length;i++){
+        let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
+        ka.push(n);  
+      }
+
+        this.setState({
+          equipmentList:ka
+            });
             
       })
       .catch(err =>{
@@ -258,19 +267,21 @@ componentDidMount(){
   fetchExistingShopping() {
     
     let  interestId=2;  
-    let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-        {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-        {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
-        ]
-    let ka = [];
-    for(let i=0;i<eqarray.length;i++){
-      let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
-      ka.push(n);
 
-    }
-    this.setState({
-      shoppingList:ka
-    },()=>console.log('------------------------',this.state.shoppingList))
+    // let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+    //     {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+    //     {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
+    //     ]
+    // let ka = [];
+    // for(let i=0;i<eqarray.length;i++){
+    //   let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+    //   ka.push(n);
+
+    // }
+    // this.setState({
+    //   shoppingList:ka
+    // },()=>console.log('------------------------',this.state.shoppingList))
+
 
     console.log('-----b----------',interestId);              
       axios      
@@ -279,10 +290,17 @@ componentDidMount(){
       .then(res => {
         console.log('---------channelShopping--------------',res.data.responseData);
 
+          let eqarray=res.data.responseData;
 
-        // this.setState({
-        //   shoppingList: res.data.responseData,
-        //     });
+          let ka = [];
+          for(let i=0;i<eqarray.length;i++){
+            let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+            ka.push(n);
+
+          }
+        this.setState({
+          shoppingList:ka
+            });
             
       })
       .catch(err =>{
