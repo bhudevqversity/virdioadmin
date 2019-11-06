@@ -26,10 +26,7 @@ class Header extends Component {
         // {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1,type:false,Quantity:0,Link:'X'},
         // {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1,type:false,Quantity:0,Link:'X'}],
         
-        shoppingList:[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},
-        {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},
-        {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"}
-        ],
+        shoppingList:[],
         session_details:'',
         send_input:'',
         msg:'',
@@ -1668,6 +1665,8 @@ submitForm = (event) => {
         </div>
 
         {/* Script End */}
+
+        {/* Shopping List Start */}
         
         <div className="gray-box no-border-radius pb-2">
           <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
@@ -1720,6 +1719,8 @@ submitForm = (event) => {
           ))}
           
         </div>
+        {/* Shopping List End  */}
+
         <div className="gray-box2 no-border-radius">
           <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
           <div className="px-3 pb-5">
@@ -1971,6 +1972,8 @@ submitForm = (event) => {
   </div>
 {/* Host Selection End */}
 
+{/*  Shopping List Selection Start */}
+
   <div className="modal" id="myModal3">
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content">
@@ -2081,6 +2084,8 @@ submitForm = (event) => {
 
     </div>
   </div>
+
+  {/* Shopping List Selection End */}
   
   
   {/* <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">

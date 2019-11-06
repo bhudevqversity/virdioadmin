@@ -1705,22 +1705,23 @@ submitForm = (event) => {
 
         {/* Testing Script End */}
         
+        {/* Shopping List Start */}
         <div className="gray-box no-border-radius pb-2">
           <div className="session">
-              <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt="shopping" />Shopping List</h3>
-              </div>
+            <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt="shopping" />Shopping List</h3>
+          </div>
           <div className="p-3">
             <div className="row">
               <div className="col-md-4">
-                  <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
+                <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               {/* Add all Products Start*/}
               <div className="col-lg-4 col-md-4">
-                            <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add all Product from Script</a>
+                <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add all Product from Script</a>
                </div>
               {/* Add all Products End */}
               <div className="col-md-4">
-                  <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#add_product_modal"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+                <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#add_product_modal"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
           </div>
@@ -1756,6 +1757,8 @@ submitForm = (event) => {
           ))}
           
         </div>
+
+        {/* Shopping List End */}
         <div className="gray-box2 no-border-radius">
           <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt="shopping" />Equipment List</h3></div>
           <div className="p-3">
