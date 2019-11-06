@@ -20,14 +20,15 @@ class Header extends Component {
     this.state = {
         sessions: [],
         hostList:[],
-        equipmentList:[{id: 1, interestId: 2, name: "trademill", equipment_description: "This is running equipments", status: 1,type:false,Quantity:0,Link:'X'},
-        {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1,type:false,Quantity:0,Link:'X'},
-        {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1,type:false,Quantity:0,Link:'X'},
-        {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1,type:false,Quantity:0,Link:'X'}],
+        equipmentList:[],
+        // equipmentList:[{id: 1, interestId: 2, name: "trademill", equipment_description: "This is running equipments", status: 1,type:false,Quantity:0,Link:'X'},
+        // {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1,type:false,Quantity:0,Link:'X'},
+        // {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1,type:false,Quantity:0,Link:'X'},
+        // {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1,type:false,Quantity:0,Link:'X'}],
         
-        shoppingList:[{id: 1, interestId: 2, itemName: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},
-        {id: 2, interestId: 2, itemName: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},
-        {id: 3, interestId: 2, itemName: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"}
+        shoppingList:[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},
+        {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"},
+        {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1,type:false,Quantity:0,itemNote:"X" ,Link :"addLink"}
         ],
         session_details:'',
         send_input:'',
@@ -191,6 +192,19 @@ componentDidMount(){
   fetchExistingEquipments() {
     
     let  interestId=2;   
+    let eqarray = [{id: 1, interestId: 2, name: "trademill", equipment_description: "This is running equipments", status: 1},
+    {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1},
+    {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1},
+    {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1}]
+    let ka = []; 
+    for(let i=0;i<eqarray.length;i++){
+      let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
+      ka.push(n);
+
+    }
+    this.setState({
+      equipmentList:ka
+    },()=>console.log('------------------------',this.state.equipmentList))
     console.log('-----a----------',interestId);              
       axios      
       //.get("/api/v1/session/"+channelId+"/host")
@@ -213,7 +227,21 @@ componentDidMount(){
 
   fetchExistingShopping() {
     
-    let  interestId=2;   
+    let  interestId=2;  
+    let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+        {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+        {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
+        ]
+    let ka = [];
+    for(let i=0;i<eqarray.length;i++){
+      let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+      ka.push(n);
+
+    }
+    this.setState({
+      shoppingList:ka
+    },()=>console.log('------------------------',this.state.shoppingList))
+
     console.log('-----b----------',interestId);              
       axios      
 
@@ -442,7 +470,7 @@ selectShoppingList =(e)=> {
     let arrayCheck = [];
     if(this.state.shoppingList1.length>0){
      for(let i=0;i<this.state.shoppingList1.length;i++){
-        if(this.state.shoppingList1[i].itemName === shoppingContainer[e.target.id].itemName){
+        if(this.state.shoppingList1[i].name === shoppingContainer[e.target.id].name){
           arrayCheck = this.state.shoppingList1;
           arrayCheck[i] = shoppingContainer[e.target.id];
           this.setState({
@@ -507,7 +535,7 @@ addToShoppingList = () => {
   console.log('Search part');
   let x =0 ,n=0;
   for(let i =0 ;i<this.state.duplicateShoppingList.length;i++){
-    if(this.state.duplicateShoppingList[i].itemName === this.state.shoppingList[0].itemName){
+    if(this.state.duplicateShoppingList[i].name === this.state.shoppingList[0].name){
       //this.state.duplicateList[i].Quantity=this.state.equipmentList[0].Quantity  ;
       addToShoppingListArray = this.state.duplicateShoppingList;
       addToShoppingListArray[i].Quantity=this.state.shoppingList[0].Quantity;
@@ -521,7 +549,7 @@ addToShoppingList = () => {
   }
   // checking for new insertion or update
   for(let i =0;i<this.state.shoppingList1.length;i++){
-    if(this.state.shoppingList1[i].itemName === this.state.shoppingList[0].itemName){
+    if(this.state.shoppingList1[i].name === this.state.shoppingList[0].name){
       x=1;n=i;
       console.log('Search ---------------Update');
     
@@ -555,7 +583,7 @@ addToShoppingList = () => {
   for (let i=0;i<this.state.shoppingList.length;i++) {
     x=0;n=0;
     for(let l=0;l<this.state.shoppingList1.length;l++){
-      if((this.state.shoppingList[i].itemName===this.state.shoppingList1[l].itemName)){
+      if((this.state.shoppingList[i].name===this.state.shoppingList1[l].name)){
         x=1;n=l;
         addToShoppingListArray = this.state.shoppingList1;
         console.log(this.state.shoppingList1,'++++++++++++++++++++++',addToShoppingListArray);
@@ -595,7 +623,7 @@ findListIndex =(listItem) =>{
 }
 findShoppingList = (listItem) => {
   console.log(listItem,this.state.shoppingListValue)
-  if (listItem.itemName === this.state.shoppingListValue) {
+  if (listItem.name === this.state.shoppingListValue) {
     console.log(listItem.type);
     return listItem};
 }
@@ -604,7 +632,7 @@ removeShoppingList = (e) => {
   console.log(e.target.value);
   var dataArray1 =  this.state.shoppingList;
   for(let i=0;i<this.state.shoppingList.length;i++) {
-      if(this.state.shoppingList[i].itemName === this.state.shoppingList1[e.target.id].itemName){
+      if(this.state.shoppingList[i].name === this.state.shoppingList1[e.target.id].name){
       dataArray1[i].type=!dataArray1[i].type  ;
       dataArray1[i].itemNote= "X";
       dataArray1[i].Quantity = 0;
@@ -1660,7 +1688,7 @@ submitForm = (event) => {
             <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">item Name</label>
-                      <input type="text" value  = {listInsertion.itemName} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
+                      <input type="text" value  = {listInsertion.name} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
                     </div>
             </div>
             <div className="col-md-3">
@@ -1685,7 +1713,7 @@ submitForm = (event) => {
                     </div>
             </div>
             <div className="col-md-1">
-              <Link to="header" className="bg-circle mt-3"><i id = {i} value = {listInsertion.itemName} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
+              <Link to="session-creation" className="bg-circle mt-3"><i id = {i} value = {listInsertion.name} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
             </div>
           </div>
           : '')
@@ -1975,13 +2003,13 @@ submitForm = (event) => {
                   <div className="col-md-3">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
-                       name={row.itemName}
+                       name={row.name}
                        id ={i} 
                        checked={row.type} 
                        onChange={this.selectShoppingList}
                        value = '20'
                       className="form-radio"/>
-                      <span className="checktxt">{row.itemName}</span>
+                      <span className="checktxt">{row.name}</span>
                     </label>
                   </div>
                   
