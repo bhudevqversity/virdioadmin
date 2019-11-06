@@ -851,7 +851,6 @@ a.purple_link
 .purple_text
 {
 	color: #bd00ff;
-	font-size: 25px;
 }
 div.overflow-hidden .d-flex p:nth-child(1)
 {
@@ -979,7 +978,7 @@ div.overflow-hidden p:nth-child(1):after
 {
 	background-size: 20px;
 }
-#pick_host_modal label img
+#pick_host_modal label img, .host-container label img
 {
 	width: 65px;
 	align-self: baseline;
@@ -992,7 +991,7 @@ div.overflow-hidden p:nth-child(1):after
 {
 	display: flex;
 }
-#pick_host_modal input[type="checkbox"]
+#pick_host_modal input[type="checkbox"], .host-container input[type="checkbox"]
 {
 	transform: translateY(19px);
 } 
@@ -1130,6 +1129,193 @@ div.overflow-hidden p:nth-child(1):after
 .modal-content .form-group .cover-border
 {
 	background-color: #343434;
+}
+
+/*---------host channel creation page CSS----------------*/
+
+/*---------slide-24 CSS----------------*/
+
+.gray-box-4
+{
+	background-color: #262626;
+	border-radius: 10px;
+	overflow: hidden;
+}
+.purple_text .fa-close
+{
+	font-weight: lighter;
+	font-size: 40px;
+}
+.hdng_text h3
+{
+	color: white;
+
+}
+.hdng_text button.close
+{
+	text-shadow: none;
+	font-size: 45px;
+	color: #bd00ff;
+	outline: none;
+	opacity: 1;
+	font-weight: inherit;
+}
+.session_text .input-txt
+{
+	position: relative;
+}
+
+.input-txt span.c-span
+{
+	position: absolute;
+    top: 100%;
+    left: 80px;
+    font-size: 13px;
+    color: #878787;
+}
+.register-frm .label
+{
+	color: #878787;
+}
+.add_text a
+{
+	color: white;
+}
+.add_text .fa-plus
+{
+	padding-top: 5px;
+}
+.register-frm .switch
+{
+	width: 32px;
+}
+.register-frm .switch input:checked + .slider:before
+{
+	transform: translateX(10px);
+}
+.host-container .checktxt
+{
+	font-size: 16px;
+}
+.host-container .checktxt_name
+{
+	margin-bottom: 5px;
+}
+.host-container .donebg
+{
+	height: auto;
+}
+.border_line
+{
+	height: 1px;
+	background-color: #414141;
+	margin: 25px 0px 60px 0px;
+	position: relative;
+}
+.text_icn
+{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	background-color: #262626;
+	padding: 0px 20px;
+}
+
+.custom-file-label::after
+{
+	display: none;
+}
+.custom-file-label
+{
+	top: -38px;
+}
+.custom-file-label.input-field
+{
+	height: 180px;
+}
+.browse_image
+{
+	position: absolute;
+	z-index: 99;
+	width: 90%;
+	height: 85%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	cursor: pointer;
+}
+
+.browse_text
+{
+	position: absolute;
+    z-index: 999;
+    right: 34%;
+    top: 58px;
+}
+
+
+/*-------------slide-23 CSS----------------*/
+.b-image
+{
+	padding: 25PX;
+	background-color: #343434;
+	border-radius: 8px;
+}
+.b-image img
+{
+	width: 71px;
+}
+.bg-black
+{
+	background-color: black;
+}
+.f_box
+{
+	margin: 25px;
+}
+.f_box p.white
+{
+	font-family: Avenir-Book; 
+}
+#pick_channel .modal-dialog
+{
+	max-width: 650px;
+}
+#pick_channel .modal-header .close
+{
+	padding: 2rem;
+}
+.modal-content .form-group .cover-border
+{
+	background-color: #343434;
+}
+
+/*-------------slide-25 CSS----------------*/
+
+.modal-dialog.small_width
+{
+	max-width: 500px;
+}
+
+/*-------------slide-26 CSS----------------*/
+
+.modal-dialog.large_width
+{
+	max-width: 1200px;
+}
+.modal .form-group a.position-absolute
+{
+	top: 22px;
+	right: 20px;
+}
+.modl_bg_color
+{
+	background-color: #3f3f3f;
+}
+.modal-content.modl_bg_color .form-group .cover-border
+{
+	background-color: #3f3f3f;
 }
 /* Responsive Code */
 
