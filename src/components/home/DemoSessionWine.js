@@ -1203,47 +1203,8 @@ submitForm = (event) => {
       // const fitnessActivity = {
       //   fitnessActivity : this.state.tablerows
       // } 
-      for(let v =0 ; v<this.state.tablerows.length;v++){
-        console.log(this.state.tablerows[v]);
-        let activity_data ={
-          "name": this.state.tablerows[v].ActivityName,
-          "attributes" : [
-            {
-             "attrKey": "Activity Type",
-             "attrValue": this.state.tablerows[v].ActivityType,
-             "orderNo": 1
-            },
-            {
-             "attrKey": "Duration Type",
-             "attrValue": this.state.tablerows[v].DurationType,
-             "orderNo": 4
-            },
-            {
-             "attrKey": "Count",
-             "attrValue": this.state.tablerows[v].Count,
-             "orderNo": 5
-            },
-            {
-             "attrKey": "Video",
-             "attrValue": this.state.tablerows[v].Video,
-             "orderNo": 2
-            },
-            {
-             "attrKey": "Target BPM",
-             "attrValue": this.state.tablerows[v].TargetBPM,
-             "orderNo": 6
-            },
-            {
-             "attrKey": "Target Zone",
-             "attrValue": this.state.tablerows[v].TargetZone,
-             "orderNo": 3
-            }
-          ]
-         } 
-         activities.push(activity_data);
-         console.log("activities",activities,'activity_data=======lalit222222===========',activity_data);   
-      }
 
+      activities=this.state.tablerows;
 
       const script ={
         next_activity : "automatic",
@@ -1262,31 +1223,31 @@ submitForm = (event) => {
       }
       console.log("========lalit==================>",activity_info);
 
-      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script);
+      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list);
 
       if (this.validator.allValid()) {
 
         if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
         
-      // axios.post("/api/v1/session/createwineSession", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
-      // .then(res => {
+      axios.post("/api/v1/session/createwineSession", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
+      .then(res => {
 
-      //   console.log('=============lallittiwari12345===================>',res.data);;
+        console.log('=============lallittiwari12345===================>',res.data);;
 
-      //       if(res.data.responseMessage == "success")
-      //       {
-      //       this.setState({
-      //       msg: "Session hasbeen created Successfully!!!!!!!",
-      //     });
-      //     }else{
+            if(res.data.responseMessage == "success")
+            {
+            this.setState({
+            msg: "Session hasbeen created Successfully!!!!!!!",
+          });
+          }else{
 
-      //     this.setState({
-      //       msg: "There Is a error in session creation",
-      //     });
+          this.setState({
+            msg: "There Is a error in session creation",
+          });
 
-      //   }
+        }
       
-      // })
+      })
     }
     else {
       console.log('Wrong');
