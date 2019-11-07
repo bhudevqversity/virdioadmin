@@ -27,6 +27,7 @@ class Header extends Component {
         // {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1,type:false,Quantity:0,Link:'X'}],
         
         shoppingList:[],
+        activityType:[],
         session_details:'',
         send_input:'',
         msg:'',
@@ -68,6 +69,7 @@ class Header extends Component {
         heartRateMonitor:true,
         zoneTracking : true,
         searchParticipant: false,
+        sessionProperty:false,
         sessionCharge:false,
         disableParticipant:false,
         allowParticipant:false,
@@ -160,8 +162,39 @@ componentDidMount(){
   this.fetchExistingHostList();
   this.fetchExistingEquipments();
   this.fetchExistingShopping();
+  this.fetchActivityType();
+
+  var newactivitytype=[{id: 1, interestId: 2, activity_type: "Warm-Up",  status: 1},{id: 2, interestId: 2, activity_type: "Heivy-Weight",  status: 1},{id: 3, interestId: 2, activity_type: "Low-weight",  status: 1}, {id: 4, interestId: 2, activity_type: "Run", status: 1}];
+
+       this.setState({
+         activityType: newactivitytype,
+         });
+
   }
 
+ 
+  fetchActivityType() {
+    
+    let  interestId=2;   
+    console.log('-----c----------',interestId);              
+      axios      
+      .get("/api/v1/session/activityType/"+interestId)          
+      .then(res => {
+        console.log('---------Interestactivity--------------',res.data.responseData);
+
+      
+
+        // this.setState({
+        //  // activityType: res.data.responseData,
+        //     });
+           
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
 
   fetchExistingHostList() {
     
@@ -188,31 +221,40 @@ componentDidMount(){
 
   fetchExistingEquipments() {
     
-    let  interestId=2;   
-    let eqarray = [{id: 1, interestId: 2, name: "trademill", equipment_description: "This is running equipments", status: 1},
-    {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1},
-    {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1},
-    {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1}]
-    let ka = []; 
-    for(let i=0;i<eqarray.length;i++){
-      let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
-      ka.push(n);
+    let  interestId=2;  
 
-    }
-    this.setState({
-      equipmentList:ka
-    },()=>console.log('------------------------',this.state.equipmentList))
+    // let eqarray = [{id: 1, interestId: 2, name: "trademill", equipment_description: "This is running equipments", status: 1},
+    // {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1},
+    // {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1},
+    // {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1}]
+    // let ka = []; 
+    // for(let i=0;i<eqarray.length;i++){
+    //   let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
+    //   ka.push(n);
+
+    // }
+    // this.setState({
+    //   equipmentList:ka
+    // },()=>console.log('------------------------',this.state.equipmentList))
+
+
     console.log('-----a----------',interestId);              
       axios      
-      //.get("/api/v1/session/"+channelId+"/host")
       .get("/api/v1/session/equipments/"+interestId)          
       .then(res => {
         console.log('---------channelEquipments--------------',res.data.responseData);
 
+      let eqarray=res.data.responseData;
 
-        // this.setState({
-        //   equipmentList: res.data.responseData,
-        //     });
+      let ka = []; 
+      for(let i=0;i<eqarray.length;i++){
+        let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
+        ka.push(n);  
+      }
+
+        this.setState({
+          equipmentList:ka
+            });
             
       })
       .catch(err =>{
@@ -225,19 +267,21 @@ componentDidMount(){
   fetchExistingShopping() {
     
     let  interestId=2;  
-    let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-        {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-        {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
-        ]
-    let ka = [];
-    for(let i=0;i<eqarray.length;i++){
-      let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
-      ka.push(n);
 
-    }
-    this.setState({
-      shoppingList:ka
-    },()=>console.log('------------------------',this.state.shoppingList))
+    // let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+    //     {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+    //     {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
+    //     ]
+    // let ka = [];
+    // for(let i=0;i<eqarray.length;i++){
+    //   let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+    //   ka.push(n);
+
+    // }
+    // this.setState({
+    //   shoppingList:ka
+    // },()=>console.log('------------------------',this.state.shoppingList))
+
 
     console.log('-----b----------',interestId);              
       axios      
@@ -246,10 +290,17 @@ componentDidMount(){
       .then(res => {
         console.log('---------channelShopping--------------',res.data.responseData);
 
+          let eqarray=res.data.responseData;
 
-        // this.setState({
-        //   shoppingList: res.data.responseData,
-        //     });
+          let ka = [];
+          for(let i=0;i<eqarray.length;i++){
+            let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+            ka.push(n);
+
+          }
+        this.setState({
+          shoppingList:ka
+            });
             
       })
       .catch(err =>{
@@ -938,6 +989,7 @@ submitForm = (event) => {
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
+      sessionProperty:this.state.sessionProperty,
       session_charge:this.state.sessionCharge,
       currency:"USD",
       show_particpants_count:"false",
@@ -1071,6 +1123,18 @@ submitForm = (event) => {
 ////////////////////////////////////////////////////////////////////////////////
 
   render() {
+
+    //const { activitytype } = this.state.activityType;
+
+    console.log('----------activityType------------',this.state.activityType)
+    let activitynewtype = '';
+    activitynewtype =this.state.activityType.map((e, key) => {
+      return (
+      <option key={key} value={e.activity_type}>{e.activity_type}</option>
+      );
+  })
+
+
     let  arr =[];
     let allSessions = '';
     const { startDate, endDate } = this.state;
@@ -1246,6 +1310,16 @@ submitForm = (event) => {
                     </div>
                   </div>
                   <div className="col-md-5 px-4">
+
+                    <div className="form-group input-txt">
+                    <label className="switch">
+                        <input type="checkbox" id = "sessionProperty"  checked={this.state.sessionProperty} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.sessionProperty},()=>console.log('sessionProperty',this.state.sessionProperty))}}/>
+                        <span className="slider round"></span>
+                    </label>
+                    
+                    {this.state.sessionProperty?<span>private session</span>:<span>public session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+                    </div>
+
                     <div className="form-group input-txt">
                     <label className="switch">
                         <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}}/>
@@ -1253,6 +1327,7 @@ submitForm = (event) => {
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
+
                     <div className="form-group input-txt">
                       <label className="switch">
                           <input type="checkbox" id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} />
@@ -1421,7 +1496,7 @@ submitForm = (event) => {
                 {/* <Link to="header" className="pick" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link> */}
                 <Link to ="header" className="pick" data-toggle="modal" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
             </div>
-            <div className="col-md-4 px-4">
+            <div className="col-md-4 mt-3 mt-md-0 px-4">
                 <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
@@ -1437,7 +1512,7 @@ submitForm = (event) => {
               <Link to="header" className="btn btn-primary text-uppercase mr-2">automatic</Link>
               <Link to="header" className="btn btn-outline-secondary text-uppercase">manual</Link>
             </div>
-            <div className="col-md-3 px-4">
+            <div className="col-md-3 px-4 mt-3 mt-md-0">
               <div className="form-group">
                   <span className="cover-border"></span>
                   <label className="label">Pick Emojis</label>
@@ -1576,7 +1651,7 @@ submitForm = (event) => {
                 <div className="form-group mt-3">
                     <span className="cover-border"></span>
                     <label className="label">Activity type</label>
-                    <select
+                    {/* <select
                         className="input-field"
                         id="ActivityType"
                         value = {this.state.ActivityType}
@@ -1587,7 +1662,11 @@ submitForm = (event) => {
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                      </select>
+                      </select> */}
+
+                <select className="input-field" id="ActivityType" value = {this.state.ActivityType}  onChange = {(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log('Activity Type',this.state.ActivityType))}>
+                {activitynewtype}
+                  </select>
                       <span className="dropdown-icon"></span>
                   </div>
               </div>
@@ -1602,10 +1681,8 @@ submitForm = (event) => {
                         onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=>console.log('Duration Type',this.state.DurationType))}
                       >
                         <option></option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>Time</option>
+                        <option>Reps</option>
                       </select>
                       <span className="dropdown-icon"></span>
                   </div>
@@ -1675,7 +1752,7 @@ submitForm = (event) => {
               <div className="col-md-4">
                   <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mt-3 mt-md-0">
                   <Link to="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
@@ -1729,7 +1806,7 @@ submitForm = (event) => {
               <div className="col-md-4">
                   <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mt-3 mt-md-0">
                   <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
