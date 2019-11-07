@@ -636,9 +636,9 @@ return(
     </div>
 
 
-    <div className="modal pr-0" id="equipment_lst_modal">
-        {/* Single >3 start */}
-        <div className="modal-dialog small_width">
+    <div className="modal pr-0 list-modal" id="equipment_lst_modal">
+        {/* "modal-dialog small_width" Single >3 start {(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} */}
+        <div className={(this.state.equipmentCount<3?"modal-dialog small_width":"modal-dialog large_width")}>
             <div className="modal-content modl_bg_color">
                 <div className="modal-header border_none p-4">
                     <h4 className="modal-title white pt-3">Equipment List</h4>
@@ -646,28 +646,45 @@ return(
                 </div>
                 {/* add Equipment List */}
                 {/* -------------------------------- */}
-               {this.state.addEquipmentList.map((row,i)=> 
+                
                 <div className="modal-body px-4 pb-5"> 
-                    {/* <2 Start */}
-                    {this.state.equipmentCount<3 ?
-                    <div className="form-group"><span className="cover-border"></span>
-                        <label className="label">Item Name</label>
+                    <div className="d-flex justify-content-between flex-wrap"> 
+                    {this.state.addEquipmentList.map((row,i)=>
+                        <div className="form-group"><span className="cover-border"></span>
+                            <label className="label">Item Name</label>
+                            <input type="text" 
+                            id ='selectedFile'
+                            value = {row}
+                            onChange ={(e)=>console.log(this.state.selectedFile)}
+                            className="input-field"
+                            placeholder="" />
+                            <a href="#" className="bg-circle position-absolute">
+                                <i className="fa fa-minus pt-1" id={i} onClick={this.removeEquipment} aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        )}
+                        {/*  */}
+                    </div>
+                    {/* modal copy */}
+                    <div className="form-group m-auto"><span className="cover-border"></span>
+                        <label className="label">Equipment Item Name</label>
                         <input type="text" 
                         id ='selectedFile'
-                        value = {row}
-                        onChange ={(e)=>console.log(this.state.selectedFile)}
+                        value = {this.state.selectedFile}
+                        onChange ={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.selectedFile))}
                         className="input-field"
                          placeholder="" />
-                        <a href="#" className="bg-circle position-absolute">
-                            <i className="fa fa-minus pt-1" id={i} onClick={this.removeEquipment} aria-hidden="true"></i>
-                        </a>
+                       
                     </div>
-                    :''}
-                    {/* <2 End */}
+                    <div className="add_text text-center">
+                        <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></a>
+                    </div> 
+                    {/*  */}
                 </div>
-               )} 
+
+                
                 {/* --------------------------------- */}
-                <div className="modal-body px-4 pb-5"> 
+                {/* <div className="modal-body px-4 pb-5"> 
                     <div className="form-group"><span className="cover-border"></span>
                         <label className="label">Equipment Item Name</label>
                         <input type="text" 
@@ -676,14 +693,12 @@ return(
                         onChange ={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.selectedFile))}
                         className="input-field"
                          placeholder="" />
-                        {/* <a href="#" className="bg-circle position-absolute">
-                            <i className="fa fa-minus pt-1" aria-hidden="true"></i>
-                        </a> */}
+                       
                     </div>
                     <div className="add_text text-center">
                         <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></a>
                     </div> 
-                </div>
+                </div> */}
             </div>
         </div>
         {/* Single >3 End */}
