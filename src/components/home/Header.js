@@ -178,7 +178,7 @@ componentDidMount(){
     let  interestId=2;   
     console.log('-----c----------',interestId);              
       axios      
-      .get("/api/v1/session/activityType/"+interestId)          
+      .get("/api/v1/session/"+interestId+"/activityType")          
       .then(res => {
         console.log('---------Interestactivity--------------',res.data.responseData);
 
@@ -201,11 +201,10 @@ componentDidMount(){
     let  channelId=1;   
     console.log('-----asdfghjkl----------',channelId);              
       axios      
-      //.get("/api/v1/session/"+channelId+"/host")
-      .get("/api/v1/session/hosts-list1/"+channelId)          
+      //.get("/api/v1/session/"+channelId+"/host")      
+      .get("/api/v1/session/"+channelId+"/hosts-list1")          
       .then(res => {
         console.log('---------channelHost--------------',res.data.responseData);
-
 
         this.setState({
           hostList: res.data.responseData,
@@ -239,8 +238,8 @@ componentDidMount(){
 
 
     console.log('-----a----------',interestId);              
-      axios      
-      .get("/api/v1/session/equipments/"+interestId)          
+      axios            
+      .get("/api/v1/session/"+interestId+"/equipments")          
       .then(res => {
         console.log('---------channelEquipments--------------',res.data.responseData);
 
@@ -285,8 +284,7 @@ componentDidMount(){
 
     console.log('-----b----------',interestId);              
       axios      
-
-      .get("/api/v1/session/shoppinglist/"+interestId)          
+      .get("/api/v1/session/"+interestId+"/shoppinglist")          
       .then(res => {
         console.log('---------channelShopping--------------',res.data.responseData);
 
@@ -1161,7 +1159,6 @@ submitForm = (event) => {
 
     return (
 	
-	
       <div className="container-fluid">
         <div className="row top-header p-4">
           <div className="col-lg-2 d-flex d-md-block justify-content-center p-2">
@@ -1961,7 +1958,7 @@ submitForm = (event) => {
               {this.state.equipmentList.map((row,i) => (  
                 <div className="row checkboxdiv_3" key = {i}>
                   <div className="col-md-4">
-                    <label className="custom-control custom-checkbox lebelheight">
+                    <label className="custom-control custom-checkbox lebelheight pl-0">
                       <input type="checkbox" 
                        name={row.name}
                        id ={i} 
@@ -2026,7 +2023,7 @@ submitForm = (event) => {
               {this.state.hostList.map((row,i) => (  
                 <div className="row checkboxdiv_3" key = {i}>
                   <div className="col-md-4">
-                    <label className="custom-control custom-checkbox lebelheight">
+                    <label className="custom-control custom-checkbox lebelheight pl-0">
                       <input type="checkbox" 
                        name={row.userId}
                        id ={i} 
@@ -2081,7 +2078,7 @@ submitForm = (event) => {
                 {this.state.shoppingList.map((row,i) => (
                 <div className="row checkboxdiv_3 mt-4" key = {i}>
                   <div className="col-md-3">
-                    <label className="custom-control custom-checkbox lebelheight">
+                    <label className="custom-control custom-checkbox lebelheight pl-0">
                       <input type="checkbox" 
                        name={row.name}
                        id ={i} 
