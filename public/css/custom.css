@@ -201,7 +201,7 @@ img.logo{
 	overflow: hidden;
 }
 .gray-box2{
-	background:#212121;
+	background:#262626;
 	overflow: hidden;
 }
 .no-border-radius{
@@ -446,11 +446,11 @@ select.input-field{
     height: 2px;*/
     position: absolute;
     top: 0px;
-    background-color: #212121;
+    background-color: #262626;
     z-index: 2;
     left: 10px;
     width: 80%;
-    height: 2px;
+    height: 3px;
 }
 
 .label{ 
@@ -901,7 +901,7 @@ input:checked + .slider:before {
     padding: 0px 0px 0px 1px;
 }
 .plusicon{
-    width: 31px;
+    width: 33px;
     height: 34px;
     border-radius: 8px;
     border:1px solid #b002ed;
@@ -999,6 +999,7 @@ input:checked + .slider:before {
 .closepopup{
     color: #bd00ff !important;
     font-size: 32px !important;
-    font-weight: normal !importants;																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														
+    font-weight: inherit !important;
+    opacity: 1;																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														
 }
 

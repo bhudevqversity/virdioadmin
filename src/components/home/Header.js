@@ -1493,7 +1493,7 @@ submitForm = (event) => {
                 {/* <Link to="header" className="pick" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link> */}
                 <Link to ="header" className="pick" data-toggle="modal" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
             </div>
-            <div className="col-md-4 px-4">
+            <div className="col-md-4 mt-3 mt-md-0 px-4">
                 <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
@@ -1509,7 +1509,7 @@ submitForm = (event) => {
               <Link to="header" className="btn btn-primary text-uppercase mr-2">automatic</Link>
               <Link to="header" className="btn btn-outline-secondary text-uppercase">manual</Link>
             </div>
-            <div className="col-md-3 px-4">
+            <div className="col-md-3 px-4 mt-3 mt-md-0">
               <div className="form-group">
                   <span className="cover-border"></span>
                   <label className="label">Pick Emojis</label>
@@ -1749,7 +1749,7 @@ submitForm = (event) => {
               <div className="col-md-4">
                   <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mt-3 mt-md-0">
                   <Link to="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
@@ -1802,7 +1802,7 @@ submitForm = (event) => {
               <div className="col-md-4">
                   <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mt-3 mt-md-0">
                   <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>

@@ -1629,10 +1629,12 @@ submitForm = (event) => {
                                     </div>
                                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                               </div>
-                            </div>                                              
+                            </div> 
+                            <div className="border-bottom mt-3"></div>                                             
                         </div>
+                        
                           )}
-                        {/* <div className="border-bottom mt-3"></div>*/}
+                        {/* <div className="border-bottom mt-3"></div> */}
                     </div>
               {/* Choose Wine End  */}
           {/* Wine Product Sortable Start */}
@@ -2511,7 +2513,7 @@ submitForm = (event) => {
                                 </div>
                             </div>
                             <div className="col-md-4">
-                                <div className="form-group mb-0">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Pairs With</label>
                                     <textarea rows="5" id = 'shoppingPair' value = {this.state.shoppingPair} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPair))} className="input-field"></textarea>
                                 </div>
