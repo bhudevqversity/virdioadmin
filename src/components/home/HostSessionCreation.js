@@ -29,7 +29,11 @@ class HostSessionCreation extends Component {
         InterestHost1:[],
         selectedFile: '',
         addEquipmentList:[],
-        equipmentCount:0,    
+        equipmentCount:0,
+        addShoppingList:[],
+        selectedShoppingList:'',
+        ShoppingCount:0
+            
     }
 
 }
@@ -65,6 +69,35 @@ componentDidMount(){
         },()=>console.log('**********************',this.state.addEquipmentList))
      
  }
+
+ addShoppingListMethod = (e) => {
+    let arr = this.state.addShoppingList;
+    arr.push(this.state.selectedShoppingList);
+    let count=this.state.ShoppingCount;
+    console.log(count);
+    count = count+1;
+    console.log('*****',count);
+    this.setState({
+        addShoppingList:arr,
+        ShoppingCount:count,
+        selectedShoppingList:''
+    })
+   
+ }
+ removeShoppingList = e =>{
+    let arr = this.state.addShoppingList;
+    let count=this.state.ShoppingCount;
+    console.log(count);
+    count = count-1;
+    console.log('*****',count);
+    arr.splice(e.target.id,1);
+    this.setState({
+       addShoppingList:arr,
+       ShoppingCount:count,
+       })
+    
+}
+
   sessionInfo = e =>{
     this.setState({
         [e.target.id] : e.target.value
@@ -300,7 +333,7 @@ return(
                                         <div className="form-group"><span className="cover-border"></span>
                                             <label className="label">Description</label>
                                             <div className="custom-file mb-3">
-                                              <input type="file" className="custom-file-input" id="customFile" name="filename" />
+                                              <input type="file" className="custom-file-input" id="customFile" name="file" onChange = {this.onChangeHandler} />
                                               <label className="custom-file-label input-field position-relative" htmlFor="customFile">
                                                   <img src="images/browse-img.png" className="browse_image" />
                                                   <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
@@ -384,7 +417,7 @@ return(
                                         {this.state.shoppingStatus?
                                         <div className="add_text">
                                             <a href="#" className="bg-circle mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></a>
-                                            <span className="gray-text">0 Items Added</span>
+                                            <span className="gray-text">{this.state.ShoppingCount} Items Added</span>
                                         </div> 
                                         :''
                                         }                                        
@@ -442,7 +475,7 @@ return(
                     <div className="container-fluid py-3 host-container">
                         <div className="row mt-4">
                         {this.state.hostList.map((row,i) => (
-                            <div className="col-lg-4 col-md-6 pl-md-0">
+                            <div className="col-lg-4 col-md-6 pl-md-0" key = {i}>
                                 <label className="custom-control custom-checkbox lebelheight d-flex">
                                     <input type="checkbox" 
                                     id={i}
@@ -500,7 +533,7 @@ return(
                     <div className="container-fluid py-3 host-container">
                         <div className="row mt-4">
                            {this.state.InterestHost.map((row,i) => ( 
-                            <div className="col-lg-4 col-md-6 pl-md-0">
+                            <div className="col-lg-4 col-md-6 pl-md-0" key = {i}>
                                 <label className="custom-control custom-checkbox lebelheight d-flex">
                                     <input type="checkbox"
                                     id={i}
@@ -555,34 +588,77 @@ return(
         </div>
     </div>
 
-    <div className="modal pr-0" id="shopping_lst_modal">
+    <div className="modal pr-0 list-modal" id="shopping_lst_modal">
         {/* >2 Start*/}
        
-         {/* <div className="modal-dialog small_width">
+        <div className={(this.state.ShoppingCount<3?"modal-dialog small_width":"modal-dialog large_width")}>
             <div className="modal-content modl_bg_color">
                 <div className="modal-header border_none p-4">
                     <h4 className="modal-title white pt-3">Shopping List</h4>
                     <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
                 </div>
+                {/* add Equipment List */}
+                {/* -------------------------------- */}
+                
                 <div className="modal-body px-4 pb-5"> 
-                    <div className="form-group"><span className="cover-border"></span>
-                        <label className="label">Item Name</label>
-                        <input type="text" className="input-field" placeholder="" />
-                        <a href="#" className="bg-circle position-absolute">
-                            <i className="fa fa-minus pt-1" aria-hidden="true"></i>
-                        </a>
+                    <div className="d-flex justify-content-between flex-wrap"> 
+                    {this.state.addShoppingList.map((row,i)=>
+                        <div className="form-group"><span className="cover-border"></span>
+                            <label className="label">Item Name</label>
+                            <input type="text" 
+                            id ='selectedFile'
+                            value = {row}
+                            onChange ={(e)=>console.log(this.state.selectedShoppingList)}
+                            className="input-field"
+                            placeholder="" disabled />
+                            <a href="#" className="bg-circle position-absolute">
+                                <i className="fa fa-minus pt-1" id={i} onClick={this.removeShoppingList} aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        )}
+                        {/*  */}
+                    </div>
+                    {/* modal copy */}
+                    <div className="form-group m-auto"><span className="cover-border"></span>
+                        <label className="label">Shopping List Item Name</label>
+                        <input type="text" 
+                        id ='selectedShoppingList'
+                        value = {this.state.selectedShoppingList}
+                        onChange ={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.selectedShoppingList))}
+                        className="input-field"
+                         placeholder="" />
+                       
                     </div>
                     <div className="add_text text-center">
-                        <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" aria-hidden="true"></i></a>
+                        <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></a>
                     </div> 
+                    {/*  */}
                 </div>
+
+                
+                {/* --------------------------------- */}
+                {/* <div className="modal-body px-4 pb-5"> 
+                    <div className="form-group"><span className="cover-border"></span>
+                        <label className="label">Equipment Item Name</label>
+                        <input type="text" 
+                        id ='selectedFile'
+                        value = {this.state.selectedFile}
+                        onChange ={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.selectedFile))}
+                        className="input-field"
+                         placeholder="" />
+                       
+                    </div>
+                    <div className="add_text text-center">
+                        <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></a>
+                    </div> 
+                </div> */}
             </div>
-        </div> */}
+        </div>
 
         {/* >2 End */}
         
         {/* <=3 Start */}
-        <div className="modal-dialog large_width">
+        {/* <div className="modal-dialog large_width">
             <div className="modal-content modl_bg_color">
                 <div className="modal-header border_none p-4">
                     <h4 className="modal-title white pt-3">Shopping List</h4>
@@ -627,7 +703,7 @@ return(
                     </div>
                 </div>
             </div>
-        </div>
+        </div> */}
 
         {/* <=3 End */}
             <div className="donebg">
@@ -657,7 +733,8 @@ return(
                             value = {row}
                             onChange ={(e)=>console.log(this.state.selectedFile)}
                             className="input-field"
-                            placeholder="" />
+                            placeholder="" 
+                            disabled/>
                             <a href="#" className="bg-circle position-absolute">
                                 <i className="fa fa-minus pt-1" id={i} onClick={this.removeEquipment} aria-hidden="true"></i>
                             </a>

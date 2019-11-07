@@ -110,15 +110,26 @@ class DemoSessionWine extends Component {
          listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
          listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
          listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}],
-        appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
+        
+         appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
         {emoji:"images/burgundy.png",type:false,name:"Burgundy"},
         {emoji:"images/auburn.png",type:false,name:"Auburn"}],
+
+        //appearanceEmoji:[],
+
         aromaEmoji:[{emoji:"images/apple.png",type:false,name:"Apple"},
         {emoji:"images/grapes.png",type:false,name:"Grape"},
         {emoji:"images/cheese.png",type:false,name:"Cheese"}],
+
+        //aromaEmoji:[],
+        
         palateEmoji:[{emoji:"images/apple.png",type:false,name:"Example"},
         {emoji:"images/grapes.png",type:false,name:"Another"},
         {emoji:"images/cheese.png",type:false,name:"Few Example"}], 
+
+        //palateEmoji:[], 
+
+
         wineProduct:[{type:false,name:"Mersedes Benz"},
         {type:false,name:"Nissan Altima"},
         {type:false,name:"Another Brand"}],
@@ -238,6 +249,19 @@ componentDidMount(){
 
   fetchExistingShopping() {
   let  interestId=2;  
+  let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+      {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+      {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
+    ]
+    let ka = [];
+    for(let i=0;i<eqarray.length;i++){
+      let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+      ka.push(n);
+    }
+    this.setState({
+      shoppingList:ka
+    },()=>console.log('------------------------',this.state.shoppingList))
+
     console.log('-----b----------',interestId);              
       axios      
       .get("/api/v1/session/"+interestId+"/shoppinglist")          
@@ -1097,11 +1121,14 @@ removeToWineDescription = (e) => {
 apperanceSelect = (e) => {
   
     let emojiContainer = this.state.tablerows;
+    //let appearanceContainer = this.state.appearanceEmoji;
     emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type;
+    
     this.setState({
     tablerows : emojiContainer,
+    //appearanceEmoji:appearanceContainer
     },()=>
-    { console.log('appearanceEmoji==>',this.state.tablerows);
+    { console.log('<============appearanceEmoji==>',this.state.tablerows);
     });
    
   }
@@ -1146,6 +1173,52 @@ apperanceSelect = (e) => {
   }
 ////////////////Submit data
 submitForm = (event) => {
+  let wineDetail =  this.state.tablerows;
+  let ap = [];
+  let ar = [];
+  let pa = [];
+  console.log(this.state.tablerows[0].listAppearance.length,'********',this.state.tablerows[0].listAppearance[0].type);
+  for(let i=0;i<this.state.tablerows.length;i++){
+    ap = [];
+    ar=[];
+    pa=[];
+    for(let t=0;t<this.state.tablerows[i].listAppearance.length;t++){
+      console.log('this.state.tablerows[i].listAppearance.type',this.state.tablerows[i].listAppearance[t].type);
+      if(this.state.tablerows[i].listAppearance[t].type){
+        ap.push(this.state.tablerows[i].listAppearance[t]);
+        console.log('ap',ap);
+      }
+    }
+
+    for(let v=0;v<this.state.tablerows[i].listAroma.length;v++){
+    console.log('this.state.tablerows[i].listAroma.type',this.state.tablerows[i].listAroma[v].type);
+      if(this.state.tablerows[i].listAroma[v].type){
+        ar.push(this.state.tablerows[i].listAroma[v]);
+        console.log('ar',ar);
+      }
+    }
+
+    for(let l=0;l<this.state.tablerows[i].listPalate.length;l++){
+      if(this.state.tablerows[i].listPalate[l].type){
+        pa.push(this.state.tablerows[i].listPalate[l])
+      }
+    }
+    if(ap.length>0){
+      wineDetail[i].listAppearance=ap;
+      console.log('wineDetail[i]',i,wineDetail[i]);
+    }
+    if(ar.length>0){
+      wineDetail[i].listAroma=ar
+    }
+    if(pa.length>0){
+      wineDetail[i].listPalate=pa
+    }
+  }
+
+
+  console.log('*******************************************',wineDetail);
+  
+
   event.preventDefault();
   var activity_info = [];
   var activities = [];
@@ -1203,46 +1276,7 @@ submitForm = (event) => {
       // const fitnessActivity = {
       //   fitnessActivity : this.state.tablerows
       // } 
-      for(let v =0 ; v<this.state.tablerows.length;v++){
-        console.log(this.state.tablerows[v]);
-        let activity_data ={
-          "name": this.state.tablerows[v].ActivityName,
-          "attributes" : [
-            {
-             "attrKey": "Activity Type",
-             "attrValue": this.state.tablerows[v].ActivityType,
-             "orderNo": 1
-            },
-            {
-             "attrKey": "Duration Type",
-             "attrValue": this.state.tablerows[v].DurationType,
-             "orderNo": 4
-            },
-            {
-             "attrKey": "Count",
-             "attrValue": this.state.tablerows[v].Count,
-             "orderNo": 5
-            },
-            {
-             "attrKey": "Video",
-             "attrValue": this.state.tablerows[v].Video,
-             "orderNo": 2
-            },
-            {
-             "attrKey": "Target BPM",
-             "attrValue": this.state.tablerows[v].TargetBPM,
-             "orderNo": 6
-            },
-            {
-             "attrKey": "Target Zone",
-             "attrValue": this.state.tablerows[v].TargetZone,
-             "orderNo": 3
-            }
-          ]
-         } 
-         activities.push(activity_data);
-         console.log("activities",activities,'activity_data=======lalit222222===========',activity_data);   
-      }
+      
 
 
       const script ={
@@ -1260,7 +1294,7 @@ submitForm = (event) => {
       const host_list = {
         hostList : this.state.hostList1
       }
-
+      activities = wineDetail;
       console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
      
       if (this.validator.allValid()) {
@@ -2020,7 +2054,7 @@ submitForm = (event) => {
                     </div>
             </div>
             <div className="col-md-1">
-              <Link to="session-creation" className="bg-circle mt-3"><i id = {i} value = {listInsertion.name} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
+              <Link to="wine-demo" className="bg-circle mt-3"><i id = {i} value = {listInsertion.name} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
             </div>
           </div>
           : '')
