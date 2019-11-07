@@ -27,6 +27,10 @@ Contents:
     font-family: "AvenirNextRegular";
     src: url("../fonts/AvenirNextRegular.otf") format("opentype");
 }
+#allprevsession .modal-body table td
+{
+    color: #dedede;
+}
 .gray-text{
 	color:#ccc;
 	font-size:18px;

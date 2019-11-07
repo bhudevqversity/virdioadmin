@@ -2240,8 +2240,8 @@ submitForm = (event) => {
     <div className="modal-content">
 
       <div className="modal-header">
-        <h4 className="modal-title">Session List</h4>
-        <button type="button" className="close" data-dismiss="modal">&times;</button>
+        <h4 className="modal-title white">Session List</h4>
+        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
 
 
