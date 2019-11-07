@@ -56,6 +56,7 @@ class DemoSessionWine extends Component {
         sessionAmount:'',
         exampleFormControlSelect1:'Pick a Duration',
         exampleFormControlSelect2 : 'Pick a Difficulty level',
+        sessionProperty:false,
         heartRateMonitor:true,
         zoneTracking : true,
         searchParticipant: false,
@@ -155,7 +156,7 @@ class DemoSessionWine extends Component {
         shoppingPair:'',
         addAttribute:[],
         ///////////existing host////////////////////
-        hostList:[{userId:'100',image :'images/pic.jpg', userName:'Nathan Taylor',type:false},{userId:'101',image :'images/pic.jpg',userName:'Nathan Taylor',type:false}],
+        hostList:[],
         hostList1:[],
         duplicatehostList:[],
         searchhostList:'',
@@ -168,35 +169,64 @@ class DemoSessionWine extends Component {
 componentDidMount(){
   this.fetchPrevSessionList();
   this.fetchExistingShopping();
+  this.fetchExistingHostList();
   this.fetchExistingEquipments();
   }
 
-  fetchExistingEquipments() {
+  fetchExistingHostList() {
+
+     let eqarray = [{userId: 3, username: "Lalit A"},
+     {userId: 1, username: "Deepak A"},
+      ]
+     let ka = []; 
+     for(let i=0;i<eqarray.length;i++){
+       let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+       ka.push(n);
+
+     }
+     this.setState({
+       hostList:ka
+     },()=>console.log('------------------------',this.state.hostList))
+
     
-    let  interestId=2;   
-    let eqarray = [{id: 1, interestId: 2, name: "trademill", equipment_description: "This is running equipments", status: 1},
-    {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1},
-    {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1},
-    {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1}]
-    let ka = []; 
-    for(let i=0;i<eqarray.length;i++){
-      let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
-      ka.push(n);
-    }
-    this.setState({
-      equipmentList:ka
-    },()=>console.log('------------------------',this.state.equipmentList))
-    console.log('-----a----------',interestId);              
+    let  channelId=1;   
+    console.log('-----asdfghjkl----------',channelId);              
       axios      
-      //.get("/api/v1/session/"+channelId+"/host")
-      .get("/api/v1/session/equipments/"+interestId)          
+      //.get("/api/v1/session/"+channelId+"/host")      
+      .get("/api/v1/session/"+channelId+"/hosts-list1")          
+      .then(res => {
+        console.log('---------channelHost--------------',res.data.responseData);
+
+        this.setState({
+          hostList: res.data.responseData,
+            });
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+ fetchExistingEquipments() {
+    
+    let  interestId=2;  
+    console.log('-----a----------',interestId);              
+      axios            
+      .get("/api/v1/session/"+interestId+"/equipments")          
       .then(res => {
         console.log('---------channelEquipments--------------',res.data.responseData);
 
+      let eqarray=res.data.responseData;
 
-        // this.setState({
-        //   equipmentList: res.data.responseData,
-        //     });
+      let ka = []; 
+      for(let i=0;i<eqarray.length;i++){
+        let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
+        ka.push(n);  
+      }
+
+        this.setState({
+          equipmentList:ka
+            });
             
       })
       .catch(err =>{
@@ -205,33 +235,26 @@ componentDidMount(){
       });
 
   }
-  fetchExistingShopping() {
-    
-    let  interestId=2;  
-    let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-      {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-      {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
-    ]
-    let ka = [];
-    for(let i=0;i<eqarray.length;i++){
-      let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
-      ka.push(n);
-    }
-    this.setState({
-      shoppingList:ka
-    },()=>console.log('------------------------',this.state.shoppingList))
 
+  fetchExistingShopping() {
+  let  interestId=2;  
     console.log('-----b----------',interestId);              
       axios      
-
-      .get("/api/v1/session/shoppinglist/"+interestId)          
+      .get("/api/v1/session/"+interestId+"/shoppinglist")          
       .then(res => {
         console.log('---------channelShopping--------------',res.data.responseData);
 
+          let eqarray=res.data.responseData;
 
-        // this.setState({
-        //   shoppingList: res.data.responseData,
-        //     });
+          let ka = [];
+          for(let i=0;i<eqarray.length;i++){
+            let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+            ka.push(n);
+
+          }
+        this.setState({
+          shoppingList:ka
+            });
             
       })
       .catch(err =>{
@@ -240,7 +263,6 @@ componentDidMount(){
       });
 
   }
-
 
   fetchPrevSessionList() {
     
@@ -737,7 +759,7 @@ addToHost = () => {
 
 findhostList =(listItem) =>{
   console.log(listItem,this.state.searchhostList)
-  if (listItem.userName === this.state.searchhostList) {
+  if (listItem.username === this.state.searchhostList) {
     console.log(listItem.type);
     return listItem};
 }
@@ -1128,6 +1150,23 @@ submitForm = (event) => {
   var activity_info = [];
   var activities = [];
   let input_result=[];
+  let min_participants='';
+  let max_participants='';
+// console.log('-------munahostlist-----------',this.state.hostList)
+//   var datavar=this.state.hostList;
+//   datavar.forEach(ele => {
+//     console.log('--------lalithostlist------------',ele.type)
+//   if(ele.type == true)
+//   {
+//     console.log('--------lalithosttrue------------',ele.type)
+//     this.setState({
+//       hostList3: ele.userId
+//     });
+//   }
+
+//   });
+ // console.log('-------guduhostlist-----------',this.state.hostList3)
+
     const session ={
       channelId: 1006,
       name:this.state.session_details,
@@ -1135,11 +1174,12 @@ submitForm = (event) => {
      //start_date:"2019-10-20 15:06:01",
      start_date:this.state.when,
      description:this.state.description,
-     duration:this.state.exampleFormControlSelect1,
-      level:this.setState.exampleFormControlSelect2,
+     duration:this.state.exampleFormControlSelect2,
+    level:this.state.exampleFormControlSelect1,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
+      sessionProperty:this.state.sessionProperty,
       session_charge:this.state.sessionCharge,
       currency:"USD",
       show_particpants_count:"false",
@@ -1148,8 +1188,8 @@ submitForm = (event) => {
       const reminder = {
         host_reminder:this.state.hostSessionStart,
         participants_reminder:this.state.participantSessionStart,
-         cutoff_date_time:this.state.signUpDateTime,
-        //cutoff_date_time:"2019-11-2 15:06:01",
+         //cutoff_date_time:this.state.signUpDateTime,
+        cutoff_date_time:"2019-11-2 15:06:01",
         min_participants_not_met:this.state.minimumNotMet
       }
       const privacy ={
@@ -1203,6 +1243,8 @@ submitForm = (event) => {
          activities.push(activity_data);
          console.log("activities",activities,'activity_data=======lalit222222===========',activity_data);   
       }
+
+
       const script ={
         next_activity : "automatic",
         heart_rate_monitor:this.state.scriptHeartRateMonitor,
@@ -1210,42 +1252,40 @@ submitForm = (event) => {
 
       }
       const shopping_list ={
-        shoppingList:this.state.shoppingList
+        shoppingList:this.state.shoppingList1
       }
       const equipment_list = {
-        equipmentList:this.state.equipmentList
+        equipmentList:this.state.equipmentList1
       }
-      console.log("==========================>",activity_info);
+      const host_list = {
+        hostList : this.state.hostList1
+      }
+
+      console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
+     
       if (this.validator.allValid()) {
-        if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
-       //   console.log("========lalit11111==================>",activity_info);   
-      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script); 
-      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+
+        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
+
+        
+
+        if(this.state.minimumParticipants >= 1 && this.state.maximumParticipants <= 50 ){  
+
+
+      let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
+      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
         //console.log(res);
 
-        this.setState({
-          send_input: res.data,
-          });
-        input_result=this.state.send_input;
-        console.log('=============lallittiwari===================>',input_result);
+        console.log('=============lallittiwari12345===================>',res.data);
 
-
-        let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      
-        // axios.post("/api/v1/session/create",input_result,{headers : {'Authorization': token}})
-         axios.post("/api/v1/session/create",this.state.send_input)
-         .then(res => {
-   
-           console.log('=============lallittiwari12345===================>',res.data);
-
-           if(res.data.responseMessage == "success")
-           {
-           this.setState({
+            if(res.data.responseMessage == "success")
+            {
+            this.setState({
             msg: "Session hasbeen created Successfully!!!!!!!",
           });
-        }else{
+           }else{
 
           this.setState({
             msg: "There Is a error in session creation",
@@ -1253,14 +1293,14 @@ submitForm = (event) => {
 
         }
 
-         })
-
       })
     }
     else {
       console.log('Wrong');
     }
     }else{
+
+      console.log('----------------This is a error--------------------')
       this.validator.showMessages();
     // rerender to show messages for the first time
     // you can use the autoForceUpdate option to do this automatically`
@@ -1445,6 +1485,14 @@ submitForm = (event) => {
                     </div>
                   </div>
                   <div className="col-md-5 px-4">
+                  <div className="form-group input-txt">
+                    <label className="switch">
+                        <input type="checkbox" id = "sessionProperty"  checked={this.state.sessionProperty} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.sessionProperty},()=>console.log('sessionProperty',this.state.sessionProperty))}}/>
+                        <span className="slider round"></span>
+                    </label>
+                    
+                    {this.state.sessionProperty?<span>private session</span>:<span>public session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+                    </div>
                     <div className="form-group input-txt">
                     <label className="switch">
                         <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}}/>
@@ -2636,7 +2684,7 @@ submitForm = (event) => {
                                     className="form-radio" />
                                     <img src={row.image} className="ml-2 mr-3" alt="user-icon" />
                                     <div>
-                                        <p className="checktxt_name pb-1">{row.userName}</p>
+                                        <p className="checktxt_name pb-1">{row.username}</p>
                                         <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
                                     </div>
 
@@ -2655,7 +2703,7 @@ submitForm = (event) => {
                                     className="form-radio" />
                                     <img src={row.image} className="ml-2 mr-3" alt="user-icon" />
                                     <div>
-                                        <p className="checktxt_name pb-1">{row.userName}</p>
+                                        <p className="checktxt_name pb-1">{row.username}</p>
                                         <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
                                     </div>
 

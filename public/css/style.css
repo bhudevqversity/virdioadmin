@@ -1310,7 +1310,11 @@ div.overflow-hidden p:nth-child(1):after
 
 .modal-dialog.small_width
 {
-	max-width: 500px;
+	max-width: 425px;
+}
+.list-modal .modal-body .form-group
+{
+	width: 370px;
 }
 
 /*-------------slide-26 CSS----------------*/
