@@ -7,7 +7,7 @@ import Dashboard from "./components/home/Dashboard";
 import PDashboard from "./components/home/PDashboard";
 
 import SessionWineCreation from "./components/home/SessionWineCreation"
-import DemoSessionWine from "./components/DemoSessionWine"
+import DemoSessionWine from "./components/home/DemoSessionWine"
 import HostSessionCreation from './components/home/HostSessionCreation'
 /*function App() {
   return (

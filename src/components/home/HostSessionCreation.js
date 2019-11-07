@@ -134,7 +134,7 @@ return(
                                             <label className="label">Description</label>
                                             <div className="custom-file mb-3">
                                               <input type="file" className="custom-file-input" id="customFile" name="filename" />
-                                              <label className="custom-file-label input-field position-relative" for="customFile">
+                                              <label className="custom-file-label input-field position-relative" htmlFor="customFile">
                                                   <img src="images/browse-img.png" className="browse_image" />
                                                   <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
                                               </label>

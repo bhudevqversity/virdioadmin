@@ -32,8 +32,10 @@ p, a
 	background: #343434;
 	border: none;
 }
+
 /*---------Session Creation page CSS----------------*/
-#allprevsession .table td, .table th
+
+#allprevsession .table td, .activity-table.table th
 {
 	border-top: none;
 }
@@ -42,6 +44,16 @@ p, a
 	color: white;
 	border-bottom: 1px solid #414141;
 	font-weight: 500;
+	border-top: none;
+}
+#allprevsession .table tbody td
+{
+	color: #cccccc;
+}
+.custom-file-input:focus~.custom-file-label
+{
+	box-shadow: none;
+    border-color: #bd00ff;
 }
 /*---------slide-22 CSS----------------*/
 
@@ -995,7 +1007,7 @@ div.overflow-hidden p:nth-child(1):after
 {
 	transform: translateY(19px);
 } 
-#pick_host_modal .modal-header, #add_product_modal .modal-header
+#pick_host_modal .modal-header, #add_product_modal .modal-header, #product_lst_modal .modal-header
 {
 	border-bottom: none;
 }
@@ -1012,7 +1024,7 @@ div.overflow-hidden p:nth-child(1):after
 {
 	position: relative;
 }
-#add_product_modal h4.modal-title span
+#add_product_modal h4.modal-title span, #product_lst_modal h4.modal-title span
 {
 	position: absolute;
 	top: 50px;
