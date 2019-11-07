@@ -1215,47 +1215,33 @@ submitForm = (event) => {
       const equipment_list = {
         equipmentList:this.state.equipmentList
       }
-      console.log("==========================>",activity_info);
+      console.log("========lalit==================>",activity_info);
+
+      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script);
+
       if (this.validator.allValid()) {
+
         if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
-       //   console.log("========lalit11111==================>",activity_info);   
-      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script); 
-      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
-      .then(res => {
+        
+      // axios.post("/api/v1/session/createwineSession", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+      // .then(res => {
 
-        //console.log(res);
+      //   console.log('=============lallittiwari12345===================>',res.data);;
 
-        this.setState({
-          send_input: res.data,
-          });
-        input_result=this.state.send_input;
-        console.log('=============lallittiwari===================>',input_result);
+      //       if(res.data.responseMessage == "success")
+      //       {
+      //       this.setState({
+      //       msg: "Session hasbeen created Successfully!!!!!!!",
+      //     });
+      //     }else{
 
+      //     this.setState({
+      //       msg: "There Is a error in session creation",
+      //     });
 
-        let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
+      //   }
       
-        // axios.post("/api/v1/session/create",input_result,{headers : {'Authorization': token}})
-         axios.post("/api/v1/session/create",this.state.send_input)
-         .then(res => {
-   
-           console.log('=============lallittiwari12345===================>',res.data);
-
-           if(res.data.responseMessage == "success")
-           {
-           this.setState({
-            msg: "Session hasbeen created Successfully!!!!!!!",
-          });
-        }else{
-
-          this.setState({
-            msg: "There Is a error in session creation",
-          });
-
-        }
-
-         })
-
-      })
+      // })
     }
     else {
       console.log('Wrong');
