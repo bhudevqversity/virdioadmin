@@ -21,7 +21,10 @@ p, a
 {
 	font-family: Avenir-Book;
 }
-
+.h-90
+{
+	height: 84px;
+}
 .modal-dialog
 {
 	
@@ -35,6 +38,12 @@ p, a
 #myModal3 .custom-control
 {
 	padding-left: 0;
+}
+select.input-field
+{
+	background-image: url(../images/dropdown.png);
+    background-repeat: no-repeat;
+    background-position: 90% 50%;
 }
 /*---------Session Creation page CSS----------------*/
 
@@ -529,6 +538,7 @@ a.act:before
 	vertical-align: super;
 	font-size: 15px;
 }
+
 .slides_inner_part p
 {
 	color: white;
@@ -865,12 +875,13 @@ a.purple_link
 }
 .purple_text
 {
-	color: #bd00ff;
+	color: #bd00ff !important;
 }
-div.overflow-hidden .d-flex p:nth-child(1)
+div.overflow-hidden .d-flex p:nth-child(1) a
 {
 	position: relative;
 	font-size: 25px;
+	color: #bd00ff;
 
 
 }
@@ -884,15 +895,15 @@ div.overflow-hidden .d-flex p a
 	text-decoration: none;
 
 }
-div.overflow-hidden p:nth-child(1):after
+div.overflow-hidden p:nth-child(1) a:after
 {
 	position: absolute;
 	width: 1px;
 	height: 20px;
 	background-color: #474747;
 	content: "";
-	top: 11px;
-    right: -39px;
+	top: 8px;
+    right: -20px;
 }
 .text_lft_icon
 {
@@ -1031,7 +1042,7 @@ div.overflow-hidden p:nth-child(1):after
 {
 	position: absolute;
 	top: 50px;
-	left: 15px;
+	left: 25px;
 	font-size: 13px;
 	color: #878787;
 }
@@ -1065,12 +1076,18 @@ div.overflow-hidden p:nth-child(1):after
 	border-top: 1px solid #414141 !important;
 	border-bottom: 1px solid #414141 !important;
 	box-shadow: none !important;
-	width: 385px !important;
+	width: 490px !important;
 	margin: auto !important;
 }
 .rlc-day-disabled, .rlc-day-disabled:hover
 {
 	background-color: #343434 !important;
+	color: white !important;
+}
+.rlc-day-selected
+{
+
+	font-weight: bold !important;
 }
 .cal_modal .modal-header
 {
@@ -1084,11 +1101,21 @@ div.overflow-hidden p:nth-child(1):after
 {
 	display: none;
 }
+.bg-trnsparent
+{
+	background-color: transparent;
+}
+.btn_btn1
+{
+	bottom: -90px;
+	transform: translateX(-50%);
+	left: 50%;
+}
 .rlc-day
 {
-	font-size: 14px !important;
-	width: 55px !important;
-	height: 55px !important;
+	font-size: 18px !important;
+	width: 70px !important;
+	height: 60px !important;
 }
 .rlc-navigation-button
 {
@@ -1099,6 +1126,8 @@ div.overflow-hidden p:nth-child(1):after
 .rlc-month-and-year
 {
 	color: white;
+	font-size: 20px !important;
+	font-family: Avenir-Book;
 }
 .rlc-month-and-year-wrapper
 {
@@ -1106,8 +1135,10 @@ div.overflow-hidden p:nth-child(1):after
 }
 .rlc-day, .rlc-day-label
 {
-	width: 55px !important;
-	height: 55px !important;
+	width: 70px !important;
+	height: 60px !important;
+	font-size: 15px !important;
+	margin-bottom: 5px !important;
 }
 .rlc-days-label
 {
@@ -1123,9 +1154,21 @@ div.overflow-hidden p:nth-child(1):after
 {
 	background-color: #bd00ff !important;
 }
+.modal-dialog.large_width1
+{
+	max-width: 1100px !important;
+}
+.modal-dialog.small_width1
+{
+	max-width: 545px;
+}
 .cal_modal input.input-field
 {
 	height: 55px;
+}
+.cal_modal .modal-dialog .modal-content:nth-child(1)
+{
+	width: 529px;
 }
 .cal_modal .label
 {
@@ -1140,6 +1183,67 @@ div.overflow-hidden p:nth-child(1):after
 .cal_modal .input-txt
 {
 	font-size: 14px;
+}
+
+.wd
+{
+	flex-basis: 3%;
+	margin-bottom: 50px;
+}
+.cal_modal .modal-content:nth-child(2) span.dropdown-icon
+{
+	right: 10px;
+    top: 10px;
+}
+.cal_modal .btn-outline-secondary:hover
+{
+	background-color: transparent !important;
+}
+.cal_modal .modal-content:nth-child(2) .btn-primary, .cal_modal .modal-content:nth-child(2) .btn-outline-secondary
+{
+	font-size: 13px;
+	padding: 13px;
+}
+
+.cal_modal h5.white
+{
+	font-family: Avenir-Book;
+	font-size: 18px; 
+}
+.custom_field
+{
+	border-radius: 10px;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #b002ed;
+    margin-bottom: 22px;
+    padding: 10px 15px;
+    font-size: 18px;
+    position: relative;
+    background-image: url(../images/dropdown.png);
+    background-repeat: no-repeat;
+    background-position: 90% 50%;
+    -webkit-appearance: none;
+    text-transform: uppercase;
+    width: 135px;
+}
+/*.small_cont
+{
+	left: -28px;
+    bottom: 50px;
+    height: 50px;
+    width: 30px;
+    border-radius: 10px;
+    position: absolute;
+}*/
+.small_cont
+{
+	left: -28px;
+    bottom: 50px;
+    height: 50px;
+    width: 30px;
+    border-radius: 10px;
+    position: absolute;
 }
 .modal-content .form-group .cover-border
 {
@@ -1336,6 +1440,26 @@ div.overflow-hidden p:nth-child(1):after
 {
 	background-color: #3f3f3f;
 }
+
+/*-------------slide-28 CSS----------------*/
+
+.border_bottom_dotted
+{
+	border: 1px dashed #525252;
+}	
+
+/*-------------slide-29 CSS----------------*/
+
+.video_img .custom-file-label
+{
+	background-color: #34213b;
+}
+
+.border_bottom_dotted
+{
+	border: 1px dashed #525252;
+}	
+
 /* Responsive Code */
 
 @media(max-width: 900px)

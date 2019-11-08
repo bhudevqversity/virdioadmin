@@ -36,6 +36,7 @@ class Header extends Component {
         endDate: '', // Today + 6 days
         dateFormat : '',
         cutoffStartDate:date.getTime(),
+        repeatSession:false,
         cutoffEndDate:'',
         cutoffDateTime:'',
         whenTime:'',
@@ -1168,41 +1169,48 @@ submitForm = (event) => {
             <div className="user-info d-flex align-items-center">
               <img src="images/attendee.png" className="user-avtar" alt = '#'/>
               <div className="pl-4">
-                <h3>Welcome Cersei!</h3>
-                <p>You have 3 sessions this week</p>
-                <p>Next Session, Wednesday, 24 July 2019</p>
+                <h3>Welcome Arjun!</h3>
+                <p>No Session coming up this week</p>
+                {/* <p>Next Session, Wednesday, 24 July 2019</p> */}
               </div>
             </div>
           </div>
           <div className="col-lg-6 ">
             <div className="d-flex justify-content-between ">
               <div className="header-info-right">
-                <p>Weekly Attendance</p>
-                <h3>{this.state.weeklyAttendance}%</h3>
+                <p>Average Attendance</p>
+                <h3>0%</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="header-info-right">
                 <p>Total Views</p>
-                <h3>{this.state.totalViews}K</h3>
+                <h3>0</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="header-info-right">
                 <p>Total Revenue</p>
-                <h3>${this.state.totalRevenue}</h3>
+                <h3>$0</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="message-notification">
                 <img src="/images/message.png" alt = '#'/>
-                <span className="message-count">{this.state.messageCount}</span>
+                <span className="message-count">0</span>
               </div>
             </div>
           </div>
         </div>
-        <div className="overflow-hidden">
+        <div class="overflow-hidden">
+          <h4 class="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
+          <div class="d-flex flex-wrap float-right">
+              <p class="float-right purple_text mr-4 bordr-right mb-0"><a href="#" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</a></p>
+              <p class="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" className="purple_text">x</Link></p>
+          </div>    
+        </div>
+        {/* <div className="overflow-hidden">
         <h4 className="text-white mb-0 mt-3 float-left">CREATE SESSION</h4>
 
         <a href="#" className="btn btn-primary mb-3 float-right" data-toggle="modal" data-target="#allprevsession"> copy from ....</a>
-        </div>
+        </div> */}
       <div class="clearfix"></div>
         <div className="gray-box">
           <div className="row session mx-0">
@@ -1244,7 +1252,6 @@ submitForm = (event) => {
                         <option>5</option>
                       </select>
                       {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required|integer')}						  
-                      <span className="dropdown-icon"></span>
                   </div>
                   </div>
                   <div className="col-md-3 px-4">																 
@@ -1280,7 +1287,7 @@ submitForm = (event) => {
                         <option>5</option>
                       </select>
                       {this.validator.message('exampleFormControlSelect2', this.state.exampleFormControlSelect2, 'required|integer')}
-                      <span className="dropdown-icon"></span>
+                      
                     </div>
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
@@ -1308,7 +1315,7 @@ submitForm = (event) => {
                   </div>
                   <div className="col-md-5 px-4">
 
-                    <div className="form-group input-txt">
+                    <div className="form-group input-txt h-90">
                     <label className="switch">
                         <input type="checkbox" id = "sessionProperty"  checked={this.state.sessionProperty} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.sessionProperty},()=>console.log('sessionProperty',this.state.sessionProperty))}}/>
                         <span className="slider round"></span>
@@ -1317,7 +1324,7 @@ submitForm = (event) => {
                     {this.state.sessionProperty?<span>private session</span>:<span>Public Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
 
-                    <div className="form-group input-txt">
+                    <div className="form-group input-txt h-90">
                     <label className="switch">
                         <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}}/>
                         <span className="slider round"></span>
@@ -1325,20 +1332,20 @@ submitForm = (event) => {
                       <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
 
-                    <div className="form-group input-txt">
+                    <div className="form-group input-txt h-90">
                       <label className="switch">
                           <input type="checkbox" id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} />
                           <span className="slider round"></span>
                       </label>
                       <span>Charging for Session?</span>
-                      {this.state.sessionCharge?<p className="gray-text ml-5 mt-3 mb-4">You have enabled it in the Channel</p>:''}
+                      {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                     </div>
 
                     {this.state.sessionCharge?
-                    <div className="form-group w-50 ml-5">
+                    <div className="form-group w-50 ml-5 h-90 mt-2">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Charge amount</label>
-                      <div className="">
+                      <div className="mt-4">
                         <input
                           type="text"
                           className="input-field"
@@ -1546,7 +1553,7 @@ submitForm = (event) => {
               </div>
             </div>
           </div>
-          <div className="p-3">
+          <div className="py-3 px-4">
             <h3 className="main-heading">Activities</h3>
             <table className="table text-gray activity-table">
               <thead>
@@ -1627,7 +1634,7 @@ submitForm = (event) => {
               </tbody> */}
             </table>
           </div>
-          <div className="p-3 activity-form mt-2">
+          <div className="py-3 px-4 activity-form mt-2">
             <div className="border-bottom">
               <div className="row">
 
@@ -1664,7 +1671,6 @@ submitForm = (event) => {
                 <select className="input-field" id="ActivityType" value = {this.state.ActivityType}  onChange = {(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log('Activity Type',this.state.ActivityType))}>
                 {activitynewtype}
                   </select>
-                      <span className="dropdown-icon"></span>
                   </div>
               </div>
               <div className="col-md-2">
@@ -1681,7 +1687,6 @@ submitForm = (event) => {
                         <option>Time</option>
                         <option>Reps</option>
                       </select>
-                      <span className="dropdown-icon"></span>
                   </div>
               </div>
               <div className="col-md-1">
@@ -1735,7 +1740,7 @@ submitForm = (event) => {
             </div>
             </div>
           </div>
-          <Link to="header" className="activity-link pl-3"><span onClick = {this.addRow}>+</span> Activity</Link>
+          <Link to="header" className="activity-link pl-4"><span onClick = {this.addRow}>+</span> Activity</Link>
         </div>
 
         {/* Script End */}
@@ -1744,7 +1749,7 @@ submitForm = (event) => {
         
         <div className="gray-box no-border-radius pb-2">
           <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
-          <div className="px-3 pb-5">
+          <div className="px-4 pb-5">
             <div className="row">
               <div className="col-md-4">
                   <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
@@ -1798,7 +1803,7 @@ submitForm = (event) => {
         {/* Equipement List Start  */}
         <div className="gray-box2 no-border-radius">
           <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
-          <div className="px-3 pb-5">
+          <div className="px-4 pb-5">
             <div className="row">
               <div className="col-md-4">
                   <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
@@ -2224,11 +2229,11 @@ submitForm = (event) => {
   </div>
 </div>   */}
 <div className="modal cal_modal" id="calenderModel">
-  <div className="modal-dialog">
-    <div className="modal-content modalbg">
-      <div className="modal-header">
-        <h4 className="white modal-title">Select Duration</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+<div className="modal-dialog d-md-flex d-block large_width1 mb-0">
+    <div className="modal-content modalbg m-auto">
+      <div className="modal-header px-4 pt-4 pb-0">
+        <h4 className="white modal-title">Choose Date and Time</h4>
+        <button type="button pr-3" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
       <div className="modal-body">
       <h3>Calender</h3>
@@ -2238,19 +2243,24 @@ submitForm = (event) => {
       startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
-          <div className="col-md-5 mt-2">
-            <div class="form-group"><span class="cover-border"></span>
-                <label class="label">Enter Time</label>
-                <input type="text" value = {this.state.whenTime} class="input-field" placeholder="Time" disabled />
-                <span class="clock-icon"></span>
+          <div className="col-md-5 mt-2 pl-4">
+            <div className="form-group mb-0"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
+                <span className="clock-icon"></span>
             </div>
           </div>
-          <div className="col-md-7">
+          <div className="col-md-1"></div>
+          <div className="col-md-6 pr-4">
           <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
-          <div class="form-group input-txt">
-              <label class="switch">
-                  <input type="checkbox" />
-                  <span class="slider round"></span>
+          <div className="form-group input-txt mb-0">
+              <label className="switch">
+                  <input type="checkbox" 
+                  id="repeatSession"
+                  checked={this.state.repeatSession}
+                  onChange={(e)=> this.setState({[e.target.id]:!this.state.repeatSession},()=>console.log(this.state.repeatSession))}
+                  />
+                  <span className="slider round"></span>
               </label>
               <span>This is a repeated session</span>
             </div>
@@ -2258,52 +2268,91 @@ submitForm = (event) => {
         </div>
       </div>
       </div>
+        <div class="text-center position-absolute btn_btn1">
+        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
+        </div>
       </div>
+      {this.state.repeatSession?
+      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
+      {this.state.repeatSession?
+      <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
+      <div className="modal-header headerborder px-0">
+        <h4 className="white modal-title">Repeat Session</h4>
+      </div>
+      <div className="modal-body px-0">
+      <h5 className="white">Frequency</h5>
+      <div className="d-flex flex-wrap">
+      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
+      <select class="custom_field mt-2 mb-0" id="">
+        <option>custom</option>
+        <option>1 week</option>
+        <option>2 week</option>
+        <option>3 week</option>
+        <option>4 week</option>
+        </select>
+      </div>
+      <h5 className="white mt-4">Duration</h5>
+      <div className="d-flex flex-wrap">
+      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
+      <select class="custom_field mt-2 mb-0" id="">
+        <option>custom</option>
+        <option>1 week</option>
+        <option>2 week</option>
+        <option>3 week</option>
+        <option>4 week</option>
+        </select>
+      </div>
+      </div>
+      <div class="text-center position-absolute btn_btn1">
+          <button type="button" class="done mt-0">save</button>
+      </div>
+     {/* <img src="images/path.png" className="small_cont" /> */}
+      {/* <div className="modalbg small_cont"></div> */}
+      </div>:''}
   </div>
 </div>
 
 <div className="modal cal_modal" id="signUpCalenderModel">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h4 className="modal-title white">Select Duration</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+<div className="modal-dialog d-md-flex d-block large_width1 mb-0">
+    <div className="modal-content modalbg m-auto">
+      <div className="modal-header px-4 pt-4 pb-0">
+        <h4 className="white modal-title">Choose Date and Time</h4>
+        <button type="button pr-3" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
-      {/* <div className="modal-body">
-      
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
-      disableDates={date => date < (new Date().getTime())}
-      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
-      <div className="row">
-      <div className="col-md-6">
-      <div class="form-group"><span class="cover-border"></span>
-        <label class="label">Enter Time</label>
-        <input type="text" class="input-field" />
-      </div>
-      </div>
-      </div>
-      </div> */}
       <div className="modal-body">
       <h3>Calender</h3>
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
-          <div className="col-md-5 mt-2">
-            <div class="form-group"><span class="cover-border"></span>
-                <label class="label">Enter Time</label>
-                <input type="text" value = {this.state.reminderSessionTime} class="input-field" placeholder="12:00 PM" disabled />
-                <span class="clock-icon"></span>
+          <div className="col-md-5 mt-2 pl-4">
+            <div className="form-group mb-0"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
+                <span className="clock-icon"></span>
             </div>
           </div>
-          <div className="col-md-7">
-          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
-          <div class="form-group input-txt">
-              <label class="switch">
-                  <input type="checkbox" />
-                  <span class="slider round"></span>
+          <div className="col-md-1"></div>
+          <div className="col-md-6 pr-4">
+          <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
+          <div className="form-group input-txt mb-0">
+              <label className="switch">
+                  <input type="checkbox" 
+                  id="repeatSession"
+                  checked={this.state.repeatSession}
+                  onChange={(e)=> this.setState({[e.target.id]:!this.state.repeatSession},()=>console.log(this.state.repeatSession))}
+                  />
+                  <span className="slider round"></span>
               </label>
               <span>This is a repeated session</span>
             </div>
@@ -2311,7 +2360,55 @@ submitForm = (event) => {
         </div>
       </div>
       </div>
-      </div>calenderModel
+        <div class="text-center position-absolute btn_btn1">
+        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
+        </div>
+      </div>
+      {this.state.repeatSession?
+      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
+      {this.state.repeatSession?
+      <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
+      <div className="modal-header headerborder px-0">
+        <h4 className="white modal-title">Repeat Session</h4>
+      </div>
+      <div className="modal-body px-0">
+      <h5 className="white">Frequency</h5>
+      <div className="d-flex flex-wrap">
+      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
+      <select class="custom_field mt-2 mb-0" id="">
+        <option>custom</option>
+        <option>1 week</option>
+        <option>2 week</option>
+        <option>3 week</option>
+        <option>4 week</option>
+        </select>
+      </div>
+      <h5 className="white mt-4">Duration</h5>
+      <div className="d-flex flex-wrap">
+      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
+      <select class="custom_field mt-2 mb-0" id="">
+        <option>custom</option>
+        <option>1 week</option>
+        <option>2 week</option>
+        <option>3 week</option>
+        <option>4 week</option>
+        </select>
+      </div>
+      </div>
+      <div class="text-center position-absolute btn_btn1">
+          <button type="button" class="done mt-0">save</button>
+      </div>
+     {/* <img src="images/path.png" className="small_cont" /> */}
+      {/* <div className="modalbg small_cont"></div> */}
+      </div>:''}
   </div>
 </div>
       </div>
