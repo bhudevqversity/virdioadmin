@@ -259,7 +259,7 @@ img.logo{
     background: #34213b;
     color: #fff;
     border:2px solid #b002ed;
-    height: 71px;
+    height: 65px;
     width: 100%;
     margin-bottom: 22px;
     padding-left: 18px;
@@ -267,7 +267,7 @@ img.logo{
     position: relative;
 }
 textarea.input-field{
-    height: 180px;
+    height: 168px;
     padding: 20px 18px;
     margin-bottom: 17px;
 }
@@ -842,7 +842,7 @@ input:checked + .slider:before {
 	color: #eee;
 	text-decoration:none;
 }
-.save-btn{
+.save-btn.btn-primary{
 	    display: table;
     border-radius: 40px;
     font-size: 20px;

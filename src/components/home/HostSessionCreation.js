@@ -756,32 +756,12 @@ return(
                     <div className="add_text text-center">
                         <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></a>
                     </div> 
-                    {/*  */}
-                </div>
-
-                
-                {/* --------------------------------- */}
-                {/* <div className="modal-body px-4 pb-5"> 
-                    <div className="form-group"><span className="cover-border"></span>
-                        <label className="label">Equipment Item Name</label>
-                        <input type="text" 
-                        id ='selectedFile'
-                        value = {this.state.selectedFile}
-                        onChange ={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.selectedFile))}
-                        className="input-field"
-                         placeholder="" />
-                       
-                    </div>
-                    <div className="add_text text-center">
-                        <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></a>
-                    </div> 
-                </div> */}
+                </div>                
             </div>
         </div>
-        {/* Single >3 End */}
-
-       {/* Single <=3 Start  */}
-      {/*   <div className="modal-dialog large_width">
+        </div>
+        <div class="modal pr-0 show" id="product_lst_modal">
+         <div className="modal-dialog large_width">
             <div className="modal-content modl_bg_color">
                 <div className="modal-header px-4">
                     <h4 className="modal-title white">Product List<span>Tap on an attribute to make it active in the Product list</span></h4>
@@ -885,13 +865,11 @@ return(
                     </div>
                 </div>
             </div>
-        </div> */}
-
-
-        {/* <=3 start */}
-            <div className="donebg">
-                <button type="button" className="done mt-2">save</button>
-            </div>
+        </div> 
+        <div class="text-center">
+            <button type="button" class="done mb-5 mt-2 mr-3">Preview</button>
+            <button type="button" class="done mt-4 mt-2">save</button>
+        </div>
     </div>
     </div>
 )

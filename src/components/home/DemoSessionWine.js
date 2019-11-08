@@ -1381,41 +1381,48 @@ submitForm = (event) => {
             <div className="user-info d-flex align-items-center">
               <img src="images/attendee.png" className="user-avtar" alt = '#'/>
               <div className="pl-4">
-                <h3>Welcome Cersei!</h3>
-                <p>You have 3 sessions this week</p>
-                <p>Next Session, Wednesday, 24 July 2019</p>
+                <h3>Welcome Arjun!</h3>
+                <p>No Session coming up this week</p>
+                {/* <p>Next Session, Wednesday, 24 July 2019</p> */}
               </div>
             </div>
           </div>
           <div className="col-lg-6 ">
             <div className="d-flex justify-content-between ">
               <div className="header-info-right">
-                <p>Weekly Attendance</p>
-                <h3>{this.state.weeklyAttendance}%</h3>
+                <p>Average Attendance</p>
+                <h3>0%</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="header-info-right">
                 <p>Total Views</p>
-                <h3>{this.state.totalViews}K</h3>
+                <h3>0</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="header-info-right">
                 <p>Total Revenue</p>
-                <h3>${this.state.totalRevenue}</h3>
+                <h3>$0</h3>
               </div>
               <span className="border-right gray-border"></span>
               <div className="message-notification">
                 <img src="/images/message.png" alt = '#'/>
-                <span className="message-count">{this.state.messageCount}</span>
+                <span className="message-count">0</span>
               </div>
             </div>
           </div>
         </div>
+        <div class="overflow-hidden">
+          <h4 class="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
+          <div class="d-flex flex-wrap float-right">
+              <p class="float-right purple_text mr-4 bordr-right mb-0"><a href="#" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</a></p>
+              <p class="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" class="purple_text">x</Link></p>
+          </div>    
+        </div>
 
-        <h4 className="text-white pb-3 float-left">CREATE SESSION</h4>
+        {/* <h4 className="text-white pb-3 float-left">CREATE SESSION</h4>
 
         <a href="#" className="btn btn-primary float-right" data-toggle="modal" data-target="#allprevsession"> COPY FORM ....</a>
-      <div className="clearfix"></div>
+      <div className="clearfix"></div> */}
         <div className="gray-box">
           <div className="row session mx-0">
             <h3 className="col-md-6 info"><img src="images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
@@ -1456,7 +1463,7 @@ submitForm = (event) => {
                         <option>5</option>
                       </select>
                       {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required|integer')}						  
-                      <span className="dropdown-icon"></span>
+                
                   </div>
                   </div>
                   <div className="col-md-3 px-4">																 
@@ -1474,7 +1481,7 @@ submitForm = (event) => {
                       />
                       {this.validator.message('when', this.state.when, 'required')}
                       {/* <span  className="when-icon"></span> */}
-                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></Link>
+                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#calenderModel1"></Link>
                     </div>
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
@@ -1492,14 +1499,14 @@ submitForm = (event) => {
                         <option>5</option>
                       </select>
                       {this.validator.message('exampleFormControlSelect2', this.state.exampleFormControlSelect2, 'required|integer')}
-                      <span className="dropdown-icon"></span>
+                      
                     </div>
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Minimum Participants</label>
                       <div className="">
                         <input
-                          type="number"
+                          type="text"
                           className="input-field"
                           id = "minimumParticipants"
                           value = {this.state.minimumParticipants}
@@ -1513,28 +1520,28 @@ submitForm = (event) => {
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Maximum Participants</label>
-                      <input type="number" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50"/>
+                      <input type="text" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50"/>
                       {this.validator.message('maximumParticipants', this.state.maximumParticipants, 'required|integer|between:1,50')}
                       <span className="signedup_2"></span>
                     </div>
                   </div>
                   <div className="col-md-5 px-4">
-                  <div className="form-group input-txt">
+                  <div className="form-group input-txt h-90">
                     <label className="switch">
                         <input type="checkbox" id = "sessionProperty"  checked={this.state.sessionProperty} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.sessionProperty},()=>console.log('sessionProperty',this.state.sessionProperty))}}/>
                         <span className="slider round"></span>
                     </label>
                     
-                    {this.state.sessionProperty?<span>private session</span>:<span>public session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+                    {this.state.sessionProperty?<span>Private Session</span>:<span>Public Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
-                    <div className="form-group input-txt">
+                    <div className="form-group input-txt h-90">
                     <label className="switch">
                         <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}}/>
                         <span className="slider round"></span>
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span>
                     </div>
-                    <div className="form-group input-txt">
+                    <div className="form-group input-txt h-90">
                       <label className="switch">
                           <input type="checkbox" id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} />
                           <span className="slider round"></span>
@@ -1544,10 +1551,10 @@ submitForm = (event) => {
                     </div>
 
                     {this.state.sessionCharge?
-                    <div className="form-group w-50 ml-5">
+                    <div className="form-group w-50 ml-5 h-90">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Charge amount</label>
-                      <div className="">
+                      <div className="mt-4">
                         <input
                           type="text"
                           className="input-field"
@@ -1589,7 +1596,7 @@ submitForm = (event) => {
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
-                      <input type="number"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      <input type="text"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">Sign up Cut off Date/Time</p>
@@ -1606,7 +1613,7 @@ submitForm = (event) => {
                         disabled
                       />
                       {/* <span className="when-icon"></span> */}
-                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></Link>
+                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel1"></Link>
                     </div>
                     
                   </div>
@@ -1615,14 +1622,14 @@ submitForm = (event) => {
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
-                      <input type="number" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">for 'minimum not met'</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
-                      <input type="number" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
+                      <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
                       <span className="clock-icon"></span>
                     </div>
                     
@@ -2373,11 +2380,11 @@ submitForm = (event) => {
        </div>
   </div>
 </div>   */}
-<div className="modal cal_modal" id="calenderModel">
-  <div className="modal-dialog d-flex large_width mb-0">
+<div className="modal cal_modal pr-0" id="calenderModel1">
+<div className="modal-dialog d-md-flex d-block large_width1 mb-0">
     <div className="modal-content modalbg m-auto">
-      <div className="modal-header px-4">
-        <h4 className="white modal-title pl-3">Choose Date and Time</h4>
+      <div className="modal-header px-4 pt-4 pb-0">
+        <h4 className="white modal-title">Choose Date and Time</h4>
         <button type="button pr-3" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
       <div className="modal-body">
@@ -2388,18 +2395,23 @@ submitForm = (event) => {
       startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
-          <div className="col-md-5 mt-2">
+          <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
                 <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
                 <span className="clock-icon"></span>
             </div>
           </div>
-          <div className="col-md-7">
+          <div className="col-md-1"></div>
+          <div className="col-md-6 pr-4">
           <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
           <div className="form-group input-txt mb-0">
               <label className="switch">
-                  <input type="checkbox" />
+                  <input type="checkbox" 
+                  id="repeatSession"
+                  checked={this.state.repeatSession}
+                  onChange={(e)=> this.setState({[e.target.id]:!this.state.repeatSession},()=>console.log(this.state.repeatSession))}
+                  />
                   <span className="slider round"></span>
               </label>
               <span>This is a repeated session</span>
@@ -2409,11 +2421,13 @@ submitForm = (event) => {
       </div>
       </div>
         <div class="text-center position-absolute btn_btn1">
-          <button type="button" class="done mt-0">done</button>
+        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
         </div>
       </div>
-      
-      <div className="modal-content modalbg align-self-end px-4 py-4">
+      {this.state.repeatSession?
+      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
+      {this.state.repeatSession?
+      <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
       <div className="modal-header headerborder px-0">
         <h4 className="white modal-title">Repeat Session</h4>
       </div>
@@ -2425,7 +2439,13 @@ submitForm = (event) => {
       <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
       <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
       <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2 pr-5 position-relative">custom <span class="dropdown-icon"></span></a>
+      <select class="custom_field mt-2 mb-0" id="">
+        <option>custom</option>
+        <option>1 week</option>
+        <option>2 week</option>
+        <option>3 week</option>
+        <option>4 week</option>
+        </select>
       </div>
       <h5 className="white mt-4">Duration</h5>
       <div className="d-flex flex-wrap">
@@ -2434,18 +2454,114 @@ submitForm = (event) => {
       <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
       <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
       <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2 pr-5 position-relative">custom <span class="dropdown-icon"></span></a>
+      <select class="custom_field mt-2 mb-0" id="">
+        <option>custom</option>
+        <option>1 week</option>
+        <option>2 week</option>
+        <option>3 week</option>
+        <option>4 week</option>
+        </select>
       </div>
       </div>
       <div class="text-center position-absolute btn_btn1">
-          <button type="button" class="done mt-0">done</button>
+          <button type="button" class="done mt-0">save</button>
       </div>
-      <div className="modalbg small_cont"></div>
-      </div>
+     {/* <img src="images/path.png" className="small_cont" /> */}
+      {/* <div className="modalbg small_cont"></div> */}
+      </div>:''}
   </div>
 </div>
-<div className="modal cal_modal" id="signUpCalenderModel">
-  <div className="modal-dialog">
+<div className="modal cal_modal" id="signUpCalenderModel1">
+<div className="modal-dialog d-md-flex d-block large_width1 mb-0">
+    <div className="modal-content modalbg m-auto">
+      <div className="modal-header px-4 pt-4 pb-0">
+        <h4 className="white modal-title">Choose Date and Time</h4>
+        <button type="button pr-3" className="close white closepopup" data-dismiss="modal">&times;</button>
+      </div>
+      <div className="modal-body">
+      <h3>Calender</h3>
+      {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date <= (new Date().getTime())}
+      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      <div className="botm_container">
+        <div className="row mt-4">
+          <div className="col-md-5 mt-2 pl-4">
+            <div className="form-group mb-0"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
+                <span className="clock-icon"></span>
+            </div>
+          </div>
+          <div className="col-md-1"></div>
+          <div className="col-md-6 pr-4">
+          <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
+          <div className="form-group input-txt mb-0">
+              <label className="switch">
+                  <input type="checkbox" 
+                  id="repeatSession"
+                  checked={this.state.repeatSession}
+                  onChange={(e)=> this.setState({[e.target.id]:!this.state.repeatSession},()=>console.log(this.state.repeatSession))}
+                  />
+                  <span className="slider round"></span>
+              </label>
+              <span>This is a repeated session</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+        <div class="text-center position-absolute btn_btn1">
+        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
+        </div>
+      </div>
+      {this.state.repeatSession?
+      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
+      {this.state.repeatSession?
+      <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
+      <div className="modal-header headerborder px-0">
+        <h4 className="white modal-title">Repeat Session</h4>
+      </div>
+      <div className="modal-body px-0">
+      <h5 className="white">Frequency</h5>
+      <div className="d-flex flex-wrap">
+      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
+      <select class="custom_field mt-2 mb-0" id="">
+        <option>custom</option>
+        <option>1 week</option>
+        <option>2 week</option>
+        <option>3 week</option>
+        <option>4 week</option>
+        </select>
+      </div>
+      <h5 className="white mt-4">Duration</h5>
+      <div className="d-flex flex-wrap">
+      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
+      <select class="custom_field mt-2 mb-0" id="">
+        <option>custom</option>
+        <option>1 week</option>
+        <option>2 week</option>
+        <option>3 week</option>
+        <option>4 week</option>
+        </select>
+      </div>
+      </div>
+      <div class="text-center position-absolute btn_btn1">
+          <button type="button" class="done mt-0">save</button>
+      </div>
+     {/* <img src="images/path.png" className="small_cont" /> */}
+      {/* <div className="modalbg small_cont"></div> */}
+      </div>:''}
+  </div>
+  {/* <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
         <h4 className="modal-title white">Select Duration</h4>
@@ -2479,7 +2595,7 @@ submitForm = (event) => {
       </div>
       </div>
       </div>
-  </div>
+  </div> */}
 </div>
 
 <div className="modal" id="myPickWineModel">
