@@ -1073,7 +1073,7 @@ submitForm = (event) => {
      
       if (this.validator.allValid()) {
 
-        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
+        console.log("========sessioncreation111==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
 
         
 
@@ -1081,7 +1081,7 @@ submitForm = (event) => {
 
 
       let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
+      axios.post("/api/v1/session/create", {shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
         //console.log(res);
