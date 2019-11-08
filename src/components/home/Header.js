@@ -1074,7 +1074,7 @@ submitForm = (event) => {
      
       if (this.validator.allValid()) {
 
-        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
+        console.log("========sessioncreation111==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
 
         
 
@@ -1082,7 +1082,7 @@ submitForm = (event) => {
 
 
       let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
+      axios.post("/api/v1/session/create", {shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
         //console.log(res);
@@ -1294,7 +1294,7 @@ submitForm = (event) => {
                       <label className="label">Minimum Participants</label>
                       <div className="">
                         <input
-                          type="number"
+                          type="text"
                           className="input-field"
                           id = "minimumParticipants"
                           value = {this.state.minimumParticipants}
@@ -1308,7 +1308,7 @@ submitForm = (event) => {
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Maximum Participants</label>
-                      <input type="number" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50"/>
+                      <input type="text" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50"/>
                       {this.validator.message('maximumParticipants', this.state.maximumParticipants, 'required|integer')}
                       <span className="signedup_2"></span>
                     </div>
@@ -1321,7 +1321,7 @@ submitForm = (event) => {
                         <span className="slider round"></span>
                     </label>
                     
-                    {this.state.sessionProperty?<span>private session</span>:<span>public session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+                    {this.state.sessionProperty?<span>private session</span>:<span>Public Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
 
                     <div className="form-group input-txt h-90">
@@ -1380,7 +1380,7 @@ submitForm = (event) => {
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
-                      <input type="number"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      <input type="text"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">Sign up Cut off Date/Time</p>
@@ -1406,14 +1406,14 @@ submitForm = (event) => {
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
-                      <input type="number" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">for 'minimum not met'</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
-                      <input type="number" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
+                      <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
                       <span className="clock-icon"></span>
                     </div>
                     

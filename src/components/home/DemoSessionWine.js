@@ -107,10 +107,10 @@ class DemoSessionWine extends Component {
         wineMedia:'',
         emojiForWineProduct:0,
         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
-         listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
+         //listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
          listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
          listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}],
-        
+        listAppearance:[],
          appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
         {emoji:"images/burgundy.png",type:false,name:"Burgundy"},
         {emoji:"images/auburn.png",type:false,name:"Auburn"}],
@@ -130,9 +130,10 @@ class DemoSessionWine extends Component {
         //palateEmoji:[], 
 
 
-        wineProduct:[{type:false,name:"Mersedes Benz"},
-        {type:false,name:"Nissan Altima"},
-        {type:false,name:"Another Brand"}],
+        // wineProduct:[{type:false,name:"Mersedes Benz"},
+        // {type:false,name:"Nissan Altima"},
+        // {type:false,name:"Another Brand"}],
+        wineProduct:[],
         wineIndexValue:0,                          
         ///////////////Equipment List
         selectedOption: null,
@@ -169,6 +170,8 @@ class DemoSessionWine extends Component {
         ///////////existing host////////////////////
         hostList:[],
         hostList1:[],
+        productlist:[],
+        emojiesList:[],
         duplicatehostList:[],
         searchhostList:'',
         //////////////////////////
@@ -182,34 +185,49 @@ componentDidMount(){
   this.fetchExistingShopping();
   this.fetchExistingHostList();
   this.fetchExistingEquipments();
+  this.fetchEmojiesList();
+  this.fetchProductList();
   }
 
-  fetchExistingHostList() {
+  fetchProductList() {  
 
-     let eqarray = [{userId: 3, username: "Lalit A"},
-     {userId: 1, username: "Deepak A"},
-      ]
-     let ka = []; 
-     for(let i=0;i<eqarray.length;i++){
-       let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
-       ka.push(n);
-
-     }
-     this.setState({
-       hostList:ka
-     },()=>console.log('------------------------',this.state.hostList))
-
-    
-    let  channelId=1;   
+    let  channelId=1;
+    let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
+      ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
+      {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
+      {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
+    let ka=[];
+    for(let i=0;i<eqarray.length;i++){
+      //type:false,name:"Mersedes Benz"
+      let n = {
+        id: eqarray[i].id,
+        type:false,
+        channelId:eqarray[i].channelId,
+        interestId:eqarray[i].interestId,
+        product_name:eqarray[i].product_name,
+        description: eqarray[i].description
+      };
+      ka.push(n)
+    } 
+    this.setState({
+      wineProduct:ka
+    },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
     console.log('-----asdfghjkl----------',channelId);              
       axios      
-      //.get("/api/v1/session/"+channelId+"/host")      
-      .get("/api/v1/session/"+channelId+"/hosts-list1")          
+      
+      .get("/api/v1/session/"+channelId+"/product-list")          
       .then(res => {
-        console.log('---------channelHost--------------',res.data.responseData);
+        console.log('---------channelproduct--------------',res.data.responseData);
+
+        //  let eqarray=res.data.responseData;        
+        // let ka = []; 
+        // for(let i=0;i<eqarray.length;i++){
+        //   let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+        //   ka.push(n);   
+        // }
 
         this.setState({
-          hostList: res.data.responseData,
+          productlist: res.data.responseData
             });
       })
       .catch(err =>{
@@ -218,6 +236,105 @@ componentDidMount(){
       });
 
   }
+
+  fetchEmojiesList() {  
+    let  interestId=1;   
+    console.log('-----asdfghjkl----------',interestId);              
+      axios      
+      //.get("/api/v1/session/"+channelId+"/host")      
+      .get("/api/v1/session/"+interestId+"/emojiesList")          
+      .then(res => {
+
+        console.log('---------InterestEmojies--------------',res.data.responseData);
+
+        this.setState({
+          emojiesList: res.data.responseData
+            });
+ // let eqarray = {"Appearence":[{"id":1,"name":"Cherry","path":"images/cherry.png"},{"id":2,"name":"Burgundy","path":"images/burgundy.png"},{"id":3,"name":"Auburn","path":"images/auburn.png"}],"Aroma":[{"id":4,"name":"Apple","path":"images/apple.png"},{"id":5,"name":"Grape","path":"images/grapes.png"},{"id":6,"name":"Cheese","path":"images/cheese.png"}],"Palate":[{"id":7,"name":"Example","path":"images/apple.png"},{"id":8,"name":"Another","path":"images/grapes.png"},{"id":9,"name":"Few Example","path":"images/cheese.png"}]};
+        //  let eqarray=res.data.responseData;        
+        // let ka = []; 
+        // for(let i=0;i<eqarray.length;i++){
+        //   let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+        //   ka.push(n);   
+        // }
+        // this.setState({
+        //   emojiesList:{
+        //     "Appearence": [{
+        //       "id": 1,
+        //       "name": "Cherry",
+        //       "path": "images/cherry.png"
+        //     }, {
+        //       "id": 2,
+        //       "name": "Burgundy",
+        //       "path": "images/burgundy.png"
+        //     }, {
+        //       "id": 3,
+        //       "name": "Auburn",
+        //       "path": "images/auburn.png"
+        //     }],
+        //     "Aroma": [{
+        //       "id": 4,
+        //       "name": "Apple",
+        //       "path": "images/apple.png"
+        //     }, {
+        //       "id": 5,
+        //       "name": "Grape",
+        //       "path": "images/grapes.png"
+        //     }, {
+        //       "id": 6,
+        //       "name": "Cheese",
+        //       "path": "images/cheese.png"
+        //     }],
+        //     "Palate": [{
+        //       "id": 7,
+        //       "name": "Example",
+        //       "path": "images/apple.png"
+        //     }, {
+        //       "id": 8,
+        //       "name": "Another",
+        //       "path": "images/grapes.png"
+        //     }, {
+        //       "id": 9,
+        //       "name": "Few Example",
+        //       "path": "images/cheese.png"
+        //     }]
+        //   }
+        //     });
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
+  fetchExistingHostList() {  
+    let  channelId=1;   
+    console.log('-----asdfghjkl----------',channelId);              
+      axios      
+      //.get("/api/v1/session/"+channelId+"/host")      
+      .get("/api/v1/session/"+channelId+"/hosts-list1")          
+      .then(res => {
+        console.log('---------channelHost--------------',res.data.responseData);
+
+         let eqarray=res.data.responseData;        
+        let ka = []; 
+        for(let i=0;i<eqarray.length;i++){
+          let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+          ka.push(n);   
+        }
+
+        this.setState({
+          hostList: ka
+            });
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
  fetchExistingEquipments() {
     
     let  interestId=2;  
@@ -249,18 +366,19 @@ componentDidMount(){
 
   fetchExistingShopping() {
   let  interestId=2;  
-  let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-      {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-      {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
-    ]
-    let ka = [];
-    for(let i=0;i<eqarray.length;i++){
-      let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
-      ka.push(n);
-    }
-    this.setState({
-      shoppingList:ka
-    },()=>console.log('------------------------',this.state.shoppingList))
+
+  // let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+  //     {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+  //     {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
+  //   ]
+  //   let ka = [];
+  //   for(let i=0;i<eqarray.length;i++){
+  //     let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+  //     ka.push(n);
+  //   }
+  //   this.setState({
+  //     shoppingList:ka
+  //   },()=>console.log('------------------------',this.state.shoppingList))
 
     console.log('-----b----------',interestId);              
       axios      
@@ -1055,12 +1173,72 @@ wineProductSelect = (e) => {
   if(wineContainer[e.target.id].type){
     let indexValue = (this.state.wineIndexValue+1);
     console.log('wineIndexValue',this.state.wineIndexValue,'IndexValue',indexValue);
+  
+    let la1=[];
+    let la2=[];
+    let ka = []; 
+    for(let i=0;i<this.state.emojiesList.length;i++){
+    if(this.state.emojiesList[i].emojies_type==="Appearance"){
+    let n = {interestId:this.state.listAppearance[i].interestId,
+      path: this.state.listAppearance[i].path,
+      emojies_type:this.state.listAppearance[i].emojies_type,
+      status:false, 
+      name:this.state.listAppearance[i].name,
+      id:this.state.listAppearance[i].id };
+      ka.push(n);
+     }
+     if(this.state.emojiesList[i].emojies_type==="Aroma"){
+      let n = {interestId:this.state.listAroma[i].interestId,
+      path:this.state.listAroma[i].path,
+      emojies_type:this.state.listAroma[i].emojies_type, 
+      status:false, 
+      name:this.state.listAroma[i].name,
+      id:this.state.listAroma[i].id };
+      la1.push(n);
+      }
+      
+      if(this.state.emojiesList[i].emojies_type==="Palate"){
+      let n ={interestId:this.state.listPalate[i].interestId,
+        path:this.state.listPalate[i].path,
+        emojies_type:this.state.listPalate[i].emojies_type,
+        status:false, 
+        name:this.state.listPalate[i].name,
+        id:this.state.listPalate[i].id };
+        la2.push(n);
+      } 
+     
+    }
+
+    // for(let i=0;i<this.state.listAroma.length;i++){
+    // let n = {interestId:this.state.listAroma[i].interestId,
+    //   path:this.state.listAroma[i].path,
+    //   emojies_type:this.state.listAroma[i].emojies_type, 
+    //   status:false, 
+    //   name:this.state.listAroma[i].name,
+    //   id:this.state.listAroma[i].id };
+    //   la1.push(n);
+    // }
+
+    // for(let i=0;i<this.state.listPalate.length;i++){
+    //   let n ={interestId:this.state.listPalate[i].interestId,
+    //     path:this.state.listPalate[i].path,
+    //     emojies_type:this.state.listPalate[i].emojies_type,
+    //     status:false, 
+    //     name:this.state.listPalate[i].name,
+    //     id:this.state.listPalate[i].id };
+    //   la2.push(n);
+    // }
+    
+    // ------------------------------------------------------------------
     addWine = {
-      wineChoice:wineContainer[e.target.id].name,
+      wineChoice:wineContainer[e.target.id].product_name,
       id:indexValue,
-      listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
-      listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-      listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}],
+      // [{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}]
+      //[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}]
+      //[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      listAppearance:ka,
+      listAroma :la1,
+      listPalate:la2,
       testerStatus:false
       }
       wineArray.push(addWine);
@@ -1120,9 +1298,20 @@ removeToWineDescription = (e) => {
 }
 apperanceSelect = (e) => {
   
+    // let emojiContainer = this.state.tablerows;
+    // //let appearanceContainer = this.state.appearanceEmoji;
+    // emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type;
+    
+    // this.setState({
+    // tablerows : emojiContainer,
+    // //appearanceEmoji:appearanceContainer
+    // },()=>
+    // { console.log('<============appearanceEmoji==>',this.state.tablerows);
+    // });
+  
     let emojiContainer = this.state.tablerows;
     //let appearanceContainer = this.state.appearanceEmoji;
-    emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type;
+    emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].status = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].status;
     
     this.setState({
     tablerows : emojiContainer,
@@ -1130,89 +1319,101 @@ apperanceSelect = (e) => {
     },()=>
     { console.log('<============appearanceEmoji==>',this.state.tablerows);
     });
-   
+  
   }
 
   aromaSelect = (e) => {
   
+    // let emojiContainer = this.state.tablerows;
+    // emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type;
+    // this.setState({
+    // tablerows : emojiContainer,
+    // },()=>
+    // { console.log('appearanceEmoji==>',this.state.tablerows);
+    // });
+    
     let emojiContainer = this.state.tablerows;
-    emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type;
+    emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].status = !emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].status;
     this.setState({
     tablerows : emojiContainer,
     },()=>
     { console.log('appearanceEmoji==>',this.state.tablerows);
     });
-    // let emojiContainer = this.state.aromaEmoji;
-    // emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
-    // this.setState({
-    // aromaEmoji : emojiContainer,
-    // },()=>
-    // { console.log('aromaEmoji==>',this.state.aromaEmoji);
-    // });
-   
+    
   }
   
   palateSelect = (e) => {
     
+    // let emojiContainer = this.state.tablerows;
+    // emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type;
+    // this.setState({
+    // tablerows : emojiContainer,
+    // },()=>
+    // { console.log('PalateEmoji==>',this.state.tablerows);
+    // });
+
     let emojiContainer = this.state.tablerows;
-    emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type;
+    emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].status = !emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].status;
     this.setState({
     tablerows : emojiContainer,
     },()=>
     { console.log('PalateEmoji==>',this.state.tablerows);
     });
 
-    // let emojiContainer = this.state.palateEmoji;
-    // emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
-    // this.setState({
-    // palateEmoji : emojiContainer,
-    // },()=>
-    // { console.log('palateEmoji==>',this.state.palateEmoji);
-    // });
+    
    
   }
 ////////////////Submit data
 submitForm = (event) => {
-  let wineDetail =  this.state.tablerows;
+  let wineDetail = []; 
+  // this.state.tablerows;
   let ap = [];
   let ar = [];
   let pa = [];
   console.log(this.state.tablerows[0].listAppearance.length,'********',this.state.tablerows[0].listAppearance[0].type);
   for(let i=0;i<this.state.tablerows.length;i++){
-    ap = [];
-    ar=[];
-    pa=[];
+    ap = { wineChoice: this.state.tablerows[i].wineChoice,
+      id: this.state.tablerows[i].id,
+      Emojies:[],
+      testerStatus: this.state.tablerows[i].testerStatus };
+    wineDetail.push(ap);
     for(let t=0;t<this.state.tablerows[i].listAppearance.length;t++){
       console.log('this.state.tablerows[i].listAppearance.type',this.state.tablerows[i].listAppearance[t].type);
-      if(this.state.tablerows[i].listAppearance[t].type){
-        ap.push(this.state.tablerows[i].listAppearance[t]);
-        console.log('ap',ap);
+      if(this.state.tablerows[i].listAppearance[t].status){
+        let emojiStructure = { path: this.state.tablerows[i].listAppearance[t].path, 
+        emojies_type:this.state.tablerows[i].listAppearance[t].emojies_type, 
+        name: this.state.tablerows[i].listAppearance[t].name,
+        id:1 ,
+        interestId:this.state.tablerows[i].listAppearance[t].interestId};
+        wineDetail[i].Emojies.push(emojiStructure);
       }
     }
 
     for(let v=0;v<this.state.tablerows[i].listAroma.length;v++){
     console.log('this.state.tablerows[i].listAroma.type',this.state.tablerows[i].listAroma[v].type);
-      if(this.state.tablerows[i].listAroma[v].type){
+      if(this.state.tablerows[i].listAroma[v].status){
         ar.push(this.state.tablerows[i].listAroma[v]);
-        console.log('ar',ar);
+        let emojiStructure = { path: this.state.tablerows[i].listAroma[v].path, 
+          emojies_type:this.state.tablerows[i].listAroma[v].emojies_type, 
+          name: this.state.tablerows[i].listAroma[v].name,
+          id:1 ,
+          interestId:this.state.tablerows[i].listAroma[v].interestId};
+        wineDetail[i].Emojies.push(emojiStructure);
       }
     }
 
     for(let l=0;l<this.state.tablerows[i].listPalate.length;l++){
-      if(this.state.tablerows[i].listPalate[l].type){
-        pa.push(this.state.tablerows[i].listPalate[l])
+      if(this.state.tablerows[i].listPalate[l].status){
+        pa.push(this.state.tablerows[i].listPalate[l]);
+        let emojiStructure = { path: this.state.tablerows[i].listPalate[l].path, 
+          emojies_type: this.state.tablerows[i].listPalate[l].emojies_type, 
+          name: this.state.tablerows[i].listPalate[l].name,
+          id:1,
+          interestId:this.state.tablerows[i].listPalate[l].interestId };
+        wineDetail[i].Emojies.push(emojiStructure);
       }
     }
-    if(ap.length>0){
-      wineDetail[i].listAppearance=ap;
-      console.log('wineDetail[i]',i,wineDetail[i]);
-    }
-    if(ar.length>0){
-      wineDetail[i].listAroma=ar
-    }
-    if(pa.length>0){
-      wineDetail[i].listPalate=pa
-    }
+    
   }
 
 
@@ -1221,7 +1422,25 @@ submitForm = (event) => {
 
   event.preventDefault();
   var activity_info = [];
-  var activities = [];
+  //var activities = [];
+  var activities = [{ wineChoice: 'Mersedes Benz',
+  id: 1,
+  Emojies:
+   [ 
+{ path: 'images/cherry.png', type: 'Appearence', name: 'Cherry',id:1 },
+  { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy' ,id:2},
+{ path: 'images/grapes.png', type: 'Aroma', name: 'Grape',id:6 },
+{ path: 'images/cheese.png', type: 'Aroma', name: 'Cheese',id:7 },
+{ emoji: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+],testerStatus: true },
+{ wineChoice: 'Nissan Altima',
+  id: 2,
+Emojies:
+   [ { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy',id:3 },
+     { path: 'images/auburn.png', type: 'Appearence', name: 'Auburn',id:4 },
+   { path: 'images/grapes.png', type: 'Aroma', name: 'Grape' ,id:6 } ,
+   { path: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+],testerStatus: false }];
   let input_result=[];
   let min_participants='';
   let max_participants='';
@@ -1276,8 +1495,8 @@ submitForm = (event) => {
       // const fitnessActivity = {
       //   fitnessActivity : this.state.tablerows
       // } 
-      
 
+     // activities=this.state.tablerows;
 
       const script ={
         next_activity : "automatic",
@@ -1294,39 +1513,31 @@ submitForm = (event) => {
       const host_list = {
         hostList : this.state.hostList1
       }
-      activities = wineDetail;
+     // activities = wineDetail;
       console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
      
       if (this.validator.allValid()) {
 
-        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
-
+        if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
         
-
-        if(this.state.minimumParticipants >= 1 && this.state.maximumParticipants <= 50 ){  
-
-
-      let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
+      axios.post("/api/v1/session/createwineSession", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
-        //console.log(res);
-
-        console.log('=============lallittiwari12345===================>',res.data);
+        console.log('=============lallittiwari12345===================>',res.data);;
 
             if(res.data.responseMessage == "success")
             {
             this.setState({
             msg: "Session hasbeen created Successfully!!!!!!!",
           });
-           }else{
+          }else{
 
           this.setState({
             msg: "There Is a error in session creation",
           });
 
         }
-
+      
       })
     }
     else {
@@ -1716,7 +1927,7 @@ submitForm = (event) => {
                 <Link to="header" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
-                <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
+                <Link to ="/" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
           </div>
@@ -1771,7 +1982,7 @@ submitForm = (event) => {
                   <td>
                   <div className="color-icons pl-3">
                     {row.listAppearance.map((row,i) => (
-                    (row.type) ?<img src={row.emoji} className="mr-2" alt="cherry" key = {i} />:''
+                    (row.status) ?<img src={row.path} className="mr-2" alt="cherry" key = {i} />:''
                     ))}
                     <span>...</span>
                     </div>
@@ -1779,7 +1990,7 @@ submitForm = (event) => {
                   <td>
                   <div className="color-icons pl-3">
                   {row.listAroma.map((row,i) => (    
-                  (row.type) ?<img src={row.emoji} className="mr-2" alt="apple" key = {i} />:''
+                  (row.status) ?<img src={row.path} className="mr-2" alt="apple" key = {i} />:''
                   ))}
                   <span>...</span>
                  </div>
@@ -1787,7 +1998,7 @@ submitForm = (event) => {
                   <td>
                   <div className="color-icons pl-3">
                   {row.listPalate.map((row,i) => (    
-                  (row.type) ?<img src={row.emoji} className="mr-2" alt="apple" key = {i} />:''
+                  (row.status) ?<img src={row.path} className="mr-2" alt="apple" key = {i} />:''
                   ))}
                   <span>...</span>
                  </div>
@@ -1872,10 +2083,11 @@ submitForm = (event) => {
                                     </div>
                                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                               </div>
-                            </div>                                              
+                            </div> 
+                            <div className="border-bottom mt-3"></div>                                             
                         </div>
                           )}
-                        <div className="border-bottom mt-3"></div>
+                        
                     </div>
               {/* Choose Wine End  */}
           {/* Wine Product Sortable Start */}
@@ -2616,11 +2828,11 @@ submitForm = (event) => {
           <input 
           className="form-radio" 
           type="checkbox" 
-          name={row.name} 
+          name={row.product_name} 
           id={i} 
-          value={row.name} 
+          value={row.product_name} 
           onChange={this.wineProductSelect}/>
-          <span className="form-check-label">{row.name}</span>
+          <span className="form-check-label">{row.product_name}</span>
           </label>
           )}
           {/* <label className="form-check labelborder">
@@ -2661,10 +2873,10 @@ submitForm = (event) => {
                                        type="checkbox" 
                                        name={row.name}
                                        id ={i} 
-                                       checked={row.type} 
+                                       checked={row.status} 
                                        onChange={this.apperanceSelect} />
                                         <span className="form-check-label">
-                                        <img src={row.emoji} className="mx-3" alt="" />
+                                        <img src={row.path} className="mx-3" alt="" />
                                         {row.name}</span>
                                     </label>
                                     ))) :''}
@@ -2681,10 +2893,10 @@ submitForm = (event) => {
                                         type="checkbox" 
                                         name={row.name}
                                         id ={i} 
-                                        checked={row.type} 
+                                        checked={row.status} 
                                         onChange={this.aromaSelect} />
                                         <span className="form-check-label">
-                                        <img src={row.emoji} className="mx-3" />{row.name}</span>
+                                        <img src={row.path} className="mx-3" />{row.name}</span>
                                         </label>
                                     ))):''}
                                   </div>
@@ -2701,10 +2913,10 @@ submitForm = (event) => {
                                         type="checkbox" 
                                         name={row.name}
                                         id ={i} 
-                                        checked={row.type} 
+                                        checked={row.status} 
                                         onChange={this.palateSelect} />
                                         <span className="form-check-label">
-                                        <img src={row.emoji} className="mx-3" alt="" />
+                                        <img src={row.path} className="mx-3" alt="" />
                                         {row.name}</span>
                                        
                                     </label>
