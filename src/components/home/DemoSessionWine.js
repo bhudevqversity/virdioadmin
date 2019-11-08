@@ -1072,17 +1072,32 @@ wineProductSelect = (e) => {
     let la2=[];
     let ka = []; 
     for(let i=0;i<this.state.listAppearance.length;i++){
-    let n = {interestId:this.state.listAppearance[i].interestId,path: this.state.listAppearance[i].path,emojies_type:this.state.listAppearance[i].emojies_type, status:false, name:this.state.listAppearance[i].name,id:this.state.listAppearance[i].id };
-    ka.push(n);
+    let n = {interestId:this.state.listAppearance[i].interestId,
+      path: this.state.listAppearance[i].path,
+      emojies_type:this.state.listAppearance[i].emojies_type,
+      status:false, 
+      name:this.state.listAppearance[i].name,
+      id:this.state.listAppearance[i].id };
+      ka.push(n);
     }
 
     for(let i=0;i<this.state.listAroma.length;i++){
-    let n = {interestId:this.state.listAroma[i].interestId,path:this.state.listAroma[i].path,emojies_type:this.state.listAroma[i].emojies_type, status:false, name:this.state.listAroma[i].name,id:this.state.listAroma[i].id };
-    la1.push(n);
+    let n = {interestId:this.state.listAroma[i].interestId,
+      path:this.state.listAroma[i].path,
+      emojies_type:this.state.listAroma[i].emojies_type, 
+      status:false, 
+      name:this.state.listAroma[i].name,
+      id:this.state.listAroma[i].id };
+      la1.push(n);
     }
 
     for(let i=0;i<this.state.listPalate.length;i++){
-      let n ={interestId:this.state.listPalate[i].interestId,path:this.state.listPalate[i].path,emojies_type:this.state.listPalate[i].emojies_type, status:false, name:this.state.listPalate[i].name,id:this.state.listPalate[i].id };
+      let n ={interestId:this.state.listPalate[i].interestId,
+        path:this.state.listPalate[i].path,
+        emojies_type:this.state.listPalate[i].emojies_type,
+        status:false, 
+        name:this.state.listPalate[i].name,
+        id:this.state.listPalate[i].id };
       la2.push(n);
     }
     
@@ -1230,9 +1245,9 @@ submitForm = (event) => {
   console.log(this.state.tablerows[0].listAppearance.length,'********',this.state.tablerows[0].listAppearance[0].type);
   for(let i=0;i<this.state.tablerows.length;i++){
     ap = { wineChoice: this.state.tablerows[i].wineChoice,
-      id: 1,
-      Emojies:
-      [],testerStatus: this.state.tablerows[i].testerStatus };
+      id: this.state.tablerows[i].id,
+      Emojies:[],
+      testerStatus: this.state.tablerows[i].testerStatus };
     wineDetail.push(ap);
     for(let t=0;t<this.state.tablerows[i].listAppearance.length;t++){
       console.log('this.state.tablerows[i].listAppearance.type',this.state.tablerows[i].listAppearance[t].type);
