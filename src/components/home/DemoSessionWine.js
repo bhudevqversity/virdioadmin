@@ -107,10 +107,10 @@ class DemoSessionWine extends Component {
         wineMedia:'',
         emojiForWineProduct:0,
         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
-         listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
+         //listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
          listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
          listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}],
-        
+        listAppearance:[],
          appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
         {emoji:"images/burgundy.png",type:false,name:"Burgundy"},
         {emoji:"images/auburn.png",type:false,name:"Auburn"}],
@@ -182,6 +182,13 @@ componentDidMount(){
   this.fetchExistingShopping();
   this.fetchExistingHostList();
   this.fetchExistingEquipments();
+  let eqarray =[{ path: 'images/cherry.png', type: 'Appearence', status:false, name: 'Cherry',id:1 },
+          { path: 'images/burgundy.png', type: 'Appearence',status:false ,name: 'Burgundy' ,id:2}];
+  this.setState({
+  listAppearance:eqarray
+  },()=>console.log('---------listApperance---------------',this.state.listAppearance))
+     
+  
   }
 
   fetchExistingHostList() {
@@ -1055,12 +1062,40 @@ wineProductSelect = (e) => {
   if(wineContainer[e.target.id].type){
     let indexValue = (this.state.wineIndexValue+1);
     console.log('wineIndexValue',this.state.wineIndexValue,'IndexValue',indexValue);
+
+    // -----------------------------------------------------------
+    // let la =[{ path: 'images/cherry.png', type: 'Appearence', status:false, name: 'Cherry',id:1 },
+    //         { path: 'images/burgundy.png', type: 'Appearence',status:false ,name: 'Burgundy' ,id:2}];
+    // let la1=[{ path: 'images/apple.png', type: 'Aroma', status:false, name: 'Apple',id:1 }];
+    // let la2=[{ path: 'images/grapes.png', type: 'Palate', status:false, name: 'Example',id:1 }];
+    let la1=[];
+    let la2=[];
+    let ka = []; 
+    for(let i=0;i<this.state.listAppearance.length;i++){
+    let n = {interestId:this.state.listAppearance[i].interestId,path: this.state.listAppearance[i].path,emojies_type:this.state.listAppearance[i].emojies_type, status:false, name:this.state.listAppearance[i].name,id:this.state.listAppearance[i].id };
+    ka.push(n);
+    }
+
+    for(let i=0;i<this.state.listAroma.length;i++){
+    let n = {interestId:this.state.listAroma[i].interestId,path:this.state.listAroma[i].path,emojies_type:this.state.listAroma[i].emojies_type, status:false, name:this.state.listAroma[i].name,id:this.state.listAroma[i].id };
+    la1.push(n);
+    }
+
+    for(let i=0;i<this.state.listPalate.length;i++){
+      let n ={interestId:this.state.listPalate[i].interestId,path:this.state.listPalate[i].path,emojies_type:this.state.listPalate[i].emojies_type, status:false, name:this.state.listPalate[i].name,id:this.state.listPalate[i].id };
+      la2.push(n);
+    }
+    
+    // ------------------------------------------------------------------
     addWine = {
       wineChoice:wineContainer[e.target.id].name,
       id:indexValue,
-      listAppearance:[{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
-      listAroma :[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}],
-      listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}],
+      // [{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}]
+      //[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}]
+      //[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      listAppearance:ka,
+      listAroma :la1,
+      listPalate:la2,
       testerStatus:false
       }
       wineArray.push(addWine);
@@ -1120,9 +1155,20 @@ removeToWineDescription = (e) => {
 }
 apperanceSelect = (e) => {
   
+    // let emojiContainer = this.state.tablerows;
+    // //let appearanceContainer = this.state.appearanceEmoji;
+    // emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type;
+    
+    // this.setState({
+    // tablerows : emojiContainer,
+    // //appearanceEmoji:appearanceContainer
+    // },()=>
+    // { console.log('<============appearanceEmoji==>',this.state.tablerows);
+    // });
+  
     let emojiContainer = this.state.tablerows;
     //let appearanceContainer = this.state.appearanceEmoji;
-    emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type;
+    emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].status = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].status;
     
     this.setState({
     tablerows : emojiContainer,
@@ -1130,89 +1176,101 @@ apperanceSelect = (e) => {
     },()=>
     { console.log('<============appearanceEmoji==>',this.state.tablerows);
     });
-   
+  
   }
 
   aromaSelect = (e) => {
   
+    // let emojiContainer = this.state.tablerows;
+    // emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type;
+    // this.setState({
+    // tablerows : emojiContainer,
+    // },()=>
+    // { console.log('appearanceEmoji==>',this.state.tablerows);
+    // });
+    
     let emojiContainer = this.state.tablerows;
-    emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].type;
+    emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].status = !emojiContainer[this.state.emojiForWineProduct].listAroma[e.target.id].status;
     this.setState({
     tablerows : emojiContainer,
     },()=>
     { console.log('appearanceEmoji==>',this.state.tablerows);
     });
-    // let emojiContainer = this.state.aromaEmoji;
-    // emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
-    // this.setState({
-    // aromaEmoji : emojiContainer,
-    // },()=>
-    // { console.log('aromaEmoji==>',this.state.aromaEmoji);
-    // });
-   
+    
   }
   
   palateSelect = (e) => {
     
+    // let emojiContainer = this.state.tablerows;
+    // emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type;
+    // this.setState({
+    // tablerows : emojiContainer,
+    // },()=>
+    // { console.log('PalateEmoji==>',this.state.tablerows);
+    // });
+
     let emojiContainer = this.state.tablerows;
-    emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].type;
+    emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].status = !emojiContainer[this.state.emojiForWineProduct].listPalate[e.target.id].status;
     this.setState({
     tablerows : emojiContainer,
     },()=>
     { console.log('PalateEmoji==>',this.state.tablerows);
     });
 
-    // let emojiContainer = this.state.palateEmoji;
-    // emojiContainer[e.target.id].type = !emojiContainer[e.target.id].type;
-    // this.setState({
-    // palateEmoji : emojiContainer,
-    // },()=>
-    // { console.log('palateEmoji==>',this.state.palateEmoji);
-    // });
+    
    
   }
 ////////////////Submit data
 submitForm = (event) => {
-  let wineDetail =  this.state.tablerows;
+  let wineDetail = []; 
+  // this.state.tablerows;
   let ap = [];
   let ar = [];
   let pa = [];
   console.log(this.state.tablerows[0].listAppearance.length,'********',this.state.tablerows[0].listAppearance[0].type);
   for(let i=0;i<this.state.tablerows.length;i++){
-    ap = [];
-    ar=[];
-    pa=[];
+    ap = { wineChoice: this.state.tablerows[i].wineChoice,
+      id: 1,
+      Emojies:
+      [],testerStatus: this.state.tablerows[i].testerStatus };
+    wineDetail.push(ap);
     for(let t=0;t<this.state.tablerows[i].listAppearance.length;t++){
       console.log('this.state.tablerows[i].listAppearance.type',this.state.tablerows[i].listAppearance[t].type);
-      if(this.state.tablerows[i].listAppearance[t].type){
-        ap.push(this.state.tablerows[i].listAppearance[t]);
-        console.log('ap',ap);
+      if(this.state.tablerows[i].listAppearance[t].status){
+        let emojiStructure = { path: this.state.tablerows[i].listAppearance[t].path, 
+        emojies_type:this.state.tablerows[i].listAppearance[t].emojies_type, 
+        name: this.state.tablerows[i].listAppearance[t].name,
+        id:1 ,
+        interestId:this.state.tablerows[i].listAppearance[t].interestId};
+        wineDetail[i].Emojies.push(emojiStructure);
       }
     }
 
     for(let v=0;v<this.state.tablerows[i].listAroma.length;v++){
     console.log('this.state.tablerows[i].listAroma.type',this.state.tablerows[i].listAroma[v].type);
-      if(this.state.tablerows[i].listAroma[v].type){
+      if(this.state.tablerows[i].listAroma[v].status){
         ar.push(this.state.tablerows[i].listAroma[v]);
-        console.log('ar',ar);
+        let emojiStructure = { path: this.state.tablerows[i].listAroma[v].path, 
+          emojies_type:this.state.tablerows[i].listAroma[v].emojies_type, 
+          name: this.state.tablerows[i].listAroma[v].name,
+          id:1 ,
+          interestId:this.state.tablerows[i].listAroma[v].interestId};
+        wineDetail[i].Emojies.push(emojiStructure);
       }
     }
 
     for(let l=0;l<this.state.tablerows[i].listPalate.length;l++){
-      if(this.state.tablerows[i].listPalate[l].type){
-        pa.push(this.state.tablerows[i].listPalate[l])
+      if(this.state.tablerows[i].listPalate[l].status){
+        pa.push(this.state.tablerows[i].listPalate[l]);
+        let emojiStructure = { path: this.state.tablerows[i].listPalate[l].path, 
+          emojies_type: this.state.tablerows[i].listPalate[l].emojies_type, 
+          name: this.state.tablerows[i].listPalate[l].name,
+          id:1,
+          interestId:this.state.tablerows[i].listPalate[l].interestId };
+        wineDetail[i].Emojies.push(emojiStructure);
       }
     }
-    if(ap.length>0){
-      wineDetail[i].listAppearance=ap;
-      console.log('wineDetail[i]',i,wineDetail[i]);
-    }
-    if(ar.length>0){
-      wineDetail[i].listAroma=ar
-    }
-    if(pa.length>0){
-      wineDetail[i].listPalate=pa
-    }
+    
   }
 
 
@@ -1709,7 +1767,7 @@ submitForm = (event) => {
                 <Link to="header" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
-                <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
+                <Link to ="/" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
           </div>
@@ -1764,7 +1822,7 @@ submitForm = (event) => {
                   <td>
                   <div className="color-icons pl-3">
                     {row.listAppearance.map((row,i) => (
-                    (row.type) ?<img src={row.emoji} className="mr-2" alt="cherry" key = {i} />:''
+                    (row.status) ?<img src={row.path} className="mr-2" alt="cherry" key = {i} />:''
                     ))}
                     <span>...</span>
                     </div>
@@ -1772,7 +1830,7 @@ submitForm = (event) => {
                   <td>
                   <div className="color-icons pl-3">
                   {row.listAroma.map((row,i) => (    
-                  (row.type) ?<img src={row.emoji} className="mr-2" alt="apple" key = {i} />:''
+                  (row.status) ?<img src={row.path} className="mr-2" alt="apple" key = {i} />:''
                   ))}
                   <span>...</span>
                  </div>
@@ -1780,7 +1838,7 @@ submitForm = (event) => {
                   <td>
                   <div className="color-icons pl-3">
                   {row.listPalate.map((row,i) => (    
-                  (row.type) ?<img src={row.emoji} className="mr-2" alt="apple" key = {i} />:''
+                  (row.status) ?<img src={row.path} className="mr-2" alt="apple" key = {i} />:''
                   ))}
                   <span>...</span>
                  </div>
@@ -1865,10 +1923,11 @@ submitForm = (event) => {
                                     </div>
                                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                               </div>
-                            </div>                                              
+                            </div> 
+                            <div className="border-bottom mt-3"></div>                                             
                         </div>
                           )}
-                        <div className="border-bottom mt-3"></div>
+                        
                     </div>
               {/* Choose Wine End  */}
           {/* Wine Product Sortable Start */}
@@ -2512,10 +2571,10 @@ submitForm = (event) => {
                                        type="checkbox" 
                                        name={row.name}
                                        id ={i} 
-                                       checked={row.type} 
+                                       checked={row.status} 
                                        onChange={this.apperanceSelect} />
                                         <span className="form-check-label">
-                                        <img src={row.emoji} className="mx-3" alt="" />
+                                        <img src={row.path} className="mx-3" alt="" />
                                         {row.name}</span>
                                     </label>
                                     ))) :''}
@@ -2532,10 +2591,10 @@ submitForm = (event) => {
                                         type="checkbox" 
                                         name={row.name}
                                         id ={i} 
-                                        checked={row.type} 
+                                        checked={row.status} 
                                         onChange={this.aromaSelect} />
                                         <span className="form-check-label">
-                                        <img src={row.emoji} className="mx-3" />{row.name}</span>
+                                        <img src={row.path} className="mx-3" />{row.name}</span>
                                         </label>
                                     ))):''}
                                   </div>
@@ -2552,10 +2611,10 @@ submitForm = (event) => {
                                         type="checkbox" 
                                         name={row.name}
                                         id ={i} 
-                                        checked={row.type} 
+                                        checked={row.status} 
                                         onChange={this.palateSelect} />
                                         <span className="form-check-label">
-                                        <img src={row.emoji} className="mx-3" alt="" />
+                                        <img src={row.path} className="mx-3" alt="" />
                                         {row.name}</span>
                                        
                                     </label>

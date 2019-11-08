@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-import $ from 'jquery';
 
 //import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
@@ -107,43 +105,43 @@ componentDidMount(){
 	</div>
 	
 	<div className="container-fluid px-3 px-md-5 slides_sec py-4">
-		<div class="d-flex flex-wrap">
+		<div className="d-flex flex-wrap">
 			<h2>Interest</h2>
-			<div class="flex-grow-1 input_field_container">
-				<div class="row mx-0">
-					<div class="col-xl-5 pr-lg-0">
-			    		<input type="text" class="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
+			<div className="flex-grow-1 input_field_container">
+				<div className="row mx-0">
+					<div className="col-xl-5 pr-lg-0">
+			    		<input type="text" className="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
 					</div>
-					<div class="col-xl-7 pl-4">
-						<div class="row mx-0 mt-3 mt-xl-0">
-							<div class="col-md-12">
-								<div class="custom-control custom-checkbox mb-3 text_input">
-							      <input type="checkbox" class="custom-control-input" id="customCheck1" name="example1" />
-							      <label class="custom-control-label" for="customCheck1">Advance</label>
+					<div className="col-xl-7 pl-4">
+						<div className="row mx-0 mt-3 mt-xl-0">
+							<div className="col-md-12">
+								<div className="custom-control custom-checkbox mb-3 text_input">
+							      <input type="checkbox" className="custom-control-input" id="customCheck1" name="example1" />
+							      <label className="custom-control-label" htmlFor="customCheck1">Advance</label>
 							    </div>
 							</div>
 						</div>
-						<div class="parent-row">
-			    			<div class="row mx-0 row1 d-flex">
-			    				<div class="col-lg-4 col-md-6">
+						<div className="parent-row">
+			    			<div className="row mx-0 row1 d-flex">
+			    				<div className="col-lg-4 col-md-6">
 			    					<p>On a specific date</p>
-			    					<input type="text" name="" class="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" />
+			    					<input type="text" name="" className="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" />
 			    				</div>
-			    				<div class="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
+			    				<div className="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
 			    					<p>On Demand</p>
-			    					<div class="custom-control custom-checkbox mb-3">
-								     <input type="checkbox" class="custom-control-input" id="customCheck" name="" />
-								      <label class="custom-control-label" for="customCheck"></label>
+			    					<div className="custom-control custom-checkbox mb-3">
+								     <input type="checkbox" className="custom-control-input" id="customCheck" name="" />
+								      <label className="custom-control-label" htmlFor="customCheck"></label>
 								    </div>
 			    				</div>
-			    				<div class="col-lg-4 col-md-6">
+			    				<div className="col-lg-4 col-md-6">
 			    					<p>Length of session</p>
-			    					<div class="custom-select1">
+			    					<div className="custom-select1">
 				    					<select name="">
-									      <option selected>30 min</option>
-									      <option value="">40 min</option>
-									      <option value="">30 min</option>
-									      <option value="">30 min</option>
+									      <option value="30">30 min</option>
+									      <option value="40">40 min</option>
+									      <option value="30">30 min</option>
+									      <option value="30">30 min</option>
 									    </select>
 									</div>
 			    				</div>
@@ -152,8 +150,8 @@ componentDidMount(){
 			    			
 		    			</div>
 					</div>
-					<div class="right-small-box">
-						<i class="fa fa-search"></i>
+					<div className="right-small-box">
+						<i className="fa fa-search"></i>
 					</div>
 				</div>
 			</div>
