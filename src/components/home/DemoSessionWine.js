@@ -192,42 +192,55 @@ componentDidMount(){
   fetchProductList() {  
 
     let  channelId=1;
-    let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
-      ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
-      {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
-      {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
-    let ka=[];
-    for(let i=0;i<eqarray.length;i++){
-      //type:false,name:"Mersedes Benz"
-      let n = {
-        id: eqarray[i].id,
-        type:false,
-        channelId:eqarray[i].channelId,
-        interestId:eqarray[i].interestId,
-        product_name:eqarray[i].product_name,
-        description: eqarray[i].description
-      };
-      ka.push(n)
-    } 
-    this.setState({
-      wineProduct:ka
-    },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
-    console.log('-----asdfghjkl----------',channelId);              
+    
+    // let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
+    //   ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
+    //   {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
+    //   {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
+    // let ka=[];
+    // for(let i=0;i<eqarray.length;i++){
+    //   //type:false,name:"Mersedes Benz"
+    //   let n = {
+    //     id: eqarray[i].id,
+    //     type:false,
+    //     channelId:eqarray[i].channelId,
+    //     interestId:eqarray[i].interestId,
+    //     product_name:eqarray[i].product_name,
+    //     description: eqarray[i].description
+    //   };
+    //   ka.push(n)
+    // } 
+    // this.setState({
+    //   wineProduct:ka
+    // },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
+
+
+    console.log('-----asdfghjkl----------',channelId);  
+
       axios      
       
       .get("/api/v1/session/"+channelId+"/product-list")          
       .then(res => {
         console.log('---------channelproduct--------------',res.data.responseData);
 
-        //  let eqarray=res.data.responseData;        
-        // let ka = []; 
-        // for(let i=0;i<eqarray.length;i++){
-        //   let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
-        //   ka.push(n);   
-        // }
+          let eqarray=res.data.responseData;        
+     
+        let ka=[];
+        for(let i=0;i<eqarray.length;i++){
+          //type:false,name:"Mersedes Benz"
+          let n = {
+            id: eqarray[i].id,
+            type:false,
+            channelId:eqarray[i].channelId,
+            interestId:eqarray[i].interestId,
+            product_name:eqarray[i].product_name,
+            description: eqarray[i].description
+          };
+          ka.push(n)
+        }
 
         this.setState({
-          productlist: res.data.responseData
+          wineProduct:ka
             });
       })
       .catch(err =>{
@@ -250,13 +263,7 @@ componentDidMount(){
         this.setState({
           emojiesList: res.data.responseData
             });
- // let eqarray = {"Appearence":[{"id":1,"name":"Cherry","path":"images/cherry.png"},{"id":2,"name":"Burgundy","path":"images/burgundy.png"},{"id":3,"name":"Auburn","path":"images/auburn.png"}],"Aroma":[{"id":4,"name":"Apple","path":"images/apple.png"},{"id":5,"name":"Grape","path":"images/grapes.png"},{"id":6,"name":"Cheese","path":"images/cheese.png"}],"Palate":[{"id":7,"name":"Example","path":"images/apple.png"},{"id":8,"name":"Another","path":"images/grapes.png"},{"id":9,"name":"Few Example","path":"images/cheese.png"}]};
-        //  let eqarray=res.data.responseData;        
-        // let ka = []; 
-        // for(let i=0;i<eqarray.length;i++){
-        //   let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
-        //   ka.push(n);   
-        // }
+
         // this.setState({
         //   emojiesList:{
         //     "Appearence": [{
@@ -1179,31 +1186,31 @@ wineProductSelect = (e) => {
     let ka = []; 
     for(let i=0;i<this.state.emojiesList.length;i++){
     if(this.state.emojiesList[i].emojies_type==="Appearance"){
-    let n = {interestId:this.state.listAppearance[i].interestId,
-      path: this.state.listAppearance[i].path,
-      emojies_type:this.state.listAppearance[i].emojies_type,
+    let n = {interestId:this.state.emojiesList[i].interestId,
+      path: this.state.emojiesList[i].path,
+      emojies_type:this.state.emojiesList[i].emojies_type,
       status:false, 
-      name:this.state.listAppearance[i].name,
-      id:this.state.listAppearance[i].id };
+      name:this.state.emojiesList[i].name,
+      id:this.state.emojiesList[i].id };
       ka.push(n);
      }
      if(this.state.emojiesList[i].emojies_type==="Aroma"){
-      let n = {interestId:this.state.listAroma[i].interestId,
-      path:this.state.listAroma[i].path,
-      emojies_type:this.state.listAroma[i].emojies_type, 
+      let n = {interestId:this.state.emojiesList[i].interestId,
+      path:this.state.emojiesList[i].path,
+      emojies_type:this.state.emojiesList[i].emojies_type, 
       status:false, 
-      name:this.state.listAroma[i].name,
-      id:this.state.listAroma[i].id };
+      name:this.state.emojiesList[i].name,
+      id:this.state.emojiesList[i].id };
       la1.push(n);
       }
       
       if(this.state.emojiesList[i].emojies_type==="Palate"){
-      let n ={interestId:this.state.listPalate[i].interestId,
-        path:this.state.listPalate[i].path,
-        emojies_type:this.state.listPalate[i].emojies_type,
+      let n ={interestId:this.state.emojiesList[i].interestId,
+        path:this.state.emojiesList[i].path,
+        emojies_type:this.state.emojiesList[i].emojies_type,
         status:false, 
-        name:this.state.listPalate[i].name,
-        id:this.state.listPalate[i].id };
+        name:this.state.emojiesList[i].name,
+        id:this.state.emojiesList[i].id };
         la2.push(n);
       } 
      
@@ -1422,25 +1429,26 @@ submitForm = (event) => {
 
   event.preventDefault();
   var activity_info = [];
-  //var activities = [];
-  var activities = [{ wineChoice: 'Mersedes Benz',
-  id: 1,
-  Emojies:
-   [ 
-{ path: 'images/cherry.png', type: 'Appearence', name: 'Cherry',id:1 },
-  { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy' ,id:2},
-{ path: 'images/grapes.png', type: 'Aroma', name: 'Grape',id:6 },
-{ path: 'images/cheese.png', type: 'Aroma', name: 'Cheese',id:7 },
-{ emoji: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
-],testerStatus: true },
-{ wineChoice: 'Nissan Altima',
-  id: 2,
-Emojies:
-   [ { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy',id:3 },
-     { path: 'images/auburn.png', type: 'Appearence', name: 'Auburn',id:4 },
-   { path: 'images/grapes.png', type: 'Aroma', name: 'Grape' ,id:6 } ,
-   { path: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
-],testerStatus: false }];
+  var activities = [];
+//   var activities = [{ wineChoice: 'Mersedes Benz',
+//   id: 1,
+//   Emojies:
+//    [ 
+// { path: 'images/cherry.png', type: 'Appearence', name: 'Cherry',id:1 },
+//   { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy' ,id:2},
+// { path: 'images/grapes.png', type: 'Aroma', name: 'Grape',id:6 },
+// { path: 'images/cheese.png', type: 'Aroma', name: 'Cheese',id:7 },
+// { emoji: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+// ],testerStatus: true },
+// { wineChoice: 'Nissan Altima',
+//   id: 2,
+// Emojies:
+//    [ { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy',id:3 },
+//      { path: 'images/auburn.png', type: 'Appearence', name: 'Auburn',id:4 },
+//    { path: 'images/grapes.png', type: 'Aroma', name: 'Grape' ,id:6 } ,
+//    { path: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+// ],testerStatus: false }];
+
   let input_result=[];
   let min_participants='';
   let max_participants='';
@@ -1496,7 +1504,7 @@ Emojies:
       //   fitnessActivity : this.state.tablerows
       // } 
 
-     // activities=this.state.tablerows;
+      //activities=this.state.w;
 
       const script ={
         next_activity : "automatic",
@@ -1513,7 +1521,7 @@ Emojies:
       const host_list = {
         hostList : this.state.hostList1
       }
-     // activities = wineDetail;
+      activities = wineDetail;
       console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
      
       if (this.validator.allValid()) {
