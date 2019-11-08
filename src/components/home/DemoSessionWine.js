@@ -169,6 +169,8 @@ class DemoSessionWine extends Component {
         ///////////existing host////////////////////
         hostList:[],
         hostList1:[],
+        productlist:[],
+        emojiesList:[],
         duplicatehostList:[],
         searchhostList:'',
         //////////////////////////
@@ -182,34 +184,29 @@ componentDidMount(){
   this.fetchExistingShopping();
   this.fetchExistingHostList();
   this.fetchExistingEquipments();
+  this.fetchEmojiesList();
+  this.fetchProductList();
   }
 
-  fetchExistingHostList() {
+  fetchProductList() {  
 
-     let eqarray = [{userId: 3, username: "Lalit A"},
-     {userId: 1, username: "Deepak A"},
-      ]
-     let ka = []; 
-     for(let i=0;i<eqarray.length;i++){
-       let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
-       ka.push(n);
-
-     }
-     this.setState({
-       hostList:ka
-     },()=>console.log('------------------------',this.state.hostList))
-
-    
     let  channelId=1;   
     console.log('-----asdfghjkl----------',channelId);              
       axios      
-      //.get("/api/v1/session/"+channelId+"/host")      
-      .get("/api/v1/session/"+channelId+"/hosts-list1")          
+      
+      .get("/api/v1/session/"+channelId+"/product-list")          
       .then(res => {
-        console.log('---------channelHost--------------',res.data.responseData);
+        console.log('---------channelproduct--------------',res.data.responseData);
+
+        //  let eqarray=res.data.responseData;        
+        // let ka = []; 
+        // for(let i=0;i<eqarray.length;i++){
+        //   let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+        //   ka.push(n);   
+        // }
 
         this.setState({
-          hostList: res.data.responseData,
+          productlist: res.data.responseData
             });
       })
       .catch(err =>{
@@ -218,6 +215,105 @@ componentDidMount(){
       });
 
   }
+
+  fetchEmojiesList() {  
+    let  interestId=1;   
+    console.log('-----asdfghjkl----------',interestId);              
+      axios      
+      //.get("/api/v1/session/"+channelId+"/host")      
+      .get("/api/v1/session/"+interestId+"/emojiesList")          
+      .then(res => {
+
+        console.log('---------InterestEmojies--------------',res.data.responseData);
+
+        this.setState({
+          emojiesList: res.data.responseData
+            });
+ // let eqarray = {"Appearence":[{"id":1,"name":"Cherry","path":"images/cherry.png"},{"id":2,"name":"Burgundy","path":"images/burgundy.png"},{"id":3,"name":"Auburn","path":"images/auburn.png"}],"Aroma":[{"id":4,"name":"Apple","path":"images/apple.png"},{"id":5,"name":"Grape","path":"images/grapes.png"},{"id":6,"name":"Cheese","path":"images/cheese.png"}],"Palate":[{"id":7,"name":"Example","path":"images/apple.png"},{"id":8,"name":"Another","path":"images/grapes.png"},{"id":9,"name":"Few Example","path":"images/cheese.png"}]};
+        //  let eqarray=res.data.responseData;        
+        // let ka = []; 
+        // for(let i=0;i<eqarray.length;i++){
+        //   let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+        //   ka.push(n);   
+        // }
+        // this.setState({
+        //   emojiesList:{
+        //     "Appearence": [{
+        //       "id": 1,
+        //       "name": "Cherry",
+        //       "path": "images/cherry.png"
+        //     }, {
+        //       "id": 2,
+        //       "name": "Burgundy",
+        //       "path": "images/burgundy.png"
+        //     }, {
+        //       "id": 3,
+        //       "name": "Auburn",
+        //       "path": "images/auburn.png"
+        //     }],
+        //     "Aroma": [{
+        //       "id": 4,
+        //       "name": "Apple",
+        //       "path": "images/apple.png"
+        //     }, {
+        //       "id": 5,
+        //       "name": "Grape",
+        //       "path": "images/grapes.png"
+        //     }, {
+        //       "id": 6,
+        //       "name": "Cheese",
+        //       "path": "images/cheese.png"
+        //     }],
+        //     "Palate": [{
+        //       "id": 7,
+        //       "name": "Example",
+        //       "path": "images/apple.png"
+        //     }, {
+        //       "id": 8,
+        //       "name": "Another",
+        //       "path": "images/grapes.png"
+        //     }, {
+        //       "id": 9,
+        //       "name": "Few Example",
+        //       "path": "images/cheese.png"
+        //     }]
+        //   }
+        //     });
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
+  fetchExistingHostList() {  
+    let  channelId=1;   
+    console.log('-----asdfghjkl----------',channelId);              
+      axios      
+      //.get("/api/v1/session/"+channelId+"/host")      
+      .get("/api/v1/session/"+channelId+"/hosts-list1")          
+      .then(res => {
+        console.log('---------channelHost--------------',res.data.responseData);
+
+         let eqarray=res.data.responseData;        
+        let ka = []; 
+        for(let i=0;i<eqarray.length;i++){
+          let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+          ka.push(n);   
+        }
+
+        this.setState({
+          hostList: ka
+            });
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
  fetchExistingEquipments() {
     
     let  interestId=2;  
@@ -249,18 +345,19 @@ componentDidMount(){
 
   fetchExistingShopping() {
   let  interestId=2;  
-  let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-      {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
-      {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
-    ]
-    let ka = [];
-    for(let i=0;i<eqarray.length;i++){
-      let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
-      ka.push(n);
-    }
-    this.setState({
-      shoppingList:ka
-    },()=>console.log('------------------------',this.state.shoppingList))
+
+  // let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+  //     {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+  //     {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
+  //   ]
+  //   let ka = [];
+  //   for(let i=0;i<eqarray.length;i++){
+  //     let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+  //     ka.push(n);
+  //   }
+  //   this.setState({
+  //     shoppingList:ka
+  //   },()=>console.log('------------------------',this.state.shoppingList))
 
     console.log('-----b----------',interestId);              
       axios      
@@ -1221,7 +1318,25 @@ submitForm = (event) => {
 
   event.preventDefault();
   var activity_info = [];
-  var activities = [];
+  //var activities = [];
+  var activities = [{ wineChoice: 'Mersedes Benz',
+  id: 1,
+  Emojies:
+   [ 
+{ path: 'images/cherry.png', type: 'Appearence', name: 'Cherry',id:1 },
+  { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy' ,id:2},
+{ path: 'images/grapes.png', type: 'Aroma', name: 'Grape',id:6 },
+{ path: 'images/cheese.png', type: 'Aroma', name: 'Cheese',id:7 },
+{ emoji: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+],testerStatus: true },
+{ wineChoice: 'Nissan Altima',
+  id: 2,
+Emojies:
+   [ { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy',id:3 },
+     { path: 'images/auburn.png', type: 'Appearence', name: 'Auburn',id:4 },
+   { path: 'images/grapes.png', type: 'Aroma', name: 'Grape' ,id:6 } ,
+   { path: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+],testerStatus: false }];
   let input_result=[];
   let min_participants='';
   let max_participants='';
@@ -1294,7 +1409,7 @@ submitForm = (event) => {
       const host_list = {
         hostList : this.state.hostList1
       }
-      activities = wineDetail;
+     // activities = wineDetail;
       console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
      
       if (this.validator.allValid()) {
