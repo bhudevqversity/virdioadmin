@@ -20,6 +20,7 @@ class DemoSessionWine extends Component {
     this.state = {
         sessions: [],
         session_details:'',
+        something:[false,false,false,false,false,false],
         send_input:'',
         msg:'',
         //////////Calender /////////////
@@ -55,6 +56,7 @@ class DemoSessionWine extends Component {
         sessionAmount:'',
         exampleFormControlSelect1:'Pick a Duration',
         exampleFormControlSelect2 : 'Pick a Difficulty level',
+        sessionProperty:false,
         heartRateMonitor:true,
         zoneTracking : true,
         searchParticipant: false,
@@ -108,15 +110,26 @@ class DemoSessionWine extends Component {
          listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
          listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
          listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}],
-        appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
+        
+         appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
         {emoji:"images/burgundy.png",type:false,name:"Burgundy"},
         {emoji:"images/auburn.png",type:false,name:"Auburn"}],
+
+        //appearanceEmoji:[],
+
         aromaEmoji:[{emoji:"images/apple.png",type:false,name:"Apple"},
         {emoji:"images/grapes.png",type:false,name:"Grape"},
         {emoji:"images/cheese.png",type:false,name:"Cheese"}],
+
+        //aromaEmoji:[],
+        
         palateEmoji:[{emoji:"images/apple.png",type:false,name:"Example"},
         {emoji:"images/grapes.png",type:false,name:"Another"},
         {emoji:"images/cheese.png",type:false,name:"Few Example"}], 
+
+        //palateEmoji:[], 
+
+
         wineProduct:[{type:false,name:"Mersedes Benz"},
         {type:false,name:"Nissan Altima"},
         {type:false,name:"Another Brand"}],
@@ -128,12 +141,12 @@ class DemoSessionWine extends Component {
         equipmentQunatity:'',
         equipmentArray : [],
         quantityValue:{},
-        equipmentList : [{ name: "Tom",type:false,Quantity:0 },{ name: "Tommy",type:false,Quantity:0 }],
+        equipmentList : [],
         equipmentList1 : [],
         duplicateList:[],
         addToequipmentList1 : [],
         searchEquipment: "",
-        shoppingList : [{ itemName: "Tom",type:false,Quantity:0,itemNote:"X" },{ itemName: "Tommy",type:false,Quantity:0,itemNote:"X" }],
+        shoppingList : [],
         shoppingList1:[],
         duplicateShoppingList: [],
         shoppingListValue: "",
@@ -154,9 +167,10 @@ class DemoSessionWine extends Component {
         shoppingPair:'',
         addAttribute:[],
         ///////////existing host////////////////////
-        hostList:[{userId:'100',image :'images/pic.jpg', userName:'Nathan Taylor',type:false},{userId:'101',image :'images/pic.jpg',userName:'John Taylor',type:false}],
+        hostList:[],
         hostList1:[],
         duplicatehostList:[],
+        searchhostList:'',
         //////////////////////////
     }
     this.setHeaderValue();
@@ -165,6 +179,113 @@ class DemoSessionWine extends Component {
  
 componentDidMount(){
   this.fetchPrevSessionList();
+  this.fetchExistingShopping();
+  this.fetchExistingHostList();
+  this.fetchExistingEquipments();
+  }
+
+  fetchExistingHostList() {
+
+     let eqarray = [{userId: 3, username: "Lalit A"},
+     {userId: 1, username: "Deepak A"},
+      ]
+     let ka = []; 
+     for(let i=0;i<eqarray.length;i++){
+       let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+       ka.push(n);
+
+     }
+     this.setState({
+       hostList:ka
+     },()=>console.log('------------------------',this.state.hostList))
+
+    
+    let  channelId=1;   
+    console.log('-----asdfghjkl----------',channelId);              
+      axios      
+      //.get("/api/v1/session/"+channelId+"/host")      
+      .get("/api/v1/session/"+channelId+"/hosts-list1")          
+      .then(res => {
+        console.log('---------channelHost--------------',res.data.responseData);
+
+        this.setState({
+          hostList: res.data.responseData,
+            });
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+ fetchExistingEquipments() {
+    
+    let  interestId=2;  
+    console.log('-----a----------',interestId);              
+      axios            
+      .get("/api/v1/session/"+interestId+"/equipments")          
+      .then(res => {
+        console.log('---------channelEquipments--------------',res.data.responseData);
+
+      let eqarray=res.data.responseData;
+
+      let ka = []; 
+      for(let i=0;i<eqarray.length;i++){
+        let n = {id:eqarray[i].id, interestId: eqarray[i].interestId, name: eqarray[i].name, equipment_description: eqarray[i].equipment_description, status: eqarray[i].status,type:false,Quantity:0,Link:'X'};
+        ka.push(n);  
+      }
+
+        this.setState({
+          equipmentList:ka
+            });
+            
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+
+  fetchExistingShopping() {
+  let  interestId=2;  
+  let eqarray=[{id: 1, interestId: 2, name: "trademill", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+      {id: 2, interestId: 2, name: "ball", createdAt: "2019-09-02T08:23:17.000Z", status: 1},
+      {id: 3, interestId: 2, name: "weight-machine", createdAt: "2019-09-02T08:23:17.000Z", status: 1}
+    ]
+    let ka = [];
+    for(let i=0;i<eqarray.length;i++){
+      let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+      ka.push(n);
+    }
+    this.setState({
+      shoppingList:ka
+    },()=>console.log('------------------------',this.state.shoppingList))
+
+    console.log('-----b----------',interestId);              
+      axios      
+      .get("/api/v1/session/"+interestId+"/shoppinglist")          
+      .then(res => {
+        console.log('---------channelShopping--------------',res.data.responseData);
+
+          let eqarray=res.data.responseData;
+
+          let ka = [];
+          for(let i=0;i<eqarray.length;i++){
+            let n ={id:eqarray[i].id, interestId:eqarray[i].interestId , name:eqarray[i].name, createdAt:eqarray[i].createdAt , status:eqarray[i].status ,type:false,Quantity:0,itemNote:"X",Link :"addLink"}
+            ka.push(n);
+
+          }
+        this.setState({
+          shoppingList:ka
+            });
+            
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
   }
 
   fetchPrevSessionList() {
@@ -357,10 +478,11 @@ selectShoppingList =(e)=> {
   else {
     shoppingContainer[e.target.id].Quantity = 0;
     shoppingContainer[e.target.id].itemNote = "X";
+    shoppingContainer[e.target.id].Link = "addLink";
     let arrayCheck = [];
     if(this.state.shoppingList1.length>0){
      for(let i=0;i<this.state.shoppingList1.length;i++){
-        if(this.state.shoppingList1[i].itemName === shoppingContainer[e.target.id].itemName){
+        if(this.state.shoppingList1[i].name === shoppingContainer[e.target.id].name){
           arrayCheck = this.state.shoppingList1;
           arrayCheck[i] = shoppingContainer[e.target.id];
           this.setState({
@@ -376,6 +498,7 @@ selectShoppingList =(e)=> {
     { console.log('setEuipmentContainer==>',this.state.shoppingList);
       });
 }
+
 handleShoppingQuantity = idx => evt => {
   const newShareholders = this.state.shoppingList.map((shareholder, sidx) => {
     if (idx !== sidx) return shareholder;
@@ -398,15 +521,26 @@ handleShoppingitemNote= idx => evt => {
   }
   );
 }
-setShoppingList = (e) =>{
- if (this.state.duplicateShoppingList.length>0) { 
-    this.setState({shoppingListValue:'',
-    shoppingList:this.state.duplicateShoppingList,
-    duplicateShoppingList : []
-    },()=>console.log('setShoppingList',this.state.shoppingList))
+handleShoppingLink = idx => evt => {
+  const newShareholders = this.state.shoppingList.map((shareholder, sidx) => {
+    if (idx !== sidx) return shareholder;
+    return { ...shareholder, Link: evt.target.value };
+  });
+
+  this.setState({ shoppingList: newShareholders },()=> {
+    console.log('item Note',this.state.shoppingList[idx].Link)
   }
+  );
 }
-addToShoppingList = () => {
+setShoppingList = (e) =>{
+  if (this.state.duplicateShoppingList.length>0) { 
+     this.setState({shoppingListValue:'',
+     shoppingList:this.state.duplicateShoppingList,
+     duplicateShoppingList : []
+     },()=>console.log('setShoppingList',this.state.shoppingList))
+   }
+ }
+ addToShoppingList = () => {
   console.log(this.state.shoppingListValue,'****************************************************',this.state.duplicateShoppingList);
   let addToShoppingListArray = [];
   let ka = [];
@@ -414,11 +548,12 @@ addToShoppingList = () => {
   console.log('Search part');
   let x =0 ,n=0;
   for(let i =0 ;i<this.state.duplicateShoppingList.length;i++){
-    if(this.state.duplicateShoppingList[i].itemName === this.state.shoppingList[0].itemName){
+    if(this.state.duplicateShoppingList[i].name === this.state.shoppingList[0].name){
       //this.state.duplicateList[i].Quantity=this.state.equipmentList[0].Quantity  ;
       addToShoppingListArray = this.state.duplicateShoppingList;
       addToShoppingListArray[i].Quantity=this.state.shoppingList[0].Quantity;
       addToShoppingListArray[i].itemNote=this.state.shoppingList[0].itemNote;
+      addToShoppingListArray[i].Link=this.state.shoppingList[0].Link;
       this.setState({
         duplicateShoppingList : addToShoppingListArray
       })
@@ -427,7 +562,7 @@ addToShoppingList = () => {
   }
   // checking for new insertion or update
   for(let i =0;i<this.state.shoppingList1.length;i++){
-    if(this.state.shoppingList1[i].itemName === this.state.shoppingList[0].itemName){
+    if(this.state.shoppingList1[i].name === this.state.shoppingList[0].name){
       x=1;n=i;
       console.log('Search ---------------Update');
     
@@ -438,6 +573,7 @@ addToShoppingList = () => {
     addToShoppingListArray = this.state.shoppingList1; 
     addToShoppingListArray[n].Quantity=this.state.shoppingList[0].Quantity; // update
     addToShoppingListArray[n].ItemNote=this.state.shoppingList[0].ItemNote;
+    addToShoppingListArray[n].Link=this.state.shoppingList[0].Link;
     this.setState({
       shoppingList1:addToShoppingListArray
     })
@@ -460,7 +596,7 @@ addToShoppingList = () => {
   for (let i=0;i<this.state.shoppingList.length;i++) {
     x=0;n=0;
     for(let l=0;l<this.state.shoppingList1.length;l++){
-      if((this.state.shoppingList[i].itemName===this.state.shoppingList1[l].itemName)){
+      if((this.state.shoppingList[i].name===this.state.shoppingList1[l].name)){
         x=1;n=l;
         addToShoppingListArray = this.state.shoppingList1;
         console.log(this.state.shoppingList1,'++++++++++++++++++++++',addToShoppingListArray);
@@ -489,8 +625,6 @@ addToShoppingList = () => {
     }
   }
 }
-
-
 }
 findListIndex =(listItem) =>{
   console.log(listItem,this.state.searchEquipment)
@@ -500,7 +634,7 @@ findListIndex =(listItem) =>{
 }
 findShoppingList = (listItem) => {
   console.log(listItem,this.state.shoppingListValue)
-  if (listItem.itemName === this.state.shoppingListValue) {
+  if (listItem.name === this.state.shoppingListValue) {
     console.log(listItem.type);
     return listItem};
 }
@@ -509,10 +643,11 @@ removeShoppingList = (e) => {
   console.log(e.target.value);
   var dataArray1 =  this.state.shoppingList;
   for(let i=0;i<this.state.shoppingList.length;i++) {
-      if(this.state.shoppingList[i].itemName === this.state.shoppingList1[e.target.id].itemName){
+      if(this.state.shoppingList[i].name === this.state.shoppingList1[e.target.id].name){
       dataArray1[i].type=!dataArray1[i].type  ;
       dataArray1[i].itemNote= "X";
       dataArray1[i].Quantity = 0;
+      dataArray1[i].Link = "addLink";
       console.log('matched*********************',dataArray1[i]);  
       }
     }
@@ -523,11 +658,12 @@ removeShoppingList = (e) => {
       shoppingList:dataArray1
     },()=>console.log('******Remove**********',this.state.shoppingList1))
   }
-  addAttribute = (e) => {
+addAttribute = (e) => {
   console.log(e.target.id);
   let x=2,n=0;
   console.log('e.target.id',e.target.id);
   let attributeArray = this.state.addAttribute;
+  let classArray = this.state.something;
   for(let i =0 ;i<attributeArray.length;i++){
     if(e.target.id == attributeArray[i]){
      x=1;n=i;
@@ -536,18 +672,23 @@ removeShoppingList = (e) => {
 
   if(x==1){
     attributeArray.splice(n,1);
+    classArray[e.target.name] = false;
     this.setState({
       addAttribute:attributeArray,
+      something:classArray
       },()=>
       { console.log('add Attribute==>',this.state.addAttribute);
     });
   }
   else{
     attributeArray.push(e.target.id);
+    classArray[e.target.name] = true;
+    console.log(e.target.name,'classArray[e.target.value]',classArray[e.target.value],classArray);
     this.setState({
       addAttribute:attributeArray,
+      something:classArray
       },()=>
-      { console.log('add Attribute==>',this.state.addAttribute);
+      { console.log(this.state.something,'add Attribute==>',this.state.addAttribute);
     });
   }
 
@@ -586,17 +727,27 @@ addToHost = () => {
   let ka = [];
   if((this.state.duplicatehostList.length > 0 && this.state.hostList.length>0) && this.state.searchhostList !== "" ){
   let x =0 ,n=0;
-  // checking for new insertion or update
-  for(let i =0;i<this.state.hostList1.length;i++){
-    if(this.state.hostList1[i].userId === this.state.hostList[0].userId){
-      x=1;n=i;
-      console.log('Search ---------------Update');
+  for (let i=0;i<this.state.hostList.length;i++) {
+    x=0;n=0;
+    for(let l=0;l<this.state.hostList1.length;l++){
+      if(this.state.hostList[i].userId==this.state.hostList1[l]){
+        x=1;n=l;
+      }
     }
-  }
-  if(x===1){
-  } 
-  else { // new insertion
-        
+    if(x==1){ // update
+     console.log('update');
+    } else { // new insertion
+    console.log('Search ******************************new insertion');
+    if((this.state.hostList[i].type===true)){
+    let ka = [];
+    ka = this.state.hostList1;
+    console.log('********value',ka);
+     ka.push(this.state.hostList[i].userId);
+      this.setState({
+        hostList1:ka
+        },()=> console.log(this.state.hostList1,'>>>>>>>>>>>>>>>>@index',i,'*****',this.state.hostList[i]));
+      }
+    }
   }
 
 } else {
@@ -629,6 +780,38 @@ addToHost = () => {
   }
 }
 }
+
+findhostList =(listItem) =>{
+  console.log(listItem,this.state.searchhostList)
+  if (listItem.username === this.state.searchhostList) {
+    console.log(listItem.type);
+    return listItem};
+}
+searchHostListMethod =(e)=>{
+ 
+  if(this.state.duplicatehostList.length>0){
+   this.setState({
+    hostList:[]
+   }, function() { // called by React after the state is updated
+     this.setState({
+       hostList:this.state.addToequipmentList1.concat(this.state.duplicatehostList.filter(this.findhostList)),
+       addToequipmentList1 : this.state.hostList
+      },()=> console.log('hostList',this.state.addToequipmentList1,'duplicateList',this.state.duplicatehostList,'----------Check-----------',this.state.hostList));
+   });
+ } else {
+   this.setState({
+    duplicatehostList: this.state.hostList,
+    hostList:[]
+  }, function() { // called by React after the state is updated
+     this.setState({
+       hostList:this.state.addToequipmentList1.concat(this.state.duplicatehostList.filter(this.findhostList)),
+       addToequipmentList1 : this.state.hostList
+     },()=> console.log('addToequipmentList',this.state.addToequipmentList1,'duplicatehostList',this.state.duplicatehostList,'----------Check-----------',this.state.hostList));
+   });
+   
+ }
+}
+////////////////////////Host Selection End Here
 ////////////////Equipment List
 handleSelect = (e) => {
   
@@ -641,11 +824,13 @@ handleSelect = (e) => {
   else {
     let arrayCheck = [];
     equipmentContainer[e.target.id].Quantity = 0;
+    equipmentContainer[e.target.id].Link='X';
     if(this.state.equipmentList1.length>0){
       this.state.equipmentList1.map((row,i)=>{
         if(row.name === equipmentContainer[e.target.id].name){
           arrayCheck = this.state.equipmentList1;
           arrayCheck[i].Quantity = 0;
+          arrayCheck[i].Link = 'X';
           arrayCheck[i].type = equipmentContainer[e.target.id].type;
           this.setState({
             equipmentList1 : arrayCheck 
@@ -673,6 +858,7 @@ addToEquipmentList = () => {
       //this.state.duplicateList[i].Quantity=this.state.equipmentList[0].Quantity  ;
       addToEquipmentListArray = this.state.duplicateList;
       addToEquipmentListArray[i].Quantity=this.state.equipmentList[0].Quantity  ;
+      addToEquipmentListArray[i].Link=this.state.equipmentList[0].Link;
       this.setState({
         duplicateList : addToEquipmentListArray
       })
@@ -690,7 +876,8 @@ addToEquipmentList = () => {
   if(x===1){
     //this.state.equipmentList1[n].Quantity=this.state.equipmentList[0].Quantity // update
     addToEquipmentListArray = this.state.equipmentList1; 
-    addToEquipmentListArray[n].Quantity=this.state.equipmentList[0].Quantity // update
+    addToEquipmentListArray[n].Quantity=this.state.equipmentList[0].Quantity; // update
+    addToEquipmentListArray[n].Link=this.state.equipmentList[0].Link;
     this.setState({
       equipmentList1:addToEquipmentListArray
     })
@@ -720,6 +907,7 @@ addToEquipmentList = () => {
         addToEquipmentListArray = this.state.equipmentList1;
         addToEquipmentListArray[n].Quantity=this.state.equipmentList[i].Quantity ;// default 0 qunatity will not populate list
         addToEquipmentListArray[n].type = this.state.equipmentList[i].type;
+        addToEquipmentListArray[n].Link = this.state.equipmentList[i].Link;
         this.setState({
           equipmentList1 : addToEquipmentListArray
         }, ()=> console.log('!!!!!!!!!!!!!!!!!!!!!!!! update euipment List',this.state.equipmentList1 ))  
@@ -791,31 +979,43 @@ searchEquipmentMethod =(e)=>{
    });
    
  }
-
-
 }
+
 removeEquipmentList = (e) => {
-console.log('=====================================',e.target);
-  var dataArray1 =  this.state.equipmentList;
-  this.state.equipmentList.map((row,i) => {
-    if(row.name === this.state.equipmentList1[e.target.id].name){
-    dataArray1[i].type=!dataArray1[i].type;
-    dataArray1[i].Quantity = 0;  
-    console.log('matched*********************',dataArray1);  
-    }
-  })
-  var dataArray = this.state.equipmentList1;
-  dataArray.splice(e.target.id, 1);
- 
-  this.setState({
-    equipmentList1:dataArray,
-    equipmentList:dataArray1
-  },()=>console.log('****************',this.state.equipmentList))
-}
+  console.log('=====================================',e.target);
+    var dataArray1 =  this.state.equipmentList;
+    this.state.equipmentList.map((row,i) => {
+      if(row.name === this.state.equipmentList1[e.target.id].name){
+      dataArray1[i].type=!dataArray1[i].type;
+      dataArray1[i].Quantity = 0;
+      dataArray1[i].Link = 'X';  
+      console.log('matched*********************',dataArray1);  
+      }
+    })
+    var dataArray = this.state.equipmentList1;
+    dataArray.splice(e.target.id, 1);
+   
+    this.setState({
+      equipmentList1:dataArray,
+      equipmentList:dataArray1
+    },()=>console.log('****************',this.state.equipmentList))
+  }
+  
 handleShareholderNameChange = idx => evt => {
   const newShareholders = this.state.equipmentList.map((shareholder, sidx) => {
     if (idx !== sidx) return shareholder;
     return { ...shareholder, Quantity: evt.target.value };
+  });
+
+  this.setState({ equipmentList: newShareholders },()=> {
+    console.log('equipmentList',this.state.equipmentList)
+  }
+  );
+};
+handleShareholderLink = idx => evt => {
+  const newShareholders = this.state.equipmentList.map((shareholder, sidx) => {
+    if (idx !== sidx) return shareholder;
+    return { ...shareholder, Link: evt.target.value };
   });
 
   this.setState({ equipmentList: newShareholders },()=> {
@@ -921,11 +1121,14 @@ removeToWineDescription = (e) => {
 apperanceSelect = (e) => {
   
     let emojiContainer = this.state.tablerows;
+    //let appearanceContainer = this.state.appearanceEmoji;
     emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].type;
+    
     this.setState({
     tablerows : emojiContainer,
+    //appearanceEmoji:appearanceContainer
     },()=>
-    { console.log('appearanceEmoji==>',this.state.tablerows);
+    { console.log('<============appearanceEmoji==>',this.state.tablerows);
     });
    
   }
@@ -970,10 +1173,73 @@ apperanceSelect = (e) => {
   }
 ////////////////Submit data
 submitForm = (event) => {
+  let wineDetail =  this.state.tablerows;
+  let ap = [];
+  let ar = [];
+  let pa = [];
+  console.log(this.state.tablerows[0].listAppearance.length,'********',this.state.tablerows[0].listAppearance[0].type);
+  for(let i=0;i<this.state.tablerows.length;i++){
+    ap = [];
+    ar=[];
+    pa=[];
+    for(let t=0;t<this.state.tablerows[i].listAppearance.length;t++){
+      console.log('this.state.tablerows[i].listAppearance.type',this.state.tablerows[i].listAppearance[t].type);
+      if(this.state.tablerows[i].listAppearance[t].type){
+        ap.push(this.state.tablerows[i].listAppearance[t]);
+        console.log('ap',ap);
+      }
+    }
+
+    for(let v=0;v<this.state.tablerows[i].listAroma.length;v++){
+    console.log('this.state.tablerows[i].listAroma.type',this.state.tablerows[i].listAroma[v].type);
+      if(this.state.tablerows[i].listAroma[v].type){
+        ar.push(this.state.tablerows[i].listAroma[v]);
+        console.log('ar',ar);
+      }
+    }
+
+    for(let l=0;l<this.state.tablerows[i].listPalate.length;l++){
+      if(this.state.tablerows[i].listPalate[l].type){
+        pa.push(this.state.tablerows[i].listPalate[l])
+      }
+    }
+    if(ap.length>0){
+      wineDetail[i].listAppearance=ap;
+      console.log('wineDetail[i]',i,wineDetail[i]);
+    }
+    if(ar.length>0){
+      wineDetail[i].listAroma=ar
+    }
+    if(pa.length>0){
+      wineDetail[i].listPalate=pa
+    }
+  }
+
+
+  console.log('*******************************************',wineDetail);
+  
+
   event.preventDefault();
   var activity_info = [];
   var activities = [];
   let input_result=[];
+  let min_participants='';
+  let max_participants='';
+// console.log('-------munahostlist-----------',this.state.hostList)
+//   var datavar=this.state.hostList;
+//   datavar.forEach(ele => {
+//     console.log('--------lalithostlist------------',ele.type)
+//   if(ele.type == true)
+//   {
+//     console.log('--------lalithosttrue------------',ele.type)
+//     this.setState({
+//       hostList3: ele.userId
+//     });
+//   }
+
+//   });
+ // console.log('-------guduhostlist-----------',this.state.hostList3)
+
     const session ={
       channelId: 1006,
       name:this.state.session_details,
@@ -981,11 +1247,12 @@ submitForm = (event) => {
      //start_date:"2019-10-20 15:06:01",
      start_date:this.state.when,
      description:this.state.description,
-     duration:this.state.exampleFormControlSelect1,
-      level:this.setState.exampleFormControlSelect2,
+     duration:this.state.exampleFormControlSelect2,
+    level:this.state.exampleFormControlSelect1,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
+      sessionProperty:this.state.sessionProperty,
       session_charge:this.state.sessionCharge,
       currency:"USD",
       show_particpants_count:"false",
@@ -994,8 +1261,8 @@ submitForm = (event) => {
       const reminder = {
         host_reminder:this.state.hostSessionStart,
         participants_reminder:this.state.participantSessionStart,
-         cutoff_date_time:this.state.signUpDateTime,
-        //cutoff_date_time:"2019-11-2 15:06:01",
+         //cutoff_date_time:this.state.signUpDateTime,
+        cutoff_date_time:"2019-11-2 15:06:01",
         min_participants_not_met:this.state.minimumNotMet
       }
       const privacy ={
@@ -1009,46 +1276,9 @@ submitForm = (event) => {
       // const fitnessActivity = {
       //   fitnessActivity : this.state.tablerows
       // } 
-      for(let v =0 ; v<this.state.tablerows.length;v++){
-        console.log(this.state.tablerows[v]);
-        let activity_data ={
-          "name": this.state.tablerows[v].ActivityName,
-          "attributes" : [
-            {
-             "attrKey": "Activity Type",
-             "attrValue": this.state.tablerows[v].ActivityType,
-             "orderNo": 1
-            },
-            {
-             "attrKey": "Duration Type",
-             "attrValue": this.state.tablerows[v].DurationType,
-             "orderNo": 4
-            },
-            {
-             "attrKey": "Count",
-             "attrValue": this.state.tablerows[v].Count,
-             "orderNo": 5
-            },
-            {
-             "attrKey": "Video",
-             "attrValue": this.state.tablerows[v].Video,
-             "orderNo": 2
-            },
-            {
-             "attrKey": "Target BPM",
-             "attrValue": this.state.tablerows[v].TargetBPM,
-             "orderNo": 6
-            },
-            {
-             "attrKey": "Target Zone",
-             "attrValue": this.state.tablerows[v].TargetZone,
-             "orderNo": 3
-            }
-          ]
-         } 
-         activities.push(activity_data);
-         console.log("activities",activities,'activity_data=======lalit222222===========',activity_data);   
-      }
+      
+
+
       const script ={
         next_activity : "automatic",
         heart_rate_monitor:this.state.scriptHeartRateMonitor,
@@ -1056,42 +1286,40 @@ submitForm = (event) => {
 
       }
       const shopping_list ={
-        shoppingList:this.state.shoppingList
+        shoppingList:this.state.shoppingList1
       }
       const equipment_list = {
-        equipmentList:this.state.equipmentList
+        equipmentList:this.state.equipmentList1
       }
-      console.log("==========================>",activity_info);
+      const host_list = {
+        hostList : this.state.hostList1
+      }
+      activities = wineDetail;
+      console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
+     
       if (this.validator.allValid()) {
-        if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
-       //   console.log("========lalit11111==================>",activity_info);   
-      console.log("========Mohit==================>",shopping_list,equipment_list, activities,reminder,privacy,session,groups,script); 
-      axios.post(`https://jsonplaceholder.typicode.com/users`, { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script})
+
+        console.log("========sessioncreation111==================>",{host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
+
+        
+
+        if(this.state.minimumParticipants >= 1 && this.state.maximumParticipants <= 50 ){  
+
+
+      let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
+      axios.post("/api/v1/session/create", { host_list,shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
         //console.log(res);
 
-        this.setState({
-          send_input: res.data,
-          });
-        input_result=this.state.send_input;
-        console.log('=============lallittiwari===================>',input_result);
+        console.log('=============lallittiwari12345===================>',res.data);
 
-
-        let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      
-        // axios.post("/api/v1/session/create",input_result,{headers : {'Authorization': token}})
-         axios.post("/api/v1/session/create",this.state.send_input)
-         .then(res => {
-   
-           console.log('=============lallittiwari12345===================>',res.data);
-
-           if(res.data.responseMessage == "success")
-           {
-           this.setState({
+            if(res.data.responseMessage == "success")
+            {
+            this.setState({
             msg: "Session hasbeen created Successfully!!!!!!!",
           });
-        }else{
+           }else{
 
           this.setState({
             msg: "There Is a error in session creation",
@@ -1099,14 +1327,14 @@ submitForm = (event) => {
 
         }
 
-         })
-
       })
     }
     else {
       console.log('Wrong');
     }
     }else{
+
+      console.log('----------------This is a error--------------------')
       this.validator.showMessages();
     // rerender to show messages for the first time
     // you can use the autoForceUpdate option to do this automatically`
@@ -1291,6 +1519,14 @@ submitForm = (event) => {
                     </div>
                   </div>
                   <div className="col-md-5 px-4">
+                  <div className="form-group input-txt">
+                    <label className="switch">
+                        <input type="checkbox" id = "sessionProperty"  checked={this.state.sessionProperty} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.sessionProperty},()=>console.log('sessionProperty',this.state.sessionProperty))}}/>
+                        <span className="slider round"></span>
+                    </label>
+                    
+                    {this.state.sessionProperty?<span>private session</span>:<span>public session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+                    </div>
                     <div className="form-group input-txt">
                     <label className="switch">
                         <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}}/>
@@ -1598,7 +1834,7 @@ submitForm = (event) => {
                         </div>
                         </div>                                              
                         </div>
-                        {/* <div className="border-bottom mt-3"></div>*/}
+                        <div className="border-bottom mt-3"></div>
                     </div>
                  : ''
                 }         
@@ -1629,12 +1865,10 @@ submitForm = (event) => {
                                     </div>
                                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                               </div>
-                            </div> 
-                            <div className="border-bottom mt-3"></div>                                             
+                            </div>                                              
                         </div>
-                        
                           )}
-                        {/* <div className="border-bottom mt-3"></div> */}
+                        <div className="border-bottom mt-3"></div>
                     </div>
               {/* Choose Wine End  */}
           {/* Wine Product Sortable Start */}
@@ -1773,62 +2007,66 @@ submitForm = (event) => {
         {/* Testing Script End */}
         
         {/* Shopping List Start */}
-        <div className="gray-box no-border-radius pb-5">
-          <div className="session">
-              <h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt="shopping" />Shopping List</h3>
-              </div>
-          <div className="px-3">
+        <div className="gray-box no-border-radius pb-2">
+          <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
+          <div className="px-3 pb-5">
             <div className="row">
               <div className="col-md-4">
-                <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
+                  <Link to ="wine-demo" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
-              {/* Add all Products Start*/}
-              <div className="col-lg-4 col-md-4 mt-3 mt-md-0">
-                  <a href="#" className="pick"><img src="images/add.png" className="mr-2" alt="add-icon" /> Add all Product from Script</a>
-               </div>
-              {/* Add all Products End */}
-              <div className="col-md-4 mt-3 mt-md-0">
-              <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#add_product_modal"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+              <div className="col-lg-4 col-md-4">
+                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add all Product from Script</a>
+              </div>
+              <div className="col-md-4">
+                  <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#add_product_modal" ><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
           </div>
           {this.state.shoppingList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!==0) && (listInsertion.itemNote!=="X")?
           <div className="row mt-5" key = {i}>
-            <div className="col-md-4">
+            <div className="col-md-2">
             <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">item Name</label>
-                      <input type="text" value  = {listInsertion.itemName} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
+                      <input type="text" value  = {listInsertion.name} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
                     </div>
             </div>
             <div className="col-md-3">
-            <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Quantity</label>
-                      <input type="text" value  = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
-                    </div>
+              <div className="form-group">
+                <span className="cover-border"></span>
+                <label className="label">Quantity</label>
+                <input type="text" value  = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
+              </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-3">
             <div className="form-group">
                       <span className="cover-border"></span>
                       <label className="label">Item  notes</label>
                       <input type="text" value  = {listInsertion.itemNote} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
                     </div>
             </div>
+            <div className="col-md-3">
+            <div className="form-group">
+                      <span className="cover-border"></span>
+                      <label className="label">Link</label>
+                      <input type="text" value  = {listInsertion.Link} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled/>
+                    </div>
+            </div>
             <div className="col-md-1">
-              <Link to="header" className="bg-circle mt-3"><i id = {i} value = {listInsertion.itemName} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
+              <Link to="wine-demo" className="bg-circle mt-3"><i id = {i} value = {listInsertion.name} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
             </div>
           </div>
           : '')
           ))}
           
         </div>
-
         {/* Shopping List End */}
-        <div className="gray-box2 no-border-radius pb-5">
-          <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt="shopping" />Equipment List</h3></div>
-          <div className="px-3">
+
+        {/* Equipemnt List Start */}
+        <div className="gray-box2 no-border-radius">
+          <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
+          <div className="px-3 pb-5">
             <div className="row">
               <div className="col-md-4">
                   <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
@@ -1856,26 +2094,27 @@ submitForm = (event) => {
              ))}       */}
             </div>
             <div className="col-md-3">
-            {/* {this.state.equipmentList1.map((listInsertion,i) => (
-            (listInsertion.type && (listInsertion.Quantity!=0)? */}
-            <div className="form-group">
-                      <span className="cover-border"></span>
-                      <label className="label">Quantity</label>
-                      <input type="text" value = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled />
-                      
-                      {/* <a href="#" className="bg-circle mt-3"></a><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></a> */}
-                    </div>
-              {/* :''
-              )
-            ))}       */}
-            
-            
+              <div className="form-group">
+                <span className="cover-border"></span>
+                  <label className="label">Quantity</label>
+                  <input type="text" value = {listInsertion.Quantity} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled />
+                  {/* <a href="#" className="bg-circle mt-3"></a><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></a> */}
+              </div>
             </div>
+            {/* Equipment Link Added Start*/}
+            <div className="col-md-3">
+              <div className="form-group">
+                <span className="cover-border"></span>
+                <label className="label">Link</label>
+                <input type="text" value = {listInsertion.Link} onChange = {(e)=>console.log(e.target.value)} className="input-field" disabled />
+                </div>
+            </div>
+            {/* Equipment Link  Added End */}
             <div className="col-md-1">
             {/* {this.state.equipmentList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!=0)? */}
             <div className="form-group">
-              <Link to="#" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></Link>
+              <Link to="session-creation" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></Link>
               </div>
               {/* :''
               )
@@ -1885,14 +2124,15 @@ submitForm = (event) => {
           </div>
           :'')
           ))} 
-        </div>
+    </div>
+    {/* Equipemnt List End */}
 
-        <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+  <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
          
-
+  {/* Select Equipemnt List Start */}
   <div className="modal" id="myModal2">
-    <div className="">
-      <div className="modal-content equipmodalbg">
+    <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-content">
       
         <div className="modal-header headerborder">
           <div className="plusicon"><i className="fa fa-plus" onClick = {this.addToEquipmentList} aria-hidden="true"></i></div>
@@ -1926,25 +2166,7 @@ submitForm = (event) => {
                   </button>
                 </div>
 
-{/* 
-                <div className="checkboxdiv">
-                      <div className="mt-4"></div>
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Vestibulum rutrum qu.</span>
-                      </label>
-
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Nam dapibus nisl vit.</span>
-                      </label>
-
-                     <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Donec facilisis tort.</span>
-                      </label>
-                </div> */}
-                {/* Pick from existing Shopp */}
+              {/* Pick from existing Shopp */}
               {this.state.equipmentList.map((row,i) => (  
                 <div className="row checkboxdiv_3" key = {i}>
                   <div className="col-md-4">
@@ -1968,34 +2190,24 @@ submitForm = (event) => {
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
                   </div>
+                         
+                  : ''
+                  }
+                  {this.state.equipmentList[i].type ?
+                  <div className="col-md-4">
+                    <div className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={row.Link}
+                    onChange={this.handleShareholderLink(i)}
+                    className="input-field-2" 
+                    placeholder="Add Link"/></div>
+                  </div>
+                         
                   : ''
                   }
                 </div>
               ))}
-
-                
-                {/* <div className="checkboxdiv_2">
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Donec facilisis to.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Vestibulum rutrum.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Nam dapibus nisl vit.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Fusce vehicula dolor.</span>
-                </label>
-
-        </div> */}
          
         </div>
         
@@ -2005,32 +2217,21 @@ submitForm = (event) => {
 
     </div>
   </div>
+{/* Select Equipemnt List End */}
 
-
-  <div className="modal" id="calenderModal">
-    <div className="">
-     AK
-      
-      
-    </div>
-  </div>
-
-
+{/* Select Shopping List */}
   <div className="modal" id="myModal3">
-    <div className="">
-      <div className="modal-content equipmodalbg">
+    <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-content">
       
         <div className="modal-header headerborder">
           <div className="plusicon"><i onClick = {this.addToShoppingList} className="fa fa-plus" aria-hidden="true"></i></div>
           <h4 className="modal-title white">Pick from existing Shopping list</h4>
           <button type="button" onClick= {this.setShoppingList} className="close white closepopup" data-dismiss="modal">&times;</button>
         </div>
-        
         <div className="modal-body ">
          <div className="card cardbg">
-                
-                
-                <div className="searchbar">
+           <div className="searchbar">
                   <input type="text" 
                   id = "shoppingListValue" 
                   value ={this.state.shoppingListValue} 
@@ -2043,45 +2244,21 @@ submitForm = (event) => {
                   </button>
                 </div>
 
-
-                {/* <div className="checkboxdiv">
-                      <div className="mt-4"></div>
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Nam dapibus nisl vit.</span>
-                      </label>
-
-                      <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">Donec facilisis tort.</span>
-                      </label>
-
-                     <label className="custom-control custom-checkbox lebelheight">
-                        <input type="checkbox" className="form-radio"/>
-                        <span className="checktxt">In hac habitasse pla.</span>
-                      </label>
-                </div> */}
                 {this.state.shoppingList.map((row,i) => (
-                <div className="row checkboxdiv_3" key = {i}>
-                  <div className="col-md-4">
+                <div className="row checkboxdiv_3 mt-4" key = {i}>
+                  <div className="col-md-3">
                     <label className="custom-control custom-checkbox lebelheight">
                       <input type="checkbox" 
-                       name={row.itemName}
+                       name={row.name}
                        id ={i} 
                        checked={row.type} 
                        onChange={this.selectShoppingList}
                        value = '20'
                       className="form-radio"/>
-                      <span className="checktxt">{row.itemName}</span>
+                      <span className="checktxt">{row.name}</span>
                     </label>
                   </div>
                   
-                  {/* <div className="col-md-3">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
-                  </div>
-                  <div className="col-md-5">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item Notes"/></div>
-                  </div> */}
                   {this.state.shoppingList[i].type ?
                   <div className="col-md-3">
                     <div  className="form-group"><span className="cover-border"></span>
@@ -2091,72 +2268,50 @@ submitForm = (event) => {
                     onChange={this.handleShoppingQuantity(i)}
                     className="input-field-2" 
                     placeholder="Quantity"/></div>
-                    <div  className="col-md-5" className="form-group"><span className="cover-border"></span>
+                  </div>
+                  : ''
+                  }
+                  {this.state.shoppingList[i].type ?
+                  <div className="col-md-3">
+                    <div  className="form-group"><span className="cover-border"></span>
                     <input type="text" 
                     id ={i}
                     value={row.itemNote}
                     onChange={this.handleShoppingitemNote(i)}
                     className="input-field-2" 
                     placeholder="item Note"/></div>
-                  </div>
-                  
-                  : ''
-                  }
+                    </div>
+                   : ''}
+                   {this.state.shoppingList[i].type ?
+                  <div className="col-md-3">
+                    <div  className="form-group"><span className="cover-border"></span>
+                    <input type="text" 
+                    id ={i}
+                    value={row.Link}
+                    onChange={this.handleShoppingLink(i)}
+                    className="input-field-2" 
+                    placeholder="Add Link"/></div>
+                    </div>
+                   : ''}
+
+
                 </div>
                 ))}
                 
                 {this.state.shoppingList.map((row,i) => (
                 <div className="checkboxdiv_2" key = {i}>
                
-
-                {/* 
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" 
-                    name={row.itemName}
-                       id ={i} 
-                       checked={row.type} 
-                       onChange={this.selectShoppingList}
-                       value = '20'
-                  className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <label className="custom-control custom-checkbox lebelheight">
-                  <input type="checkbox" className="form-radio"/>
-                  <span className="checktxt">Curabitur lobortis.</span>
-                </label>
-
-                <div className="row checkboxdiv_3">
-                  <div className="col-md-4">
-                    <label className="custom-control custom-checkbox lebelheight">
-                      <input type="checkbox" className="form-radio"/>
-                      <span className="checktxt">Donec facilisis tort.</span>
-                    </label>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Quantity"/></div>
-                  </div>
-                  <div className="col-md-5">
-                    <div className="form-group"><span className="cover-border"></span><input type="text" className="input-field-2" placeholder="Item UOM"/></div>
-                  </div>
-                </div> */}
-
         </div>
         ))}
         </div>
         
        </div>
       </div>
-       <div className="donebg"><button type="button" className="done">Done</button></div>
+       {/* <div className="donebg"><button type="button" className="done">Done</button></div> */}
 
     </div>
   </div>
-  
+  {/* Select Shopping List End */}
   
   {/* <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Pick a product
@@ -2468,11 +2623,11 @@ submitForm = (event) => {
                     <div className="card cardbg">
                         <h4 className="white mt-4 mb-3">Add Attribute</h4>
                         <div className="d-flex flex-wrap">
-                            <a href="#" id ='varietal' onClick = {this.addAttribute} className="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
-                            <a href="#" id ='year' onClick = {this.addAttribute} className="btn btn-outline-secondary text-uppercase mr-2 mt-2">year</a>
-                            <a href="#" id ='country' onClick = {this.addAttribute} className="btn btn-outline-secondary text-uppercase mr-2 mt-2">country</a>
-                            <a href="#" id = 'applellation' onClick = {this.addAttribute} className="btn btn-outline-secondary text-uppercase mr-2 mt-2">applellation</a>
-                            <a href="#" id = 'harvest date' onClick = {this.addAttribute} className="btn btn-outline-secondary text-uppercase mr-2 mt-2">harvest date</a>
+                            <a href="#" id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</a>
+                            <a href="#" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</a>
+                            <a href="#" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</a>
+                            <a href="#" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</a>
+                            <a href="#" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</a>
                             <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</a>
                             <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</a>
                             <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</a>
@@ -2546,7 +2701,7 @@ submitForm = (event) => {
                                 </div>
                             </div>
                             <div className="col-md-4">
-                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                <div className="form-group mb-0">
                                     <label className="label">Pairs With</label>
                                     <textarea rows="5" id = 'shoppingPair' value = {this.state.shoppingPair} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPair))} className="input-field"></textarea>
                                 </div>
@@ -2574,8 +2729,13 @@ submitForm = (event) => {
                 <div className="modal-body ">
                     <div className="card cardbg headerborder pb-4">
                         <div className="searchbar">
-                            <input type="text" className="searchbarinput" placeholder="Search for Host" />
-                            <button className="inputbtn" type="button"></button>
+                            <input type="text" 
+                            id = "searchhostList" 
+                            value ={this.state.searchhostList} 
+                            onChange = {(e)=> this.setState({[e.target.id]:e.target.value},()=> console.log(this.state.searchhostList))}
+                            className="searchbarinput" 
+                            placeholder="Search for Host" />
+                            <button className="inputbtn" type="button" onClick = {this.searchHostListMethod}></button>
                         </div>
                     </div>
                     <div className="card cardbg">
@@ -2587,11 +2747,11 @@ submitForm = (event) => {
                                     <input type="checkbox"
                                     id={i}
                                     checked = {row.type}
-                                    onClick = {this.selectHost}
+                                    onChange= {this.selectHost}
                                     className="form-radio" />
                                     <img src={row.image} className="ml-2 mr-3" alt="user-icon" />
                                     <div>
-                                        <p className="checktxt_name pb-1">{row.userName}</p>
+                                        <p className="checktxt_name pb-1">{row.username}</p>
                                         <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
                                     </div>
 
@@ -2606,11 +2766,11 @@ submitForm = (event) => {
                                     <input type="checkbox"
                                     id={i}
                                     checked = {row.type}
-                                    onClick = {this.selectHost}
+                                    onChange = {this.selectHost}
                                     className="form-radio" />
                                     <img src={row.image} className="ml-2 mr-3" alt="user-icon" />
                                     <div>
-                                        <p className="checktxt_name pb-1">{row.userName}</p>
+                                        <p className="checktxt_name pb-1">{row.username}</p>
                                         <p className="checktxt">Next session on 22 JUL, 3:45 PM</p>
                                     </div>
 
