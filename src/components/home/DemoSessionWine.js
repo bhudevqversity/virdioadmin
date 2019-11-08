@@ -1201,19 +1201,19 @@ submitForm = (event) => {
                 <div className="row">
                   <div className="col-md-4 px-4">
                     <div className="form-group">
-                      <span className="cover-border"></span>
+                      <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Session Name</label>
                       <input type="text" className="input-field" id = "session_details" value= {this.state.session_details} onChange = {this.sessionInfo} placeholder="Session Name" />
                       {this.validator.message('session_details', this.state.session_details, 'required')}
                     </div>
                     <div className="form-group">
-                      <span className="cover-border"></span>
+                      <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Description</label>
                       <textarea type="text" id="description" value = {this.state.description} onChange = {this.sessionInfo} className="input-field"></textarea>
                       {this.validator.message('description', this.state.description, 'required')}
                     </div>									 
                     <div className="form-group">													
-                      <span className="cover-border"></span>
+                      <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Level</label>														
                       <select
                         className="input-field"
@@ -1233,7 +1233,7 @@ submitForm = (event) => {
                   </div>
                   <div className="col-md-3 px-4">																 
                     <div className="form-group">
-                      <span className="cover-border"></span>
+                      <span className="cover-border bg_gray_clr"></span>
                       <label className="label">When?</label>
                       <input
                         type="text"
@@ -1249,7 +1249,7 @@ submitForm = (event) => {
                       <Link to ="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></Link>
                     </div>
                     <div className="form-group">
-                      <span className="cover-border"></span>
+                      <span className="cover-border bg_gray_clr"></span>
                       <label className="label">How long?</label>
                       <select
                         className="input-field"
@@ -1267,7 +1267,7 @@ submitForm = (event) => {
                       <span className="dropdown-icon"></span>
                     </div>
                     <div className="form-group">
-                      <span className="cover-border"></span>
+                      <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Minimum Participants</label>
                       <div className="">
                         <input
@@ -1283,7 +1283,7 @@ submitForm = (event) => {
                       </div>
                     </div>
                     <div className="form-group">
-                      <span className="cover-border"></span>
+                      <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Maximum Participants</label>
                       <input type="number" id = "maximumParticipants" value = {this.state.maximumParticipants} onChange = {this.sessionInfo} className="input-field" placeholder="max 50"/>
                       {this.validator.message('maximumParticipants', this.state.maximumParticipants, 'required|integer|between:1,50')}
@@ -1309,7 +1309,7 @@ submitForm = (event) => {
 
                     {this.state.sessionCharge?
                     <div className="form-group w-50 ml-5">
-                      <span className="cover-border"></span>
+                      <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Charge amount</label>
                       <div className="">
                         <input
@@ -2219,11 +2219,11 @@ submitForm = (event) => {
   </div>
 </div>   */}
 <div className="modal cal_modal" id="calenderModel">
-  <div className="modal-dialog">
-    <div className="modal-content modalbg">
-      <div className="modal-header">
-        <h4 className="white modal-title">Select Duration</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+  <div className="modal-dialog d-flex large_width mb-0">
+    <div className="modal-content modalbg m-auto">
+      <div className="modal-header px-4">
+        <h4 className="white modal-title pl-3">Choose Date and Time</h4>
+        <button type="button pr-3" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
       <div className="modal-body">
       <h3>Calender</h3>
@@ -2234,7 +2234,7 @@ submitForm = (event) => {
       <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2">
-            <div className="form-group"><span className="cover-border"></span>
+            <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
                 <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
                 <span className="clock-icon"></span>
@@ -2242,7 +2242,7 @@ submitForm = (event) => {
           </div>
           <div className="col-md-7">
           <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
-          <div className="form-group input-txt">
+          <div className="form-group input-txt mb-0">
               <label className="switch">
                   <input type="checkbox" />
                   <span className="slider round"></span>
@@ -2253,6 +2253,39 @@ submitForm = (event) => {
         </div>
       </div>
       </div>
+        <div class="text-center position-absolute btn_btn1">
+          <button type="button" class="done mt-0">done</button>
+        </div>
+      </div>
+      
+      <div className="modal-content modalbg align-self-end px-4 py-4">
+      <div className="modal-header headerborder px-0">
+        <h4 className="white modal-title">Repeat Session</h4>
+      </div>
+      <div className="modal-body px-0">
+      <h5 className="white">Frequency</h5>
+      <div className="d-flex flex-wrap">
+      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2 pr-5 position-relative">custom <span class="dropdown-icon"></span></a>
+      </div>
+      <h5 className="white mt-4">Duration</h5>
+      <div className="d-flex flex-wrap">
+      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
+      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2 pr-5 position-relative">custom <span class="dropdown-icon"></span></a>
+      </div>
+      </div>
+      <div class="text-center position-absolute btn_btn1">
+          <button type="button" class="done mt-0">done</button>
+      </div>
+      <div className="modalbg small_cont"></div>
       </div>
   </div>
 </div>
@@ -2420,12 +2453,12 @@ submitForm = (event) => {
   <div className="modal" id="add_product_modal">
         <div className="">
             <div className="modal-content equipmodalbg">
-                <div className="modal-header">
+                <div className="modal-header px-4">
                     <h4 className="modal-title white">Add a new Product<span>Tap on an attribute to make it active in the Product list</span></h4>
                     
                     <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
                 </div>
-                <div className="modal-body ">
+                <div className="modal-body px-4">
                     <div className="card cardbg mt-4">
                         <div className="form-group mb-0"><span className="cover-border"></span>
                             <label className="label">Name of the Product</label>

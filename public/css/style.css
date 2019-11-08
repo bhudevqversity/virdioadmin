@@ -526,6 +526,7 @@ a.act:before
 	vertical-align: super;
 	font-size: 15px;
 }
+
 .slides_inner_part p
 {
 	color: white;
@@ -1028,7 +1029,7 @@ div.overflow-hidden p:nth-child(1):after
 {
 	position: absolute;
 	top: 50px;
-	left: 15px;
+	left: 25px;
 	font-size: 13px;
 	color: #878787;
 }
@@ -1062,12 +1063,18 @@ div.overflow-hidden p:nth-child(1):after
 	border-top: 1px solid #414141 !important;
 	border-bottom: 1px solid #414141 !important;
 	box-shadow: none !important;
-	width: 385px !important;
+	width: 490px !important;
 	margin: auto !important;
 }
 .rlc-day-disabled, .rlc-day-disabled:hover
 {
 	background-color: #343434 !important;
+	color: white !important;
+}
+.rlc-day-selected
+{
+
+	font-weight: bold !important;
 }
 .cal_modal .modal-header
 {
@@ -1081,11 +1088,21 @@ div.overflow-hidden p:nth-child(1):after
 {
 	display: none;
 }
+.bg-trnsparent
+{
+	background-color: transparent;
+}
+.btn_btn1
+{
+	bottom: -90px;
+	transform: translateX(-50%);
+	left: 50%;
+}
 .rlc-day
 {
-	font-size: 14px !important;
-	width: 55px !important;
-	height: 55px !important;
+	font-size: 18px !important;
+	width: 70px !important;
+	height: 60px !important;
 }
 .rlc-navigation-button
 {
@@ -1096,6 +1113,8 @@ div.overflow-hidden p:nth-child(1):after
 .rlc-month-and-year
 {
 	color: white;
+	font-size: 20px !important;
+	font-family: Avenir-Book;
 }
 .rlc-month-and-year-wrapper
 {
@@ -1103,8 +1122,10 @@ div.overflow-hidden p:nth-child(1):after
 }
 .rlc-day, .rlc-day-label
 {
-	width: 55px !important;
-	height: 55px !important;
+	width: 70px !important;
+	height: 60px !important;
+	font-size: 15px !important;
+	margin-bottom: 5px !important;
 }
 .rlc-days-label
 {
@@ -1137,6 +1158,43 @@ div.overflow-hidden p:nth-child(1):after
 .cal_modal .input-txt
 {
 	font-size: 14px;
+}
+.cal_modal .modal-content:nth-child(1)
+{
+	width: 47%;
+}
+.cal_modal .modal-content:nth-child(2)
+{
+	width: 49%;
+}
+.cal_modal .modal-content:nth-child(2) span.dropdown-icon
+{
+	right: 10px;
+    top: 10px;
+}
+.cal_modal .modal-content:nth-child(2) .btn-outline-secondary:hover
+{
+	background-color: transparent;
+}
+.cal_modal .modal-content:nth-child(2) .btn-primary, .cal_modal .modal-content:nth-child(2) .btn-outline-secondary
+{
+	font-size: 13px;
+	padding: 13px;
+}
+
+.cal_modal h5.white
+{
+	font-family: Avenir-Book;
+	font-size: 18px; 
+}
+.small_cont
+{
+	left: -28px;
+    bottom: 50px;
+    height: 50px;
+    width: 30px;
+    border-radius: 10px;
+    position: absolute;
 }
 .modal-content .form-group .cover-border
 {
@@ -1307,7 +1365,11 @@ div.overflow-hidden p:nth-child(1):after
 
 .modal-dialog.small_width
 {
-	max-width: 500px;
+	max-width: 425px;
+}
+.list-modal .modal-body .form-group
+{
+	width: 370px;
 }
 
 /*-------------slide-26 CSS----------------*/
@@ -1329,6 +1391,14 @@ div.overflow-hidden p:nth-child(1):after
 {
 	background-color: #3f3f3f;
 }
+
+/*-------------slide-28 CSS----------------*/
+
+.border_bottom_dotted
+{
+	border: 1px dashed #525252;
+}	
+
 /* Responsive Code */
 
 @media(max-width: 900px)

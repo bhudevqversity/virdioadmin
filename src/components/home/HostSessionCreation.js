@@ -218,7 +218,7 @@ return(
                                             <span>Has Product List?</span>
                                         </div>
                                         <div className="add_text">
-                                            <a href="#" className="bg-circle mr-4"><i className="fa fa-plus" aria-hidden="true"></i></a>
+                                            <a href="#" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></a>
                                             <span className="gray-text">0 Product Added</span>
                                         </div>      
                                     </div>
@@ -409,20 +409,30 @@ return(
     </div>
 
 
-    <div className="modal pr-0" id="equipment_lst_modal">
+    <div className="modal pr-0 list-modal" id="equipment_lst_modal">
         <div className="modal-dialog small_width">
             <div className="modal-content modl_bg_color">
                 <div className="modal-header border_none p-4">
                     <h4 className="modal-title white pt-3">Equipment List</h4>
                     <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
                 </div>
-                <div className="modal-body px-4 pb-5"> 
-                    <div className="form-group"><span className="cover-border"></span>
-                        <label className="label">Item Name</label>
-                        <input type="text" className="input-field" placeholder="" />
-                        <a href="#" className="bg-circle position-absolute">
-                            <i className="fa fa-minus pt-1" aria-hidden="true"></i>
-                        </a>
+                <div className="modal-body px-4 pb-5">
+                    <div className="d-flex justify-content-between flex-wrap"> 
+                        <div className="form-group mr-2"><span className="cover-border"></span>
+                            <label className="label">Item Name</label>
+                            <input type="text" className="input-field" placeholder="" />
+                            <a href="#" className="bg-circle position-absolute">
+                                <i className="fa fa-minus pt-1" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div className="form-group mr-2"><span className="cover-border"></span>
+                            <label className="label">Item Name</label>
+                            <input type="text" className="input-field" placeholder="" />
+                            <a href="#" className="bg-circle position-absolute">
+                                <i className="fa fa-minus pt-1" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        
                     </div>
                     <div className="add_text text-center">
                         <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" aria-hidden="true"></i></a>
@@ -430,54 +440,120 @@ return(
                 </div>
             </div>
         </div>
-      {/*   <div className="modal-dialog large_width">
+      
+            <div className="donebg">
+                <button type="button" className="done mt-2">save</button>
+            </div>
+    </div>
+    <div className="modal pr-0" id="product_lst_modal">
+        <div className="modal-dialog large_width">
             <div className="modal-content modl_bg_color">
-                <div className="modal-header border_none p-4">
-                    <h4 className="modal-title white pt-3">Equipment List</h4>
+                <div className="modal-header px-4">
+                    <h4 className="modal-title white">Product List<span>Tap on an attribute to make it active in the Product list</span></h4>
                     <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
                 </div>
                 <div className="modal-body px-4 pb-5">
-                    <div className="row"> 
-                        <div className="col-md-4">
-                            <div className="form-group"><span className="cover-border"></span>
-                                <label className="label">Item Name</label>
-                                <input type="text" className="input-field" placeholder="">
-                                <a href="#" className="bg-circle position-absolute">
-                                    <i className="fa fa-minus pt-1" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-4">
-                            <div className="form-group"><span className="cover-border"></span>
-                                <label className="label">Item Name</label>
-                                <input type="text" className="input-field" placeholder="">
-                                <a href="#" className="bg-circle position-absolute">
-                                    <i className="fa fa-minus pt-1" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div className="col-md-4">
-                            <div className="form-group"><span className="cover-border"></span>
-                                <label className="label">Item Name</label>
-                                <input type="text" className="input-field" placeholder="">
-                                <a href="#" className="bg-circle position-absolute">
-                                    <i className="fa fa-minus pt-1" aria-hidden="true"></i>
-                                </a>
-                            </div>
+                    <div className="card cardbg mt-4">
+                        <div className="form-group mb-0"><span className="cover-border"></span>
+                            <label className="label">Name of the Product</label>
+                            <input type="text" className="input-field" />
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="add_text text-center">
-                                <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" aria-hidden="true"></i></a>
+                    <div className="card cardbg">
+                        <h4 className="white mt-4 mb-3">Add Attribute</h4>
+                        <div className="d-flex flex-wrap">
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">year</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">country</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">applellation</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">harvest date</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">price</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</a>
+                            <a href="#" className="btn btn-primary mr-2 mt-2">pH</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</a>
+                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">palate</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</a>
+                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</a>
+                        </div>
+                        <div className="border_bottom_dotted mt-4"></div>
+                    </div>
+                    <div className="card cardbg mt-5">
+                        <div className="row">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Varietal</label>
+                                    <input type="text" className="input-field" />
+                                </div>
                             </div>
-                        </div> 
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Price</label>
+                                    <input type="text" className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0">
+                                    <label className="label">pH</label>
+                                    <input type="text" className="input-field footerborder" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row mt-4">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Appearance</label>
+                                    <input type="text" className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Aroma</label>
+                                    <input type="text" className="input-field" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0">
+                                    <label className="label">Palate</label>
+                                    <input type="text" className="input-field footerborder" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row mt-4">
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Testing Notes</label>
+                                    <textarea rows="5" className="input-field"></textarea>
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Winemaking Notes</label>
+                                    <textarea rows="5" className="input-field"></textarea>
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">Pairs With</label>
+                                    <textarea rows="5" className="input-field"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div> */}
-            <div className="donebg">
-                <button type="button" className="done mt-2">save</button>
+        </div>
+            <div className="text-center">
+                <button type="button" className="done mb-5 mt-2 mr-3">Preview</button>
+                <button type="button" className="done mt-4 mt-2">save</button>
             </div>
     </div>
     </div>
