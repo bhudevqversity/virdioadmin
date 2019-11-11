@@ -2351,6 +2351,7 @@ submitForm = (event) => {
       startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
+<<<<<<< HEAD
           <div className="col-md-5 mt-2">
             <div class="form-group"><span class="cover-border"></span>
                 <label class="label">Enter Time</label>
@@ -2364,6 +2365,26 @@ submitForm = (event) => {
               <label class="switch">
                   <input type="checkbox" />
                   <span class="slider round"></span>
+=======
+          <div className="col-md-5 mt-2 pl-4">
+            <div className="form-group mb-0"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="Time" disabled />
+                <span className="clock-icon"></span>
+            </div>
+          </div>
+          <div className="col-md-1"></div>
+          <div className="col-md-6 pr-4">
+          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
+          <div className="form-group input-txt mb-0">
+              <label className="switch">
+                  <input type="checkbox" 
+                  id="repeatSession"
+                  checked={this.state.repeatSession}
+                  onChange={(e)=> this.setState({[e.target.id]:!this.state.repeatSession},()=>console.log(this.state.repeatSession))}
+                  />
+                  <span className="slider round"></span>
+>>>>>>> 82d626316e2e8551fdb8003d28443633243ed9ac
               </label>
               <span>This is a repeated session</span>
             </div>

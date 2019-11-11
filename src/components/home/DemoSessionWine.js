@@ -2745,19 +2745,20 @@ submitForm = (event) => {
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+
       <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
+                <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="Time" disabled />
                 <span className="clock-icon"></span>
             </div>
           </div>
           <div className="col-md-1"></div>
           <div className="col-md-6 pr-4">
-          <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
+          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
           <div className="form-group input-txt mb-0">
               <label className="switch">
                   <input type="checkbox" 

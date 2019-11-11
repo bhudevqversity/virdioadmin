@@ -1369,10 +1369,14 @@ div.overflow-hidden p:nth-child(1) a:after
 {
 	position: absolute;
     z-index: 999;
-    right: 34%;
+    right: 32%;
     top: 58px;
 }
-
+.browse_text span.white
+{
+	font-family: Avenir-Book;
+	font-size: 20px;
+}
 
 /*-------------slide-23 CSS----------------*/
 .b-image
@@ -1455,11 +1459,12 @@ div.overflow-hidden p:nth-child(1) a:after
 	background-color: #34213b;
 }
 
-.border_bottom_dotted
+.gray-box-5
 {
-	border: 1px dashed #525252;
-}	
-
+	background-color: #363636;
+	border-radius: 10px;
+	overflow: hidden;
+}
 /* Responsive Code */
 
 @media(max-width: 900px)
@@ -1481,7 +1486,11 @@ div.overflow-hidden p:nth-child(1) a:after
 	font-size: 35px;
 	line-height: 50px;
 }
-
+.cal_modal .modal-dialog .modal-content:nth-child(3)
+{
+	max-width: 529px;
+	margin: auto;
+}
 .input-box ::placeholder
 {
 	font-size: 1.6vw !important;
@@ -1538,6 +1547,10 @@ div.overflow-hidden p:nth-child(1) a:after
     .learn_more
     {
     	padding: 5px;
+    }
+    .browse_text
+    {
+    	right: 20%;
     }
 
   }
