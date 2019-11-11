@@ -200,42 +200,55 @@ componentDidMount(){
   fetchProductList() {  
 
     let  channelId=1;
-    let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
-      ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
-      {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
-      {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
-    let ka=[];
-    for(let i=0;i<eqarray.length;i++){
-      //type:false,name:"Mersedes Benz"
-      let n = {
-        id: eqarray[i].id,
-        type:false,
-        channelId:eqarray[i].channelId,
-        interestId:eqarray[i].interestId,
-        product_name:eqarray[i].product_name,
-        description: eqarray[i].description
-      };
-      ka.push(n)
-    } 
-    this.setState({
-      wineProduct:ka
-    },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
-    console.log('-----asdfghjkl----------',channelId);              
+    
+    // let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
+    //   ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
+    //   {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
+    //   {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
+    // let ka=[];
+    // for(let i=0;i<eqarray.length;i++){
+    //   //type:false,name:"Mersedes Benz"
+    //   let n = {
+    //     id: eqarray[i].id,
+    //     type:false,
+    //     channelId:eqarray[i].channelId,
+    //     interestId:eqarray[i].interestId,
+    //     product_name:eqarray[i].product_name,
+    //     description: eqarray[i].description
+    //   };
+    //   ka.push(n)
+    // } 
+    // this.setState({
+    //   wineProduct:ka
+    // },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
+
+
+    console.log('-----asdfghjkl----------',channelId);  
+
       axios      
       
       .get("/api/v1/session/"+channelId+"/product-list")          
       .then(res => {
         console.log('---------channelproduct--------------',res.data.responseData);
 
-        //  let eqarray=res.data.responseData;        
-        // let ka = []; 
-        // for(let i=0;i<eqarray.length;i++){
-        //   let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
-        //   ka.push(n);   
-        // }
+          let eqarray=res.data.responseData;        
+     
+        let ka=[];
+        for(let i=0;i<eqarray.length;i++){
+          //type:false,name:"Mersedes Benz"
+          let n = {
+            id: eqarray[i].id,
+            type:false,
+            channelId:eqarray[i].channelId,
+            interestId:eqarray[i].interestId,
+            product_name:eqarray[i].product_name,
+            description: eqarray[i].description
+          };
+          ka.push(n)
+        }
 
         this.setState({
-          productlist: res.data.responseData
+          wineProduct:ka
             });
       })
       .catch(err =>{
@@ -258,13 +271,7 @@ componentDidMount(){
         this.setState({
           emojiesList: res.data.responseData
             });
- // let eqarray = {"Appearence":[{"id":1,"name":"Cherry","path":"images/cherry.png"},{"id":2,"name":"Burgundy","path":"images/burgundy.png"},{"id":3,"name":"Auburn","path":"images/auburn.png"}],"Aroma":[{"id":4,"name":"Apple","path":"images/apple.png"},{"id":5,"name":"Grape","path":"images/grapes.png"},{"id":6,"name":"Cheese","path":"images/cheese.png"}],"Palate":[{"id":7,"name":"Example","path":"images/apple.png"},{"id":8,"name":"Another","path":"images/grapes.png"},{"id":9,"name":"Few Example","path":"images/cheese.png"}]};
-        //  let eqarray=res.data.responseData;        
-        // let ka = []; 
-        // for(let i=0;i<eqarray.length;i++){
-        //   let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
-        //   ka.push(n);   
-        // }
+
         // this.setState({
         //   emojiesList:{
         //     "Appearence": [{
@@ -1260,31 +1267,31 @@ wineProductSelect = (e) => {
     let ka = []; 
     for(let i=0;i<this.state.emojiesList.length;i++){
     if(this.state.emojiesList[i].emojies_type==="Appearance"){
-    let n = {interestId:this.state.listAppearance[i].interestId,
-      path: this.state.listAppearance[i].path,
-      emojies_type:this.state.listAppearance[i].emojies_type,
+    let n = {interestId:this.state.emojiesList[i].interestId,
+      path: this.state.emojiesList[i].path,
+      emojies_type:this.state.emojiesList[i].emojies_type,
       status:false, 
-      name:this.state.listAppearance[i].name,
-      id:this.state.listAppearance[i].id };
+      name:this.state.emojiesList[i].name,
+      id:this.state.emojiesList[i].id };
       ka.push(n);
      }
      if(this.state.emojiesList[i].emojies_type==="Aroma"){
-      let n = {interestId:this.state.listAroma[i].interestId,
-      path:this.state.listAroma[i].path,
-      emojies_type:this.state.listAroma[i].emojies_type, 
+      let n = {interestId:this.state.emojiesList[i].interestId,
+      path:this.state.emojiesList[i].path,
+      emojies_type:this.state.emojiesList[i].emojies_type, 
       status:false, 
-      name:this.state.listAroma[i].name,
-      id:this.state.listAroma[i].id };
+      name:this.state.emojiesList[i].name,
+      id:this.state.emojiesList[i].id };
       la1.push(n);
       }
       
       if(this.state.emojiesList[i].emojies_type==="Palate"){
-      let n ={interestId:this.state.listPalate[i].interestId,
-        path:this.state.listPalate[i].path,
-        emojies_type:this.state.listPalate[i].emojies_type,
+      let n ={interestId:this.state.emojiesList[i].interestId,
+        path:this.state.emojiesList[i].path,
+        emojies_type:this.state.emojiesList[i].emojies_type,
         status:false, 
-        name:this.state.listPalate[i].name,
-        id:this.state.listPalate[i].id };
+        name:this.state.emojiesList[i].name,
+        id:this.state.emojiesList[i].id };
         la2.push(n);
       } 
      
@@ -1503,25 +1510,26 @@ submitForm = (event) => {
 
   event.preventDefault();
   var activity_info = [];
-  //var activities = [];
-  var activities = [{ wineChoice: 'Mersedes Benz',
-  id: 1,
-  Emojies:
-   [ 
-{ path: 'images/cherry.png', type: 'Appearence', name: 'Cherry',id:1 },
-  { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy' ,id:2},
-{ path: 'images/grapes.png', type: 'Aroma', name: 'Grape',id:6 },
-{ path: 'images/cheese.png', type: 'Aroma', name: 'Cheese',id:7 },
-{ emoji: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
-],testerStatus: true },
-{ wineChoice: 'Nissan Altima',
-  id: 2,
-Emojies:
-   [ { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy',id:3 },
-     { path: 'images/auburn.png', type: 'Appearence', name: 'Auburn',id:4 },
-   { path: 'images/grapes.png', type: 'Aroma', name: 'Grape' ,id:6 } ,
-   { path: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
-],testerStatus: false }];
+  var activities = [];
+//   var activities = [{ wineChoice: 'Mersedes Benz',
+//   id: 1,
+//   Emojies:
+//    [ 
+// { path: 'images/cherry.png', type: 'Appearence', name: 'Cherry',id:1 },
+//   { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy' ,id:2},
+// { path: 'images/grapes.png', type: 'Aroma', name: 'Grape',id:6 },
+// { path: 'images/cheese.png', type: 'Aroma', name: 'Cheese',id:7 },
+// { emoji: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+// ],testerStatus: true },
+// { wineChoice: 'Nissan Altima',
+//   id: 2,
+// Emojies:
+//    [ { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy',id:3 },
+//      { path: 'images/auburn.png', type: 'Appearence', name: 'Auburn',id:4 },
+//    { path: 'images/grapes.png', type: 'Aroma', name: 'Grape' ,id:6 } ,
+//    { path: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+// ],testerStatus: false }];
+
   let input_result=[];
   let min_participants='';
   let max_participants='';
@@ -1577,7 +1585,7 @@ Emojies:
       //   fitnessActivity : this.state.tablerows
       // } 
 
-     // activities=this.state.tablerows;
+      //activities=this.state.w;
 
       const script ={
         next_activity : "automatic",
@@ -1594,7 +1602,7 @@ Emojies:
       const host_list = {
         hostList : this.state.hostList1
       }
-     // activities = wineDetail;
+      activities = wineDetail;
       console.log("========sessioncreation222==================>",{shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list});
      
       if (this.validator.allValid()) {
@@ -2005,7 +2013,7 @@ Emojies:
           <div className="p-3">
           <div className="row">
             <div className="col-md-4 px-4">
-                <Link to="header" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
+                <Link to="wine-demo" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
                 <Link to ="/" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
@@ -2094,7 +2102,7 @@ Emojies:
                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                     </td>
                     <td>
-                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
+                    <Link to="wine-demo" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
                     <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={row.id} onClick = {this.removeWineActivity} aria-hidden="true"></i></Link>
                   </td>
                  </tr>
@@ -2256,7 +2264,7 @@ Emojies:
                  </div>
                   </td>
                   <td className="d-flex justify-content-center">
-                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"   aria-hidden="true"></i></Link>
+                    <Link to="wine-demo" className="mr-2 bg-circle"><i className="fa fa-bars"   aria-hidden="true"></i></Link>
                     <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeToWineDescription} aria-hidden="true"></i></Link>
                   </td>
                  </tr>
@@ -2369,10 +2377,10 @@ Emojies:
           <div className="px-3 pb-5">
             <div className="row">
               <div className="col-md-4">
-                  <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
+                  <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
+                  <Link to ="wine-demo" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
           </div>
@@ -2427,7 +2435,7 @@ Emojies:
     </div>
     {/* Equipemnt List End */}
 
-  <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+  <Link to ="wine-demo" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
          
   {/* Select Equipemnt List Start */}
   <div className="modal" id="myModal2">
@@ -2775,6 +2783,46 @@ Emojies:
 </div>
 {/* Signup Calender Model */}
 <div className="modal cal_modal" id="signUpCalenderModel">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h4 className="modal-title white">Select Duration</h4>
+        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+      </div>
+      <div className="modal-body">
+      <h3>Calender</h3>
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date <= (new Date().getTime())}
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      <div className="botm_container">
+        <div className="row mt-4">
+          <div className="col-md-5 mt-2">
+            <div className="form-group"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="12:00 PM" />
+                <span className="clock-icon"></span>
+            </div>
+          </div>
+          <div className="col-md-7">
+          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
+          <div className="form-group input-txt">
+              <label className="switch">
+                  <input type="checkbox" />
+                  <span className="slider round"></span>
+              </label>
+              <span>This is a repeated session</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+  </div>
+</div>
+
+
+{/* Sign Up Calender Model End */}
+<div className="modal cal_modal" id="signUpCalenderModel1">
 <div className="modal-dialog d-md-flex d-block large_width1 mb-0">
     <div className="modal-content modalbg m-auto">
       <div className="modal-header px-4 pt-4 pb-0">
