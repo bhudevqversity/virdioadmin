@@ -1,13 +1,17 @@
 import React, { Component } from "react";
-
+import { Link } from 'react-router';
 //import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class Dashboard extends Component {
-  
-  constructor(props) {
+constructor(props) {
 	super(props);
-    
+	this.state = {
+	carouselData :[{path:"images/banner1.jpg"},{path:"images/banner2.jpg"},{path:"images/banner3.jpg"}],
+	fitnessData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}],
+	wineData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}],
+    cookingData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}]
+	}
 }
  
 componentDidMount(){
@@ -47,8 +51,9 @@ componentDidMount(){
 			    <li data-target="#demo" data-slide-to="2"></li>
 			  </ul>
 			  <div className="carousel-inner">
-			    <div className="carousel-item active">
-				      <img src="images/banner1.jpg" alt="" />
+				{this.state.carouselData.map((row,i)=>
+				<div className={(i==0?"carousel-item active":"carousel-item")} key ={i}>
+				      <img src={row.path} alt="" />
 				      <div className="carousel-caption">
 				      	<div className="inner_text d-flex flex-wrap align-items-center ">
 				      		<div className="upper_inner_text">
@@ -64,7 +69,8 @@ componentDidMount(){
 				      </div>   
 				    </div>
 			    </div>
-			    <div className="carousel-item">
+				)}
+			    {/* <div className="carousel-item">
 			      <img src="images/banner2.jpg" alt="" />
 			      <div className="carousel-caption">
 			        <div className="inner_text d-flex flex-wrap align-items-center ">
@@ -80,8 +86,8 @@ componentDidMount(){
 					    </div>
 				      </div>  
 			      </div>   
-			    </div>
-			    <div className="carousel-item">
+			    </div> */}
+			    {/* <div className="carousel-item">
 			      <img src="images/banner3.jpg" alt="" />
 			      <div className="carousel-caption">
 			        <div className="inner_text d-flex flex-wrap align-items-center ">
@@ -97,7 +103,7 @@ componentDidMount(){
 					    </div>
 				      </div>  
 			      </div>   
-			    </div>
+			    </div> */}
 			  </div>
 			</div>
 		</div>
@@ -158,36 +164,44 @@ componentDidMount(){
 		<div className="small_img_part mt-4">
 			<h3 className="my-3">FITNESS<sup className="ml-2">(24)</sup></h3>
 			<div className="slides_inner_part">
-				<div className="item">
+				{this.state.fitnessData.map((row,i)=>
+				<div className="item" key ={i}>
+					<img src={row.path} />
+					<p className="mt-3">Strength Training 1</p>
+				</div>
+				)}
+				{/* <div className="item">
 					<img src="images/wine.jpg" />
-					<p className="mt-3">Strength Training</p>
+					<p className="mt-3">Strength Training 2</p>
 				</div>
 				<div className="item">
 					<img src="images/wine.jpg" />
-					<p className="mt-3">Strength Training</p>
+					<p className="mt-3">Strength Training 3</p>
 				</div>
 				<div className="item">
 					<img src="images/wine.jpg" />
-					<p className="mt-3">Strength Training</p>
+					<p className="mt-3">Strength Training 4</p>
 				</div>
 				<div className="item">
 					<img src="images/wine.jpg" />
-					<p className="mt-3">Strength Training</p>
+					<p className="mt-3">Strength Training 5</p>
 				</div>
 				<div className="item">
 					<img src="images/wine.jpg" />
-					<p className="mt-3">Strength Training</p>
-				</div>
-				<div className="item">
-					<img src="images/wine.jpg" />
-					<p className="mt-3">Strength Training</p>
-				</div>
+					<p className="mt-3">Strength Training 6</p>
+				</div> */}
 			</div>
 		</div>
 		<div className="small_img_part">
 			<h3 className="my-3">WINE<sup className="ml-2">(24)</sup></h3>
 			<div className="slides_inner_part">
-				<div className="item">
+				{this.state.wineData.map((row,i)=>
+				<div className="item" key={i} >
+					<img src={row.path} />
+					<p className="mt-3">Strength Training</p>
+				</div>
+				)}
+				{/* <div className="item">
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training</p>
 				</div>
@@ -206,17 +220,19 @@ componentDidMount(){
 				<div className="item">
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training</p>
-				</div>
-				<div className="item">
-					<img src="images/wine.jpg" />
-					<p className="mt-3">Strength Training</p>
-				</div>
+				</div> */}
 			</div>
 		</div>
 		<div className="small_img_part">
 			<h3 className="my-3">COOKING<sup className="ml-2">(24)</sup></h3>
 			<div className="slides_inner_part">
-				<div className="item">
+				{this.state.cookingData.map((row,i)=>
+				<div className="item" key = {i}>
+					<img src={row.path} />
+					<p className="mt-3">Strength Training</p>
+				</div>
+				)}
+				{/* <div className="item">
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training</p>
 				</div>
@@ -235,11 +251,7 @@ componentDidMount(){
 				<div className="item">
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training</p>
-				</div>
-				<div className="item">
-					<img src="images/wine.jpg" />
-					<p className="mt-3">Strength Training</p>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	</div>
@@ -252,29 +264,29 @@ componentDidMount(){
 			<div className="col-lg-3 col-sm-6">
 				<h1 className="logo-text text-center mt-5">Virdio</h1>
 				<div className="social_icons text-center mt-4">
-					<a href="#"><i className="fa fa-facebook"></i></a>
-					<a href="#"><i className="fa fa-twitter"></i></a>
-					<a href="#"><i className="fa fa-instagram"></i></a>
-					<a href="#"><i className="fa fa-envelope-o"></i></a>
+					<Link to="/"><i className="fa fa-facebook"></i></Link>
+					<Link to="/"><i className="fa fa-twitter"></i></Link>
+					<Link to="/"><i className="fa fa-instagram"></i></Link>
+					<Link to="/"><i className="fa fa-envelope-o"></i></Link>
 				</div>
 			</div>
 			<div className="col-lg-3 col-sm-6">
 				<p>GET STARTED</p>
 				<ul className="list">
-					<li><a href="#">Sign In</a></li>
-					<li><a href="#">Sign Up</a></li>
-					<li><a href="#">Learn More</a></li>
-					<li><a href="#">Session Guidelines</a></li>
+					<li><Link to="/">Sign In</Link></li>
+					<li><Link to="/">Sign Up</Link></li>
+					<li><Link to="/">Learn More</Link></li>
+					<li><Link to="/">Session Guidelines</Link></li>
 				</ul>
 			</div>
 			<div className="col-lg-3 col-sm-6">
 				<p>VIRDIO</p>
 				<ul className="list">
-					<li><a href="#">About</a></li>
-					<li><a href="#">News</a></li>
-					<li><a href="#">Contact</a></li>
-					<li><a href="#">Privacy</a></li>
-					<li><a href="#">Terms of service</a></li>
+					<li><Link to="/">About</Link></li>
+					<li><Link to="/">News</Link></li>
+					<li><Link to="/">Contact</Link></li>
+					<li><Link to="/">Privacy</Link></li>
+					<li><Link to="/">Terms of service</Link></li>
 				</ul>
 			</div>
 			<div className="col-lg-3 col-sm-6 px-lg-0">

@@ -172,6 +172,10 @@ selectHost = (e) => {
         });
    
   }
+  submitForm = (event) => {
+  console.log(this.state.hostList1,'---------------------',this.state.hostList);
+  event.preventDefault();
+    }
 
 render() {
 return(
@@ -184,25 +188,25 @@ return(
                     <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
                         <div className="user-info d-flex align-items-center"><img src="images/pic.jpg" className="user-avtar pic" />
                             <div className="pl-4">
-                                <h3>Welcome Cersei!</h3>
-                                <p>You have 3 sessions this week</p>
-                                <p>Next Session, Wednesday, 24 July 2019</p>
+                                <h3>Welcome Arjun!</h3>
+                                <p>No session this week</p>
+                                {/* <p>Next Session, Wednesday, 24 July 2019</p> */}
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-6 ">
                         <div className="d-flex justify-content-between ">
                             <div className="header-info-right">
-                                <p>Weekly Attendance</p>
-                                <h3>66%</h3></div><span className="border-right gray-border"></span>
+                                <p>Average Attendance</p>
+                                <h3>0%</h3></div><span className="border-right gray-border"></span>
                             <div className="header-info-right">
                                 <p>Total Views</p>
-                                <h3>45.6K</h3></div><span className="border-right gray-border"></span>
+                                <h3>0</h3></div><span className="border-right gray-border"></span>
                             <div className="header-info-right">
                                 <p>Total Revenue</p>
-                                <h3>$44,000</h3></div><span className="border-right gray-border"></span>
+                                <h3>$0</h3></div><span className="border-right gray-border"></span>
                                   <div className="message-notification"><img src="images/message.png" />
-                              <span className="message-count">2</span></div>
+                              <span className="message-count">0</span></div>
                         </div>
                     </div>
                 </div>
@@ -582,7 +586,7 @@ return(
                     </div>  
                 </div>
                 <div className="text-center">
-                <button type="button" className="done mb-5">Done</button>
+                <button type="button" className="done mb-5" onClick={this.submitForm} >Done</button>
             </div>
             </div>
         </div>

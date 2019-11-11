@@ -6,7 +6,7 @@ import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 
 import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
@@ -2623,6 +2623,7 @@ Emojies:
       </div>
   </div>
 </div>
+{/* Signup Calender Model */}
 <div className="modal cal_modal" id="signUpCalenderModel">
   <div className="modal-dialog">
     <div className="modal-content">
@@ -2660,6 +2661,7 @@ Emojies:
       </div>
   </div>
 </div>
+{/* Sign up Calender Model */}
 
 <div className="modal" id="myPickWineModel">
   <div className="modal-dialog dialogwidth">
