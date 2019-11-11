@@ -472,7 +472,7 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   let time;
   let t;
   let dt2 = new Date(cutoffStartDate);
-//  cutoffStartDate=cutoffEndDate;
+  //  cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
