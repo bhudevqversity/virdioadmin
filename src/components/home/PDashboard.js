@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-import $ from 'jquery';
 
 //import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";

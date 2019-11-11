@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from 'react-router';
+
 class HostSessionCreation extends Component {
   
   constructor(props) {
@@ -9,6 +11,7 @@ class HostSessionCreation extends Component {
         address:'',
         phoneNumber:'',
         ss:'',
+        imageName:'',
         description:'',
         streetAddress1 :'',
         streetAddress2 :'',
@@ -23,25 +26,77 @@ class HostSessionCreation extends Component {
         equipmentStatus:false,
         productStatus:false,
         exampleFormControlSelect2:'account Type',
-        hostList:[{userId:'100',image :'images/pic.jpg', userName:'Nathakljsdfkljksldfn Taylor',type:false},{userId:'101',image :'images/pic.jpg',userName:'Nathan Taylor',type:false},{userId:'100',image :'images/pic.jpg', userName:'Nathan Taylor',type:false},{userId:'100',image :'images/pic.jpg', userName:'Nathan Taylor',type:false}],
+        hostList:[],
         hostList1:[],
-        InterestHost:[{userId:'100',image :'images/pic.jpg', userName:'Nathakljsdfkljksldfn Taylor',type:false},{userId:'101',image :'images/pic.jpg',userName:'Nathan Taylor',type:false},{userId:'100',image :'images/pic.jpg', userName:'Nathan Taylor',type:false},{userId:'100',image :'images/pic.jpg', userName:'Nathan Taylor',type:false}],
+        InterestHost:[],
         InterestHost1:[],
         selectedFile: '',
-        addEquipmentList:[],
         equipmentCount:0,
         addShoppingList:[],
         selectedShoppingList:'',
-        ShoppingCount:0
-            
+        ShoppingCount:0,
+        ///////////Add a new Product/////////////////////////
+        shoppingProductName:'',
+        shoppingVarietal:'',
+        shoppingPrice:'',
+        addEquipmentList:[],
+        shoppingPh:'',
+        shoppingAppearance:'',
+        shoppingAroma:'',
+        shoppingPalate:'',
+        shoppingTestingNote:'',
+        shoppingWineMakingNote:'',
+        shoppingPair:'',
+        addAttribute:[],
+        something:[false,false,false,false,false,false]    
     }
 
 }
  
 componentDidMount(){
 	
-
+this.setChannelInterest();
+this.setChannelHost();
   }
+setChannelInterest=(e)=>{
+let arr = [
+    {
+        id:1,
+        title:"Wine"
+        },
+        {
+        id:2,
+        title:"Fitness"
+        }
+    ]
+    let channelArray= this.state.InterestHost;
+    for(let i=0;i<arr.length;i++){
+     let n = {id:arr[i].id,title:arr[i].title,image :'images/pic.jpg',type:false};
+     channelArray.push(n);   
+    }
+    this.setState({
+    InterestHost:channelArray
+    })
+}
+
+setChannelHost=(e)=>{
+    let arr = [{
+        userId:3,
+        username:"Lalit A"
+        },
+        {
+        userId:1,
+        username:"Deepak A"
+        }];
+        let channelArray= this.state.hostList;
+    for(let i=0;i<arr.length;i++){
+     let n = {userId:arr[i].userId,username:arr[i].username,image :'images/pic.jpg',type:false};
+     channelArray.push(n);   
+    }
+    this.setState({
+    hostList:channelArray
+    })
+}
  addEquipment = e =>{
    let arr = this.state.addEquipmentList;
    arr.push(this.state.selectedFile);
@@ -109,8 +164,45 @@ onChangeHandler=event=>{
   const data = new FormData() 
     data.append('file', event.target.files[0]);
     console.log('----------------------',data);
+    this.setState({
+        imageName:event.target.files[0]
+    })
 }
-
+addAttribute = (e) => {
+    console.log(e.target.id);
+    let x=2,n=0;
+    console.log('e.target.id',e.target.id);
+    let attributeArray = this.state.addAttribute;
+    let classArray = this.state.something;
+    for(let i =0 ;i<attributeArray.length;i++){
+      if(e.target.id === attributeArray[i]){
+       x=1;n=i;
+      }
+    }
+  
+    if(x===1){
+      attributeArray.splice(n,1);
+      classArray[e.target.name] = false;
+      this.setState({
+        addAttribute:attributeArray,
+        something:classArray
+        },()=>
+        { console.log('add Attribute==>',this.state.addAttribute);
+      });
+    }
+    else{
+      attributeArray.push(e.target.id);
+      classArray[e.target.name] = true;
+      console.log(e.target.name,'classArray[e.target.value]',classArray[e.target.value],classArray);
+      this.setState({
+        addAttribute:attributeArray,
+        something:classArray
+        },()=>
+        { console.log(this.state.something,'add Attribute==>',this.state.addAttribute);
+      });
+    }
+  
+    }
 selectHost = (e) => {
     let arrayCheck = [];
     let hostContainer = this.state.hostList;
@@ -148,13 +240,13 @@ selectHost = (e) => {
     channelContainer[e.target.id].type = !channelContainer[e.target.id].type;
     if(channelContainer[e.target.id].type) {
     arrayCheck = this.state.InterestHost1;
-    arrayCheck.push(channelContainer[e.target.id].userId);    
+    arrayCheck.push(channelContainer[e.target.id].id);    
       } 
     else {
       
        if(this.state.InterestHost1.length>0){
         for(let i=0;i<this.state.InterestHost1.length;i++){
-           if(this.state.InterestHost1[i]=== channelContainer[e.target.id].userId){
+           if(this.state.InterestHost1[i]=== channelContainer[e.target.id].id){
             arrayCheck = this.state.InterestHost1;
             arrayCheck.splice(i,1);
             this.setState({
@@ -173,9 +265,38 @@ selectHost = (e) => {
    
   }
   submitForm = (event) => {
-  console.log(this.state.hostList1,'---------------------',this.state.hostList);
-  event.preventDefault();
-    }
+    event.preventDefault();
+    const channel = {
+    "name": this.state.address,
+    "description": this.state.description,
+    "image": this.state.imageName,
+    "phone": this.state.phoneNumber,
+    "street_address1": this.state.streetAddress1,
+    "street_address2": this.state.streetAddress2,
+    "city": this.state.city,
+    "state_code": this.state.stateCode,
+    "zip_code": this.state.zipCode,
+    "account_name":this.state.accountName,
+    "account_number":this.state.accountNumber,
+    "account_type":this.state.accountType,
+    "routing_number":this.state.routingNumber,
+    "ss":this.state.ss,
+    "ein":"7654",
+    "chargeForSessiones":this.state.sessionCharge,
+    "charge_amount":"30",
+    "has_shopping_list":this.state.shoppingStatus,
+    "has_equipment_list":this.state.equipmentStatus,
+    "has_product_list":this.state.productStatus
+  }
+  
+  const channelHost = {
+      channel_Host:this.state.hostList1
+  }
+  const InterestHost = {
+      Interest_Host:this.state.InterestHost1
+  }
+  console.log('****************',channel,channelHost,InterestHost);
+}
 
 render() {
 return(
@@ -184,9 +305,9 @@ return(
         <div className="App">
             <div className="container-fluid">
                 <div className="row top-header px-4 pb-4">
-                    <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="images/login-logo.png" className="logo" /></div>
+                    <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="images/login-logo.png" className="logo" alt = '' /></div>
                     <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
-                        <div className="user-info d-flex align-items-center"><img src="images/pic.jpg" className="user-avtar pic" />
+                        <div className="user-info d-flex align-items-center"><img src="images/pic.jpg" className="user-avtar pic" alt = '' />
                             <div className="pl-4">
                                 <h3>Welcome Arjun!</h3>
                                 <p>No session this week</p>
@@ -205,7 +326,7 @@ return(
                             <div className="header-info-right">
                                 <p>Total Revenue</p>
                                 <h3>$0</h3></div><span className="border-right gray-border"></span>
-                                  <div className="message-notification"><img src="images/message.png" />
+                                  <div className="message-notification"><img src="images/message.png" alt=''/>
                               <span className="message-count">0</span></div>
                         </div>
                     </div>
@@ -339,7 +460,7 @@ return(
                                             <div className="custom-file mb-3">
                                               <input type="file" className="custom-file-input" id="customFile" name="file" onChange = {this.onChangeHandler} />
                                               <label className="custom-file-label input-field position-relative" htmlFor="customFile">
-                                                  <img src="images/browse-img.png" className="browse_image" />
+                                                  <img src="images/browse-img.png" className="browse_image" alt= ''/>
                                                   <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
                                               </label>
                                             </div>
@@ -420,7 +541,7 @@ return(
                                         </div>
                                         {this.state.shoppingStatus?
                                         <div className="add_text">
-                                            <a href="#" className="bg-circle mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></a>
+                                            <Link to="HostSessionCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.ShoppingCount} Items Added</span>
                                         </div> 
                                         :''
@@ -440,7 +561,7 @@ return(
                                         </div>
                                         {this.state.equipmentStatus ?
                                         <div className="add_text">
-                                            <a href="#" className="bg-circle mr-4" data-toggle="modal" data-target="#equipment_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></a>
+                                            <Link tp ="HostSessionCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#equipment_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.equipmentCount} Equipments Added</span>
                                         </div>    
                                         :''
@@ -460,7 +581,7 @@ return(
                                         </div>
                                         {this.state.productStatus?
                                         <div className="add_text">
-                                            <a href="#" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></a>
+                                            <Link to="HostSessionCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">0 Product Added</span>
                                         </div>
                                         :''
@@ -486,9 +607,9 @@ return(
                                     checked = {row.type}
                                     onChange= {this.selectHost}
                                     className="form-radio" />
-                                    <img src={row.image} className="ml-2 mr-3" alt="user-icon" />
+                                    <img src={row.image} className="ml-2 mr-3" alt="user-icon" alt=''/>
                                     <div>
-                                        <p className="checktxt_name pb-1">{row.userName}</p>
+                                        <p className="checktxt_name pb-1">{row.username}</p>
                                         <p className="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
                                         <p className="checktxt">Past Revenue $34,000</p>
                                     </div>
@@ -546,7 +667,7 @@ return(
                                     className="form-radio" />
                                     <img src={row.image} className="ml-2 mr-3" alt="user-icon" />
                                     <div>
-                                        <p className="checktxt_name pb-1">{row.userName}</p>
+                                        <p className="checktxt_name pb-1">{row.title}</p>
                                         <p className="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
                                         <p className="checktxt">Past Revenue $34,000</p>
                                     </div>
@@ -615,9 +736,9 @@ return(
                             onChange ={(e)=>console.log(this.state.selectedShoppingList)}
                             className="input-field"
                             placeholder="" disabled />
-                            <a href="#" className="bg-circle position-absolute">
+                            <Link to="HostSessionCreation" className="bg-circle position-absolute">
                                 <i className="fa fa-minus pt-1" id={i} onClick={this.removeShoppingList} aria-hidden="true"></i>
-                            </a>
+                            </Link>
                         </div>
                         )}
                         {/*  */}
@@ -634,7 +755,7 @@ return(
                        
                     </div>
                     <div className="add_text text-center">
-                        <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></a>
+                        <Link to="HostSessionCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></Link>
                     </div> 
                     {/*  */}
                 </div>
@@ -740,9 +861,9 @@ return(
                             className="input-field"
                             placeholder="" 
                             disabled/>
-                            <a href="#" className="bg-circle position-absolute">
+                            <Link to="HostSessionCreation" className="bg-circle position-absolute">
                                 <i className="fa fa-minus pt-1" id={i} onClick={this.removeEquipment} aria-hidden="true"></i>
-                            </a>
+                            </Link>
                         </div>
                         )}
                         {/*  */}
@@ -758,13 +879,13 @@ return(
                          placeholder="" />
                     </div>
                     <div className="add_text text-center">
-                        <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></a>
+                        <Link to="HostSessionCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></Link>
                     </div> 
                 </div>                
             </div>
         </div>
         </div>
-        <div class="modal pr-0 show" id="product_lst_modal">
+        <div className="modal pr-0 show" id="product_lst_modal">
          <div className="modal-dialog large_width">
             <div className="modal-content modl_bg_color">
                 <div className="modal-header px-4">
@@ -775,33 +896,33 @@ return(
                     <div className="card cardbg mt-4">
                         <div className="form-group mb-0"><span className="cover-border"></span>
                             <label className="label">Name of the Product</label>
-                            <input type="text" className="input-field" />
+                            <input type="text" id='shoppingProductName' value={this.state.shoppingProductName} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log('*****',this.state.shoppingProductName))} className="input-field" />
                         </div>
                     </div>
                     <div className="card cardbg">
                         <h4 className="white mt-4 mb-3">Add Attribute</h4>
                         <div className="d-flex flex-wrap">
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">year</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">country</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">applellation</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">harvest date</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">price</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</a>
-                            <a href="#" className="btn btn-primary mr-2 mt-2">pH</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">palate</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</a>
+                        <Link to="HostSessionCreation" id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</Link>
+                        <Link to="HostSessionCreation" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
+                        <Link to ="HostSessionCreation" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
+                        <Link to="HostSessionCreation" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</Link>
+                        <Link to="HostSessionCreation" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">price</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary mr-2 mt-2">pH</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">palate</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link>
                         </div>
                         <div className="border_bottom_dotted mt-4"></div>
                     </div>
@@ -810,19 +931,19 @@ return(
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Varietal</label>
-                                    <input type="text" className="input-field" />
+                                    <input type="text" id = 'shoppingVarietal' value = {this.state.shoppingVarietal} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingVarietal))} className="input-field" />
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Price</label>
-                                    <input type="text" className="input-field" />
+                                    <input type="text" id = 'shoppingPrice' value = {this.state.shoppingPrice} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPrice))} className="input-field" />
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group mb-0">
                                     <label className="label">pH</label>
-                                    <input type="text" className="input-field footerborder" />
+                                    <input type="text" id = 'shoppingPh' value = {this.state.shoppingPh} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPh))} className="input-field footerborder" />
                                 </div>
                             </div>
                         </div>
@@ -830,19 +951,19 @@ return(
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Appearance</label>
-                                    <input type="text" className="input-field" />
+                                    <input type="text" id = 'shoppingAppearance' value = {this.state.shoppingAppearance} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingAppearance))} className="input-field" />
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Aroma</label>
-                                    <input type="text" className="input-field" />
+                                    <input type="text" id = 'shoppingAroma' value = {this.state.shoppingAroma} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingAroma))} className="input-field" />
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group mb-0">
                                     <label className="label">Palate</label>
-                                    <input type="text" className="input-field footerborder" />
+                                    <input type="text" id = 'shoppingPalate' value = {this.state.shoppingPalate} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPalate))} className="input-field footerborder" />
                                 </div>
                             </div>
                         </div>
@@ -850,19 +971,19 @@ return(
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Testing Notes</label>
-                                    <textarea rows="5" className="input-field"></textarea>
+                                    <textarea rows="5" id = 'shoppingTestingNote' value = {this.state.shoppingTestingNote} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingTestingNote))} className="input-field"></textarea>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Winemaking Notes</label>
-                                    <textarea rows="5" className="input-field"></textarea>
+                                    <textarea rows="5" id = 'shoppingWineMakingNote' value = {this.state.shoppingWineMakingNote} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingWineMakingNote))} className="input-field"></textarea>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Pairs With</label>
-                                    <textarea rows="5" className="input-field"></textarea>
+                                    <textarea rows="5" id = 'shoppingPair' value = {this.state.shoppingPair} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPair))} className="input-field"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -870,9 +991,9 @@ return(
                 </div>
             </div>
         </div> 
-        <div class="text-center">
-            <button type="button" class="done mb-5 mt-2 mr-3">Preview</button>
-            <button type="button" class="done mt-4 mt-2">save</button>
+        <div className="text-center">
+            <button type="button" className="done mb-5 mt-2 mr-3">Preview</button>
+            <button type="button" className="done mt-4 mt-2">save</button>
         </div>
     </div>
     </div>

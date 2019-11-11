@@ -8,7 +8,6 @@ import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router'
 
-import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class Header extends Component {
@@ -44,6 +43,11 @@ class Header extends Component {
         sessionYear:'',
         sessionDay:'',
         sessionTime:'',
+        sessionAttribute:[],
+        sessionClass:[false,false,false,false,false,false,false,false,false,false],
+        signUpSessionStatus:false,
+        signUpRepeatSession:[],
+        signUpClass:[false,false,false,false,false,false,false,false,false,false],
         reminderSessionTime:'',
         reminderMonth:'',
         reminderYear:'',
@@ -419,6 +423,79 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
 console.log('*****************',this.state.dateFormat);
 }
 
+signUpAttribute = (e) => {
+  console.log(e.target.id);
+  let x=2,n=0;
+  console.log('e.target.id',e.target.id);
+  let attributeArray = this.state.signUpRepeatSession;
+  let classArray = this.state.signUpClass;
+  for(let i =0 ;i<attributeArray.length;i++){
+    if(e.target.id == attributeArray[i]){
+     x=1;n=i;
+    }
+  }
+
+  if(x==1){
+    attributeArray.splice(n,1);
+    classArray[e.target.name] = false;
+    this.setState({
+      signUpRepeatSession:attributeArray,
+      signUpClass:classArray
+      },()=>
+      { console.log('add Attribute==>',this.state.signUpRepeatSession);
+    });
+  }
+  else{
+    attributeArray.push(e.target.id);
+    classArray[e.target.name] = true;
+    this.setState({
+      signUpRepeatSession:attributeArray,
+      signUpClass:classArray
+      },()=>
+      { console.log(this.state.signUpClass,'add Attribute==>',this.state.signUpRepeatSession);
+    });
+  }
+  }
+  sessionAttribute = (e) => {
+    console.log(e.target.id);
+    let x=2,n=0;
+    console.log('e.target.id',e.target.id);
+    let attributeArray = this.state.sessionAttribute;
+    let classArray = this.state.sessionClass;
+    for(let i =0 ;i<attributeArray.length;i++){
+      if(e.target.id == attributeArray[i]){
+       x=1;n=i;
+      }
+    }
+  
+    if(x==1){
+      attributeArray.splice(n,1);
+      classArray[e.target.name] = false;
+      this.setState({
+        sessionAttribute:attributeArray,
+        sessionClass:classArray
+        },()=>
+        { console.log('add Attribute==>',this.state.sessionAttribute);
+      });
+    }
+    else{
+      attributeArray.push(e.target.id);
+      classArray[e.target.name] = true;
+      this.setState({
+        sessionAttribute:attributeArray,
+        sessionClass:classArray
+        },()=>
+        { console.log(this.state.sessionClass,'add Attribute==>',this.state.sessionAttribute);
+      });
+    }
+  
+    }
+saveSessionCalenderDetail = (e) =>{
+  console.log(this.state.sessionAttribute,this.state.sessionDuration,this.state.sessionFrequency);
+}    
+saveSignUpCalender = (e) => {
+ console.log(this.state.signUpRepeatSession,this.state.signUpDuration,this.state.signUpFrequency);
+}
 onChange = (startDate, endDate) => {
   const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   let day;
@@ -1199,11 +1276,11 @@ submitForm = (event) => {
             </div>
           </div>
         </div>
-        <div class="overflow-hidden">
-          <h4 class="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
-          <div class="d-flex flex-wrap float-right">
-              <p class="float-right purple_text mr-4 bordr-right mb-0"><a href="#" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</a></p>
-              <p class="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" className="purple_text">x</Link></p>
+        <div className="overflow-hidden">
+          <h4 className="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
+          <div className="d-flex flex-wrap float-right">
+              <p className="float-right purple_text mr-4 bordr-right mb-0"><a href="#" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</a></p>
+              <p className="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" className="purple_text">x</Link></p>
           </div>    
         </div>
         {/* <div className="overflow-hidden">
@@ -1211,7 +1288,7 @@ submitForm = (event) => {
 
         <a href="#" className="btn btn-primary mb-3 float-right" data-toggle="modal" data-target="#allprevsession"> copy from ....</a>
         </div> */}
-      <div class="clearfix"></div>
+      <div className="clearfix"></div>
         <div className="gray-box">
           <div className="row session mx-0">
             <h3 className="col-md-6 info"><img src="images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
@@ -1246,12 +1323,12 @@ submitForm = (event) => {
                         onChange = {this.sessionInfo}
                       >
                         <option>Pick a Difficulty level</option>											
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Advance</option>
+                        {/* <option>5</option> */}
                       </select>
-                      {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required|integer')}						  
+                      {/* {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required|integer')}						   */}
                   </div>
                   </div>
                   <div className="col-md-3 px-4">																 
@@ -1321,7 +1398,7 @@ submitForm = (event) => {
                         <span className="slider round"></span>
                     </label>
                     
-                    {this.state.sessionProperty?<span>private session</span>:<span>Public Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+                    {this.state.sessionProperty?<span>Public Session</span>:<span>Private Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
 
                     <div className="form-group input-txt h-90">
@@ -2268,8 +2345,8 @@ submitForm = (event) => {
         </div>
       </div>
       </div>
-        <div class="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
+        <div className="text-center position-absolute btn_btn1">
+        {this.state.repeatSession?'':<button type="button" className="done mt-0">done</button>}
         </div>
       </div>
       {this.state.repeatSession?
@@ -2282,12 +2359,15 @@ submitForm = (event) => {
       <div className="modal-body px-0">
       <h5 className="white">Frequency</h5>
       <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
-      <select class="custom_field mt-2 mb-0" id="">
+      <a href="#" id='varietal' name='0' onClick = {this.sessionAttribute} className={(this.state.sessionClass[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>varietal</a>
+      <a href="#" id='Every day' name='1' onClick = {this.sessionAttribute} className={(this.state.sessionClass[1]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>Every day</a>
+      <a href="#" id='once a week' name='2' onClick = {this.sessionAttribute} className={(this.state.sessionClass[2]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>once a week</a>
+      <a href="#" id='twice a week' name='3' onClick = {this.sessionAttribute} className={(this.state.sessionClass[3]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>twice a week</a>
+      <a href="#" id='3 times a week' name='4' onClick = {this.sessionAttribute} className={(this.state.sessionClass[4]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>3 times a week</a>
+      <select className="custom_field mt-2 mb-0" 
+      id="sessionFrequency"
+      value = {this.state.sessionFrequency}
+      onChange = {this.sessionInfo}>
         <option>custom</option>
         <option>1 week</option>
         <option>2 week</option>
@@ -2297,12 +2377,16 @@ submitForm = (event) => {
       </div>
       <h5 className="white mt-4">Duration</h5>
       <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
-      <select class="custom_field mt-2 mb-0" id="">
+      <a href="#" id='1 week' name='5' onClick = {this.sessionAttribute} className={(this.state.sessionClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</a>
+      <a href="#" id='2 weeks' name='6' onClick = {this.sessionAttribute} className={(this.state.sessionClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</a>
+      <a href="#" id='3 weeks' name='7' onClick = {this.sessionAttribute} className={(this.state.sessionClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</a>
+      <a href="#" id='4 weeks' name='8' onClick = {this.sessionAttribute} className={(this.state.sessionClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</a>
+      <a href="#" id='5 weeks' name='9' onClick = {this.sessionAttribute} className={(this.state.sessionClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</a>
+      <select className="custom_field mt-2 mb-0" 
+      id="sessionDuration"
+      value = {this.state.sessionDuration}
+      onChange = {this.sessionInfo}
+      >
         <option>custom</option>
         <option>1 week</option>
         <option>2 week</option>
@@ -2311,8 +2395,8 @@ submitForm = (event) => {
         </select>
       </div>
       </div>
-      <div class="text-center position-absolute btn_btn1">
-          <button type="button" class="done mt-0">save</button>
+      <div className="text-center position-absolute btn_btn1">
+          <button type="button" onClick={this.saveSessionCalenderDetail} className="done mt-0">save</button>
       </div>
      {/* <img src="images/path.png" className="small_cont" /> */}
       {/* <div className="modalbg small_cont"></div> */}
@@ -2348,9 +2432,9 @@ submitForm = (event) => {
           <div className="form-group input-txt mb-0">
               <label className="switch">
                   <input type="checkbox" 
-                  id="repeatSession"
-                  checked={this.state.repeatSession}
-                  onChange={(e)=> this.setState({[e.target.id]:!this.state.repeatSession},()=>console.log(this.state.repeatSession))}
+                  id="signUpSessionStatus"
+                  checked={this.state.signUpSessionStatus}
+                  onChange={(e)=> this.setState({[e.target.id]:!this.state.signUpSessionStatus},()=>console.log(this.state.signUpSessionStatus))}
                   />
                   <span className="slider round"></span>
               </label>
@@ -2360,13 +2444,13 @@ submitForm = (event) => {
         </div>
       </div>
       </div>
-        <div class="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
+        <div className="text-center position-absolute btn_btn1">
+        {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0">done</button>}
         </div>
       </div>
-      {this.state.repeatSession?
+      {this.state.signUpSessionStatus?
       <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
-      {this.state.repeatSession?
+      {this.state.signUpSessionStatus?
       <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
       <div className="modal-header headerborder px-0">
         <h4 className="white modal-title">Repeat Session</h4>
@@ -2374,12 +2458,16 @@ submitForm = (event) => {
       <div className="modal-body px-0">
       <h5 className="white">Frequency</h5>
       <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
-      <select class="custom_field mt-2 mb-0" id="">
+      <a href="#" id='varietal' name='0' onClick = {this.signUpAttribute} className={(this.state.signUpClass[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>varietal</a>
+      <a href="#" id='Every day' name='1' onClick = {this.signUpAttribute} className={(this.state.signUpClass[1]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>Every day</a>
+      <a href="#" id='once a week' name='2' onClick = {this.signUpAttribute} className={(this.state.signUpClass[2]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>once a week</a>
+      <a href="#" id='twice a week' name='3' onClick = {this.signUpAttribute} className={(this.state.signUpClass[3]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>twice a week</a>
+      <a href="#" id='3 times a week' name='4' onClick = {this.signUpAttribute} className={(this.state.signUpClass[4]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>3 times a week</a>
+      <select className="custom_field mt-2 mb-0" 
+      id="signUpFrequency"
+      value = {this.state.signUpFrequency}
+      onChange = {this.sessionInfo}
+      >
         <option>custom</option>
         <option>1 week</option>
         <option>2 week</option>
@@ -2389,12 +2477,16 @@ submitForm = (event) => {
       </div>
       <h5 className="white mt-4">Duration</h5>
       <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
-      <select class="custom_field mt-2 mb-0" id="">
+      <a href="#" id='1 week' name='5' onClick = {this.signUpAttribute} className={(this.state.signUpClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</a>
+      <a href="#" id='2 weeks' name='6' onClick = {this.signUpAttribute} className={(this.state.signUpClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</a>
+      <a href="#" id='3 weeks' name='7' onClick = {this.signUpAttribute} className={(this.state.signUpClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</a>
+      <a href="#" id='4 weeks' name='8' onClick = {this.signUpAttribute} className={(this.state.signUpClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</a>
+      <a href="#" id='5 weeks' name='9' onClick = {this.signUpAttribute} className={(this.state.signUpClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</a>
+      <select className="custom_field mt-2 mb-0" 
+      id="signUpDuration"
+      value = {this.state.signUpDuration}
+      onChange = {this.sessionInfo}
+      >
         <option>custom</option>
         <option>1 week</option>
         <option>2 week</option>
@@ -2403,8 +2495,8 @@ submitForm = (event) => {
         </select>
       </div>
       </div>
-      <div class="text-center position-absolute btn_btn1">
-          <button type="button" class="done mt-0">save</button>
+      <div className="text-center position-absolute btn_btn1">
+          <button type="button" onClick = {this.saveSignUpCalender} className="done mt-0">save</button>
       </div>
      {/* <img src="images/path.png" className="small_cont" /> */}
       {/* <div className="modalbg small_cont"></div> */}

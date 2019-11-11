@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Link } from 'react-router';
-//import $ from 'jquery';
-//import DateTimeField from "react-bootstrap-datetimepicker";
 
 class Dashboard extends Component {
 constructor(props) {
@@ -52,7 +50,7 @@ componentDidMount(){
 			  </ul>
 			  <div className="carousel-inner">
 				{this.state.carouselData.map((row,i)=>
-				<div className={(i==0?"carousel-item active":"carousel-item")} key ={i}>
+				<div className={(i===0?"carousel-item active":"carousel-item")} key ={i}>
 				      <img src={row.path} alt="" />
 				      <div className="carousel-caption">
 				      	<div className="inner_text d-flex flex-wrap align-items-center ">
@@ -63,7 +61,7 @@ componentDidMount(){
 						    <div className="lower_inner_text">
 						    	<div className="learn_more d-flex justify-content-between">
 						    		<p className="mb-0">Learn more about hosting sessions on virdio</p>
-						    		<div className="bordr"><a href="#"><i className="fa fa-angle-right"></i></a></div>
+						    		<div className="bordr"><Link to ="/"><i className="fa fa-angle-right"></i></Link></div>
 						    	</div>
 						    </div>
 				      </div>   
@@ -166,7 +164,7 @@ componentDidMount(){
 			<div className="slides_inner_part">
 				{this.state.fitnessData.map((row,i)=>
 				<div className="item" key ={i}>
-					<img src={row.path} />
+					<img src={row.path}  />
 					<p className="mt-3">Strength Training 1</p>
 				</div>
 				)}
@@ -197,7 +195,7 @@ componentDidMount(){
 			<div className="slides_inner_part">
 				{this.state.wineData.map((row,i)=>
 				<div className="item" key={i} >
-					<img src={row.path} />
+					<img src={row.path}  />
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}
@@ -291,11 +289,11 @@ componentDidMount(){
 			</div>
 			<div className="col-lg-3 col-sm-6 px-lg-0">
 				<p>SUBSCRIBE TO OUR NEWSLETTER FOR UPDATES</p>
-				<p className="foot_txt">By giving us your email you agree to our <a href="#">Terms of service</a> and <a href="#">Terms of privacy</a></p>
+				<p className="foot_txt">By giving us your email you agree to our <Link to ="/">Terms of service</Link> and <Link to ="/">Terms of privacy</Link></p>
 				<div className="input-group mb-3 mt-4">
 				    <input type="text" className="form-control" placeholder="Email Address" name="" />
 				    <div className="input-group-append">
-				    	<span className="input-group-text"><a href="#"><i className="fa fa-angle-right"></i></a></span>
+				    	<span className="input-group-text"><Link to ="/"><i className="fa fa-angle-right"></i></Link></span>
 				    </div>
 			    </div>
 			</div>

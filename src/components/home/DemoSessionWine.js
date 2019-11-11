@@ -7,8 +7,6 @@ import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router';
-
-import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class DemoSessionWine extends Component {
@@ -29,6 +27,9 @@ class DemoSessionWine extends Component {
         dateFormat : '',
         cutoffStartDate:date.getTime(),
         cutoffEndDate:'',
+        repeatSession:false,
+        sessionAttribute:[],
+        sessionClass:[false,false,false,false,false,false,false,false,false,false],
         cutoffDateTime:'',
         whenTime:'',
         sessionMonth:'',
@@ -38,8 +39,13 @@ class DemoSessionWine extends Component {
         reminderSessionTime:'',
         reminderMonth:'',
         reminderYear:'',
+        signUpFrequency:'CUSTOM',
+        signUpDuration:'CUSTOM',
         reminderDay:'',
         reminderTime:'',
+        signUpSessionStatus:false,
+        signUpRepeatSession:[],
+        signUpClass:[false,false,false,false,false,false,false,false,false,false],
         localTimeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,
         //////////header state////////
         totalViews : '',
@@ -56,6 +62,8 @@ class DemoSessionWine extends Component {
         sessionAmount:'',
         exampleFormControlSelect1:'Pick a Duration',
         exampleFormControlSelect2 : 'Pick a Difficulty level',
+        sessionFrequency:'CUSTOM',
+        sessionDuration:'CUSTOM',
         sessionProperty:false,
         heartRateMonitor:true,
         zoneTracking : true,
@@ -502,6 +510,79 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
 console.log('*****************',this.state.dateFormat);
 }
 
+signUpAttribute = (e) => {
+  console.log(e.target.id);
+  let x=2,n=0;
+  console.log('e.target.id',e.target.id);
+  let attributeArray = this.state.signUpRepeatSession;
+  let classArray = this.state.signUpClass;
+  for(let i =0 ;i<attributeArray.length;i++){
+    if(e.target.id === attributeArray[i]){
+     x=1;n=i;
+    }
+  }
+
+  if(x===1){
+    attributeArray.splice(n,1);
+    classArray[e.target.name] = false;
+    this.setState({
+      signUpRepeatSession:attributeArray,
+      signUpClass:classArray
+      },()=>
+      { console.log('add Attribute==>',this.state.signUpRepeatSession);
+    });
+  }
+  else{
+    attributeArray.push(e.target.id);
+    classArray[e.target.name] = true;
+    this.setState({
+      signUpRepeatSession:attributeArray,
+      signUpClass:classArray
+      },()=>
+      { console.log(this.state.signUpClass,'add Attribute==>',this.state.signUpRepeatSession);
+    });
+  }
+  }
+  sessionAttribute = (e) => {
+    console.log(e.target.id);
+    let x=2,n=0;
+    console.log('e.target.id',e.target.id);
+    let attributeArray = this.state.sessionAttribute;
+    let classArray = this.state.sessionClass;
+    for(let i =0 ;i<attributeArray.length;i++){
+      if(e.target.id === attributeArray[i]){
+       x=1;n=i;
+      }
+    }
+  
+    if(x=== 1){
+      attributeArray.splice(n,1);
+      classArray[e.target.name] = false;
+      this.setState({
+        sessionAttribute:attributeArray,
+        sessionClass:classArray
+        },()=>
+        { console.log('add Attribute==>',this.state.sessionAttribute);
+      });
+    }
+    else{
+      attributeArray.push(e.target.id);
+      classArray[e.target.name] = true;
+      this.setState({
+        sessionAttribute:attributeArray,
+        sessionClass:classArray
+        },()=>
+        { console.log(this.state.sessionClass,'add Attribute==>',this.state.sessionAttribute);
+      });
+    }
+  
+    }
+saveSessionCalenderDetail = (e) =>{
+  console.log(this.state.sessionAttribute,this.state.sessionDuration,this.state.sessionFrequency);
+}    
+saveSignUpCalender = (e) => {
+console.log(this.state.signUpRepeatSession,this.state.signUpDuration,this.state.signUpFrequency);
+}   
 onChange = (startDate, endDate) => {
   const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   let day;
@@ -569,7 +650,7 @@ setHeaderValue=() => {
 sessionInfo = e =>{
   this.setState({
       [e.target.id] : e.target.value
-  },()=>console.log('==========>',this.state))
+  },()=>console.log('==========>'))
 }
 ///////////////Add row Activity table
 addRow = () =>{
@@ -783,12 +864,12 @@ addAttribute = (e) => {
   let attributeArray = this.state.addAttribute;
   let classArray = this.state.something;
   for(let i =0 ;i<attributeArray.length;i++){
-    if(e.target.id == attributeArray[i]){
+    if(e.target.id === attributeArray[i]){
      x=1;n=i;
     }
   }
 
-  if(x==1){
+  if(x===1){
     attributeArray.splice(n,1);
     classArray[e.target.name] = false;
     this.setState({
@@ -848,11 +929,11 @@ addToHost = () => {
   for (let i=0;i<this.state.hostList.length;i++) {
     x=0;n=0;
     for(let l=0;l<this.state.hostList1.length;l++){
-      if(this.state.hostList[i].userId==this.state.hostList1[l]){
+      if(this.state.hostList[i].userId===this.state.hostList1[l]){
         x=1;n=l;
       }
     }
-    if(x==1){ // update
+    if(x===1){ // update
      console.log('update');
     } else { // new insertion
     console.log('Search ******************************new insertion');
@@ -877,11 +958,11 @@ addToHost = () => {
   for (let i=0;i<this.state.hostList.length;i++) {
     x=0;n=0;
     for(let l=0;l<this.state.hostList1.length;l++){
-      if(this.state.hostList[i].userId==this.state.hostList1[l]){
+      if(this.state.hostList[i].userId===this.state.hostList1[l]){
         x=1;n=l;
       }
     }
-    if(x==1){ // update
+    if(x===1){ // update
      console.log('update');
     } else { // new insertion
     console.log('Search ******************************new insertion');
@@ -1622,11 +1703,11 @@ Emojies:
             </div>
           </div>
         </div>
-        <div class="overflow-hidden">
-          <h4 class="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
-          <div class="d-flex flex-wrap float-right">
-              <p class="float-right purple_text mr-4 bordr-right mb-0"><a href="#" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</a></p>
-              <p class="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" class="purple_text">x</Link></p>
+        <div className="overflow-hidden">
+          <h4 className="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
+          <div className="d-flex flex-wrap float-right">
+              <p className="float-right purple_text mr-4 bordr-right mb-0"><Link to="wine-demo" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</Link></p>
+              <p className="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" className="purple_text">x</Link></p>
           </div>    
         </div>
 
@@ -1743,7 +1824,7 @@ Emojies:
                         <span className="slider round"></span>
                     </label>
                     
-                    {this.state.sessionProperty?<span>Private Session</span>:<span>Public Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+                    {this.state.sessionProperty?<span>Public Session</span>:<span>Private Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" alt ='' />
                     </div>
                     <div className="form-group input-txt h-90">
                     <label className="switch">
@@ -1961,7 +2042,7 @@ Emojies:
                      var splitData = order[i].split(',');
                        for(let l =0;l<this.state.tablerows.length;l++){
                           console.log(splitData[1],'this.state.tablerows',this.state.tablerows[l].id);
-                            if(this.state.tablerows[l].id==splitData[1]){
+                            if(this.state.tablerows[l].id===splitData[1]){
                             arr.push(this.state.tablerows[l]);
                             console.log(this.state.tablerows[l],'*************************************',arr);
                           }
@@ -2150,7 +2231,7 @@ Emojies:
                      var splitData = order[i].split(',');
                        for(let l =0;l<this.state.wineInfoArray.length;l++){
                           console.log(splitData[1],'this.state.tablerows',this.state.wineInfoArray[l].id);
-                            if(this.state.wineInfoArray[l].id==splitData[1]){
+                            if(this.state.wineInfoArray[l].id===splitData[1]){
                             arr.push(this.state.wineInfoArray[l]);
                             console.log(this.state.wineInfoArray[l],'*************************************',arr);
                           }
@@ -2164,7 +2245,7 @@ Emojies:
                  <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
                   <td>{row.wineDescription}</td>
                   <td>
-                  <p><a href="#" className="purple_link">{row.wineMedia}</a></p>
+                  <p><Link to="wine-demo" className="purple_link">{row.wineMedia}</Link></p>
                   </td>
                   <td>
                   <div className="color-icons pl-3">
@@ -2214,8 +2295,8 @@ Emojies:
                       {/* <div className="border-bottom mt-3">
                   </div> */}
                     <div className="px-3">                    
-                        <a href="#" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</a>
-                        <a href="#" className="activity-link ml-5"><span onClick = {this.addToWineDescription}>+</span> Info</a><img src="images/bulb.png" className="ml-3 mb-2" />
+                        <Link to="wine-demo" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</Link>
+                        <Link to="wine-demo" className="activity-link ml-5"><span onClick = {this.addToWineDescription}>+</span> Info</Link><img src="images/bulb.png" className="ml-3 mb-2" alt='' />
                     </div>
                 </div>
           {/* Next Description Box End */}
@@ -2227,14 +2308,14 @@ Emojies:
         
         {/* Shopping List Start */}
         <div className="gray-box no-border-radius pb-2">
-          <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
+          <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt='' />Shopping List</h3></div>
           <div className="px-3 pb-5">
             <div className="row">
               <div className="col-md-4">
                   <Link to ="wine-demo" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               <div className="col-lg-4 col-md-4">
-                <a href="#" className="pick"><img src="images/add.png" className="mr-2" /> Add all Product from Script</a>
+                <Link to="wine-demo" className="pick"><img src="images/add.png" className="mr-2" alt=''/> Add all Product from Script</Link>
               </div>
               <div className="col-md-4">
                   <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#add_product_modal" ><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
@@ -2284,7 +2365,7 @@ Emojies:
 
         {/* Equipemnt List Start */}
         <div className="gray-box2 no-border-radius">
-          <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
+          <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt='' />Equipment List</h3></div>
           <div className="px-3 pb-5">
             <div className="row">
               <div className="col-md-4">
@@ -2632,12 +2713,12 @@ Emojies:
         </div>
       </div>
       </div>
-        <div class="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
+        <div className="text-center position-absolute btn_btn1">
+        {this.state.repeatSession?'':<button type="button" className="done mt-0">done</button>}
         </div>
       </div>
       {this.state.repeatSession?
-      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
+      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" alt='' /></div>:''}
       {this.state.repeatSession?
       <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
       <div className="modal-header headerborder px-0">
@@ -2646,12 +2727,17 @@ Emojies:
       <div className="modal-body px-0">
       <h5 className="white">Frequency</h5>
       <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
-      <select class="custom_field mt-2 mb-0" id="">
+      <Link to="wine-demo" id='varietal' name='0' onClick = {this.sessionAttribute} className={(this.state.sessionClass[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>varietal</Link>
+      <Link to="wine-demo" id='Every day' name='1' onClick = {this.sessionAttribute} className={(this.state.sessionClass[1]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>Every day</Link>
+      <Link to="wine-demo" id='once a week' name='2' onClick = {this.sessionAttribute} className={(this.state.sessionClass[2]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>once a week</Link>
+      <Link to="wine-demo" id='twice a week' name='3' onClick = {this.sessionAttribute} className={(this.state.sessionClass[3]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>twice a week</Link>
+      <Link to="wine-demo" id='3 times a week' name='4' onClick = {this.sessionAttribute} className={(this.state.sessionClass[4]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>3 times a week</Link>
+      <select 
+      className="custom_field mt-2 mb-0" 
+      id="sessionFrequency"
+      value = {this.state.sessionFrequency}
+      onChange = {this.sessionInfo}
+      >
         <option>custom</option>
         <option>1 week</option>
         <option>2 week</option>
@@ -2661,12 +2747,16 @@ Emojies:
       </div>
       <h5 className="white mt-4">Duration</h5>
       <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
-      <select class="custom_field mt-2 mb-0" id="">
+      <Link to="wine-demo" id='1 week' name='5' onClick = {this.sessionAttribute} className={(this.state.sessionClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</Link>
+      <Link to="wine-demo" id='2 weeks' name='6' onClick = {this.sessionAttribute} className={(this.state.sessionClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</Link>
+      <Link to="wine-demo" id='3 weeks' name='7' onClick = {this.sessionAttribute} className={(this.state.sessionClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</Link>
+      <Link to="wine-demo" id='4 weeks' name='8' onClick = {this.sessionAttribute} className={(this.state.sessionClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</Link>
+      <Link to="wine-demo" id='5 weeks' name='9' onClick = {this.sessionAttribute} className={(this.state.sessionClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</Link>
+      <select className="custom_field mt-2 mb-0" 
+      id="sessionDuration"
+      value = {this.state.sessionDuration}
+      onChange = {this.sessionInfo}
+      >
         <option>custom</option>
         <option>1 week</option>
         <option>2 week</option>
@@ -2675,8 +2765,8 @@ Emojies:
         </select>
       </div>
       </div>
-      <div class="text-center position-absolute btn_btn1">
-          <button type="button" class="done mt-0">save</button>
+      <div className="text-center position-absolute btn_btn1">
+          <button type="button" onClick = 'this.saveSessionCalenderDetail' className="done mt-0">save</button>
       </div>
      {/* <img src="images/path.png" className="small_cont" /> */}
       {/* <div className="modalbg small_cont"></div> */}
@@ -2713,9 +2803,9 @@ Emojies:
           <div className="form-group input-txt mb-0">
               <label className="switch">
                   <input type="checkbox" 
-                  id="repeatSession"
-                  checked={this.state.repeatSession}
-                  onChange={(e)=> this.setState({[e.target.id]:!this.state.repeatSession},()=>console.log(this.state.repeatSession))}
+                  id="signUpSessionStatus"
+                  checked={this.state.signUpSessionStatus}
+                  onChange={(e)=> this.setState({[e.target.id]:!this.state.signUpSessionStatus},()=>console.log(this.state.signUpSessionStatus))}
                   />
                   <span className="slider round"></span>
               </label>
@@ -2725,13 +2815,13 @@ Emojies:
         </div>
       </div>
       </div>
-        <div class="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
+        <div className="text-center position-absolute btn_btn1">
+        {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0">done</button>}
         </div>
       </div>
-      {this.state.repeatSession?
-      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
-      {this.state.repeatSession?
+      {this.state.signUpSessionStatus?
+      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" alt=''/></div>:''}
+      {this.state.signUpSessionStatus?
       <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
       <div className="modal-header headerborder px-0">
         <h4 className="white modal-title">Repeat Session</h4>
@@ -2739,12 +2829,15 @@ Emojies:
       <div className="modal-body px-0">
       <h5 className="white">Frequency</h5>
       <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
-      <select class="custom_field mt-2 mb-0" id="">
+      <Link to="wine-demo" id='varietal' name='0' onClick = {this.signUpAttribute} className={(this.state.signUpClass[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>varietal</Link>
+      <Link to="wine-demo" id='Every day' name='1' onClick = {this.signUpAttribute} className={(this.state.signUpClass[1]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>Every day</Link>
+      <Link to="wine-demo" id='once a week' name='2' onClick = {this.signUpAttribute} className={(this.state.signUpClass[2]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>once a week</Link>
+      <Link to="wine-demo" id='twice a week' name='3' onClick = {this.signUpAttribute} className={(this.state.signUpClass[3]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>twice a week</Link>
+      <Link to="wine-demo" id='3 times a week' name='4' onClick = {this.signUpAttribute} className={(this.state.signUpClass[4]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>3 times a week</Link>
+      <select className="custom_field mt-2 mb-0" 
+      id="signUpFrequency"
+      value = {this.state.signUpFrequency}
+      onChange = {this.sessionInfo}>
         <option>custom</option>
         <option>1 week</option>
         <option>2 week</option>
@@ -2754,12 +2847,15 @@ Emojies:
       </div>
       <h5 className="white mt-4">Duration</h5>
       <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
-      <select class="custom_field mt-2 mb-0" id="">
+      <Link to="wine-demo" id='1 week' name='5' onClick = {this.signUpAttribute} className={(this.state.signUpClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</Link>
+      <Link to="wine-demo" id='2 weeks' name='6' onClick = {this.signUpAttribute} className={(this.state.signUpClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</Link>
+      <Link to="wine-demo" id='3 weeks' name='7' onClick = {this.signUpAttribute} className={(this.state.signUpClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</Link>
+      <Link to="wine-demo" id='4 weeks' name='8' onClick = {this.signUpAttribute} className={(this.state.signUpClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</Link>
+      <Link to="wine-demo" id='5 weeks' name='9' onClick = {this.signUpAttribute} className={(this.state.signUpClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</Link>
+      <select className="custom_field mt-2 mb-0" 
+      id="signUpDuration"
+      value = {this.state.signUpDuration}
+      onChange = {this.sessionInfo}>
         <option>custom</option>
         <option>1 week</option>
         <option>2 week</option>
@@ -2768,8 +2864,8 @@ Emojies:
         </select>
       </div>
       </div>
-      <div class="text-center position-absolute btn_btn1">
-          <button type="button" class="done mt-0">save</button>
+      <div className="text-center position-absolute btn_btn1">
+          <button type="button" onClick = {this.saveSignUpCalender} className="done mt-0">save</button>
       </div>
      {/* <img src="images/path.png" className="small_cont" /> */}
       {/* <div className="modalbg small_cont"></div> */}
@@ -2899,7 +2995,7 @@ Emojies:
                                         checked={row.status} 
                                         onChange={this.aromaSelect} />
                                         <span className="form-check-label">
-                                        <img src={row.path} className="mx-3" />{row.name}</span>
+                                        <img src={row.path} className="mx-3" alt='' />{row.name}</span>
                                         </label>
                                     ))):''}
                                   </div>
@@ -2954,27 +3050,27 @@ Emojies:
                     <div className="card cardbg">
                         <h4 className="white mt-4 mb-3">Add Attribute</h4>
                         <div className="d-flex flex-wrap">
-                            <a href="#" id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</a>
-                            <a href="#" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</a>
-                            <a href="#" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</a>
-                            <a href="#" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</a>
-                            <a href="#" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">price</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</a>
-                            <a href="#" className="btn btn-primary mr-2 mt-2">pH</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</a>
-                            <a href="#" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">palate</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</a>
-                            <a href="#" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</a>
+                            <Link to="wine-demo"id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</Link>
+                            <Link to="wine-demo" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
+                            <Link to="wine-demo" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
+                            <Link to="wine-demo" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</Link>
+                            <Link to="wine-demo" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</Link>
+                            <Link to="wine-demo" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</Link>
+                            <Link to="wine-demo" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</Link>
+                            <Link to="wine-demo" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</Link>
+                            <Link to="wine-demo" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</Link>
+                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">price</Link>
+                            <Link to="wine-demo" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</Link>
+                            <Link to="wine-demo" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</Link>
+                            <Link to="wine-demo" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</Link>
+                            <Link to="wine-demo" className="btn btn-primary mr-2 mt-2">pH</Link>
+                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</Link>
+                            <Link to="wine-demo" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</Link>
+                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</Link>
+                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">palate</Link>
+                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
+                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
+                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link>
                         </div>
                     </div>
                     <div className="card cardbg mt-5">
@@ -3072,7 +3168,7 @@ Emojies:
                     <div className="card cardbg">
                         <div className="row mt-4">
                         {this.state.hostList.map((row,i) => (
-                          (i%2==0?
+                          (i%2===0?
                             <div className="col-md-6 pl-md-0" key = {i}>
                                 <label className="custom-control custom-checkbox lebelheight">
                                     <input type="checkbox"
@@ -3091,7 +3187,7 @@ Emojies:
                             </div>:''
                          )))}
                         {this.state.hostList.map((row,i) => (
-                        (i%2==1?
+                        (i%2===1?
                         <div className="col-md-6" key = {i}>
                               <label className="custom-control custom-checkbox lebelheight">
                                     <input type="checkbox"
