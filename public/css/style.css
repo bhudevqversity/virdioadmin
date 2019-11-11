@@ -1369,10 +1369,14 @@ div.overflow-hidden p:nth-child(1) a:after
 {
 	position: absolute;
     z-index: 999;
-    right: 34%;
+    right: 32%;
     top: 58px;
 }
-
+.browse_text span.white
+{
+	font-family: Avenir-Book;
+	font-size: 20px;
+}
 
 /*-------------slide-23 CSS----------------*/
 .b-image
@@ -1543,6 +1547,10 @@ div.overflow-hidden p:nth-child(1) a:after
     .learn_more
     {
     	padding: 5px;
+    }
+    .browse_text
+    {
+    	right: 20%;
     }
 
   }
