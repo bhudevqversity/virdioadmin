@@ -1832,7 +1832,7 @@ submitForm = (event) => {
                         disabled
                       />
                       {/* <span className="when-icon"></span> */}
-                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel1"></Link>
+                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></Link>
                     </div>
                     
                   </div>
@@ -1932,7 +1932,7 @@ submitForm = (event) => {
           <div className="p-3">
           <div className="row">
             <div className="col-md-4 px-4">
-                <Link to="header" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
+                <Link to="wine-demo" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
                 <Link to ="/" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
@@ -2021,7 +2021,7 @@ submitForm = (event) => {
                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                     </td>
                     <td>
-                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
+                    <Link to="wine-demo" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
                     <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={row.id} onClick = {this.removeWineActivity} aria-hidden="true"></i></Link>
                   </td>
                  </tr>
@@ -2183,7 +2183,7 @@ submitForm = (event) => {
                  </div>
                   </td>
                   <td className="d-flex justify-content-center">
-                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"   aria-hidden="true"></i></Link>
+                    <Link to="wine-demo" className="mr-2 bg-circle"><i className="fa fa-bars"   aria-hidden="true"></i></Link>
                     <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeToWineDescription} aria-hidden="true"></i></Link>
                   </td>
                  </tr>
@@ -2296,10 +2296,10 @@ submitForm = (event) => {
           <div className="px-3 pb-5">
             <div className="row">
               <div className="col-md-4">
-                  <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
+                  <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
+                  <Link to ="wine-demo" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
           </div>
@@ -2354,7 +2354,7 @@ submitForm = (event) => {
     </div>
     {/* Equipemnt List End */}
 
-  <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+  <Link to ="wine-demo" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
          
   {/* Select Equipemnt List Start */}
   <div className="modal" id="myModal2">
@@ -2691,6 +2691,48 @@ submitForm = (event) => {
       </div>:''}
   </div>
 </div>
+{/* Sign up Calender Model Start*/}
+
+<div className="modal cal_modal" id="signUpCalenderModel">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h4 className="modal-title white">Select Duration</h4>
+        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+      </div>
+      <div className="modal-body">
+      <h3>Calender</h3>
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date <= (new Date().getTime())}
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      <div className="botm_container">
+        <div className="row mt-4">
+          <div className="col-md-5 mt-2">
+            <div className="form-group"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="12:00 PM" />
+                <span className="clock-icon"></span>
+            </div>
+          </div>
+          <div className="col-md-7">
+          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
+          <div className="form-group input-txt">
+              <label className="switch">
+                  <input type="checkbox" />
+                  <span className="slider round"></span>
+              </label>
+              <span>This is a repeated session</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+  </div>
+</div>
+
+
+{/* Sign Up Calender Model End */}
 <div className="modal cal_modal" id="signUpCalenderModel1">
 <div className="modal-dialog d-md-flex d-block large_width1 mb-0">
     <div className="modal-content modalbg m-auto">

@@ -729,13 +729,16 @@ handleSelect = (e) => {
  
 }
 selectHost = (e) => {
+
+ 
   
   let hostContainer = this.state.hostList;
   console.log('this.state.hostList',this.state.hostList);
   let hostarray = [];
   let x =2,n=0;
   hostarray = this.state.hostList2;
-  console.log('************************',hostContainer[e.target.id].userId);
+
+  console.log('*************lalit***********',hostContainer[e.target.id].userId);
   //hostContainer[e.target.id].type = !hostContainer[e.target.id].type;
   //if(hostContainer[e.target.id].type) {
     for(let i=0;i<hostContainer.length;i++){
@@ -1740,7 +1743,7 @@ submitForm = (event) => {
             </div>
             </div>
           </div>
-          <Link to="header" className="activity-link pl-4"><span onClick = {this.addRow}>+</span> Activity</Link>
+          <Link to="session-creation" className="activity-link pl-4"><span onClick = {this.addRow}>+</span> Activity</Link>
         </div>
 
         {/* Script End */}
@@ -1752,10 +1755,10 @@ submitForm = (event) => {
           <div className="px-4 pb-5">
             <div className="row">
               <div className="col-md-4">
-                  <Link to ="header" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
+                  <Link to ="session-creation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+                  <Link to="session-creation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
           </div>
@@ -1806,10 +1809,10 @@ submitForm = (event) => {
           <div className="px-4 pb-5">
             <div className="row">
               <div className="col-md-4">
-                  <Link to="header" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
+                  <Link to="session-creation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
+                  <Link to ="session-creation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
           </div>
@@ -1872,7 +1875,7 @@ submitForm = (event) => {
       </div>
     {/* Equipement List End  */}
 
-    <Link to ="header" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+    <Link to ="session-creation" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
     <div className="modal" id="myModal">
     <div className="modal-dialog dialogwidth modal-dialog-centered">
       <div className="modal-content modalbg">
@@ -2319,40 +2322,48 @@ submitForm = (event) => {
       </div>:''}
   </div>
 </div>
-
+{/* Sign Up Calender Model Start */}
 <div className="modal cal_modal" id="signUpCalenderModel">
-<div className="modal-dialog d-md-flex d-block large_width1 mb-0">
-    <div className="modal-content modalbg m-auto">
-      <div className="modal-header px-4 pt-4 pb-0">
-        <h4 className="white modal-title">Choose Date and Time</h4>
-        <button type="button pr-3" className="close white closepopup" data-dismiss="modal">&times;</button>
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h4 className="modal-title white">Select Duration</h4>
+        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
+      {/* <div className="modal-body">
+      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      disableDates={date => date < (new Date().getTime())}
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      <div className="row">
+      <div className="col-md-6">
+      <div class="form-group"><span class="cover-border"></span>
+        <label class="label">Enter Time</label>
+        <input type="text" class="input-field" />
+      </div>
+      </div>
+      </div>
+      </div> */}
       <div className="modal-body">
       <h3>Calender</h3>
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
-          <div className="col-md-5 mt-2 pl-4">
-            <div className="form-group mb-0"><span className="cover-border"></span>
-                <label className="label">Enter Time</label>
-                <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
-                <span className="clock-icon"></span>
+          <div className="col-md-5 mt-2">
+            <div class="form-group"><span class="cover-border"></span>
+                <label class="label">Enter Time</label>
+                <input type="text" value = {this.state.reminderSessionTime} class="input-field" placeholder="12:00 PM" disabled />
+                <span class="clock-icon"></span>
             </div>
           </div>
-          <div className="col-md-1"></div>
-          <div className="col-md-6 pr-4">
-          <p className="mb-2 input-txt">On {this.state.sessionDay} {this.state.sessionMonth} {this.state.sessionYear}, at {this.state.sessionTime}</p>
-          <div className="form-group input-txt mb-0">
-              <label className="switch">
-                  <input type="checkbox" 
-                  id="repeatSession"
-                  checked={this.state.repeatSession}
-                  onChange={(e)=> this.setState({[e.target.id]:!this.state.repeatSession},()=>console.log(this.state.repeatSession))}
-                  />
-                  <span className="slider round"></span>
+          <div className="col-md-7">
+          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
+          <div class="form-group input-txt">
+              <label class="switch">
+                  <input type="checkbox" />
+                  <span class="slider round"></span>
               </label>
               <span>This is a repeated session</span>
             </div>
@@ -2360,57 +2371,10 @@ submitForm = (event) => {
         </div>
       </div>
       </div>
-        <div class="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" class="done mt-0">done</button>}
-        </div>
-      </div>
-      {this.state.repeatSession?
-      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
-      {this.state.repeatSession?
-      <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
-      <div className="modal-header headerborder px-0">
-        <h4 className="white modal-title">Repeat Session</h4>
-      </div>
-      <div className="modal-body px-0">
-      <h5 className="white">Frequency</h5>
-      <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">varietal</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">Every day</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">once a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">twice a week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 times a week</a>
-      <select class="custom_field mt-2 mb-0" id="">
-        <option>custom</option>
-        <option>1 week</option>
-        <option>2 week</option>
-        <option>3 week</option>
-        <option>4 week</option>
-        </select>
-      </div>
-      <h5 className="white mt-4">Duration</h5>
-      <div className="d-flex flex-wrap">
-      <a href="#" class="btn btn-primary text-uppercase mr-2 mt-2">1 week</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">2 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">3 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">4 weeks</a>
-      <a href="#" class="btn btn-outline-secondary text-uppercase mr-2 mt-2">5 weeks</a>
-      <select class="custom_field mt-2 mb-0" id="">
-        <option>custom</option>
-        <option>1 week</option>
-        <option>2 week</option>
-        <option>3 week</option>
-        <option>4 week</option>
-        </select>
-      </div>
-      </div>
-      <div class="text-center position-absolute btn_btn1">
-          <button type="button" class="done mt-0">save</button>
-      </div>
-     {/* <img src="images/path.png" className="small_cont" /> */}
-      {/* <div className="modalbg small_cont"></div> */}
-      </div>:''}
+      </div>calenderModel
   </div>
 </div>
+{/* Sign Up Calender Model End */}
       </div>
     );
   }
