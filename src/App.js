@@ -28,11 +28,11 @@ class App extends Component {
      <div className="App">
      
       <Route exact path="/" component={Dashboard} />
-      <Route exact path="/wine-demo" component={DemoSessionWine} />
+      <Route exact path="/WineSessionCreation" component={DemoSessionWine} />
 	    <Route exact path="/wine-creation" component={SessionWineCreation} />
-      <Route exact path="/session-creation" component={Header} />
+      <Route exact path="/FitnessSessionCreation" component={Header} />
 		  <Route exact path="/participent-dashboard" component={PDashboard} />
-      <Route exact path="/HostSessionCreation" component={HostSessionCreation} />
+      <Route exact path="/ChannelCreation" component={HostSessionCreation} />
 		</div>
      </Router>
    );
