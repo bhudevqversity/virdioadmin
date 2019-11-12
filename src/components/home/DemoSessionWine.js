@@ -1783,23 +1783,31 @@ submitForm = (event) => {
                       {/* <span  className="when-icon"></span> */}
                       <Link to ="#" className="when-icon" data-toggle="modal" data-target="#calenderModel1"></Link>
                     </div>
-                    <div className="form-group">
-                      <span className="cover-border bg_gray_clr"></span>
-                      <label className="label">How long?</label>
-                      <select
-                        className="input-field"
-                        id="exampleFormControlSelect2"
-                        value = {this.state.exampleFormControlSelect2}
-                        onChange = {this.sessionInfo}
-                      >
-                        <option>Pick a Duration</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      {this.validator.message('exampleFormControlSelect2', this.state.exampleFormControlSelect2, 'required|integer')}
-                      
+                    <div class="row">
+                      <div class="col-md-6 pr-md-2">
+                        <div class="form-group"><span class="cover-border"></span>
+                          <label class="label">Hours</label>
+                          <select class="input-field" id="">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6 pl-md-1">
+                        <div class="form-group"><span class="cover-border"></span>
+                          <label class="label">Minutes</label>
+                            <select class="input-field" id="">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                      </div>
                     </div>
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
@@ -1841,16 +1849,36 @@ submitForm = (event) => {
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span>
                     </div>
-                    <div className="form-group input-txt h-90">
+                    <div class="row">
+                      <div class="col-lg-7 pr-0">
+                          <div class="form-group input-txt h-90">
+                              <label class="switch">
+                                <input type="checkbox" id="sessionCharge" checked="" />
+                                <span class="slider round"></span>
+                              </label>
+                              <span>Charging for Session?</span>
+                              <p class="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>
+                          </div>
+                      </div>
+                      <div class="col-lg-5">
+                        <div class="form-group h-90"><span class="cover-border bg_gray_clr"></span>
+                          <label class="label">Charge amount</label>
+                          <div class=" mb-2 mt-2">
+                            <input type="text" class="input-field" id="amountCharge" placeholder="Enter amount" value="" /><span class="dollar"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div className="form-group input-txt h-90">
                       <label className="switch">
                           <input type="checkbox" id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} />
                           <span className="slider round"></span>
                       </label>
                       <span>Charging for Session?</span>
                       {this.state.sessionCharge?<p className="gray-text ml-5 mt-3 mb-4">You have enabled it in the Channel</p>:''}
-                    </div>
+                    </div> */}
 
-                    {this.state.sessionCharge?
+                    {/* {this.state.sessionCharge?
                     <div className="form-group w-50 ml-5 h-90">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Charge amount</label>
@@ -1866,13 +1894,20 @@ submitForm = (event) => {
                         {this.validator.message('amountCharge', this.state.amountCharge, 'required|integer')}
                         <span className="dollar"></span>
                       </div>
-                    </div>:''}
-                    <div className="form-group input-txt">
+                    </div>:''} */}
+                    <div className="form-group input-txt h-90">
                         <label className="switch">
                         <input type="checkbox" id = "orderWine" defaultChecked = {this.state.orderWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.orderWine},()=>console.log("orderWine",this.state.orderWine))} />
                         <span className="slider round"></span>
                         </label>
                         <span>Allow Participants To Order wine at end of session</span>
+                    </div>
+                    <div className="form-group input-txt">
+                        <label className="switch">
+                        <input type="checkbox" id = "orderWine" defaultChecked = {this.state.orderWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.orderWine},()=>console.log("orderWine",this.state.orderWine))} />
+                        <span className="slider round"></span>
+                        </label>
+                        <span>Allow Participants on Demand</span>
                     </div>
 
                     
@@ -1944,7 +1979,7 @@ submitForm = (event) => {
             </div>
           </div>
         </div>
-        <div className="p-3 gray-box no-border-radius">
+        <div className="px-3 pb-4 gray-box no-border-radius">
         <div className="row">
         <div className="session"><h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" alt="privacy" />Privacy during Session</h3></div>
         <div className="col-md-6 px-4">
@@ -2010,7 +2045,7 @@ submitForm = (event) => {
         </div>
         <div className="pb-4">
           <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" alt="user-icon" />Select Host(s)</h3></div>
-          <div className="p-3">
+          <div className="px-3 pb-4">
           <div className="row">
             <div className="col-md-4 px-4">
                 <Link to="wine-demo" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
@@ -2317,8 +2352,8 @@ submitForm = (event) => {
         {/* Shopping List Start */}
         <div className="gray-box no-border-radius pb-2">
           <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt='' />Shopping List</h3></div>
-          <div className="px-3 pb-5">
-            <div className="row">
+          <div className="px-3 pb-4">
+            <div className="row pb-4">
               <div className="col-md-4">
                   <Link to ="wine-demo" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
@@ -2332,7 +2367,7 @@ submitForm = (event) => {
           </div>
           {this.state.shoppingList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!==0) && (listInsertion.itemNote!=="X")?
-          <div className="row mt-5" key = {i}>
+          <div className="row mt-4" key = {i}>
             <div className="col-md-2">
             <div className="form-group">
                       <span className="cover-border"></span>
@@ -2374,8 +2409,8 @@ submitForm = (event) => {
         {/* Equipemnt List Start */}
         <div className="gray-box2 no-border-radius">
           <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt='' />Equipment List</h3></div>
-          <div className="px-3 pb-5">
-            <div className="row">
+          <div className="px-3 pb-4">
+            <div className="row pb-4">
               <div className="col-md-4">
                   <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
@@ -2387,7 +2422,7 @@ submitForm = (event) => {
           {this.state.equipmentList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!==0)?
           <div className="p-3" key = {i}>
-          <div className="row mt-5 pb-4">
+          <div className="row mt-4 pb-4">
             
             <div className="col-md-4">
             {/* {this.state.equipmentList1.map((listInsertion) => (
@@ -2696,11 +2731,11 @@ submitForm = (event) => {
       startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
-          <div className="col-md-5 mt-2 pl-4">
+        <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
-                <span className="clock-icon"></span>
+                <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" />
+                {/* <span className="clock-icon "></span> */}
             </div>
           </div>
           <div className="col-md-1"></div>
@@ -2796,11 +2831,11 @@ submitForm = (event) => {
       startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
-          <div className="col-md-5 mt-2">
-            <div className="form-group"><span className="cover-border"></span>
+        <div className="col-md-5 mt-2 pl-4">
+            <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="12:00 PM" />
-                <span className="clock-icon"></span>
+                <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" />
+                {/* <span className="clock-icon "></span> */}
             </div>
           </div>
           <div className="col-md-7">

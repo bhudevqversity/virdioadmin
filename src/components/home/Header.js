@@ -1411,8 +1411,28 @@ submitForm = (event) => {
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
+                    <div class="row">
+                      <div class="col-lg-7 pr-0">
+                          <div class="form-group input-txt h-90">
+                              <label class="switch">
+                                <input type="checkbox" id="sessionCharge" checked="" />
+                                <span class="slider round"></span>
+                              </label>
+                              <span>Charging for Session?</span>
+                              <p class="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>
+                          </div>
+                      </div>
+                      <div class="col-lg-5">
+                        <div class="form-group h-90"><span class="cover-border bg_gray_clr"></span>
+                          <label class="label">Charge amount</label>
+                          <div class=" mb-2 mt-2">
+                            <input type="text" class="input-field" id="amountCharge" placeholder="Enter amount" value="" /><span class="dollar"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                    <div className="form-group input-txt h-90">
+                    {/* <div className="form-group input-txt h-90">
                       <label className="switch">
                           <input type="checkbox" id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} />
                           <span className="slider round"></span>
@@ -1437,7 +1457,7 @@ submitForm = (event) => {
                         {this.validator.message('amountCharge', this.state.amountCharge, 'required|integer')}
                         <span className="dollar"></span>
                       </div>
-                    </div>:''}
+                    </div>:''} */}
 
                     
                   </div>
@@ -1574,7 +1594,7 @@ submitForm = (event) => {
         </div>
         <div className="pb-4">
           <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" />Select Host(s)</h3></div>
-          <div className="p-3">
+          <div className="px-3 pb-4">
           <div className="row">
             <div className="col-md-4">
                 {/* <Link to="header" className="pick" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link> */}
@@ -1829,8 +1849,8 @@ submitForm = (event) => {
         
         <div className="gray-box no-border-radius pb-2">
           <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
-          <div className="px-4 pb-5">
-            <div className="row">
+          <div className="px-4 pb-4">
+            <div className="row pb-4">
               <div className="col-md-4">
                   <Link to ="session-creation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
@@ -1841,7 +1861,7 @@ submitForm = (event) => {
           </div>
           {this.state.shoppingList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!==0) && (listInsertion.itemNote!=="X")?
-          <div className="row mt-5" key = {i}>
+          <div className="row mt-4" key = {i}>
             <div className="col-md-2">
             <div className="form-group">
                       <span className="cover-border"></span>
@@ -1883,8 +1903,8 @@ submitForm = (event) => {
         {/* Equipement List Start  */}
         <div className="gray-box2 no-border-radius">
           <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
-          <div className="px-4 pb-5">
-            <div className="row">
+          <div className="px-4 pb-4">
+            <div className="row pb-4">
               <div className="col-md-4">
                   <Link to="session-creation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
@@ -1896,7 +1916,7 @@ submitForm = (event) => {
           {this.state.equipmentList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!==0)?
           <div className="p-3" key = {i}>
-          <div className="row mt-5 pb-4">
+          <div className="row mt-4 pb-4">
             
             <div className="col-md-4">
             {/* {this.state.equipmentList1.map((listInsertion) => (
@@ -2317,6 +2337,7 @@ submitForm = (event) => {
       </div>
       <div className="modal-body">
       <h3>Calender</h3>
+      
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
@@ -2326,8 +2347,8 @@ submitForm = (event) => {
           <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" value = {this.state.whenTime} className="input-field" placeholder="Time" disabled />
-                <span className="clock-icon"></span>
+                <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" />
+                {/* <span className="clock-icon "></span> */}
             </div>
           </div>
           <div className="col-md-1"></div>
@@ -2344,6 +2365,7 @@ submitForm = (event) => {
               </label>
               <span>This is a repeated session</span>
             </div>
+            
           </div>
         </div>
       </div>
@@ -2435,11 +2457,11 @@ submitForm = (event) => {
       startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
       <div className="botm_container">
         <div className="row mt-4">
-          <div className="col-md-5 mt-2">
-            <div class="form-group"><span class="cover-border"></span>
-                <label class="label">Enter Time</label>
-                <input type="text" value = {this.state.reminderSessionTime} class="input-field" placeholder="12:00 PM" disabled />
-                <span class="clock-icon"></span>
+        <div className="col-md-5 mt-2 pl-4">
+            <div className="form-group mb-0"><span className="cover-border"></span>
+                <label className="label">Enter Time</label>
+                <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" />
+                {/* <span className="clock-icon "></span> */}
             </div>
           </div>
           <div className="col-md-7">
