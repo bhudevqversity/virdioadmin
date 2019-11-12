@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Link } from 'react-router';
 
 class HostSessionCreation extends Component {
@@ -8,7 +9,9 @@ class HostSessionCreation extends Component {
     this.state = {
         accountAddress:false,
         sessionCharge:false,
+        msg:'',
         address:'',
+        name:'',
         phoneNumber:'',
         ss:'',
         imageName:'',
@@ -58,44 +61,90 @@ componentDidMount(){
 this.setChannelInterest();
 this.setChannelHost();
   }
+
 setChannelInterest=(e)=>{
-let arr = [
-    {
-        id:1,
-        title:"Wine"
-        },
-        {
-        id:2,
-        title:"Fitness"
-        }
-    ]
-    let channelArray= this.state.InterestHost;
-    for(let i=0;i<arr.length;i++){
-     let n = {id:arr[i].id,title:arr[i].title,image :'images/pic.jpg',type:false};
-     channelArray.push(n);   
-    }
-    this.setState({
-    InterestHost:channelArray
+
+// let arr = [
+//     {
+//         id:1,
+//         title:"Wine"
+//         },
+//         {
+//         id:2,
+//         title:"Fitness"
+//         }
+//     ]
+//     let channelArray= this.state.InterestHost;
+//     for(let i=0;i<arr.length;i++){
+//      let n = {id:arr[i].id,title:arr[i].title,image :'images/pic.jpg',type:false};
+//      channelArray.push(n);   
+//     }
+//     this.setState({
+//     InterestHost:channelArray
+//     })
+
+    let  channelId=1;
+    axios      
+    
+    .get("/api/v1/session/"+channelId+"/interest")          
+    .then(res => {
+      console.log('---------channelInterest--------------',res.data.responseData);
+      let channelArray= this.state.InterestHost;
+       let eqarray=res.data.responseData;        
+      for(let i=0;i<eqarray.length;i++){
+        let n = {id: eqarray[i].id, title: eqarray[i].title,image :'images/pic.jpg',type:false};
+        channelArray.push(n); 
+      }
+      this.setState({
+        InterestHost: channelArray
+          });
     })
+    .catch(err =>{
+        console.log('----------there is problem------------');
+
+    });
+    
 }
 
 setChannelHost=(e)=>{
-    let arr = [{
-        userId:3,
-        username:"Lalit A"
-        },
-        {
-        userId:1,
-        username:"Deepak A"
-        }];
-        let channelArray= this.state.hostList;
-    for(let i=0;i<arr.length;i++){
-     let n = {userId:arr[i].userId,username:arr[i].username,image :'images/pic.jpg',type:false};
-     channelArray.push(n);   
-    }
-    this.setState({
-    hostList:channelArray
+
+    // let arr = [{
+    //     userId:3,
+    //     username:"Lalit A"
+    //     },
+    //     {
+    //     userId:1,
+    //     username:"Deepak A"
+    //     }];
+    //     let channelArray= this.state.hostList;
+    // for(let i=0;i<arr.length;i++){
+    //  let n = {userId:arr[i].userId,username:arr[i].username,image :'images/pic.jpg',type:false};
+    //  channelArray.push(n);   
+    // }
+    // this.setState({
+    // hostList:channelArray
+    // })
+    let  channelId=1;
+    axios      
+
+    .get("/api/v1/session/"+channelId+"/hosts-list1")          
+    .then(res => {
+      console.log('---------channelHost--------------',res.data.responseData);
+      let channelArray= this.state.hostList;
+       let eqarray=res.data.responseData;        
+      for(let i=0;i<eqarray.length;i++){
+        let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+        channelArray.push(n); 
+      }
+      this.setState({
+        hostList: channelArray
+          });
     })
+    .catch(err =>{
+        console.log('----------there is problem------------');
+
+    });
+
 }
  addEquipment = e =>{
    let arr = this.state.addEquipmentList;
@@ -267,7 +316,7 @@ selectHost = (e) => {
   submitForm = (event) => {
     event.preventDefault();
     const channel = {
-    "name": this.state.address,
+    "name": this.state.name,
     "description": this.state.description,
     "image": this.state.imageName,
     "phone": this.state.phoneNumber,
@@ -295,7 +344,38 @@ selectHost = (e) => {
   const InterestHost = {
       Interest_Host:this.state.InterestHost1
   }
-  console.log('****************',channel,channelHost,InterestHost);
+  console.log('*******lalitChannel*********',channel,channelHost,InterestHost);
+
+  //if (this.validator.allValid()) {
+
+    axios.post("/api/v1/session/createchannel", {channel,channelHost,InterestHost})
+    .then(res => {
+
+      console.log('=============lallittiwari12345===================>',res.data);;
+
+          if(res.data.responseMessage == "success")
+          {
+          this.setState({
+          msg: "Channel hasbeen created Successfully!!!!!!!",
+        });
+        }else{
+
+        this.setState({
+          msg: "There Is a error in channel creation",
+        });
+
+      }
+    
+    })
+
+//   }else{
+
+//     console.log('----------------This is a error--------------------')
+//     this.validator.showMessages();
+//   // rerender to show messages for the first time
+//   // you can use the autoForceUpdate option to do this automatically`
+//   this.forceUpdate();
+//   }
 }
 
 render() {
@@ -334,6 +414,7 @@ return(
                 <div className="gray-box-4">
                     <div className="hdng_text py-4 d-flex justify-content-between px-4 headerborder align-items-center">
                         <h3 className="p-0 m-0">Create Channel</h3>
+                        <div  id="msg" style={{color:'green'}}>{this.state.msg}</div>
                         <button type="button" className="close">×</button>
                     </div>
                     <div className="py-4 px-4 session_text">
@@ -376,11 +457,11 @@ return(
                                 <div className="row">
                                     <div className="col-lg-4 col-md-6">
                                         <div className="form-group"><span className="cover-border"></span>
-                                            <label className="label">Avenir Next Med, 20pts</label>
+                                            <label className="label">Channel Name</label>
                                             <input type="text" 
-                                            id ="address"
-                                            value = {this.state.address}
-                                            onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.address))}
+                                            id ="name"
+                                            value = {this.state.name}
+                                            onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.name))}
                                             className="input-field" />
                                         </div>                                        
                                     </div>
@@ -541,7 +622,7 @@ return(
                                         </div>
                                         {this.state.shoppingStatus?
                                         <div className="add_text">
-                                            <Link to="HostSessionCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
+                                            <Link to="ChannelCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.ShoppingCount} Items Added</span>
                                         </div> 
                                         :''
@@ -581,7 +662,7 @@ return(
                                         </div>
                                         {this.state.productStatus?
                                         <div className="add_text">
-                                            <Link to="HostSessionCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
+                                            <Link to="ChannelCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">0 Product Added</span>
                                         </div>
                                         :''
@@ -736,7 +817,7 @@ return(
                             onChange ={(e)=>console.log(this.state.selectedShoppingList)}
                             className="input-field"
                             placeholder="" disabled />
-                            <Link to="HostSessionCreation" className="bg-circle position-absolute">
+                            <Link to="ChannelCreation" className="bg-circle position-absolute">
                                 <i className="fa fa-minus pt-1" id={i} onClick={this.removeShoppingList} aria-hidden="true"></i>
                             </Link>
                         </div>
@@ -755,7 +836,7 @@ return(
                        
                     </div>
                     <div className="add_text text-center">
-                        <Link to="HostSessionCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></Link>
+                        <Link to="ChannelCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></Link>
                     </div> 
                     {/*  */}
                 </div>
@@ -861,7 +942,7 @@ return(
                             className="input-field"
                             placeholder="" 
                             disabled/>
-                            <Link to="HostSessionCreation" className="bg-circle position-absolute">
+                            <Link to="ChannelCreation" className="bg-circle position-absolute">
                                 <i className="fa fa-minus pt-1" id={i} onClick={this.removeEquipment} aria-hidden="true"></i>
                             </Link>
                         </div>
@@ -879,7 +960,7 @@ return(
                          placeholder="" />
                     </div>
                     <div className="add_text text-center">
-                        <Link to="HostSessionCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></Link>
+                        <Link to="ChannelCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></Link>
                     </div> 
                 </div>                
             </div>
@@ -902,27 +983,27 @@ return(
                     <div className="card cardbg">
                         <h4 className="white mt-4 mb-3">Add Attribute</h4>
                         <div className="d-flex flex-wrap">
-                        <Link to="HostSessionCreation" id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</Link>
-                        <Link to="HostSessionCreation" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
-                        <Link to ="HostSessionCreation" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
-                        <Link to="HostSessionCreation" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</Link>
-                        <Link to="HostSessionCreation" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">price</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary mr-2 mt-2">pH</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">palate</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link>
+                        <Link to="ChannelCreation" id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</Link>
+                        <Link to="ChannelCreation" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
+                        <Link to ="ChannelCreation" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
+                        <Link to="ChannelCreation" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</Link>
+                        <Link to="ChannelCreation" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</Link>
+                        <Link to="ChannelCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</Link>
+                        <Link to="ChannelCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</Link>
+                        <Link to="ChannelCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</Link>
+                        <Link to="ChannelCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</Link>
+                        <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">price</Link>
+                        <Link to="ChannelCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</Link>
+                        <Link to="ChannelCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</Link>
+                        <Link to="ChannelCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</Link>
+                        <Link to="ChannelCreation" className="btn btn-primary mr-2 mt-2">pH</Link>
+                        <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</Link>
+                        <Link to="ChannelCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</Link>
+                        <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</Link>
+                        <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">palate</Link>
+                        <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
+                        <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
+                        <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link>
                         </div>
                         <div className="border_bottom_dotted mt-4"></div>
                     </div>

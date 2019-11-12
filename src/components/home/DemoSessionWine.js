@@ -1712,7 +1712,7 @@ submitForm = (event) => {
           </div>
         </div>
         <div className="overflow-hidden">
-          <h4 className="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
+          <h4 className="text-white float-left pt-1 pl-2">CREATE SESSION</h4>         
           <div className="d-flex flex-wrap float-right">
               <p className="float-right purple_text mr-4 bordr-right mb-0"><Link to="WineSessionCreation" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</Link></p>
               <p className="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" className="purple_text">x</Link></p>
