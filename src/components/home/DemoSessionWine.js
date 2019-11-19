@@ -7,6 +7,7 @@ import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router';
+import TimePicker from 'react-time-picker';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class DemoSessionWine extends Component {
@@ -20,14 +21,20 @@ class DemoSessionWine extends Component {
         session_details:'',
         something:[false,false,false,false,false,false],
         send_input:'',
+        // time: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        // time2: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        time: '00:00',
+        time2: '00:00',
         msg:'',
-        //////////Calender /////////////
+        //////////Calender /////////////y
         startDate, // Today
         endDate: '', // Today + 6 days
         dateFormat : '',
         cutoffStartDate:date.getTime(),
         cutoffEndDate:'',
         repeatSession:false,
+        sessionHour:0,
+        sessionMinute:0,
         sessionAttribute:[],
         sessionClass:[false,false,false,false,false,false,false,false,false,false],
         cutoffDateTime:'',
@@ -479,6 +486,79 @@ componentDidMount(){
     }
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
+timeset = time => {
+  
+  console.log(time.split(':')[0],time.split(':')[1]);
+  
+    let b = time.split(':')[1];
+    let a = parseInt(time.split(':')[0]);
+    b= parseInt(time.split(':')[1]);
+    if(a==12 && b>0){
+      a=a+ ' PM';
+    }
+    if(a>12 ){
+      a=a-12+ ' PM';
+    }
+    if(a<12){
+      a = a+' AM';
+    }
+    // if(b>59){
+    //   b=0;
+    //   time=parseInt(time.split(':')[0])+':'+b;
+    // }else{
+    //   time=parseInt(time.split(':')[0])+':'+parseInt(time.split(':')[1])
+    // }
+  // console.log(time1 ,'print')
+this.setState(
+  { time:time,
+    reminderTime:a,
+ },()=>console.log(this.state.time))}
+
+
+// end
+timeset2 = time2 => {
+  
+  console.log(time2.split(':')[0],time2.split(':')[1]);
+  
+    let b = time2.split(':')[1];
+    let a = parseInt(time2.split(':')[0]);
+    b= parseInt(time2.split(':')[1]);
+    if(a==12 && b>0){
+      a=a+ ' PM';
+    }
+    if(a>12 ){
+      a=a-12+' PM';
+    }
+    if(a<12){
+      a = a+' AM';
+    }
+  // console.log(time1 ,'print')
+this.setState(
+  { time2:time2,
+    sessionTime:a,
+  //  when : this.state.when +' '+this.state.time2,
+ },()=>console.log(this.state.time))}
+//end 
+
+// hour value
+forWineHour() {
+  var arr = [];
+    for (let i = 0; i <= 23; i++) {
+        arr.push(<option key={i} value={i}>{i}</option>)
+    }
+  return arr; 
+}
+
+// minute value
+forWineMinute() {
+  var arr = [];
+    for (let i = 0; i <= 59; i++) {
+        arr.push(<option key={i} value={i}>{i}</option>)
+    }
+  return arr; 
+}
+
+
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   const cutoffDateTime = cutoffStartDate;
@@ -487,7 +567,7 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   let time;
   let t;
   let dt2 = new Date(cutoffStartDate);
-  //  cutoffStartDate=cutoffEndDate;
+  cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
@@ -505,7 +585,7 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   year =new Date (dt2.getTime()).getFullYear();
   t= month[new Date (dt2.getTime()).getMonth()]; 
  
-  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" ";
   this.setState({
   signUpDateTime : dt2,
   reminderSessionTime :timeSelection,
@@ -601,6 +681,7 @@ onChange = (startDate, endDate) => {
   let dt2 = new Date(startDate);
   // dt = dt.split('GMT')
 //  endDate = startDate;
+  startDate=endDate;
   this.setState({ startDate, endDate,dateFormat },
   ()=>console.log('sds',this.state.startDate,this.state.endDate))
   let timeSelection =  new Date (dt2.getTime()).getHours() ;
@@ -615,9 +696,9 @@ onChange = (startDate, endDate) => {
   year =new Date (dt2.getTime()).getFullYear();
   t= month[new Date (dt2.getTime()).getMonth()]; 
  
-  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" ";
   this.setState({
-  when : dt2,
+  when : dt2 ,
   whenTime :timeSelection,
   sessionMonth:t,
   sessionDay:day,
@@ -1553,7 +1634,7 @@ submitForm = (event) => {
       name:this.state.session_details,
      // when:this.state.when,
      //start_date:"2019-10-20 15:06:01",
-     start_date:this.state.when,
+     start_date:this.state.when+' '+this.state.time2,
      description:this.state.description,
      duration:this.state.exampleFormControlSelect2,
     level:this.state.exampleFormControlSelect1,
@@ -1563,6 +1644,8 @@ submitForm = (event) => {
       sessionProperty:this.state.sessionProperty,
       session_charge:this.state.sessionCharge,
       currency:"USD",
+      hour:this.state.sessionHour,
+      minute:this.state.sessionMinute,
       show_particpants_count:"false",
       amountCharge:this.state.amountCharge
       }
@@ -1783,28 +1866,20 @@ submitForm = (event) => {
                       {/* <span  className="when-icon"></span> */}
                       <Link to ="#" className="when-icon" data-toggle="modal" data-target="#calenderModel1"></Link>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6 pr-md-2">
-                        <div class="form-group"><span class="cover-border"></span>
-                          <label class="label">Hours</label>
-                          <select class="input-field" id="">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                    <div className="row">
+                      <div className="col-md-6 pr-md-2">
+                        <div className="form-group"><span className="cover-border"></span>
+                          <label className="label">Hours</label>
+                          <select className="input-field" id="sessionHour" value={this.state.sessionHour} onChange={this.sessionInfo}>
+                            {this.forWineHour()}
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-6 pl-md-1">
-                        <div class="form-group"><span class="cover-border"></span>
-                          <label class="label">Minutes</label>
-                            <select class="input-field" id="">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
+                      <div className="col-md-6 pl-md-1">
+                        <div className="form-group"><span className="cover-border"></span>
+                          <label className="label">Minutes</label>
+                            <select className="input-field" id="sessionMinute" value={this.state.sessionMinute} onChange={this.sessionInfo}>
+                            {this.forWineMinute()}
                             </select>
                           </div>
                       </div>
@@ -1849,25 +1924,27 @@ submitForm = (event) => {
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-7 pr-0">
-                          <div class="form-group input-txt h-90">
-                              <label class="switch">
-                                <input type="checkbox" id="sessionCharge" checked="" />
-                                <span class="slider round"></span>
+                    <div className="row">
+                      <div className="col-lg-7 pr-0">
+                          <div className="form-group input-txt h-90">
+                              <label className="switch">
+                                <input type="checkbox" id="sessionCharge"  defaultChecked = {this.state.sessionCharge} onChange ={(e)=>this.setState({[e.target.id]:!this.state.sessionCharge})} />
+                                <span className="slider round"></span>
                               </label>
                               <span>Charging for Session?</span>
-                              <p class="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>
+                              {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                           </div>
                       </div>
-                      <div class="col-lg-5">
-                        <div class="form-group h-90"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Charge amount</label>
-                          <div class=" mb-2 mt-2">
-                            <input type="text" class="input-field" id="amountCharge" placeholder="Enter amount" value="" /><span class="dollar"></span>
+                      {this.state.sessionCharge?
+                      <div className="col-lg-5">
+                        <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>
+                          <label className="label">Charge amount</label>
+                          <div className=" mb-2 mt-2">
+                            <input type="text" className="input-field"id="amountCharge" placeholder="Enter amount" value={this.state.amountCharge} onChange= {this.sessionInfo} /><span className="dollar"></span>
                           </div>
                         </div>
                       </div>
+                      :''}
                     </div>
                     {/* <div className="form-group input-txt h-90">
                       <label className="switch">
@@ -2734,7 +2811,12 @@ submitForm = (event) => {
         <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" />
+                {/* <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" /> */}
+                <TimePicker
+                  onChange={this.timeset2}
+                  value={this.state.time2}
+                  disableClock	={true}
+                  />
                 {/* <span className="clock-icon "></span> */}
             </div>
           </div>
@@ -2757,7 +2839,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" className="done mt-0">done</button>}
+        {this.state.repeatSession?'':<button type="button" className="done mt-0" data-dismiss="modal">done</button>}
         </div>
       </div>
       {this.state.repeatSession?
@@ -2834,7 +2916,12 @@ submitForm = (event) => {
         <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" />
+                <TimePicker
+                  onChange={this.timeset}
+                  value={this.state.time}
+                  disableClock	={true}
+                  />
+                {/* <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" /> */}
                 {/* <span className="clock-icon "></span> */}
             </div>
           </div>
@@ -2851,6 +2938,9 @@ submitForm = (event) => {
         </div>
       </div>
       </div>
+        <div className="text-center position-absolute btn_btn1">
+          {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0" data-dismiss="modal">done</button>}
+        </div>
       </div>
   </div>
 </div>

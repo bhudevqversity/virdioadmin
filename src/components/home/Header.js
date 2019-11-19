@@ -6,7 +6,8 @@ import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
+import TimePicker from 'react-time-picker'
 
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
@@ -29,6 +30,8 @@ class Header extends Component {
         activityType:[],
         session_details:'',
         send_input:'',
+        time: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        time2: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
         msg:'',
         //////////Calender /////////////
         startDate, // Today
@@ -385,6 +388,53 @@ componentDidMount(){
     }
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
+timeset = time => {
+  
+  console.log(time.split(':')[0],time.split(':')[1]);
+  
+    let b = time.split(':')[1];
+    let a = parseInt(time.split(':')[0]);
+    b= parseInt(time.split(':')[1]);
+    if(a==12 && b>0){
+      a=a+ ' PM';
+    }
+    if(a>12 ){
+      a=a-12+ ' PM';
+    }
+    if(a<12){
+      a = a+' AM';
+    }
+  // console.log(time1 ,'print')
+this.setState(
+  { time:time,
+    reminderTime:a
+ },()=>console.log(this.state.time))}
+
+
+// end
+timeset2 = time2 => {
+  console.log(time2.split(':')[0],time2.split(':')[1]);
+    let b = time2.split(':')[1];
+    let a = parseInt(time2.split(':')[0]);
+    b= parseInt(time2.split(':')[1]);
+    if(a==12 && b>0){
+      a=a+ ' PM';
+    }
+    if(a>12 ){
+      a=a-12+ ' PM';
+    }
+    if(a<12){
+      a = a+' AM';
+    }
+  // console.log(time1 ,'print')
+this.setState(
+  { time2:time2,
+    sessionTime:a
+ },()=>console.log(this.state.time))}
+//end 
+
+
+
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   const cutoffDateTime = cutoffStartDate;
@@ -393,7 +443,7 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   let time;
   let t;
   let dt2 = new Date(cutoffStartDate);
-//  cutoffStartDate=cutoffEndDate;
+ cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
@@ -411,7 +461,7 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   year =new Date (dt2.getTime()).getFullYear();
   t= month[new Date (dt2.getTime()).getMonth()]; 
  
-  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" ";
   this.setState({
   signUpDateTime : dt2,
   reminderSessionTime :timeSelection,
@@ -507,6 +557,7 @@ onChange = (startDate, endDate) => {
   let dt2 = new Date(startDate);
   // dt = dt.split('GMT')
 //  endDate = startDate;
+  startDate=endDate;
   this.setState({ startDate, endDate,dateFormat },
   ()=>console.log('sds',this.state.startDate,this.state.endDate))
   let timeSelection =  new Date (dt2.getTime()).getHours() ;
@@ -521,7 +572,7 @@ onChange = (startDate, endDate) => {
   year =new Date (dt2.getTime()).getFullYear();
   t= month[new Date (dt2.getTime()).getMonth()]; 
  
-  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" ";
   this.setState({
   when : dt2,
   whenTime :timeSelection,
@@ -1411,25 +1462,27 @@ submitForm = (event) => {
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" />
                     </div>
-                    <div class="row">
-                      <div class="col-lg-7 pr-0">
-                          <div class="form-group input-txt h-90">
-                              <label class="switch">
-                                <input type="checkbox" id="sessionCharge" checked="" />
-                                <span class="slider round"></span>
+                    <div className="row">
+                      <div className="col-lg-7 pr-0">
+                          <div className="form-group input-txt h-90">
+                              <label className="switch">
+                                <input type="checkbox" id="sessionCharge" defaultChecked = {this.state.sessionCharge} onChange ={(e)=>this.setState({[e.target.id]:!this.state.sessionCharge})} />
+                                <span className="slider round"></span>
                               </label>
                               <span>Charging for Session?</span>
-                              <p class="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>
+                              {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                           </div>
                       </div>
-                      <div class="col-lg-5">
-                        <div class="form-group h-90"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Charge amount</label>
-                          <div class=" mb-2 mt-2">
-                            <input type="text" class="input-field" id="amountCharge" placeholder="Enter amount" value="" /><span class="dollar"></span>
+                      {this.state.sessionCharge?
+                      <div className="col-lg-5">
+                        <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>
+                          <label className="label">Charge amount</label>
+                          <div className=" mb-2 mt-2">
+                            <input type="text" className="input-field" id="amountCharge" placeholder="Enter amount" value={this.state.amountCharge} onChange= {this.sessionInfo}/><span class="dollar"></span>
                           </div>
                         </div>
                       </div>
+                      :''}
                     </div>
 
                     {/* <div className="form-group input-txt h-90">
@@ -1518,10 +1571,6 @@ submitForm = (event) => {
                     </div>
                     
                   </div>
-                  
-
-                  
-
                   
                 </div>
               </div>
@@ -2347,7 +2396,12 @@ submitForm = (event) => {
           <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" />
+                {/* <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" /> */}
+                <TimePicker
+                  onChange={this.timeset2}
+                  value={this.state.time2}
+                  disableClock	={true}
+                  />
                 {/* <span className="clock-icon "></span> */}
             </div>
           </div>
@@ -2371,7 +2425,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" className="done mt-0">done</button>}
+        {this.state.repeatSession?'':<button type="button" className="done mt-0" data-dismiss="modal">done</button>}
         </div>
       </div>
       {this.state.repeatSession?
@@ -2460,16 +2514,21 @@ submitForm = (event) => {
         <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" />
+                {/* <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" /> */}
+                <TimePicker
+                  onChange={this.timeset}
+                  value={this.state.time}
+                  disableClock	={true}
+                  />
                 {/* <span className="clock-icon "></span> */}
             </div>
           </div>
           <div className="col-md-7">
           <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
-          <div class="form-group input-txt">
-              <label class="switch">
+          <div className="form-group input-txt">
+              <label className="switch">
                   <input type="checkbox" />
-                  <span class="slider round"></span>
+                  <span className="slider round"></span>
               </label>
               <span>This is a repeated session</span>
             </div>
@@ -2478,7 +2537,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0">done</button>}
+        {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0" data-dismiss="modal">done</button>}
         </div>
       </div>
       {this.state.signUpSessionStatus?

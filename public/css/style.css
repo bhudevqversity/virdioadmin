@@ -1651,3 +1651,59 @@ input.timepicki-input
     transform: translateY(-4px);
 }
   }
+   /* nagendra kumar */
+   .react-time-picker__wrapper {
+    display: flex;
+    border: 2px solid #b002ed !important;
+    width: 175px;
+    margin-top: 0px;
+    padding-top: 10px;
+    padding-left: 19px;
+    border-radius: 0px 10px 10px;
+    padding-bottom: 7px;
+    color: #ffffff;
+    background-color: #bd00ff52;
+}
+.react-time-picker__inputGroup__input{
+	color: azure;
+	padding: 0 8px !important;
+}
+.react-time-picker__inputGroup__input,option{
+	background-color: #34213b;
+}
+.react-time-picker__button:enabled .react-time-picker__button__icon, .react-time-picker__button:enabled:focus .react-time-picker__button__icon{
+	stroke: #bd00ff !important;
+	outline: none;
+}
+.react-time-picker__inputGroup__amPm{
+	outline: none;
+}
+.react-time-picker__button:enabled{
+	display: none;
+}
+/* react claender */
+/* .rlc-day:active{
+	background-color: #bd00ff;
+    color: white;
+    border-radius: 50%;
+} */
+
+/* slider element */
+.slide-ele{
+    width: 100%;
+	display: block;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+.slick-slide img{
+	width: 100%;
+	border-radius: 10px;
+}
+.slide-ele p{
+	color: #fff;
+	text-align: center;
+}
+.rlc-day-selected{
+	background-color: #bd00ff;
+}
+/* end */
