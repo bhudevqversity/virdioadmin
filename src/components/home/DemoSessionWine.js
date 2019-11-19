@@ -2735,7 +2735,7 @@ submitForm = (event) => {
     </div>
     {/* Equipemnt List End */}
 
-  <Link to ="wine-demo" className="save-btn btn btn-primary my-5 mx-auto" data-toggle="modal" data-target="#linkGenerator" onClick={this.submitForm}>Save</Link>
+  <Link to ="wine-demo" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
          
   {/* Select Equipemnt List Start */}
   <div className="modal" id="myModal2">
