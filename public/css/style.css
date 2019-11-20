@@ -43,7 +43,7 @@ select.input-field
 {
 	background-image: url(../images/dropdown.png);
     background-repeat: no-repeat;
-    background-position: 90% 50%;
+    background-position: right 15px center;
 }
 /*---------Session Creation page CSS----------------*/
 
@@ -1079,6 +1079,10 @@ div.overflow-hidden p:nth-child(1) a:after
 	width: 490px !important;
 	margin: auto !important;
 }
+.rlc-date-details, .rlc-date-details-wrapper
+{
+	display: none;
+}
 .rlc-day-disabled, .rlc-day-disabled:hover
 {
 	background-color: #343434 !important;
@@ -1132,6 +1136,7 @@ div.overflow-hidden p:nth-child(1) a:after
 .rlc-month-and-year-wrapper
 {
 	border: none !important;
+	margin-top: 20px;
 }
 .rlc-day, .rlc-day-label
 {
@@ -1139,6 +1144,10 @@ div.overflow-hidden p:nth-child(1) a:after
 	height: 60px !important;
 	font-size: 15px !important;
 	margin-bottom: 5px !important;
+}
+.rlc-next-year, .rlc-prev-year
+{
+	display: none;
 }
 .rlc-days-label
 {
@@ -1173,6 +1182,7 @@ div.overflow-hidden p:nth-child(1) a:after
 .cal_modal .label
 {
 	font-size: 14px;
+	top: -8px;
 	
 }
 .cal_modal .clock-icon
@@ -1249,7 +1259,49 @@ div.overflow-hidden p:nth-child(1) a:after
 {
 	background-color: #343434;
 }
-
+.cal_modal .timepicker_wrap
+{
+	width: 260px;
+	top: 60px;
+	padding: 10px 0px;
+	background-color: #252525;
+	border: none;
+}
+.cal_modal input.timepicki-input
+{
+	background-color: #bd00ff;
+	border: 1px solid #bd00ff;
+}
+.cal_modal .prev:hover, .next:hover
+{
+	background-color: #bd00ff;
+}
+.cal_modal .prev, .next
+{
+	border: none;
+}
+input.timepicki-input
+{
+	color: white;
+	font-size: 16px;
+}
+.cal_modal input.clockk
+{
+	background-image: url(../images/clock.png);
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: right 15px center;
+}
+.cal_modal .rlc-prevs
+{
+	justify-content: flex-start;
+    padding-left: 25px;
+}
+.cal_modal .rlc-nexts
+{
+	justify-content: flex-end;
+    padding-right: 25px;
+}
 /*---------host channel creation page CSS----------------*/
 
 /*---------slide-24 CSS----------------*/
