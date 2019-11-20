@@ -9,6 +9,7 @@ import PDashboard from "./components/home/PDashboard";
 import SessionWineCreation from "./components/home/SessionWineCreation"
 import DemoSessionWine from "./components/home/DemoSessionWine"
 import HostSessionCreation from './components/home/HostSessionCreation'
+import verifyuser from "./components/auth/VerifyUser";
 /*function App() {
   return (
     <div className="App">
@@ -33,6 +34,7 @@ class App extends Component {
       <Route exact path="/FitnessSessionCreation" component={Header} />
 		  <Route exact path="/participent-dashboard" component={PDashboard} />
       <Route exact path="/ChannelCreation" component={HostSessionCreation} />
+      <Route path="/verify-user/:sessionId" component={verifyuser} />
 		</div>
      </Router>
    );

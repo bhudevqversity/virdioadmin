@@ -7,6 +7,7 @@ import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router'
+import $ from 'jquery';
 
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
@@ -24,12 +25,15 @@ class Header extends Component {
         // {id: 2, interestId: 2, name: "bench", equipment_description: "This is", status: 1,type:false,Quantity:0,Link:'X'},
         // {id: 3, interestId: 2, name: "weight-lift", equipment_description: "This is weight lift", status: 1,type:false,Quantity:0,Link:'X'},
         // {id: 4, interestId: 2, name: "ball", equipment_description: "This is using to fit body", status: 1,type:false,Quantity:0,Link:'X'}],
-        
         shoppingList:[],
         activityType:[],
         session_details:'',
         send_input:'',
         msg:'',
+        urlLink:'',
+        sess_name:'',
+        sess_time:'',
+        uname:'',
         //////////Calender /////////////
         startDate, // Today
         endDate: '', // Today + 6 days
@@ -160,6 +164,12 @@ class Header extends Component {
     }
     this.setHeaderValue();
     this.validator = new SimpleReactValidator();    
+}
+
+
+
+modalClose = e => {
+  $("#successResult").attr({'style':'display:none'});
 }
  
 componentDidMount(){
@@ -1171,9 +1181,17 @@ submitForm = (event) => {
 
             if(res.data.responseMessage == "success")
             {
+              // <div className="modal succ" id="successResult"></div>
+             
             this.setState({
-            msg: "Session hasbeen created Successfully!!!!!!!",
+           // msg: "Session hasbeen created Successfully!!!!!!!",
+            urlLink:res.data.responseData.urlcode,
+            sess_name:res.data.responseData.sessionDt.name,
+            sess_time:res.data.responseData.sessionDt.scheduleDate,
+            uname:res.data.responseData.sessionDt.firstName,
           });
+
+          $("#successResult").attr({'style':'display:block'});
            }else{
 
           this.setState({
@@ -1578,10 +1596,10 @@ submitForm = (event) => {
           <div className="row">
             <div className="col-md-4">
                 {/* <Link to="header" className="pick" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link> */}
-                <Link to ="header" className="pick" data-toggle="modal" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
+                <Link to ="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 mt-3 mt-md-0 px-4">
-                <Link to ="header" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
+                <Link to ="FitnessSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
           </div>
@@ -1593,8 +1611,8 @@ submitForm = (event) => {
           <div className="row mx-0">
             <div className="col-md-5 px-4">
               <span className="white-text pl-0">Start next activity?</span>
-              <Link to="header" className="btn btn-primary text-uppercase mr-2">automatic</Link>
-              <Link to="header" className="btn btn-outline-secondary text-uppercase">manual</Link>
+              <Link to="FitnessSessionCreation" className="btn btn-primary text-uppercase mr-2">automatic</Link>
+              <Link to="FitnessSessionCreation" className="btn btn-outline-secondary text-uppercase">manual</Link>
             </div>
             <div className="col-md-3 px-4 mt-3 mt-md-0">
               <div className="form-group">
@@ -1677,8 +1695,8 @@ submitForm = (event) => {
                   <td>{row.TargetBPM}</td>
                   <td>{row.TargetZone}</td>
                   <td className="d-flex justify-content-center">
-                    <Link to="header" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
-                    <Link to="header" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
+                    <Link to="FitnessSessionCreation" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
+                    <Link to="FitnessSessionCreation" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeActivity} aria-hidden="true"></i></Link>
                   </td>
                   {/* <td>{row.name}</td>
                   <td>{row.attributes[0].attrValue}</td>
@@ -1820,7 +1838,7 @@ submitForm = (event) => {
             </div>
             </div>
           </div>
-          <Link to="session-creation" className="activity-link pl-4"><span onClick = {this.addRow}>+</span> Activity</Link>
+          <Link to="FitnessSessionCreation" className="activity-link pl-4"><span onClick = {this.addRow}>+</span> Activity</Link>
         </div>
 
         {/* Script End */}
@@ -1832,10 +1850,10 @@ submitForm = (event) => {
           <div className="px-4 pb-5">
             <div className="row">
               <div className="col-md-4">
-                  <Link to ="session-creation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
+                  <Link to ="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to="session-creation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+                  <Link to="FitnessSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
           </div>
@@ -1871,7 +1889,7 @@ submitForm = (event) => {
                     </div>
             </div>
             <div className="col-md-1">
-              <Link to="session-creation" className="bg-circle mt-3"><i id = {i} value = {listInsertion.name} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
+              <Link to="FitnessSessionCreation" className="bg-circle mt-3"><i id = {i} value = {listInsertion.name} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
             </div>
           </div>
           : '')
@@ -1886,10 +1904,10 @@ submitForm = (event) => {
           <div className="px-4 pb-5">
             <div className="row">
               <div className="col-md-4">
-                  <Link to="session-creation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
+                  <Link to="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to ="session-creation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
+                  <Link to ="FitnessSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
           </div>
@@ -1939,7 +1957,7 @@ submitForm = (event) => {
             {/* {this.state.equipmentList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!=0)? */}
             <div className="form-group">
-              <Link to="session-creation" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></Link>
+              <Link to="FitnessSessionCreation" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></Link>
               </div>
               {/* :''
               )
@@ -1952,7 +1970,7 @@ submitForm = (event) => {
       </div>
     {/* Equipement List End  */}
 
-    <Link to ="session-creation" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+    <Link to ="FitnessSessionCreation" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
     <div className="modal" id="myModal">
     <div className="modal-dialog dialogwidth modal-dialog-centered">
       <div className="modal-content modalbg">
@@ -2515,6 +2533,35 @@ submitForm = (event) => {
   </div>
 </div>
 {/* Sign up Calender Model End */}
+
+<div className="modal" id="successResult">
+  <div className="modal-dialog">
+    <div className="modal-content equipmodalbg">
+
+      <div className="modal-header headerborder">
+        <h4 className="modal-title white">Success Result</h4>
+        <button type="button" className="close white closepopup" onClick={this.modalClose.bind(this)} data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <div className="modal-body">
+        <p>Congratulation, You have created the session,"{this.state.sess_name}" to be hosted by {this.state.uname} on {this.state.sess_time}...
+          you can start inviting the paticipants by sharingthe link below. you can also find this link in session details,
+           from your Dashboard.
+        </p>
+
+      <input type="text" value = {this.state.urlLink} onChange = {(e)=>console.log(e.target.value)} className="input-field" />
+      </div>
+
+
+      {/* <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> */}
+
+    </div>
+  </div>
+</div> 
+
       </div>
     );
   }
