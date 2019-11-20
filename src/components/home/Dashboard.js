@@ -10,12 +10,12 @@ constructor(props) {
 	wineData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}],
     cookingData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}]
 	}
+	
 }
  
 componentDidMount(){
-	
-
-  }
+	console.log('Ak');
+ }
 
   
 

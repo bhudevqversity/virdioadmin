@@ -11,6 +11,8 @@ class HostSessionCreation extends Component {
         sessionCharge:false,
         msg:'',
         address:'',
+        test1:'required',
+        test2:'string',
         name:'',
         phoneNumber:'',
         ss:'',
@@ -38,6 +40,7 @@ class HostSessionCreation extends Component {
         addShoppingList:[],
         selectedShoppingList:'',
         ShoppingCount:0,
+        productCount:0,
         ///////////Add a new Product/////////////////////////
         shoppingProductName:'',
         shoppingVarietal:'',
@@ -51,8 +54,11 @@ class HostSessionCreation extends Component {
         shoppingWineMakingNote:'',
         shoppingPair:'',
         addAttribute:[],
-        something:[false,false,false,false,false,false]    
+        something:[false,false,false,false,false,false],
+        addProduct:[],
+        productInformation:[],    
     }
+
 
 }
  
@@ -60,8 +66,63 @@ componentDidMount(){
 	
 this.setChannelInterest();
 this.setChannelHost();
-  }
-
+this.addToProductList();
+}
+addToProductList=(e)=>{
+    let arr = [
+        {
+            name: "thunderbird",
+            attributes: [{
+                    attrKey: "Varietal",
+                    attrValue:'80% Pinot Noir',
+                    
+                },
+                {
+                    attrKey: "Price",
+                    attrValue: "80",
+                    
+                },
+                {
+                    attrKey: "pH",
+                    attrValue: 3.69,
+                    
+                },
+                {
+                    attrKey: "Tasting Notes",
+                    attrValue: "NA",
+                    
+                },
+                {
+                    attrKey: "Winemaking",
+                    attrValue: "The 2014 vintage in Napa Valley was one of the earliest harvested vintages in years. A warm spring led to early bud break and created the perfect environment for flowering and fruit set. ",
+                    
+                },
+                {
+                    attrKey: "Pairs Well With",
+                    attrValue: "Meats and Fish: Seared Filet Mignon, Pan Roasted Veal Chops",
+                 }
+            ]
+        }
+        ];
+        let attributes = [];
+        let productList= this.state.addProduct;
+        for(let i=0;i<arr.length;i++){
+         attributes=[];
+         for(let l =0;l<arr[i].attributes.length;l++){
+         let n = {attrKey:arr[i].attributes[l].attrKey,attrValue:arr[i].attributes[l].attrValue,status:false,id:l};
+         attributes.push(n);   
+           }
+        
+        let n = {name : arr[i].name,
+            attributes
+        }
+        productList.push(n);
+        }
+        this.setState({
+        addProduct:productList
+        },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
+}
+  
 setChannelInterest=(e)=>{
 
 // let arr = [
@@ -217,40 +278,59 @@ onChangeHandler=event=>{
         imageName:event.target.files[0]
     })
 }
+saveProductList=(e)=>{
+    console.log('Product List',this.state.productInformation);
+    const saveProduct = {
+        name:this.state.addProduct[0].name,
+        productName:this.state.shoppingProductName,
+        productInfo:this.state.productInformation
+    }
+    console.log('saveProduct',saveProduct)
+    // if (this.validator.allValid()) {
+    // console.log('saveProduct',saveProduct);
+    // }else{
+    //     console.log('error');
+    //     this.validator.showMessages();
+    // }
+
+}
+handleProductList = idx => evt => {
+    const newShareholders = this.state.productInformation.map((shareholder, sidx) => {
+      if (idx !== sidx) return shareholder;
+      return { ...shareholder, attrValue: evt.target.value };
+    });
+  
+    this.setState({ productInformation: newShareholders },()=> {
+      console.log('Product List',this.state.productInformation[idx].attrValue)
+    }
+    );
+  }
 addAttribute = (e) => {
-    console.log(e.target.id);
-    let x=2,n=0;
+    e.preventDefault();
+    console.log(e.target.id,'-------------',e.target.name);
     console.log('e.target.id',e.target.id);
-    let attributeArray = this.state.addAttribute;
-    let classArray = this.state.something;
-    for(let i =0 ;i<attributeArray.length;i++){
-      if(e.target.id === attributeArray[i]){
-       x=1;n=i;
-      }
+    let attributeArray=this.state.addProduct;
+    let arr = this.state.productInformation;
+    let productCount = this.state.productCount;
+    attributeArray[0].attributes[e.target.id].status = !attributeArray[0].attributes[e.target.id].status;
+    if(attributeArray[0].attributes[e.target.id].status){
+        arr.push(attributeArray[0].attributes[e.target.id]);
+        productCount =  productCount+1;
+
+    }else{
+    for(let i=0;i<arr.length;i++){
+        if(e.target.name === arr[i].attrKey){
+            arr.splice(i,1);
+            productCount =  productCount-1;
+        }
     }
-  
-    if(x===1){
-      attributeArray.splice(n,1);
-      classArray[e.target.name] = false;
-      this.setState({
-        addAttribute:attributeArray,
-        something:classArray
-        },()=>
-        { console.log('add Attribute==>',this.state.addAttribute);
-      });
     }
-    else{
-      attributeArray.push(e.target.id);
-      classArray[e.target.name] = true;
-      console.log(e.target.name,'classArray[e.target.value]',classArray[e.target.value],classArray);
-      this.setState({
-        addAttribute:attributeArray,
-        something:classArray
-        },()=>
-        { console.log(this.state.something,'add Attribute==>',this.state.addAttribute);
-      });
-    }
-  
+
+    this.setState({
+        addProduct:attributeArray,
+        productInformation:arr,
+        productCount:productCount
+    },()=>console.log('----------------',this.state.productInformation))
     }
 selectHost = (e) => {
     let arrayCheck = [];
@@ -663,7 +743,7 @@ return(
                                         {this.state.productStatus?
                                         <div className="add_text">
                                             <Link to="ChannelCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
-                                            <span className="gray-text">0 Product Added</span>
+                                            <span className="gray-text">{this.state.productCount} Product Added</span>
                                         </div>
                                         :''
                                         }      
@@ -688,7 +768,7 @@ return(
                                     checked = {row.type}
                                     onChange= {this.selectHost}
                                     className="form-radio" />
-                                    <img src={row.image} className="ml-2 mr-3" alt="user-icon" alt=''/>
+                                    <img src={row.image} className="ml-2 mr-3" alt="user-icon"/>
                                     <div>
                                         <p className="checktxt_name pb-1">{row.username}</p>
                                         <p className="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -983,6 +1063,7 @@ return(
                     <div className="card cardbg">
                         <h4 className="white mt-4 mb-3">Add Attribute</h4>
                         <div className="d-flex flex-wrap">
+<<<<<<< HEAD
                         <Link to="ChannelCreation" id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</Link>
                         <Link to="ChannelCreation" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
                         <Link to ="ChannelCreation" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
@@ -1004,18 +1085,54 @@ return(
                         <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
                         <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
                         <Link to="ChannelCreation" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link>
+=======
+                        {this.state.addProduct.length>0?
+                        (this.state.addProduct[0].attributes.map((row,i)=>
+                        // {row.attributes.map((rows,l)=>
+                        <Link to="HostSessionCreation" key={i} id ={i} name={row.attrKey} onClick = {this.addAttribute} className={(row.status?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >{row.attrKey}</Link>
+                        // )}
+                        )):''}
+                        {/* <Link to="HostSessionCreation" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
+                        <Link to ="HostSessionCreation" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
+                        <Link to="HostSessionCreation" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</Link>
+                        <Link to="HostSessionCreation" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">price</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary mr-2 mt-2">pH</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</Link>
+                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">palate</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
+                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link> */}
+>>>>>>> ba8089d257d7afc793099334de7b86039f986ed7
                         </div>
                         <div className="border_bottom_dotted mt-4"></div>
                     </div>
                     <div className="card cardbg mt-5">
                         <div className="row">
-                            <div className="col-md-4">
+                            {this.state.productInformation.length>0?
+                            (this.state.productInformation.map((row,i)=>
+                            <div className="col-md-4" key={i}>
                                 <div className="form-group mb-0"><span className="cover-border"></span>
-                                    <label className="label">Varietal</label>
-                                    <input type="text" id = 'shoppingVarietal' value = {this.state.shoppingVarietal} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingVarietal))} className="input-field" />
+                                    <label className="label">{row.attrKey}</label>
+                                    <input type="text" 
+                                    id ={i}
+                                    value={row.attrValue}
+                                    onChange={this.handleProductList(i)}
+                                    className="input-field" />
                                 </div>
+                                {/* {this.validator.message(row.attrKey, row.attrValue, this.state.test1+'|'+this.state.test2)} */}
                             </div>
-                            <div className="col-md-4">
+                            )):''}
+                            {/* <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Price</label>
                                     <input type="text" id = 'shoppingPrice' value = {this.state.shoppingPrice} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPrice))} className="input-field" />
@@ -1026,9 +1143,9 @@ return(
                                     <label className="label">pH</label>
                                     <input type="text" id = 'shoppingPh' value = {this.state.shoppingPh} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPh))} className="input-field footerborder" />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="row mt-4">
+                        {/* <div className="row mt-4">
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Appearance</label>
@@ -1047,8 +1164,8 @@ return(
                                     <input type="text" id = 'shoppingPalate' value = {this.state.shoppingPalate} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPalate))} className="input-field footerborder" />
                                 </div>
                             </div>
-                        </div>
-                        <div className="row mt-4">
+                        </div> */}
+                        {/* <div className="row mt-4">
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Testing Notes</label>
@@ -1067,14 +1184,14 @@ return(
                                     <textarea rows="5" id = 'shoppingPair' value = {this.state.shoppingPair} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPair))} className="input-field"></textarea>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
         </div> 
         <div className="text-center">
             <button type="button" className="done mb-5 mt-2 mr-3">Preview</button>
-            <button type="button" className="done mt-4 mt-2">save</button>
+            <button type="button" onClick= {this.saveProductList} className="done mt-4 mt-2">save</button>
         </div>
     </div>
     </div>
