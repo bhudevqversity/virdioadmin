@@ -60,6 +60,9 @@ componentDidMount(){
 		]
 	  };
 
+	
+	  
+
     return (
 	<div>
 	<div className="outer-container">

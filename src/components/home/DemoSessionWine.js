@@ -1644,8 +1644,8 @@ submitForm = (event) => {
       sessionProperty:this.state.sessionProperty,
       session_charge:this.state.sessionCharge,
       currency:"USD",
-      hour:this.state.sessionHour,
-      minute:this.state.sessionMinute,
+      hour:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
+     // minute:this.state.sessionMinute,
       show_particpants_count:"false",
       amountCharge:this.state.amountCharge
       }

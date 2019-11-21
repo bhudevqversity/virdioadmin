@@ -7,7 +7,10 @@ import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router';
-import TimePicker from 'react-time-picker'
+import TimePicker from 'react-time-picker';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
 
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
@@ -30,8 +33,10 @@ class Header extends Component {
         activityType:[],
         session_details:'',
         send_input:'',
-        time: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
-        time2: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        // time: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        // time2: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        time: '00:00',
+        time2: '00:00',
         msg:'',
         //////////Calender /////////////
         startDate, // Today
@@ -46,6 +51,8 @@ class Header extends Component {
         sessionYear:'',
         sessionDay:'',
         sessionTime:'',
+        sessionHour:0,
+        sessionMinute:0,
         sessionAttribute:[],
         sessionClass:[false,false,false,false,false,false,false,false,false,false],
         signUpSessionStatus:false,
@@ -433,7 +440,24 @@ this.setState(
  },()=>console.log(this.state.time))}
 //end 
 
+// hour value
+forWineHour() {
+  var arr = [];
+    for (let i = 0; i <= 23; i++) {
+        arr.push(<option key={i} value={i}>{i}</option>)
+    }
+  return arr; 
+}
 
+// minute value
+forWineMinute() {
+  var arr = [];
+    for (let i = 0; i <= 59; i++) {
+        arr.push(<option key={i} value={i}>{i}</option>)
+    }
+  return arr; 
+}
+// end time
 
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
@@ -552,15 +576,24 @@ onChange = (startDate, endDate) => {
   let year;
   let time;
   let t;
-  const dateFormat = startDate;
-  // let dt = new Date(startDate).toUTCString();
-  let dt2 = new Date(startDate);
+  const dateFormat = endDate;
+ // let dt = new Date(startDate).toUTCString();
+ console.log(new Date(startDate),'compare==========',new Date(endDate))
+ if(this.state.dateFormat<endDate){
+   startDate=endDate
+  console.log('next Date');
+ }else{console.log('previous date');
+endDate=startDate
+}
+  //let dt2 = new Date(startDate);
   // dt = dt.split('GMT')
 //  endDate = startDate;
-  startDate=endDate;
+ // startDate=endDate;
+  let dt2 = new Date(startDate);
   this.setState({ startDate, endDate,dateFormat },
-  ()=>console.log('sds',this.state.startDate,this.state.endDate))
-  let timeSelection =  new Date (dt2.getTime()).getHours() ;
+  ()=>console.log('sds',this.state.startDate,this.state.endDate));
+ // let dt2 = new Date(endDate);
+   let timeSelection =  new Date (dt2.getTime()).getHours() ;
   if(timeSelection>=13){
   timeSelection =  ((new Date (dt2.getTime()).getHours())-12) + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' PM';
   time = ((new Date (dt2.getTime()).getHours())-12)+' PM';
@@ -1084,6 +1117,18 @@ handleShareholderLink = idx => evt => {
   }
   );
 };
+
+handleShow=()=>{
+  this.setState({
+    onSave:false
+  })
+   console.log(this.state.onSave);
+ }
+ handleClose=()=>{
+   this.setState({
+     onSave:false
+   })
+ }
 ////////////////Submit data
 submitForm = (event) => {
   event.preventDefault();
@@ -1092,6 +1137,7 @@ submitForm = (event) => {
   let input_result=[];
   let min_participants='';
   let max_participants='';
+  this.state.onSave=true;
 // console.log('-------munahostlist-----------',this.state.hostList)
 //   var datavar=this.state.hostList;
 //   datavar.forEach(ele => {
@@ -1122,6 +1168,7 @@ submitForm = (event) => {
       sessionProperty:this.state.sessionProperty,
       session_charge:this.state.sessionCharge,
       currency:"USD",
+      hour:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
       show_particpants_count:"false",
       amountCharge:this.state.amountCharge
       }
@@ -1402,7 +1449,7 @@ submitForm = (event) => {
                       {/* <span  className="when-icon"></span> */}
                       <a href="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></a>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">How long?</label>
                       <select
@@ -1419,6 +1466,24 @@ submitForm = (event) => {
                       </select>
                       {this.validator.message('exampleFormControlSelect2', this.state.exampleFormControlSelect2, 'required|integer')}
                       
+                    </div> */}
+                     <div className="row">
+                      <div className="col-md-6 pr-md-2">
+                        <div className="form-group"><span className="cover-border"></span>
+                          <label className="label">Hours</label>
+                          <select className="input-field" id="sessionHour" value={this.state.sessionHour} onChange={this.sessionInfo}>
+                            {this.forWineHour()}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6 pl-md-1">
+                        <div className="form-group"><span className="cover-border"></span>
+                          <label className="label">Minutes</label>
+                            <select className="input-field" id="sessionMinute" value={this.state.sessionMinute} onChange={this.sessionInfo}>
+                            {this.forWineMinute()}
+                            </select>
+                          </div>
+                      </div>
                     </div>
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
@@ -1478,7 +1543,7 @@ submitForm = (event) => {
                         <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>
                           <label className="label">Charge amount</label>
                           <div className=" mb-2 mt-2">
-                            <input type="text" className="input-field" id="amountCharge" placeholder="Enter amount" value={this.state.amountCharge} onChange= {this.sessionInfo}/><span class="dollar"></span>
+                            <input type="text" className="input-field" id="amountCharge" placeholder="Enter amount" value={this.state.amountCharge} onChange= {this.sessionInfo}/><span className="dollar"></span>
                           </div>
                         </div>
                       </div>
@@ -2482,6 +2547,37 @@ submitForm = (event) => {
       </div>:''}
   </div>
 </div>
+ {/* Add a new Product End */}
+  
+ <Modal size="sm" show={this.state.onSave} onHide={this.handleShow}>
+    
+    <Modal.Header closeButton>
+      <Modal.Title className="text-white">You have successfully created a session</Modal.Title>
+    </Modal.Header>
+      <Modal.Body>
+        <p className="text-white">Congratulations ,you have created the session "Introduction to wine testing" to be hosted by Arjun on August 13th2019 12:30PM
+You can start inviting Participants by sharing the link below 
+</p><br></br>
+         <div className="col-md-5 m-auto">                           
+          <div className="form-group"><span className="cover-border"></span>
+            <label className="label">Description</label>
+            <input type="text"  className="input-field" placeholder="Session Name" value="https//virdio.com"/>
+              
+          </div>
+        </div>  
+          {/* <input type="text" className="input-field"   placeholder="Session Name" /> */}
+      </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={this.handleClose}>
+        Close
+      </Button>
+      {/* <Button variant="primary" onClick={handleClose}>
+        Save Changes
+      </Button> */}
+    </Modal.Footer>
+    
+  </Modal>
+{/* end */}
 {/* Sign Up Calender Start */}
 <div className="modal cal_modal" id="signUpCalenderModel">
   <div className="modal-dialog">
