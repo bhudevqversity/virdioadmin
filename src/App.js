@@ -9,6 +9,7 @@ import PDashboard from "./components/home/PDashboard";
 import SessionWineCreation from "./components/home/SessionWineCreation"
 import DemoSessionWine from "./components/home/DemoSessionWine"
 import HostSessionCreation from './components/home/HostSessionCreation'
+import DashboardLanding from './components/home/DashboardLanding'
 /*function App() {
   return (
     <div className="App">
@@ -33,6 +34,9 @@ class App extends Component {
       <Route exact path="/session-creation" component={Header} />
 		  <Route exact path="/participent-dashboard" component={PDashboard} />
       <Route exact path="/HostSessionCreation" component={HostSessionCreation} />
+      <Route exact path="/DashboardLanding" component={DashboardLanding} />
+
+
 		</div>
      </Router>
    );
