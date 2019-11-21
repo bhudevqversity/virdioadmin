@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Link } from 'react-router';
 //import $ from 'jquery'
 class HostSessionCreation extends Component {
@@ -8,9 +9,11 @@ class HostSessionCreation extends Component {
     this.state = {
         accountAddress:false,
         sessionCharge:false,
+        msg:'',
         address:'',
         test1:'required',
         test2:'string',
+        name:'',
         phoneNumber:'',
         ss:'',
         imageName:'',
@@ -123,43 +126,88 @@ addToProductList=(e)=>{
 }
   
 setChannelInterest=(e)=>{
-let arr = [
-    {
-        id:1,
-        title:"Wine"
-        },
-        {
-        id:2,
-        title:"Fitness"
-        }
-    ]
-    let channelArray= this.state.InterestHost;
-    for(let i=0;i<arr.length;i++){
-     let n = {id:arr[i].id,title:arr[i].title,image :'images/pic.jpg',type:false};
-     channelArray.push(n);   
-    }
-    this.setState({
-    InterestHost:channelArray
+
+// let arr = [
+//     {
+//         id:1,
+//         title:"Wine"
+//         },
+//         {
+//         id:2,
+//         title:"Fitness"
+//         }
+//     ]
+//     let channelArray= this.state.InterestHost;
+//     for(let i=0;i<arr.length;i++){
+//      let n = {id:arr[i].id,title:arr[i].title,image :'images/pic.jpg',type:false};
+//      channelArray.push(n);   
+//     }
+//     this.setState({
+//     InterestHost:channelArray
+//     })
+
+    let  channelId=1;
+    axios      
+    
+    .get("/api/v1/session/"+channelId+"/interest")          
+    .then(res => {
+      console.log('---------channelInterest--------------',res.data.responseData);
+      let channelArray= this.state.InterestHost;
+       let eqarray=res.data.responseData;        
+      for(let i=0;i<eqarray.length;i++){
+        let n = {id: eqarray[i].id, title: eqarray[i].title,image :'images/pic.jpg',type:false};
+        channelArray.push(n); 
+      }
+      this.setState({
+        InterestHost: channelArray
+          });
     })
+    .catch(err =>{
+        console.log('----------there is problem------------');
+
+    });
+    
 }
 
 setChannelHost=(e)=>{
-    let arr = [{
-        userId:3,
-        username:"Lalit A"
-        },
-        {
-        userId:1,
-        username:"Deepak A"
-        }];
-        let channelArray= this.state.hostList;
-    for(let i=0;i<arr.length;i++){
-     let n = {userId:arr[i].userId,username:arr[i].username,image :'images/pic.jpg',type:false};
-     channelArray.push(n);   
-    }
-    this.setState({
-    hostList:channelArray
+
+    // let arr = [{
+    //     userId:3,
+    //     username:"Lalit A"
+    //     },
+    //     {
+    //     userId:1,
+    //     username:"Deepak A"
+    //     }];
+    //     let channelArray= this.state.hostList;
+    // for(let i=0;i<arr.length;i++){
+    //  let n = {userId:arr[i].userId,username:arr[i].username,image :'images/pic.jpg',type:false};
+    //  channelArray.push(n);   
+    // }
+    // this.setState({
+    // hostList:channelArray
+    // })
+    let  channelId=1;
+    axios      
+
+    .get("/api/v1/session/"+channelId+"/hosts-list1")          
+    .then(res => {
+      console.log('---------channelHost--------------',res.data.responseData);
+      let channelArray= this.state.hostList;
+       let eqarray=res.data.responseData;        
+      for(let i=0;i<eqarray.length;i++){
+        let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+        channelArray.push(n); 
+      }
+      this.setState({
+        hostList: channelArray
+          });
     })
+    .catch(err =>{
+        console.log('----------there is problem------------');
+
+    });
+
 }
  addEquipment = e =>{
    let arr = this.state.addEquipmentList;
@@ -363,7 +411,7 @@ selectHost = (e) => {
   submitForm = (event) => {
     event.preventDefault();
     const channel = {
-    "name": this.state.address,
+    "name": this.state.name,
     "description": this.state.description,
     "image": this.state.imageName,
     "phone": this.state.phoneNumber,
@@ -391,7 +439,38 @@ selectHost = (e) => {
   const InterestHost = {
       Interest_Host:this.state.InterestHost1
   }
-  console.log('****************',channel,channelHost,InterestHost);
+  console.log('*******lalitChannel*********',channel,channelHost,InterestHost);
+
+  //if (this.validator.allValid()) {
+
+    axios.post("/api/v1/session/createchannel", {channel,channelHost,InterestHost})
+    .then(res => {
+
+      console.log('=============lallittiwari12345===================>',res.data);;
+
+          if(res.data.responseMessage == "success")
+          {
+          this.setState({
+          msg: "Channel hasbeen created Successfully!!!!!!!",
+        });
+        }else{
+
+        this.setState({
+          msg: "There Is a error in channel creation",
+        });
+
+      }
+    
+    })
+
+//   }else{
+
+//     console.log('----------------This is a error--------------------')
+//     this.validator.showMessages();
+//   // rerender to show messages for the first time
+//   // you can use the autoForceUpdate option to do this automatically`
+//   this.forceUpdate();
+//   }
 }
 
 render() {
@@ -430,6 +509,7 @@ return(
                 <div className="gray-box-4">
                     <div className="hdng_text py-4 d-flex justify-content-between px-4 headerborder align-items-center">
                         <h3 className="p-0 m-0">Create Channel</h3>
+                        <div  id="msg" style={{color:'green'}}>{this.state.msg}</div>
                         <button type="button" className="close">×</button>
                     </div>
                     <div className="py-4 px-4 session_text">
@@ -472,11 +552,11 @@ return(
                                 <div className="row">
                                     <div className="col-lg-4 col-md-6">
                                         <div className="form-group"><span className="cover-border"></span>
-                                            <label className="label">Avenir Next Med, 20pts</label>
+                                            <label className="label">Channel Name</label>
                                             <input type="text" 
-                                            id ="address"
-                                            value = {this.state.address}
-                                            onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.address))}
+                                            id ="name"
+                                            value = {this.state.name}
+                                            onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.name))}
                                             className="input-field" />
                                         </div>                                        
                                     </div>
@@ -637,7 +717,7 @@ return(
                                         </div>
                                         {this.state.shoppingStatus?
                                         <div className="add_text">
-                                            <Link to="HostSessionCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
+                                            <Link to="ChannelCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.ShoppingCount} Items Added</span>
                                         </div> 
                                         :''
@@ -677,7 +757,7 @@ return(
                                         </div>
                                         {this.state.productStatus?
                                         <div className="add_text">
-                                            <Link to="HostSessionCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
+                                            <Link to="ChannelCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.productCount} Product Added</span>
                                         </div>
                                         :''
@@ -832,7 +912,7 @@ return(
                             onChange ={(e)=>console.log(this.state.selectedShoppingList)}
                             className="input-field"
                             placeholder="" disabled />
-                            <Link to="HostSessionCreation" className="bg-circle position-absolute">
+                            <Link to="ChannelCreation" className="bg-circle position-absolute">
                                 <i className="fa fa-minus pt-1" id={i} onClick={this.removeShoppingList} aria-hidden="true"></i>
                             </Link>
                         </div>
@@ -851,7 +931,7 @@ return(
                        
                     </div>
                     <div className="add_text text-center">
-                        <Link to="HostSessionCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></Link>
+                        <Link to="ChannelCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></Link>
                     </div> 
                     {/*  */}
                 </div>
@@ -957,7 +1037,7 @@ return(
                             className="input-field"
                             placeholder="" 
                             disabled/>
-                            <Link to="HostSessionCreation" className="bg-circle position-absolute">
+                            <Link to="ChannelCreation" className="bg-circle position-absolute">
                                 <i className="fa fa-minus pt-1" id={i} onClick={this.removeEquipment} aria-hidden="true"></i>
                             </Link>
                         </div>
@@ -975,7 +1055,7 @@ return(
                          placeholder="" />
                     </div>
                     <div className="add_text text-center">
-                        <Link to="HostSessionCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></Link>
+                        <Link to="ChannelCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></Link>
                     </div> 
                 </div>                
             </div>
