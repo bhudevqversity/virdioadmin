@@ -1495,7 +1495,7 @@ wineProductSelect = (e) => {
          wineArray.splice(i,1);
         this.setState({
           wineProduct : wineContainer,
-          tablerows:wineArray,
+          tablerows3:wineArray,
           wineIndexValue:indexValue,
           //chooseWine:!this.state.chooseWine,
           emojiForWineProduct:0
@@ -1567,34 +1567,32 @@ apperanceSelect = (e) => {
      let wineArray = [];
      let addWine;
     //this.state.tablerows;
-    
+    // let a = JSON.parse(JSON.stringify(this.state.tablerows3[0]));
+    // console.log('json value',a.appearanceSelect)
     for(let i=0;i<this.state.tablerows3.length;i++){
-     let v=i;
-     let ak = this.state.tablerows3.slice(0,1);
-     console.log(ak.length,ak,ak[0].appearanceSelect);
      wineArray.push(this.state.tablerows3[i]);
     }
     
   //   let arr2=[];
   //   arr2=this.state.tablerows3;
-  //   for(let i=0;i<this.state.tablerows3.length;i++){
-  //     let ak = this.state.tablerows3.slice(0,1)
-  //  const a = {
-  //     wineChoice:ak[0].wineChoice,
-  //     id:ak[0].id,
-  //     wineProductId:ak[0].wineProductId,
-  //     productId:ak[0].productId,
-  //     appearanceSelect:ak[0].appearanceSelect,
-  //     aromaSelect:ak[0].aromaSelect,
-  //     palateSelect:ak[0].palateSelect,
-  //     listAppearance:ak[0].listAppearance,
-  //     listAroma :ak[0].listAroma,
-  //     listPalate:ak[0].listPalate,
-  //     testerStatus:ak[0].testerStatus
-  //     }
-  //     console.log('addWine',a);
-  //     wineArray.push(a);
-  //   }
+    // for(let i=0;i<this.state.tablerows3.length;i++){
+    // let ak = JSON.parse(JSON.stringify(this.state.tablerows3[i]))
+    // const a = {
+    //   wineChoice:ak.wineChoice,
+    //   id:ak.id,
+    //   wineProductId:ak.wineProductId,
+    //   productId:ak.productId,
+    //   appearanceSelect:ak.appearanceSelect,
+    //   aromaSelect:ak.aromaSelect,
+    //   palateSelect:ak.palateSelect,
+    //   listAppearance:ak.listAppearance,
+    //   listAroma :ak.listAroma,
+    //   listPalate:ak.listPalate,
+    //   testerStatus:ak.testerStatus
+    //   }
+    //   console.log('addWine',a);
+    //   wineArray.push(a);
+    // }
     this.setState({
       chooseWine:false,
       //tablerows:wineArray,
@@ -1613,10 +1611,26 @@ finalEmoji = () =>{
   //   testerStatus:false
   //   }
     let arr1=[];
-    let arr2 =this.state.tablerows;
+   // let arr2 =this.state.tablerows;
     for(let i=0;i<this.state.tablerows.length;i++){
-      if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus)
-      arr1.push(this.state.tablerows[i]);
+      if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus){
+       let ak = JSON.parse(JSON.stringify(this.state.tablerows[i]))
+    const a = {
+      wineChoice:ak.wineChoice,
+      id:ak.id,
+      wineProductId:ak.wineProductId,
+      productId:ak.productId,
+      appearanceSelect:ak.appearanceSelect,
+      aromaSelect:ak.aromaSelect,
+      palateSelect:ak.palateSelect,
+      listAppearance:ak.listAppearance,
+      listAroma :ak.listAroma,
+      listPalate:ak.listPalate,
+      testerStatus:ak.testerStatus
+      }
+      //arr1.push(this.state.tablerows[i]);
+      arr1.push(a);
+      }
       
 
     }
@@ -2422,8 +2436,8 @@ submitForm = (event) => {
                  <td>{row.wineChoice}</td>
                   <td>
                   <div className="color-icons pl-3">
-                    {row.listAppearance.map((row,i) => (
-                    (row.status) ?<img src={row.path} className="mr-2" alt="cherry" key = {i} />:''
+                    {row.listAppearance.map((row,l) => (
+                    (this.state.tablerows1[i].appearanceSelect[0].appearanceStatus && row.status) ?<img src={row.path} className="mr-2" alt="cherry" key = {l} />:''
                     ))}
                     <span>...</span>
                     </div>
@@ -2504,9 +2518,9 @@ submitForm = (event) => {
               {this.state.tablerows.map((row,i)=>
                         <div className="row mt-5" key= {i}>                        
                             <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
-                                <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
+                                <div className="form-group mb-0" ><span className="cover-border"></span>
                                     <label className="label">Pick a Wine</label>
-                                    <input type="text" value = {row.wineChoice} className="input-field" disabled /><span className="emojis-icon"></span>
+                                    <input type="text" value = {row.wineChoice} className="input-field" disabled />
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
