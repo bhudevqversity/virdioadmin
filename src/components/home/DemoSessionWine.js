@@ -1565,15 +1565,42 @@ apperanceSelect = (e) => {
   setChooseWineStatus=(e)=>{
     console.log('HELLO');
      let wineArray = [];
+     let addWine;
     //this.state.tablerows;
+    
     for(let i=0;i<this.state.tablerows3.length;i++){
-      wineArray.push(this.state.tablerows3[i]);
+     let v=i;
+     let ak = this.state.tablerows3.slice(0,1);
+     console.log(ak.length,ak,ak[0].appearanceSelect);
+     wineArray.push(this.state.tablerows3[i]);
     }
+    
+  //   let arr2=[];
+  //   arr2=this.state.tablerows3;
+  //   for(let i=0;i<this.state.tablerows3.length;i++){
+  //     let ak = this.state.tablerows3.slice(0,1)
+  //  const a = {
+  //     wineChoice:ak[0].wineChoice,
+  //     id:ak[0].id,
+  //     wineProductId:ak[0].wineProductId,
+  //     productId:ak[0].productId,
+  //     appearanceSelect:ak[0].appearanceSelect,
+  //     aromaSelect:ak[0].aromaSelect,
+  //     palateSelect:ak[0].palateSelect,
+  //     listAppearance:ak[0].listAppearance,
+  //     listAroma :ak[0].listAroma,
+  //     listPalate:ak[0].listPalate,
+  //     testerStatus:ak[0].testerStatus
+  //     }
+  //     console.log('addWine',a);
+  //     wineArray.push(a);
+  //   }
     this.setState({
       chooseWine:false,
       //tablerows:wineArray,
       tablerows:wineArray
     },()=>console.log(this.state.chooseWine,this.state.tablerows))
+
   }
 finalEmoji = () =>{
   // let addWine = {
@@ -3306,7 +3333,7 @@ submitForm = (event) => {
         <article className="card-group-item">
           <div className="filter-content">
           <div className="card-body ">
-          <form>
+          {/* <form> */}
           {this.state.wineProduct.map((row,i) =>
           <label className="form-check labelborder" key ={i}>
           <input 
@@ -3324,7 +3351,7 @@ submitForm = (event) => {
           <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
           <label className="form-check labelborder">
           <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label> */}
-        </form>
+        {/* </form> */}
       </div>
       </div>
       </article>
