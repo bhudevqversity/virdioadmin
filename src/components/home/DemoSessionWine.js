@@ -2565,7 +2565,7 @@ submitForm = (event) => {
                      var splitData = order[i].split(',');
                        for(let l =0;l<this.state.wineInfoArray.length;l++){
                           console.log(splitData[1],'this.state.tablerows',this.state.wineInfoArray[l].id);
-                            if(this.state.wineInfoArray[l].id===splitData[1]){
+                            if(this.state.wineInfoArray[l].id==splitData[1]){
                             arr.push(this.state.wineInfoArray[l]);
                             console.log(this.state.wineInfoArray[l],'*************************************',arr);
                           }
