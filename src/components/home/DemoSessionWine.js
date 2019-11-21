@@ -14,10 +14,13 @@ class DemoSessionWine extends Component {
   constructor(props) {
     super(props);
     const date = new Date();
+    // let minDate= new Date();
+    // minDate.setDate(minDate.getDate() - 1)
     const startDate = date.getTime();
     this.state = {
         sessions: [],
         session_details:'',
+       // disableDate:minDate.getTime(),
         something:[false,false,false,false,false,false],
         send_input:'',
         msg:'',
@@ -25,6 +28,7 @@ class DemoSessionWine extends Component {
         startDate, // Today
         endDate: '', // Today + 6 days
         dateFormat : '',
+        singUpEndDate:'',
         cutoffStartDate:date.getTime(),
         cutoffEndDate:'',
         repeatSession:false,
@@ -210,7 +214,7 @@ componentDidMount(){
 
     let  channelId=1;
     
-    let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
+    let eqarray =[{id: 10, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
       ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
       {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
       {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
@@ -561,12 +565,23 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   let year;
   let time;
   let t;
+  const singUpEndDate = cutoffEndDate;
+  if(this.state.singUpEndDate<cutoffEndDate){
+    cutoffStartDate=cutoffEndDate
+   console.log('next Date');
+  }else
+  { 
+    console.log('previous date');
+    cutoffEndDate=cutoffStartDate;
+  }
   let dt2 = new Date(cutoffStartDate);
+
   //  cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
-    cutoffDateTime
+    cutoffDateTime,
+    singUpEndDate
   });
   let timeSelection =  new Date (dt2.getTime()).getHours() ;
   if(timeSelection>=13){
@@ -671,7 +686,14 @@ onChange = (startDate, endDate) => {
   let year;
   let time;
   let t;
-  const dateFormat = startDate;
+  const dateFormat = endDate;
+  if(this.state.dateFormat<endDate){
+    startDate=endDate
+   console.log('next Date');
+ }else{
+  console.log('previous date');
+  endDate=startDate
+}
   // let dt = new Date(startDate).toUTCString();
   let dt2 = new Date(startDate);
   // dt = dt.split('GMT')
@@ -1442,6 +1464,7 @@ wineProductSelect = (e) => {
       wineChoice:wineContainer[e.target.id].product_name,
       id:indexValue,
       wineProductId:e.target.id,
+      productId:wineContainer[e.target.id].id,
       // [{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}]
       //[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}]
       //[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
@@ -1727,7 +1750,7 @@ submitForm = (event) => {
   
   for(let i=0;i<this.state.tablerows1.length;i++){
     ap = { wineChoice: this.state.tablerows1[i].wineChoice,
-      id: this.state.tablerows1[i].id,
+      id: this.state.tablerows1[i].productId,
       Emojies:[],
       testerStatus: this.state.tablerows1[i].testerStatus };
     wineDetail.push(ap);
@@ -2196,6 +2219,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      {/* {this.validator.message('hostSessionStart', this.state.hostSessionStart, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">Sign up Cut off Date/Time</p>
@@ -2222,6 +2246,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      {/* {this.validator.message('participantSessionStart', this.state.participantSessionStart, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">for 'minimum not met'</p>
@@ -2229,6 +2254,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
                       <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
+                      {/* {this.validator.message('minimumNotMet', this.state.minimumNotMet, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     

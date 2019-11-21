@@ -7,7 +7,7 @@ import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router'
-
+import $ from 'jquery'
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class Header extends Component {
@@ -34,6 +34,7 @@ class Header extends Component {
         startDate, // Today
         endDate: '', // Today + 6 days
         dateFormat : '',
+        singUpEndDate:'',
         cutoffStartDate:date.getTime(),
         repeatSession:false,
         cutoffEndDate:'',
@@ -392,12 +393,22 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   let year;
   let time;
   let t;
+  const singUpEndDate = cutoffEndDate;
+  if(this.state.singUpEndDate<cutoffEndDate){
+    cutoffStartDate=cutoffEndDate
+   console.log('next Date');
+  }else
+  { 
+    console.log('previous date');
+    cutoffEndDate=cutoffStartDate;
+  }
   let dt2 = new Date(cutoffStartDate);
 //  cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
-    cutoffDateTime
+    cutoffDateTime,
+    singUpEndDate
   });
   let timeSelection =  new Date (dt2.getTime()).getHours() ;
   if(timeSelection>=13){
@@ -1481,6 +1492,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      {/* {this.validator.message('hostSessionStart', this.state.hostSessionStart, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">Sign up Cut off Date/Time</p>
@@ -1507,6 +1519,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      {/* {this.validator.message('participantSessionStart', this.state.participantSessionStart, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-4">for 'minimum not met'</p>
@@ -1514,6 +1527,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
                       <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
+                      {/* {this.validator.message('minimumNotMet', this.state.minimumNotMet, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     
@@ -2314,7 +2328,7 @@ submitForm = (event) => {
     <div className="modal-content">
 
       <div className="modal-header">
-        <h4 className="modal-title text-white text-center">You have successfully created a session</h4>
+        <h4 className="modal-title text-white text-center">{this.state.Abhi}You have successfully created a session</h4>
         <button type="button" className="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -2337,6 +2351,7 @@ submitForm = (event) => {
        </div>
   </div>
 </div> 
+
 
 {/* <div className="modal" id="calenderModel">
   <div className="modal-dialog">

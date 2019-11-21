@@ -14,7 +14,32 @@ constructor(props) {
 }
  
 componentDidMount(){
-	console.log('Ak');
+  console.log('Ak');
+  console.log('new Date().getTime()',new Date().getTime());
+  let ka= new Date();
+  ka.setDate(ka.getDate() - 1);
+  console.log(ka.getTime(),'ka.setDate(ka.getDate() - 1)',ka);
+  let date = new Date();
+  console.log(date);
+  let timeSelection =  new Date (date.getTime()).getMonth() ;
+  console.log(timeSelection);
+  date = new Date(Date.UTC(2019, timeSelection, 1));
+  var days = [];
+  var dayofWeek=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  console.log('date.getMonth()',date.getMonth());
+  while (date.getMonth() === 10) {
+	 //days.push(new Date(date).getDate());
+	 let n ={date:new Date(date).getDate(),day:dayofWeek[new Date(date).getDay()]}
+	 days.push(n);
+	 //days.push(new Date(date).getDay());
+	 date.setDate(date.getDate() + 1);
+  }
+  for (let i=18 ;i<days.length-1;i++){
+	  console.log(days[i])
+  } 
+  
+  console.log(days[29],days.length,'DAYS**************************************',days);
+
  }
 
   
@@ -164,7 +189,7 @@ componentDidMount(){
 			<div className="slides_inner_part">
 				{this.state.fitnessData.map((row,i)=>
 				<div className="item" key ={i}>
-					<img src={row.path}  />
+					<img src={row.path} alt='' />
 					<p className="mt-3">Strength Training 1</p>
 				</div>
 				)}
@@ -195,7 +220,7 @@ componentDidMount(){
 			<div className="slides_inner_part">
 				{this.state.wineData.map((row,i)=>
 				<div className="item" key={i} >
-					<img src={row.path}  />
+					<img src={row.path} alt='' />
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}
@@ -226,7 +251,7 @@ componentDidMount(){
 			<div className="slides_inner_part">
 				{this.state.cookingData.map((row,i)=>
 				<div className="item" key = {i}>
-					<img src={row.path} />
+					<img src={row.path} alt=''/>
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}

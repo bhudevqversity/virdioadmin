@@ -1517,6 +1517,47 @@ input.timepicki-input
 	border-radius: 10px;
 	overflow: hidden;
 }
+
+/*------- slide 29 CSS ---------*/
+#audio_video_mdl .video_img .one
+      {
+        height: 180px;
+
+      }
+     #audio_video_mdl .video_img .custom-file-label
+      {
+       height: 176px;
+    border: none;
+    width: 100%;
+      }
+     #audio_video_mdl .custom-file-label
+      {
+        top: 0;
+      }
+      #audio_video_mdl .input-field
+      {
+        height: auto;
+      }
+     #audio_video_mdl .browse_image1 {
+    width: 100%;
+    margin-top: 10px;
+    height: 150px;
+
+}
+      
+#audio_video_mdl .gray-box-5 .cover-border
+{
+  background-color: #363636;
+  height: 2px;
+}
+#audio_video_mdl .video_img .bg-circle
+{
+  right: -10px;
+    top: 53%;
+    transform: translateY(-53%);
+    z-index: 999;
+    color: white;
+}
 /* Responsive Code */
 
 @media(max-width: 900px)
