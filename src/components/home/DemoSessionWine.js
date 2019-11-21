@@ -6,12 +6,8 @@ import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
-<<<<<<< HEAD
 import { Link } from 'react-router';
 import TimePicker from 'react-time-picker';
-=======
-import { Link} from 'react-router';
->>>>>>> ba8089d257d7afc793099334de7b86039f986ed7
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class DemoSessionWine extends Component {
