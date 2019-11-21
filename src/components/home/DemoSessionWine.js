@@ -3451,29 +3451,6 @@ submitForm = (event) => {
                     <div className="card cardbg">
                         <h4 className="white mt-4 mb-3">Add Attribute</h4>
                         <div className="d-flex flex-wrap">
-<<<<<<< HEAD
-                            <Link to="WineSessionCreation"id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</Link>
-                            <Link to="WineSessionCreation" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
-                            <Link to="WineSessionCreation" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
-                            <Link to="WineSessionCreation" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</Link>
-                            <Link to="WineSessionCreation" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</Link>
-                            <Link to="WineSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</Link>
-                            <Link to="WineSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</Link>
-                            <Link to="WineSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</Link>
-                            <Link to="WineSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</Link>
-                            <Link to="WineSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">price</Link>
-                            <Link to="WineSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</Link>
-                            <Link to="WineSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</Link>
-                            <Link to="WineSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</Link>
-                            <Link to="WineSessionCreation" className="btn btn-primary mr-2 mt-2">pH</Link>
-                            <Link to="WineSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</Link>
-                            <Link to="WineSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</Link>
-                            <Link to="WineSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</Link>
-                            <Link to="WineSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">palate</Link>
-                            <Link to="WineSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
-                            <Link to="WineSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
-                            <Link to="WineSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link>
-=======
                         {this.state.addProduct.length>0?
                         (this.state.addProduct[0].attributes.map((row,i)=>
                         // {row.attributes.map((rows,l)=>
@@ -3501,7 +3478,6 @@ submitForm = (event) => {
                             <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
                             <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
                             <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link> */}
->>>>>>> ba8089d257d7afc793099334de7b86039f986ed7
                         </div>
                     </div>
                     <div className="card cardbg mt-5">
