@@ -395,6 +395,26 @@ componentDidMount(){
     }
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
+
+// hour value
+forWineHour() {
+  var arr = [];
+    for (let i = 0; i <= 23; i++) {
+        arr.push(<option key={i} value="{i}">{i}</option>)
+    }
+  return arr; 
+}
+
+// minute value
+forWineMinute() {
+  var arr = [];
+    for (let i = 0; i <= 59; i++) {
+        arr.push(<option key={i} value="{i}">{i}</option>)
+    }
+  return arr; 
+}
+
+
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   const cutoffDateTime = cutoffStartDate;
@@ -1369,7 +1389,35 @@ submitForm = (event) => {
                       {/* <span  className="when-icon"></span> */}
                       <a href="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></a>
                     </div>
-                    <div className="form-group">
+                    <div class="row">
+                      <div class="col-md-6 pr-md-2">
+                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
+                          <label class="label">Hours</label>
+                          <select class="input-field" id="">
+                            {/* <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option> */}
+                            {this.forWineHour()}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6 pl-md-1">
+                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
+                          <label class="label">Minutes</label>
+                            <select class="input-field" id="">
+                              {/* <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option> */}
+                              {this.forWineMinute()}
+                            </select>
+                          </div>
+                      </div>
+                    </div>
+                    {/* <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">How long?</label>
                       <select
@@ -1386,7 +1434,7 @@ submitForm = (event) => {
                       </select>
                       {this.validator.message('exampleFormControlSelect2', this.state.exampleFormControlSelect2, 'required|integer')}
                       
-                    </div>
+                    </div> */}
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Minimum Participants</label>
@@ -1494,14 +1542,14 @@ submitForm = (event) => {
               <div className="form-content">
                 <div className="row">
                   <div className="col-md-5 px-4">
-                    <p className="text1 mb-4">for Hosts prior to start of Session</p>
+                    <p className="text1 mb-38">for Hosts prior to start of Session</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
-                    <p className="text1 mb-4">Sign up Cut off Date/Time</p>
+                    <p className="text1 mb-38">Sign up Cut off Date/Time</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Pick Date/Time</label>
@@ -1520,14 +1568,14 @@ submitForm = (event) => {
                     
                   </div>
                   <div className="col-md-5 px-4">
-                    <p className="text1 mb-4">for Participants prior to start of Session</p>
+                    <p className="text1 mb-38">for Participants prior to start of Session</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
-                    <p className="text1 mb-4">for 'minimum not met'</p>
+                    <p className="text1 mb-38">for 'minimum not met'</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>

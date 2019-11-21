@@ -6,7 +6,8 @@ import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
-import { Link} from 'react-router';
+import { Link } from 'react-router';
+// import TimePicker from 'react-time-picker';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class DemoSessionWine extends Component {
@@ -554,6 +555,50 @@ componentDidMount(){
   }   
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
+// hour value
+forWineHour() {
+  var arr = [];
+    for (let i = 0; i <= 23; i++) {
+        arr.push(<option key={i} value="{i}">{i}</option>)
+    }
+  return arr; 
+}
+
+// minute value
+forWineMinute() {
+  var arr = [];
+    for (let i = 0; i <= 59; i++) {
+        arr.push(<option key={i} value="{i}">{i}</option>)
+    }
+  return arr; 
+}
+
+// timeset = time1 => {
+  
+//   console.log(time1.split(':')[0],time1.split(':')[1]);
+  
+//     let b = time1.split(':')[1];
+//     let a = parseInt(time1.split(':')[0]);
+//     if(a==12 && b>0){
+//       a = 12 + ' PM'
+//     }
+//     if(a>12 ){
+//       a=a-12+ ' PM';
+//     }
+//     else{
+//       a = a+' AM';
+//     }
+   
+
+  
+  // console.log(time1 ,'print')
+// this.setState(
+//   { time:time1,
+//     reminderTime:a
+//  },()=>console.log(this.state.time))}
+
+/////Calender pick time
+
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   const cutoffDateTime = cutoffStartDate;
@@ -2049,26 +2094,28 @@ submitForm = (event) => {
                     </div>
                     <div class="row">
                       <div class="col-md-6 pr-md-2">
-                        <div class="form-group"><span class="cover-border"></span>
+                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
                           <label class="label">Hours</label>
                           <select class="input-field" id="">
-                            <option>1</option>
+                            {/* <option>1</option>
                             <option>2</option>
                             <option>3</option>
                             <option>4</option>
-                            <option>5</option>
+                            <option>5</option> */}
+                            {this.forWineHour()}
                           </select>
                         </div>
                       </div>
                       <div class="col-md-6 pl-md-1">
-                        <div class="form-group"><span class="cover-border"></span>
+                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
                           <label class="label">Minutes</label>
                             <select class="input-field" id="">
-                              <option>1</option>
+                              {/* <option>1</option>
                               <option>2</option>
                               <option>3</option>
                               <option>4</option>
-                              <option>5</option>
+                              <option>5</option> */}
+                              {this.forWineMinute()}
                             </select>
                           </div>
                       </div>
@@ -2191,14 +2238,14 @@ submitForm = (event) => {
               <div className="form-content">
                 <div className="row">
                   <div className="col-md-5 px-4">
-                    <p className="text1 mb-4">for Hosts prior to start of Session</p>
+                    <p className="text1 mb-38">for Hosts prior to start of Session</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
-                    <p className="text1 mb-4">Sign up Cut off Date/Time</p>
+                    <p className="text1 mb-38">Sign up Cut off Date/Time</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Pick Date/Time</label>
@@ -2217,14 +2264,14 @@ submitForm = (event) => {
                     
                   </div>
                   <div className="col-md-5 px-4">
-                    <p className="text1 mb-4">for Participants prior to start of Session</p>
+                    <p className="text1 mb-38">for Participants prior to start of Session</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
                       <span className="clock-icon"></span>
                     </div>
-                    <p className="text1 mb-4">for 'minimum not met'</p>
+                    <p className="text1 mb-38">for 'minimum not met'</p>
                     <div className="form-group mt-2 w-75">
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
@@ -3011,7 +3058,14 @@ submitForm = (event) => {
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
                 <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" />
-                {/* <span className="clock-icon "></span> */}
+                <span className="clock-icon "></span>
+                {/* <TimePicker
+           amPmAriaLabel
+           onChange={this.timeset}
+           value={this.state.time}
+           disableClock	={true}
+          /> */}
+
             </div>
           </div>
           <div className="col-md-1"></div>

@@ -94,6 +94,10 @@ select.input-field
 	color: white;
 	font-size: 24px;
 }
+.mb-38
+{
+	margin-bottom: 38px;
+}
 .hdr h2 i
 {
 	color: #bd00ff;
@@ -194,7 +198,7 @@ select.input-field
 }
 /* Tab Section CSS */
 
-.tab-sec .cont
+.tab-sec .cont, .inner_containr
 {
 	background-color: #2a2a2a;
 	border-radius: 10px;
@@ -213,6 +217,7 @@ select.input-field
 	font-size: 20px;
 	position: relative;
 	margin: 0px 15px;
+	font-family: Avenir-Medium;
 }
 .tab-sec .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link
 {
@@ -425,7 +430,7 @@ a.act:before
 	margin-right: 15px;
 	margin-bottom: 0;
 }
-/*-------------CSS taken from rotit custom.css file--------------------*/
+/*-------------CSS taken from rohit custom.css file--------------------*/
 
 .btn-outline-secondary{
     color: #fff;
@@ -827,7 +832,7 @@ a.act:before
 {
 	font-family: Avenir-Book;
     font-size: 20px;
-    color: #fff;
+    color: #fff !important;
     
 }
 .color-icons img
@@ -1008,6 +1013,7 @@ div.overflow-hidden p:nth-child(1) a:after
 {
 	width: 65px;
 	align-self: baseline;
+	border-radius: 8px;
 }
 #pick_host_modal .checktxt
 {
@@ -1027,7 +1033,7 @@ div.overflow-hidden p:nth-child(1) a:after
 }
 .checktxt_name
 {
-	color: white;
+	color: white !important;
 	border-bottom: 1px solid #bd00ff;
 	font-size: 20px;
 	font-family: "Avenir-Book";
@@ -1220,6 +1226,37 @@ div.overflow-hidden p:nth-child(1) a:after
 	font-family: Avenir-Book;
 	font-size: 18px; 
 }
+/*-------react time picker css----------*/
+
+  /*.react-time-picker__wrapper {
+    display: flex;
+    border: 2px solid #b002ed !important;
+    width: 175px;
+    margin-top: 0px;
+    padding-top: 10px;
+    padding-left: 19px;
+    border-radius: 0px 10px 10px;
+    padding-bottom: 7px;
+    color: #ffffff;
+    background-color: #bd00ff52;
+}
+.react-time-picker__inputGroup__input{
+	color: azure;
+	padding: 0 8px !important;
+}
+.react-time-picker__inputGroup__input,option{
+	background-color: #bd00ff;
+}
+.react-time-picker__button:enabled .react-time-picker__button__icon, .react-time-picker__button:enabled:focus .react-time-picker__button__icon{
+	stroke: #bd00ff !important;
+	outline: none;
+}
+.react-time-picker__inputGroup__amPm{
+	outline: none;
+}
+.react-time-picker__button:enabled{
+	display: none;
+}*/
 .custom_field
 {
 	border-radius: 10px;
@@ -1517,6 +1554,65 @@ input.timepicki-input
 	border-radius: 10px;
 	overflow: hidden;
 }
+
+/*-------------slide-19 CSS----------------*/
+
+/*-------------slide-19 CSS----------------*/
+.inner_containr p
+{
+	color: #a9a9a9;
+}
+	.inner_containr p img
+	{
+		width: 20px;
+	}
+	.inner_containr div img
+	{
+		width: 29px;
+	}
+	.session_btn
+	{
+		border:1px solid #bd00ff;
+		background-color: transparent;
+		border-radius: 8px;
+		color: white;
+		padding: 10px 30px;
+		font-family: Avenir-Book;
+	}
+	.plus_icnn
+	{
+		width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    border: 1px solid #b002ed;
+    color: #fff;
+    position: relative;
+    text-align: center;
+    font-weight: normal;
+    cursor: pointer;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    font-size: 35px;
+	}
+	.inner_containr p.checktxt
+	{
+		font-size: 13px;
+	}
+	.mx--6
+	{
+		margin-left: -6px;
+		margin-right: -6px;
+	}
+	.w-70
+	{
+		width: 75px !important;
+		border-radius: 8px;
+	}
+	.translat
+	{
+		transform: translateY(-4px);
+	}
 /* Responsive Code */
 
 @media(max-width: 900px)
