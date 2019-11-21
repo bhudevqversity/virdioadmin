@@ -2020,7 +2020,7 @@ submitForm = (event) => {
       </div>
     {/* Equipement List End  */}
 
-    <Link to ="session-creation" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+    <Link to ="session-creation" className="save-btn btn btn-primary my-5 mx-auto" data-toggle="modal" data-target="#linkGenerator" onClick={this.submitForm}>Save</Link>
     <div className="modal" id="myModal">
     <div className="modal-dialog dialogwidth modal-dialog-centered">
       <div className="modal-content modalbg">
@@ -2357,6 +2357,34 @@ submitForm = (event) => {
     </div>
   </div>
 </div>  
+<div className="modal" id="linkGenerator">
+  <div className="modal-dialog">
+    <div className="modal-content">
+
+      <div className="modal-header">
+        <h4 className="modal-title">You have successfully created a session</h4>
+        <button type="button" className="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <div className="modal-body">
+      <h3>Congratulations ,you have created the session "Introduction to wine testing" to be hosted by Arjun on August 13th2019 12:30PM</h3>
+      <h3>You can start inviting Participants by sharing  the link below </h3>
+      <div className="col-md-4" >
+      <div className="form-group mb-0"><span className="cover-border"></span>
+      <label className="label">Link</label>
+      <input type="text" 
+      id ='Link'
+      value='https://virdio.com'
+      disabled
+      className="input-field" />
+      </div>
+      </div>
+    </div>
+
+       </div>
+  </div>
+</div> 
 
 {/* <div className="modal" id="calenderModel">
   <div className="modal-dialog">

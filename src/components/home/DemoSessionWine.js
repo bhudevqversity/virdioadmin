@@ -111,10 +111,13 @@ class DemoSessionWine extends Component {
         ///////////////////duplicate tablerow////////////////////
         chooseWine: false,
         tablerows:[],
+        tablerows1:[],
+        tablerows3:[],
         wineInfoArray:[],
         wineDescription:'',
         wineMedia:'',
         emojiForWineProduct:0,
+        productModelStatus:0,
         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
          //listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
          listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
@@ -123,7 +126,10 @@ class DemoSessionWine extends Component {
          appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
         {emoji:"images/burgundy.png",type:false,name:"Burgundy"},
         {emoji:"images/auburn.png",type:false,name:"Auburn"}],
-
+        appearanceStatus:[],
+        assignEmojiStatus:false,
+        aromaStatus:false,
+        palateStatus:false,
         //appearanceEmoji:[],
 
         aromaEmoji:[{emoji:"images/apple.png",type:false,name:"Apple"},
@@ -183,6 +189,8 @@ class DemoSessionWine extends Component {
         emojiesList:[],
         duplicatehostList:[],
         searchhostList:'',
+        addProduct:[],
+        productInformation:[],
         //////////////////////////
     }
     this.setHeaderValue();
@@ -196,32 +204,33 @@ componentDidMount(){
   this.fetchExistingEquipments();
   this.fetchEmojiesList();
   this.fetchProductList();
+  this.addToProductList();
   }
 
   fetchProductList() {  
 
     let  channelId=1;
     
-    // let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
-    //   ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
-    //   {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
-    //   {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
-    // let ka=[];
-    // for(let i=0;i<eqarray.length;i++){
-    //   //type:false,name:"Mersedes Benz"
-    //   let n = {
-    //     id: eqarray[i].id,
-    //     type:false,
-    //     channelId:eqarray[i].channelId,
-    //     interestId:eqarray[i].interestId,
-    //     product_name:eqarray[i].product_name,
-    //     description: eqarray[i].description
-    //   };
-    //   ka.push(n)
-    // } 
-    // this.setState({
-    //   wineProduct:ka
-    // },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
+    let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
+      ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
+      {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
+      {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
+    let ka=[];
+    for(let i=0;i<eqarray.length;i++){
+      //type:false,name:"Mersedes Benz"
+      let n = {
+        id: eqarray[i].id,
+        type:false,
+        channelId:eqarray[i].channelId,
+        interestId:eqarray[i].interestId,
+        product_name:eqarray[i].product_name,
+        description: eqarray[i].description
+      };
+      ka.push(n)
+    } 
+    this.setState({
+      wineProduct:ka
+    },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
 
 
     console.log('-----asdfghjkl----------',channelId);  
@@ -260,7 +269,19 @@ componentDidMount(){
   }
 
   fetchEmojiesList() {  
-    let  interestId=1;   
+    let  interestId=1;
+    let ka = [{id: 1, interestId: 1, name: "Cherry", emojies_type: "Appearance", path: "images/cherry.png"},
+    {id: 2, interestId: 1, name: "Burgundy", emojies_type: "Appearance", path: "images/burgundy.png"},
+    {id: 3, interestId: 1, name: "Auburn", emojies_type: "Appearance", path: "images/auburn.png"},
+    {id: 4, interestId: 1, name: "Apple", emojies_type: "Aroma", path: "images/apple.png"},
+    {id: 5, interestId: 1, name: "Grape", emojies_type: "Aroma", path: "images/grapes.png"},
+    {id: 6, interestId: 1, name: "Cheese", emojies_type: "Aroma", path: "images/cheese.png"},
+    {id: 7, interestId: 1, name: "Example", emojies_type: "Palate", path: "images/apple.png"},
+    {id: 8, interestId: 1, name: "Another", emojies_type: "Palate", path: "images/grapes.png"},
+    {id: 9, interestId: 1, name: "Few Example", emojies_type: "Palate", path: "images/cheese.png"}]   
+    this.setState({
+      emojiesList: ka
+    });
     console.log('-----asdfghjkl----------',interestId);              
       axios      
       //.get("/api/v1/session/"+channelId+"/host")      
@@ -478,6 +499,60 @@ componentDidMount(){
       });
 
     }
+    addToProductList=(e)=>{
+      let arr = [
+          {
+              name: "thunderbird",
+              attributes: [{
+                      attrKey: "Varietal",
+                      attrValue:'80% Pinot Noir',
+                      
+                  },
+                  {
+                      attrKey: "Price",
+                      attrValue: "80",
+                      
+                  },
+                  {
+                      attrKey: "pH",
+                      attrValue: 3.69,
+                      
+                  },
+                  {
+                      attrKey: "Tasting Notes",
+                      attrValue: "NA",
+                      
+                  },
+                  {
+                      attrKey: "Winemaking",
+                      attrValue: "The 2014 vintage in Napa Valley was one of the earliest harvested vintages in years. A warm spring led to early bud break and created the perfect environment for flowering and fruit set. ",
+                      
+                  },
+                  {
+                      attrKey: "Pairs Well With",
+                      attrValue: "Meats and Fish: Seared Filet Mignon, Pan Roasted Veal Chops",
+                   }
+              ]
+          }
+          ];
+          let attributes = [];
+          let productList= this.state.addProduct;
+          for(let i=0;i<arr.length;i++){
+           attributes=[];
+           for(let l =0;l<arr[i].attributes.length;l++){
+           let n = {attrKey:arr[i].attributes[l].attrKey,attrValue:arr[i].attributes[l].attrValue,status:false,id:l};
+           attributes.push(n);   
+             }
+          
+          let n = {name : arr[i].name,
+              attributes
+          }
+          productList.push(n);
+          }
+          this.setState({
+          addProduct:productList
+          },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
+  }   
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
 // hour value
@@ -749,7 +824,33 @@ selectShoppingList =(e)=> {
     { console.log('setEuipmentContainer==>',this.state.shoppingList);
       });
 }
+saveProductList=(e)=>{
+  console.log('Product List',this.state.productInformation);
+  const saveProduct = {
+      name:this.state.addProduct[0].name,
+      productName:this.state.shoppingProductName,
+      productInfo:this.state.productInformation
+  }
+  console.log('saveProduct',saveProduct)
+  // if (this.validator.allValid()) {
+  // console.log('saveProduct',saveProduct);
+  // }else{
+  //     console.log('error');
+  //     this.validator.showMessages();
+  // }
 
+}
+handleProductList = idx => evt => {
+  const newShareholders = this.state.productInformation.map((shareholder, sidx) => {
+    if (idx !== sidx) return shareholder;
+    return { ...shareholder, attrValue: evt.target.value };
+  });
+
+  this.setState({ productInformation: newShareholders },()=> {
+    console.log('Product List',this.state.productInformation[idx].attrValue)
+  }
+  );
+}
 handleShoppingQuantity = idx => evt => {
   const newShareholders = this.state.shoppingList.map((shareholder, sidx) => {
     if (idx !== sidx) return shareholder;
@@ -909,41 +1010,33 @@ removeShoppingList = (e) => {
       shoppingList:dataArray1
     },()=>console.log('******Remove**********',this.state.shoppingList1))
   }
-addAttribute = (e) => {
-  console.log(e.target.id);
-  let x=2,n=0;
-  console.log('e.target.id',e.target.id);
-  let attributeArray = this.state.addAttribute;
-  let classArray = this.state.something;
-  for(let i =0 ;i<attributeArray.length;i++){
-    if(e.target.id === attributeArray[i]){
-     x=1;n=i;
+  addAttribute = (e) => {
+    e.preventDefault();
+    console.log(e.target.id,'-------------',e.target.name);
+    console.log('e.target.id',e.target.id);
+    let attributeArray=this.state.addProduct;
+    let arr = this.state.productInformation;
+   // let productCount = this.state.productCount;
+    attributeArray[0].attributes[e.target.id].status = !attributeArray[0].attributes[e.target.id].status;
+    if(attributeArray[0].attributes[e.target.id].status){
+        arr.push(attributeArray[0].attributes[e.target.id]);
+     //   productCount =  productCount+1;
+
+    }else{
+    for(let i=0;i<arr.length;i++){
+        if(e.target.name === arr[i].attrKey){
+            arr.splice(i,1);
+       //     productCount =  productCount-1;
+        }
     }
-  }
+    }
 
-  if(x===1){
-    attributeArray.splice(n,1);
-    classArray[e.target.name] = false;
     this.setState({
-      addAttribute:attributeArray,
-      something:classArray
-      },()=>
-      { console.log('add Attribute==>',this.state.addAttribute);
-    });
-  }
-  else{
-    attributeArray.push(e.target.id);
-    classArray[e.target.name] = true;
-    console.log(e.target.name,'classArray[e.target.value]',classArray[e.target.value],classArray);
-    this.setState({
-      addAttribute:attributeArray,
-      something:classArray
-      },()=>
-      { console.log(this.state.something,'add Attribute==>',this.state.addAttribute);
-    });
-  }
-
-  }
+        addProduct:attributeArray,
+        productInformation:arr,
+        //productCount:productCount
+    },()=>console.log('----------------',this.state.productInformation))
+    }
 ///////////////////////////Host Selection
 selectHost = (e) => {
   
@@ -1286,14 +1379,43 @@ testerStatus = (e) =>{
 removeWineActivity = (e) => {
   console.log('e.target.id',e.target.id);
   let wineArray = this.state.tablerows;
+  let wineContainer = this.state.wineProduct;
+  for(let i =0 ;i<wineArray.length;i++){
+    console.log(e.target.id ,'===', wineArray[i].id)
+    if(e.target.id == wineArray[i].id){
+      wineContainer[wineArray[i].wineProductId].type=false;
+      wineArray.splice(i,1);
+      this.setState({
+        tablerows:wineArray,
+        emojiForWineProduct:0,
+        wineProduct:wineContainer
+        
+        },()=>
+        { console.log('this.state.tablerows==>',this.state.tablerows);
+      });
+    }
+  }
+  wineArray = this.state.tablerows3;
   for(let i =0 ;i<wineArray.length;i++){
     console.log(e.target.id ,'===', wineArray[i].id)
     if(e.target.id == wineArray[i].id){
       wineArray.splice(i,1);
       this.setState({
-        tablerows:wineArray,
+        tablerows3:wineArray,
         },()=>
-        { console.log('Wine Product==>',this.state.tablerows);
+        { console.log('this.state.tablerows3==>',this.state.tablerows3);
+      });
+    }
+  }
+  wineArray = this.state.tablerows1;
+  for(let i =0 ;i<wineArray.length;i++){
+    console.log(e.target.id ,'===', wineArray[i].id)
+    if(e.target.id == wineArray[i].id){
+      wineArray.splice(i,1);
+      this.setState({
+        tablerows1:wineArray,
+        },()=>
+        { console.log('this.state.tablerows1==>',this.state.tablerows1);
       });
     }
   }
@@ -1301,18 +1423,29 @@ removeWineActivity = (e) => {
 wineProductSelect = (e) => {
   let wineContainer = this.state.wineProduct;
   let addWine;
-  let wineArray = this.state.tablerows;
+  let wineArray = [];
+  let productModelStatus = this.state.productModelStatus;
+  let wineStatus = this.state.chooseWine;
+  if(productModelStatus===0){
+    wineStatus = !wineStatus;
+  }
+  productModelStatus = productModelStatus+1;
+  wineArray = this.state.tablerows3;
   wineContainer[e.target.id].type = !wineContainer[e.target.id].type;
   if(wineContainer[e.target.id].type){
     let indexValue = (this.state.wineIndexValue+1);
-    console.log('wineIndexValue',this.state.wineIndexValue,'IndexValue',indexValue);
+    console.log(this.state.tablerows,'this.state.tablerows3',this.state.tablerows3,'***************************','wineIndexValue',this.state.wineIndexValue,'IndexValue',indexValue);
   
     let la1=[];
     let la2=[];
-    let ka = []; 
+    let ka = [];let appearanceSta=[];let aromaCheck=[];let palateCheck=[]; 
     for(let i=0;i<this.state.emojiesList.length;i++){
     if(this.state.emojiesList[i].emojies_type==="Appearance"){
-    let n = {interestId:this.state.emojiesList[i].interestId,
+    let n;
+    n={appearanceStatus:false};
+    appearanceSta.push(n);
+      
+     n = {interestId:this.state.emojiesList[i].interestId,
       path: this.state.emojiesList[i].path,
       emojies_type:this.state.emojiesList[i].emojies_type,
       status:false, 
@@ -1321,7 +1454,10 @@ wineProductSelect = (e) => {
       ka.push(n);
      }
      if(this.state.emojiesList[i].emojies_type==="Aroma"){
-      let n = {interestId:this.state.emojiesList[i].interestId,
+      let n;
+      n={appearanceStatus:false};
+      aromaCheck.push(n);
+      n = {interestId:this.state.emojiesList[i].interestId,
       path:this.state.emojiesList[i].path,
       emojies_type:this.state.emojiesList[i].emojies_type, 
       status:false, 
@@ -1331,7 +1467,10 @@ wineProductSelect = (e) => {
       }
       
       if(this.state.emojiesList[i].emojies_type==="Palate"){
-      let n ={interestId:this.state.emojiesList[i].interestId,
+        let n;
+        n={appearanceStatus:false};
+        palateCheck.push(n);
+        n ={interestId:this.state.emojiesList[i].interestId,
         path:this.state.emojiesList[i].path,
         emojies_type:this.state.emojiesList[i].emojies_type,
         status:false, 
@@ -1342,33 +1481,18 @@ wineProductSelect = (e) => {
      
     }
 
-    // for(let i=0;i<this.state.listAroma.length;i++){
-    // let n = {interestId:this.state.listAroma[i].interestId,
-    //   path:this.state.listAroma[i].path,
-    //   emojies_type:this.state.listAroma[i].emojies_type, 
-    //   status:false, 
-    //   name:this.state.listAroma[i].name,
-    //   id:this.state.listAroma[i].id };
-    //   la1.push(n);
-    // }
-
-    // for(let i=0;i<this.state.listPalate.length;i++){
-    //   let n ={interestId:this.state.listPalate[i].interestId,
-    //     path:this.state.listPalate[i].path,
-    //     emojies_type:this.state.listPalate[i].emojies_type,
-    //     status:false, 
-    //     name:this.state.listPalate[i].name,
-    //     id:this.state.listPalate[i].id };
-    //   la2.push(n);
-    // }
-    
+   
     // ------------------------------------------------------------------
     addWine = {
       wineChoice:wineContainer[e.target.id].product_name,
       id:indexValue,
+      wineProductId:e.target.id,
       // [{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}]
       //[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}]
       //[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      appearanceSelect:appearanceSta,
+      aromaSelect:aromaCheck,
+      palateSelect:palateCheck,
       listAppearance:ka,
       listAroma :la1,
       listPalate:la2,
@@ -1378,13 +1502,16 @@ wineProductSelect = (e) => {
       this.setState({
         wineProduct : wineContainer,
         wineIndexValue:indexValue,
-        tablerows:wineArray
+        chooseWine:wineStatus,
+        productModelStatus:productModelStatus,
+        tablerows3:wineArray
+        
         },()=>
-        { console.log(this.state.wineIndexValue,'===WindeIndexvalue',this.state.tablerows,'Wine Product==>',this.state.wineProduct);
+        { console.log(this.state.tablerows,this.state.wineIndexValue,'===WindeIndexvalue',this.state.tablerows3,'Wine Product==>',this.state.wineProduct);
       });
   }else{
     for(let i =0 ;i<wineArray.length;i++){
-      if(wineArray[i].wineChoice === wineContainer[e.target.id].name){
+      if(wineArray[i].wineChoice === wineContainer[e.target.id].product_name){
         console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct);
         let indexValue = ((wineArray.length+1)-1);
          wineArray.splice(i,1);
@@ -1392,6 +1519,7 @@ wineProductSelect = (e) => {
           wineProduct : wineContainer,
           tablerows:wineArray,
           wineIndexValue:indexValue,
+          //chooseWine:!this.state.chooseWine,
           emojiForWineProduct:0
           },()=>
           { console.log(this.state.wineIndexValue,'*****',this.state.tablerows,'Wine Product==>',this.state.wineProduct);
@@ -1443,6 +1571,8 @@ apperanceSelect = (e) => {
     // });
   
     let emojiContainer = this.state.tablerows;
+    console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct);
+
     //let appearanceContainer = this.state.appearanceEmoji;
     emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].status = !emojiContainer[this.state.emojiForWineProduct].listAppearance[e.target.id].status;
     
@@ -1454,7 +1584,96 @@ apperanceSelect = (e) => {
     });
   
   }
+  setChooseWineStatus=(e)=>{
+    console.log('HELLO');
+     let wineArray = [];
+    //this.state.tablerows;
+    for(let i=0;i<this.state.tablerows3.length;i++){
+      wineArray.push(this.state.tablerows3[i]);
+    }
+    this.setState({
+      chooseWine:false,
+      //tablerows:wineArray,
+      tablerows:wineArray
+    },()=>console.log(this.state.chooseWine,this.state.tablerows))
+  }
+finalEmoji = () =>{
+  // let addWine = {
+  //   wineChoice:wineContainer[e.target.id].product_name,
+  //   id:indexValue,
+  //   appearanceSelect:appearanceSta,
+  //   listAppearance:ka,
+  //   listAroma :la1,
+  //   listPalate:la2,
+  //   testerStatus:false
+  //   }
+    let arr1=[];
+    let arr2 =this.state.tablerows;
+    for(let i=0;i<this.state.tablerows.length;i++){
+      if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus)
+      arr1.push(this.state.tablerows[i]);
+      
 
+    }
+    if(this.state.emojiForWineProduct==1){
+      console.log(this.state.tablerows[this.state.emojiForWineProduct],'this.state.emojiForWineProduct-----------------',this.state.tablerows[1])
+    }
+    this.setState({
+      tablerows1:arr1
+    },()=>console.log('this.state.tablerows2',this.state.tablerows1))
+    console.log(arr1);
+} 
+resetEmoji=(e)=>{
+// console.log(e.target.id);
+// console.log(this.state.tablerows[e.target.id]);
+// for(let i=0;i<this.state.tablerows[e.target.id].listPalate.length;i++){
+//   this.state.tablerows[e.target.id].listPalate[i].status=false
+// }
+// for(let i=0;i<this.state.tablerows[e.target.id].listAroma.length;i++){
+//   this.state.tablerows[e.target.id].listAroma[i].status=false
+// }
+// for(let i=0;i<this.state.tablerows[e.target.id].listPalate.length;i++){
+//   this.state.tablerows[e.target.id].listPalate[i].status=false
+// }
+
+// let wineContainer = this.state.wineProduct;
+// for(let i=0 ; i<wineContainer.length;i++){
+//   if(wineContainer[i].type){
+//     wineContainer[i].type = !wineContainer[i].type;
+//   }
+
+// }
+// this.setState({
+//   tablerows:[],
+//   wineProduct:wineContainer
+// },()=>console.log(this.state.wineProduct))
+
+}
+appearanceEmojiSelect =(e)=>{
+ let emojiContainer=this.state.tablerows;
+  console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct);
+  emojiContainer[this.state.emojiForWineProduct].appearanceSelect[0].appearanceStatus =!emojiContainer[this.state.emojiForWineProduct].appearanceSelect[0].appearanceStatus;
+  this.setState({
+    appearanceStatus:emojiContainer
+  },()=>console.log('appearanceStatus',this.state.tablerows))
+}
+aromaEmojiSelect=(e)=>{
+  let emojiContainer=this.state.tablerows;
+  console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct);
+  emojiContainer[this.state.emojiForWineProduct].aromaSelect[0].appearanceStatus =!emojiContainer[this.state.emojiForWineProduct].aromaSelect[0].appearanceStatus;
+  this.setState({
+    appearanceStatus:emojiContainer
+  },()=>console.log('appearanceStatus',this.state.tablerows))
+}
+
+palateEmojiSelect =(e)=>{
+  let emojiContainer=this.state.tablerows;
+   console.log('this.state.emojiForWineProduct',this.state.emojiForWineProduct);
+   emojiContainer[this.state.emojiForWineProduct].palateSelect[0].appearanceStatus =!emojiContainer[this.state.emojiForWineProduct].palateSelect[0].appearanceStatus;
+   this.setState({
+     appearanceStatus:emojiContainer
+   },()=>console.log('appearanceStatus',this.state.tablerows))
+ }
   aromaSelect = (e) => {
   
     // let emojiContainer = this.state.tablerows;
@@ -1498,58 +1717,103 @@ apperanceSelect = (e) => {
   }
 ////////////////Submit data
 submitForm = (event) => {
-  let wineDetail = []; 
+
+ let wineDetail = []; 
   // this.state.tablerows;
   let ap = [];
   let ar = [];
   let pa = [];
-  console.log(this.state.tablerows[0].listAppearance.length,'********',this.state.tablerows[0].listAppearance[0].type);
-  for(let i=0;i<this.state.tablerows.length;i++){
-    ap = { wineChoice: this.state.tablerows[i].wineChoice,
-      id: this.state.tablerows[i].id,
+  // console.log(this.state.tablerows[0].listAppearance.length,'********',this.state.tablerows[0].listAppearance[0].type);
+  // for(let i=0;i<this.state.tablerows.length;i++){
+  //   ap = { wineChoice: this.state.tablerows[i].wineChoice,
+  //     id: this.state.tablerows[i].id,
+  //     Emojies:[],
+  //     testerStatus: this.state.tablerows[i].testerStatus };
+  //   wineDetail.push(ap);
+  //   for(let t=0;t<this.state.tablerows[i].listAppearance.length;t++){
+  //     console.log('this.state.tablerows[i].listAppearance.type',this.state.tablerows[i].listAppearance[t].type);
+  //     if(this.state.tablerows[i].listAppearance[t].status){
+  //       let emojiStructure = { path: this.state.tablerows[i].listAppearance[t].path, 
+  //       emojies_type:this.state.tablerows[i].listAppearance[t].emojies_type, 
+  //       name: this.state.tablerows[i].listAppearance[t].name,
+  //       id:1 ,
+  //       interestId:this.state.tablerows[i].listAppearance[t].interestId};
+  //       wineDetail[i].Emojies.push(emojiStructure);
+  //     }
+  //   }
+
+  //   for(let v=0;v<this.state.tablerows[i].listAroma.length;v++){
+  //   console.log('this.state.tablerows[i].listAroma.type',this.state.tablerows[i].listAroma[v].type);
+  //     if(this.state.tablerows[i].listAroma[v].status){
+  //       ar.push(this.state.tablerows[i].listAroma[v]);
+  //       let emojiStructure = { path: this.state.tablerows[i].listAroma[v].path, 
+  //         emojies_type:this.state.tablerows[i].listAroma[v].emojies_type, 
+  //         name: this.state.tablerows[i].listAroma[v].name,
+  //         id:1 ,
+  //         interestId:this.state.tablerows[i].listAroma[v].interestId};
+  //       wineDetail[i].Emojies.push(emojiStructure);
+  //     }
+  //   }
+
+  //   for(let l=0;l<this.state.tablerows[i].listPalate.length;l++){
+  //     if(this.state.tablerows[i].listPalate[l].status){
+  //       pa.push(this.state.tablerows[i].listPalate[l]);
+  //       let emojiStructure = { path: this.state.tablerows[i].listPalate[l].path, 
+  //         emojies_type: this.state.tablerows[i].listPalate[l].emojies_type, 
+  //         name: this.state.tablerows[i].listPalate[l].name,
+  //         id:1,
+  //         interestId:this.state.tablerows[i].listPalate[l].interestId };
+  //       wineDetail[i].Emojies.push(emojiStructure);
+  //     }
+  //   }
+    
+  // }
+
+  
+  for(let i=0;i<this.state.tablerows1.length;i++){
+    ap = { wineChoice: this.state.tablerows1[i].wineChoice,
+      id: this.state.tablerows1[i].id,
       Emojies:[],
-      testerStatus: this.state.tablerows[i].testerStatus };
+      testerStatus: this.state.tablerows1[i].testerStatus };
     wineDetail.push(ap);
-    for(let t=0;t<this.state.tablerows[i].listAppearance.length;t++){
-      console.log('this.state.tablerows[i].listAppearance.type',this.state.tablerows[i].listAppearance[t].type);
-      if(this.state.tablerows[i].listAppearance[t].status){
-        let emojiStructure = { path: this.state.tablerows[i].listAppearance[t].path, 
-        emojies_type:this.state.tablerows[i].listAppearance[t].emojies_type, 
-        name: this.state.tablerows[i].listAppearance[t].name,
+    for(let t=0;t<this.state.tablerows1[i].listAppearance.length;t++){
+      console.log('this.state.tablerows1[i].listAppearance.type',this.state.tablerows1[i].listAppearance[t].type);
+      if(this.state.tablerows1[i].listAppearance[t].status){
+        let emojiStructure = { path: this.state.tablerows1[i].listAppearance[t].path, 
+        emojies_type:this.state.tablerows1[i].listAppearance[t].emojies_type, 
+        name: this.state.tablerows1[i].listAppearance[t].name,
         id:1 ,
-        interestId:this.state.tablerows[i].listAppearance[t].interestId};
+        interestId:this.state.tablerows1[i].listAppearance[t].interestId};
         wineDetail[i].Emojies.push(emojiStructure);
       }
     }
 
-    for(let v=0;v<this.state.tablerows[i].listAroma.length;v++){
-    console.log('this.state.tablerows[i].listAroma.type',this.state.tablerows[i].listAroma[v].type);
-      if(this.state.tablerows[i].listAroma[v].status){
-        ar.push(this.state.tablerows[i].listAroma[v]);
-        let emojiStructure = { path: this.state.tablerows[i].listAroma[v].path, 
-          emojies_type:this.state.tablerows[i].listAroma[v].emojies_type, 
-          name: this.state.tablerows[i].listAroma[v].name,
+    for(let v=0;v<this.state.tablerows1[i].listAroma.length;v++){
+    console.log('this.state.tablerows1[i].listAroma.type',this.state.tablerows1[i].listAroma[v].type);
+      if(this.state.tablerows1[i].listAroma[v].status){
+        ar.push(this.state.tablerows1[i].listAroma[v]);
+        let emojiStructure = { path: this.state.tablerows1[i].listAroma[v].path, 
+          emojies_type:this.state.tablerows1[i].listAroma[v].emojies_type, 
+          name: this.state.tablerows1[i].listAroma[v].name,
           id:1 ,
-          interestId:this.state.tablerows[i].listAroma[v].interestId};
+          interestId:this.state.tablerows1[i].listAroma[v].interestId};
         wineDetail[i].Emojies.push(emojiStructure);
       }
     }
 
-    for(let l=0;l<this.state.tablerows[i].listPalate.length;l++){
-      if(this.state.tablerows[i].listPalate[l].status){
-        pa.push(this.state.tablerows[i].listPalate[l]);
-        let emojiStructure = { path: this.state.tablerows[i].listPalate[l].path, 
-          emojies_type: this.state.tablerows[i].listPalate[l].emojies_type, 
-          name: this.state.tablerows[i].listPalate[l].name,
+    for(let l=0;l<this.state.tablerows1[i].listPalate.length;l++){
+      if(this.state.tablerows1[i].listPalate[l].status){
+        pa.push(this.state.tablerows1[i].listPalate[l]);
+        let emojiStructure = { path: this.state.tablerows1[i].listPalate[l].path, 
+          emojies_type: this.state.tablerows1[i].listPalate[l].emojies_type, 
+          name: this.state.tablerows1[i].listPalate[l].name,
           id:1,
-          interestId:this.state.tablerows[i].listPalate[l].interestId };
+          interestId:this.state.tablerows1[i].listPalate[l].interestId };
         wineDetail[i].Emojies.push(emojiStructure);
       }
     }
     
   }
-
-
   console.log('*******************************************',wineDetail);
   
 
@@ -1995,7 +2259,7 @@ submitForm = (event) => {
                         disabled
                       />
                       {/* <span className="when-icon"></span> */}
-                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel"></Link>
+                      <Link to ="#" className="when-icon" data-toggle="modal" data-target="#signUpCalenderModel1"></Link>
                     </div>
                     
                   </div>
@@ -2110,7 +2374,7 @@ submitForm = (event) => {
           <h3 className="info myheading"><img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
             </div>
           {/* Wine Product With Testing Sortable  */}
-          {this.state.tablerows.length>0?      
+          {this.state.tablerows1.length?
           <div className="p-3">
             <table className="table text-gray activity-table">
               <thead>
@@ -2130,26 +2394,26 @@ submitForm = (event) => {
                     let arr = [];
                     for(var i=0 ;i<order.length;i++){
                      var splitData = order[i].split(',');
-                       for(let l =0;l<this.state.tablerows.length;l++){
-                          console.log(splitData[1],'this.state.tablerows',this.state.tablerows[l].id);
-                            if(this.state.tablerows[l].id===splitData[1]){
-                            arr.push(this.state.tablerows[l]);
-                            console.log(this.state.tablerows[l],'*************************************',arr);
+                       for(let l =0;l<this.state.tablerows1.length;l++){
+                          console.log(splitData[1],'this.state.tablerows',this.state.tablerows1[l].id);
+                            if(this.state.tablerows1[l].id==splitData[1]){
+                            arr.push(this.state.tablerows1[l]);
+                            console.log(this.state.tablerows1[l],'*************************************',arr);
                           }
                           
                       }
                    }
 
-                    this.setState({ tablerows: arr },()=>console.log('*******',this.state.tablerows));
+                    this.setState({ tablerows1: arr },()=>console.log('*******',this.state.tablerows1));
                     // console.log(order)
                     
                     // console.log(order)
                     
                 }}
                 >
-                {this.state.tablerows.map((row,i) => (
+                {this.state.tablerows1.map((row,i) => (
                  <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
-                  <td>{row.wineChoice}</td>
+                 <td>{row.wineChoice}</td>
                   <td>
                   <div className="color-icons pl-3">
                     {row.listAppearance.map((row,i) => (
@@ -2187,7 +2451,8 @@ submitForm = (event) => {
                     <Link to="wine-demo" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
                     <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={row.id} onClick = {this.removeWineActivity} aria-hidden="true"></i></Link>
                   </td>
-                 </tr>
+                  </tr>
+                  
                 ))}
               </Sortable>
              </table>
@@ -2200,7 +2465,7 @@ submitForm = (event) => {
             <div className="px-4 pb-0 mt-2 add_wine_expand">
                 <div className="row mt-5">                        
                     <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
-                        <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
+                        <div className="form-group mb-0" data-toggle="modal" onClick={()=>this.setState({productModelStatus:0})} data-target="#myPickWineModel"><span className="cover-border"></span>
                         <label className="label">Pick a Wine</label>
                         <input type="text"  className="input-field" disabled /><span className="emojis-icon"></span>
                         </div>
@@ -2745,24 +3010,35 @@ submitForm = (event) => {
   </div>
 </div>  
 
-{/* <div className="modal" id="calenderModel">
+ <div className="modal" id="linkGenerator">
   <div className="modal-dialog">
     <div className="modal-content">
 
       <div className="modal-header">
-        <h4 className="modal-title">Select Duration</h4>
+        <h4 className="modal-title">You have successfully created a session</h4>
         <button type="button" className="close" data-dismiss="modal">&times;</button>
       </div>
 
 
       <div className="modal-body">
-      <h3>Calender</h3>
-      <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
+      <h3>Congratulations ,you have created the session "Introduction to wine testing" to be hosted by Arjun on August 13th2019 12:30PM</h3>
+      <h3>You can start inviting Participants by sharing  the link below </h3>
+      <div className="col-md-4" >
+      <div className="form-group mb-0"><span className="cover-border"></span>
+      <label className="label">Link</label>
+      <input type="text" 
+      id ='Link'
+      value='https://virdio.com'
+      disabled
+      className="input-field" />
+      </div>
+      </div>
     </div>
 
        </div>
   </div>
-</div>   */}
+</div> 
+
 <div className="modal cal_modal pr-0" id="calenderModel1">
 <div className="modal-dialog d-md-flex d-block large_width1 mb-0">
     <div className="modal-content modalbg m-auto">
@@ -2923,9 +3199,8 @@ submitForm = (event) => {
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
       <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
-
-      <div className="botm_container">
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={false}  />
+       <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
@@ -3051,8 +3326,9 @@ submitForm = (event) => {
     <div className="modal-content modalbg">
       <div className="modal-header headerborder">
       <h4 className="modal-title white">Pick a Product</h4>
-      <button type="button" className="close white" data-dismiss="modal">×</button>
+      <button type="button" className="close white" onClick={this.resetEmoji} data-dismiss="modal">×</button>
     </div>
+    <form>
     <div className="modal-body ">
       <div className="card cardbg">
         <article className="card-group-item">
@@ -3066,6 +3342,7 @@ submitForm = (event) => {
           type="checkbox" 
           name={row.product_name} 
           id={i} 
+          checked={row.type}
           value={row.product_name} 
           onChange={this.wineProductSelect}/>
           <span className="form-check-label">{row.product_name}</span>
@@ -3080,7 +3357,9 @@ submitForm = (event) => {
       </div>
       </article>
       </div>
+      <div className="ooterborder text-center mt-4"><button className="btn-primary"   onClick={this.setChooseWineStatus} data-dismiss="modal">Done</button></div>
       </div>
+      </form>
       <div className="modal-footer footerborder"></div>
     </div>
    </div>
@@ -3091,16 +3370,27 @@ submitForm = (event) => {
             <div className="modal-content">
                 <div className="modal-header modalbg">
                     <h4 className="modal-title white">Assign Emogis</h4>
-                    <button type="button" className="close" data-dismiss="modal">×</button>
+                    <button type="button" className="close" id = {this.state.emojiForWineProduct}  data-dismiss="modal">×</button>
                 </div>
                 <form>
                 <div className="modal-body modalbg">
                     
                         <div className="row">
                             <div className="col-md-4">
-                                <div className="card cardbg"> 
-                                    <label className="form-check mb-4">
-                                    <span className="form-check-label ml-3">APPEARANCE</span></label>                             
+                                <div className="card cardbg">
+                                {this.state.tablerows.length>0?
+                                (this.state.tablerows[this.state.emojiForWineProduct].appearanceSelect.map((row,i) => (
+                                  (i===0?
+                                 <label className="form-check mb-4" key = {i}>
+                                    <input 
+                                    className="form-radio"
+                                    id={i}
+                                    name='appearanceStatus'
+                                    type = "checkbox"
+                                    checked={row.appearanceStatus} 
+                                    onChange={this.appearanceEmojiSelect}
+                                    ></input><span className="form-check-label ml-3">APPEARANCE</span></label>  
+                                 :'') ))):''}                        
                                     {/* {this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => ( */}
                                     {this.state.tablerows.length>0?
                                     (this.state.tablerows[this.state.emojiForWineProduct].listAppearance.map((row,i) => (
@@ -3120,8 +3410,22 @@ submitForm = (event) => {
                             </div>
                             <div className="col-md-4">
                                 <div className="card cardbg"> 
-                                    <label className="form-check mb-4">
-                                    <span className="form-check-label ml-3">AROMA</span></label>                             
+                                    {/* <label className="form-check mb-4">
+                                    <span className="form-check-label ml-3">AROMA</span></label>
+                                                                  */}
+                                    {this.state.tablerows.length>0?
+                                (this.state.tablerows[this.state.emojiForWineProduct].aromaSelect.map((row,i) => (
+                                  (i===0?
+                                 <label className="form-check mb-4" key = {i}>
+                                    <input 
+                                    className="form-radio"
+                                    id={i}
+                                    name='appearanceStatus'
+                                    type = "checkbox"
+                                    checked={row.appearanceStatus} 
+                                    onChange={this.aromaEmojiSelect}
+                                    ></input><span className="form-check-label ml-3">AROMA</span></label>  
+                                 :'') ))):''}                              
                                     {this.state.tablerows.length>0?
                                     (this.state.tablerows[this.state.emojiForWineProduct].listAroma.map((row,i) => (
                                     <label className="form-check mb-4" key = {i}>
@@ -3139,8 +3443,23 @@ submitForm = (event) => {
                             </div>
                             <div className="col-md-4">
                                 <div className="card cardbg"> 
-                                    <label className="form-check mb-4">
+                                    {/* <label className="form-check mb-4">
                                     <span className="form-check-label ml-3">PALATE</span></label>                             
+                                     */}
+
+                                {this.state.tablerows.length>0?
+                                (this.state.tablerows[this.state.emojiForWineProduct].palateSelect.map((row,i) => (
+                                  (i===0?
+                                 <label className="form-check mb-4" key = {i}>
+                                    <input 
+                                    className="form-radio"
+                                    id={i}
+                                    name='palateStatus'
+                                    type = "checkbox"
+                                    checked={row.appearanceStatus} 
+                                    onChange={this.palateEmojiSelect}
+                                    ></input><span className="form-check-label ml-3">PALATE</span></label>  
+                                 :'') ))):''}
                                     {this.state.tablerows.length>0?
                                     (this.state.tablerows[this.state.emojiForWineProduct].listPalate.map((row,i) => (
                                     <label className="form-check mb-4" key = {i}>
@@ -3162,7 +3481,7 @@ submitForm = (event) => {
                         </div>
                     
                 </div>
-                <div className="ooterborder text-center mt-4"><button className="btn-primary" data-dismiss="modal">SELECT</button></div>
+                <div className="ooterborder text-center mt-4"><button className="btn-primary"   onClick={this.finalEmoji} data-dismiss="modal">SELECT</button></div>
                 </form>
             </div>
         </div>
@@ -3174,7 +3493,6 @@ submitForm = (event) => {
             <div className="modal-content equipmodalbg">
                 <div className="modal-header px-4">
                     <h4 className="modal-title white">Add a new Product<span>Tap on an attribute to make it active in the Product list</span></h4>
-                    
                     <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
                 </div>
                 <div className="modal-body px-4">
@@ -3187,8 +3505,14 @@ submitForm = (event) => {
                     <div className="card cardbg">
                         <h4 className="white mt-4 mb-3">Add Attribute</h4>
                         <div className="d-flex flex-wrap">
-                            <Link to="wine-demo"id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</Link>
-                            <Link to="wine-demo" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
+                        {this.state.addProduct.length>0?
+                        (this.state.addProduct[0].attributes.map((row,i)=>
+                        // {row.attributes.map((rows,l)=>
+                        <Link to="wine-demo" key={i} id ={i} name={row.attrKey} onClick = {this.addAttribute} className={(row.status?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >{row.attrKey}</Link>
+                        // )}
+                        )):''}
+                            {/* <Link to="wine-demo"id ='varietal' name='0' onClick = {this.addAttribute} className={(this.state.something[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >varietal</Link> */}
+                            {/* <Link to="wine-demo" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
                             <Link to="wine-demo" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
                             <Link to="wine-demo" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</Link>
                             <Link to="wine-demo" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</Link>
@@ -3207,18 +3531,32 @@ submitForm = (event) => {
                             <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">palate</Link>
                             <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
                             <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
-                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link>
+                            <Link to="wine-demo" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link> */}
                         </div>
                     </div>
                     <div className="card cardbg mt-5">
                         <div className="row">
-                            <div className="col-md-4">
+                        {this.state.productInformation.length>0?
+                            (this.state.productInformation.map((row,i)=>
+                            <div className="col-md-4" key={i}>
+                                <div className="form-group mb-0"><span className="cover-border"></span>
+                                    <label className="label">{row.attrKey}</label>
+                                    <input type="text" 
+                                    id ={i}
+                                    value={row.attrValue}
+                                    onChange={this.handleProductList(i)}
+                                    className="input-field" />
+                                </div>
+                                {/* {this.validator.message(row.attrKey, row.attrValue, this.state.test1+'|'+this.state.test2)} */}
+                            </div>
+                            )):''}
+                            {/* <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Varietal</label>
                                     <input type="text" id = 'shoppingVarietal' value = {this.state.shoppingVarietal} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingVarietal))} className="input-field" />
                                 </div>
-                            </div>
-                            <div className="col-md-4">
+                            </div> */}
+                            {/* <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Price</label>
                                     <input type="text" id = 'shoppingPrice' value = {this.state.shoppingPrice} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPrice))} className="input-field" />
@@ -3229,9 +3567,9 @@ submitForm = (event) => {
                                     <label className="label">pH</label>
                                     <input type="text" id = 'shoppingPh' value = {this.state.shoppingPh} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPh))} className="input-field footerborder" />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="row mt-4">
+                        {/* <div className="row mt-4">
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Appearance</label>
@@ -3250,8 +3588,8 @@ submitForm = (event) => {
                                     <input type="text" id = 'shoppingPalate' value = {this.state.shoppingPalate} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPalate))} className="input-field footerborder" />
                                 </div>
                             </div>
-                        </div>
-                        <div className="row mt-4">
+                        </div> */}
+                        {/* <div className="row mt-4">
                             <div className="col-md-4">
                                 <div className="form-group mb-0"><span className="cover-border"></span>
                                     <label className="label">Testing Notes</label>
@@ -3270,12 +3608,12 @@ submitForm = (event) => {
                                     <textarea rows="5" id = 'shoppingPair' value = {this.state.shoppingPair} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPair))} className="input-field"></textarea>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
             <div className="donebg">
-                <button type="button" className="done mt-4">Done</button>
+                <button type="button" onClick= {this.saveProductList} className="done mt-4">Done</button>
             </div>
         </div>
     </div>
