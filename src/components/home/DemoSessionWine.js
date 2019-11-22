@@ -2021,9 +2021,9 @@ submitForm = (event) => {
           </div>
         </div>
         <div className="overflow-hidden">
-          <h4 className="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
+          <h4 className="text-white float-left pt-1 pl-2">CREATE SESSION</h4>         
           <div className="d-flex flex-wrap float-right">
-              <p className="float-right purple_text mr-4 bordr-right mb-0"><Link to="wine-demo" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</Link></p>
+              <p className="float-right purple_text mr-4 bordr-right mb-0"><Link to="WineSessionCreation" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</Link></p>
               <p className="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" className="purple_text">x</Link></p>
           </div>    
         </div>
@@ -2359,7 +2359,7 @@ submitForm = (event) => {
           <div className="px-3 pb-4">
           <div className="row">
             <div className="col-md-4 px-4">
-                <Link to="wine-demo" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
+                <Link to="WineSessionCreation" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
                 <Link to ="/" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
@@ -2448,8 +2448,8 @@ submitForm = (event) => {
                     <div><span className="hdng p-0">Allow Testers to score? (opotional)</span></div>
                     </td>
                     <td>
-                    <Link to="wine-demo" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
-                    <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={row.id} onClick = {this.removeWineActivity} aria-hidden="true"></i></Link>
+                    <Link to="WineSessionCreation" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
+                    <Link to="WineSessionCreation" className="bg-circle"><i className="fa fa-minus" id ={row.id} onClick = {this.removeWineActivity} aria-hidden="true"></i></Link>
                   </td>
                   </tr>
                   
@@ -2600,7 +2600,7 @@ submitForm = (event) => {
                  <tr className = "item" key={uniqueId()} data-id={Object.values(row)} >
                   <td>{row.wineDescription}</td>
                   <td>
-                  <p><Link to="wine-demo" className="purple_link">{row.wineMedia}</Link></p>
+                  <p><Link to="WineSessionCreation" className="purple_link">{row.wineMedia}</Link></p>
                   </td>
                   <td>
                   <div className="color-icons pl-3">
@@ -2611,8 +2611,8 @@ submitForm = (event) => {
                  </div>
                   </td>
                   <td className="d-flex justify-content-center">
-                    <Link to="wine-demo" className="mr-2 bg-circle"><i className="fa fa-bars"   aria-hidden="true"></i></Link>
-                    <Link to="wine-demo" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeToWineDescription} aria-hidden="true"></i></Link>
+                    <Link to="WineSessionCreation" className="mr-2 bg-circle"><i className="fa fa-bars"   aria-hidden="true"></i></Link>
+                    <Link to="WineSessionCreation" className="bg-circle"><i className="fa fa-minus" id ={i} onClick = {this.removeToWineDescription} aria-hidden="true"></i></Link>
                   </td>
                  </tr>
                 ))}
@@ -2650,8 +2650,8 @@ submitForm = (event) => {
                       {/* <div className="border-bottom mt-3">
                   </div> */}
                     <div className="px-3">                    
-                        <Link to="wine-demo" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</Link>
-                        <Link to="wine-demo" className="activity-link ml-5"><span onClick = {this.addToWineDescription}>+</span> Info</Link><img src="images/bulb.png" className="ml-3 mb-2" alt='' />
+                        <Link to="WineSessionCreation" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</Link>
+                        <Link to="WineSessionCreation" className="activity-link ml-5"><span onClick = {this.addToWineDescription}>+</span> Info</Link><img src="images/bulb.png" className="ml-3 mb-2" alt='' />
                     </div>
                 </div>
           {/* Next Description Box End */}
@@ -2667,13 +2667,13 @@ submitForm = (event) => {
           <div className="px-3 pb-4">
             <div className="row pb-4">
               <div className="col-md-4">
-                  <Link to ="wine-demo" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
+                  <Link to ="WineSessionCreation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               <div className="col-lg-4 col-md-4">
-                <Link to="wine-demo" className="pick"><img src="images/add.png" className="mr-2" alt=''/> Add all Product from Script</Link>
+                <Link to="WineSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt=''/> Add all Product from Script</Link>
               </div>
               <div className="col-md-4">
-                  <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#add_product_modal" ><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+                  <Link to="WineSessionCreation" className="pick" data-toggle="modal" data-target="#add_product_modal" ><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
           </div>
@@ -2709,7 +2709,7 @@ submitForm = (event) => {
                     </div>
             </div>
             <div className="col-md-1">
-              <Link to="wine-demo" className="bg-circle mt-3"><i id = {i} value = {listInsertion.name} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
+              <Link to="WineSessionCreation" className="bg-circle mt-3"><i id = {i} value = {listInsertion.name} onClick = {this.removeShoppingList} className="fa fa-minus" aria-hidden="true"></i></Link>
             </div>
           </div>
           : '')
@@ -2724,10 +2724,10 @@ submitForm = (event) => {
           <div className="px-3 pb-4">
             <div className="row pb-4">
               <div className="col-md-4">
-                  <Link to="wine-demo" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
+                  <Link to="WineSessionCreation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to ="wine-demo" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
+                  <Link to ="WineSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
           </div>
@@ -2769,7 +2769,7 @@ submitForm = (event) => {
             {/* {this.state.equipmentList1.map((listInsertion,i) => (
             (listInsertion.type && (listInsertion.Quantity!=0)? */}
             <div className="form-group">
-              <Link to="session-creation" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></Link>
+              <Link to="WineSessionCreation" className="bg-circle mt-3"><i id = {i} onClick = {this.removeEquipmentList} className="fa fa-minus" aria-hidden="true"></i></Link>
               </div>
               {/* :''
               )
@@ -2782,7 +2782,7 @@ submitForm = (event) => {
     </div>
     {/* Equipemnt List End */}
 
-  <Link to ="wine-demo" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+  <Link to ="WineSessionCreation" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
          
   {/* Select Equipemnt List Start */}
   <div className="modal" id="myModal2">
@@ -3100,11 +3100,11 @@ submitForm = (event) => {
       <div className="modal-body px-0">
       <h5 className="white">Frequency</h5>
       <div className="d-flex flex-wrap">
-      <Link to="wine-demo" id='varietal' name='0' onClick = {this.sessionAttribute} className={(this.state.sessionClass[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>varietal</Link>
-      <Link to="wine-demo" id='Every day' name='1' onClick = {this.sessionAttribute} className={(this.state.sessionClass[1]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>Every day</Link>
-      <Link to="wine-demo" id='once a week' name='2' onClick = {this.sessionAttribute} className={(this.state.sessionClass[2]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>once a week</Link>
-      <Link to="wine-demo" id='twice a week' name='3' onClick = {this.sessionAttribute} className={(this.state.sessionClass[3]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>twice a week</Link>
-      <Link to="wine-demo" id='3 times a week' name='4' onClick = {this.sessionAttribute} className={(this.state.sessionClass[4]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>3 times a week</Link>
+      <Link to="WineSessionCreation" id='varietal' name='0' onClick = {this.sessionAttribute} className={(this.state.sessionClass[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>varietal</Link>
+      <Link to="WineSessionCreation" id='Every day' name='1' onClick = {this.sessionAttribute} className={(this.state.sessionClass[1]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>Every day</Link>
+      <Link to="WineSessionCreation" id='once a week' name='2' onClick = {this.sessionAttribute} className={(this.state.sessionClass[2]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>once a week</Link>
+      <Link to="WineSessionCreation" id='twice a week' name='3' onClick = {this.sessionAttribute} className={(this.state.sessionClass[3]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>twice a week</Link>
+      <Link to="WineSessionCreation" id='3 times a week' name='4' onClick = {this.sessionAttribute} className={(this.state.sessionClass[4]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>3 times a week</Link>
       <select 
       className="custom_field mt-2 mb-0" 
       id="sessionFrequency"
@@ -3120,11 +3120,11 @@ submitForm = (event) => {
       </div>
       <h5 className="white mt-4">Duration</h5>
       <div className="d-flex flex-wrap">
-      <Link to="wine-demo" id='1 week' name='5' onClick = {this.sessionAttribute} className={(this.state.sessionClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</Link>
-      <Link to="wine-demo" id='2 weeks' name='6' onClick = {this.sessionAttribute} className={(this.state.sessionClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</Link>
-      <Link to="wine-demo" id='3 weeks' name='7' onClick = {this.sessionAttribute} className={(this.state.sessionClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</Link>
-      <Link to="wine-demo" id='4 weeks' name='8' onClick = {this.sessionAttribute} className={(this.state.sessionClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</Link>
-      <Link to="wine-demo" id='5 weeks' name='9' onClick = {this.sessionAttribute} className={(this.state.sessionClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</Link>
+      <Link to="WineSessionCreation" id='1 week' name='5' onClick = {this.sessionAttribute} className={(this.state.sessionClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</Link>
+      <Link to="WineSessionCreation" id='2 weeks' name='6' onClick = {this.sessionAttribute} className={(this.state.sessionClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</Link>
+      <Link to="WineSessionCreation" id='3 weeks' name='7' onClick = {this.sessionAttribute} className={(this.state.sessionClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</Link>
+      <Link to="WineSessionCreation" id='4 weeks' name='8' onClick = {this.sessionAttribute} className={(this.state.sessionClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</Link>
+      <Link to="WineSessionCreation" id='5 weeks' name='9' onClick = {this.sessionAttribute} className={(this.state.sessionClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</Link>
       <select className="custom_field mt-2 mb-0" 
       id="sessionDuration"
       value = {this.state.sessionDuration}
@@ -3241,11 +3241,11 @@ submitForm = (event) => {
       <div className="modal-body px-0">
       <h5 className="white">Frequency</h5>
       <div className="d-flex flex-wrap">
-      <Link to="wine-demo" id='varietal' name='0' onClick = {this.signUpAttribute} className={(this.state.signUpClass[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>varietal</Link>
-      <Link to="wine-demo" id='Every day' name='1' onClick = {this.signUpAttribute} className={(this.state.signUpClass[1]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>Every day</Link>
-      <Link to="wine-demo" id='once a week' name='2' onClick = {this.signUpAttribute} className={(this.state.signUpClass[2]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>once a week</Link>
-      <Link to="wine-demo" id='twice a week' name='3' onClick = {this.signUpAttribute} className={(this.state.signUpClass[3]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>twice a week</Link>
-      <Link to="wine-demo" id='3 times a week' name='4' onClick = {this.signUpAttribute} className={(this.state.signUpClass[4]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>3 times a week</Link>
+      <Link to="WineSessionCreation" id='varietal' name='0' onClick = {this.signUpAttribute} className={(this.state.signUpClass[0]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>varietal</Link>
+      <Link to="WineSessionCreation" id='Every day' name='1' onClick = {this.signUpAttribute} className={(this.state.signUpClass[1]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>Every day</Link>
+      <Link to="WineSessionCreation" id='once a week' name='2' onClick = {this.signUpAttribute} className={(this.state.signUpClass[2]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>once a week</Link>
+      <Link to="WineSessionCreation" id='twice a week' name='3' onClick = {this.signUpAttribute} className={(this.state.signUpClass[3]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>twice a week</Link>
+      <Link to="WineSessionCreation" id='3 times a week' name='4' onClick = {this.signUpAttribute} className={(this.state.signUpClass[4]?"btn btn-primary":"btn")+" btn-outline-secondary text-uppercase mr-2 mt-2"}>3 times a week</Link>
       <select className="custom_field mt-2 mb-0" 
       id="signUpFrequency"
       value = {this.state.signUpFrequency}
@@ -3259,11 +3259,11 @@ submitForm = (event) => {
       </div>
       <h5 className="white mt-4">Duration</h5>
       <div className="d-flex flex-wrap">
-      <Link to="wine-demo" id='1 week' name='5' onClick = {this.signUpAttribute} className={(this.state.signUpClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</Link>
-      <Link to="wine-demo" id='2 weeks' name='6' onClick = {this.signUpAttribute} className={(this.state.signUpClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</Link>
-      <Link to="wine-demo" id='3 weeks' name='7' onClick = {this.signUpAttribute} className={(this.state.signUpClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</Link>
-      <Link to="wine-demo" id='4 weeks' name='8' onClick = {this.signUpAttribute} className={(this.state.signUpClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</Link>
-      <Link to="wine-demo" id='5 weeks' name='9' onClick = {this.signUpAttribute} className={(this.state.signUpClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</Link>
+      <Link to="WineSessionCreation" id='1 week' name='5' onClick = {this.signUpAttribute} className={(this.state.signUpClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</Link>
+      <Link to="WineSessionCreation" id='2 weeks' name='6' onClick = {this.signUpAttribute} className={(this.state.signUpClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</Link>
+      <Link to="WineSessionCreation" id='3 weeks' name='7' onClick = {this.signUpAttribute} className={(this.state.signUpClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</Link>
+      <Link to="WineSessionCreation" id='4 weeks' name='8' onClick = {this.signUpAttribute} className={(this.state.signUpClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</Link>
+      <Link to="WineSessionCreation" id='5 weeks' name='9' onClick = {this.signUpAttribute} className={(this.state.signUpClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</Link>
       <select className="custom_field mt-2 mb-0" 
       id="signUpDuration"
       value = {this.state.signUpDuration}

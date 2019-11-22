@@ -9,6 +9,7 @@ import PDashboard from "./components/home/PDashboard";
 import SessionWineCreation from "./components/home/SessionWineCreation"
 import DemoSessionWine from "./components/home/DemoSessionWine"
 import HostSessionCreation from './components/home/HostSessionCreation'
+import verifyuser from "./components/auth/VerifyUser";
 import DashboardLanding from './components/home/DashboardLanding'
 /*function App() {
   return (
@@ -29,11 +30,13 @@ class App extends Component {
      <div className="App">
      
       <Route exact path="/" component={Dashboard} />
-      <Route exact path="/wine-demo" component={DemoSessionWine} />
-	    <Route exact path="/wine-creation" component={SessionWineCreation} />
-      <Route exact path="/session-creation" component={Header} />
+      <Route exact path="/WineSessionCreation" component={DemoSessionWine} />
+	    {/* <Route exact path="/wine-creation" component={SessionWineCreation} /> */}
+      <Route exact path="/FitnessSessionCreation" component={Header} />
 		  <Route exact path="/participent-dashboard" component={PDashboard} />
-      <Route exact path="/HostSessionCreation" component={HostSessionCreation} />
+      <Route exact path="/ChannelCreation" component={HostSessionCreation} />
+      <Route path="/verify-user/:sessionId" component={verifyuser} />
+      {/* <Route exact path="/HostSessionCreation" component={HostSessionCreation} /> */}
       <Route exact path="/DashboardLanding" component={DashboardLanding} />
 
 
