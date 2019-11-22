@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 
 
 //import $ from 'jquery';
