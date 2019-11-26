@@ -1827,7 +1827,12 @@ input.timepicki-input
 }
 .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
     color: #fff !important;
-    background-color: #bd00ff !important;
+	background-color: #bd00ff !important;
+	font-size: 1.08rem !important;
+	    padding-bottom: 10px !important;
+}
+.react-datepicker__navigation{
+	top: 15px !important;
 }
 .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
    
@@ -1845,4 +1850,56 @@ input.timepicki-input
 }
 
 /* end raect datepicker css */
- 
+ /*react calender  in wine-demo*/
+.react-calendar {
+    width: 100% !important;
+    max-width: 100%;
+    background: #343434 !important;
+	border-top: 1px solid #414141 !important;
+	border-bottom: 1px solid #414141 !important;
+	border-left: 0px solid #a0a096 !important;
+	border-right: 0px solid #a0a096 !important;
+	color: white;
+	line-height: 3.11em !important;
+}
+.react-calendar__navigation button[disabled] {
+	background-color: #343434 !important;
+}
+.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
+    background-color: #343434 !important;
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+    color: #ffffff !important;
+}
+.react-calendar__navigation__label{
+	color: aliceblue !important;
+}
+.react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus {
+    background-color: #5d067c !important;
+}
+.react-calendar__tile:disabled {
+    background-color: #343434 !important;
+}
+.react-calendar__navigation__next2-button{
+	display: none !important;
+}
+.react-calendar__navigation__prev2-button{
+	display: none !important;
+}
+.react-calendar__tile--active{
+	background: #5d067c !important;
+}
+.react-calendar__tile--hasActive{
+	background: #5d067c !important;
+}
+
+
+
+abbr[data-original-title], abbr[title] {
+    text-decoration: none !important;
+    -webkit-text-decoration: none !important;
+    text-decoration: none !important;
+    cursor: default !important;
+    
+}

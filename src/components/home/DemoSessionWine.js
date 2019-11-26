@@ -3,11 +3,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import uniqueId from 'lodash/uniqueId';
 import Sortable from 'react-sortablejs';
-import ReactLightCalendar from '@lls/react-light-calendar'
+// import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router';
 import TimePicker from 'react-time-picker';
+import Calendar from 'react-calendar';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class DemoSessionWine extends Component {
@@ -26,6 +27,8 @@ class DemoSessionWine extends Component {
         time: '00:00',
         time2: '00:00',
         msg:'',
+        sessionCalender: new Date(),
+        reminderCalender: new Date(),
         //////////Calender /////////////y
         startDate, // Today
         endDate: '', // Today + 6 days
@@ -561,6 +564,64 @@ componentDidMount(){
   }   
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
+sessionDate=(e)=>{
+  let getFullYear=new Date(this.state.sessionCalender).getFullYear();
+  let getMonth=(new Date(this.state.sessionCalender).getMonth())+1;
+  let getDate=new Date(this.state.sessionCalender).getDate();
+  this.setState({
+    when:getFullYear+'-'+getMonth+'-'+getDate+' '+this.state.time2+':'+'00'
+  })
+  
+}
+
+reminderDate=(e)=>{
+  let getFullYear=new Date(this.state.reminderCalender).getFullYear();
+  let getMonth=(new Date(this.state.reminderCalender).getMonth())+1;
+  let getDate=new Date(this.state.reminderCalender).getDate();
+  this.setState({
+    signUpDateTime:getFullYear+'-'+getMonth+'-'+getDate+' '+this.state.time+':'+'00'
+  })
+  
+}
+
+
+onChange1 = date =>
+{
+  //2019-10-20
+  let getFullYear=new Date(date).getFullYear();
+  let getMonth=(new Date(date).getMonth())+1;
+  let getDate=new Date(date).getDate();
+  console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
+//let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
+this.setState({
+  sessionCalender: date,
+  sessionDay:getDate,
+  sessionMonth:getMonth,
+  sessionYear:getFullYear
+},()=>console.log(this.state.sessionCalender))
+
+}
+
+
+
+onChange2 = date =>
+{
+  //2019-10-20
+  let getFullYear=new Date(date).getFullYear();
+  let getMonth=(new Date(date).getMonth())+1;
+  let getDate=new Date(date).getDate();
+  console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
+//let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
+this.setState({
+  reminderCalender: date,
+  reminderDay:getDate,
+  reminderYear:getFullYear,
+  reminderMonth:getMonth
+},()=>console.log(this.state.reminderCalender))
+
+}
+
+////for Reminder
 timeset = time => {
   
   console.log(time.split(':')[0],time.split(':')[1]);
@@ -591,6 +652,7 @@ this.setState(
 
 
 // end
+//For Session
 timeset2 = time2 => {
   
   console.log(time2.split(':')[0],time2.split(':')[1]);
@@ -612,7 +674,7 @@ this.setState(
   { time2:time2,
     sessionTime:a,
   //  when : this.state.when +' '+this.state.time2,
- },()=>console.log(this.state.time))}
+ },()=>console.log(this.state.time2))}
 //end 
 
 // hour value
@@ -1898,7 +1960,7 @@ submitForm = (event) => {
       name:this.state.session_details,
      // when:this.state.when,
      //start_date:"2019-10-20 15:06:01",
-     start_date:this.state.when+' '+this.state.time2,
+     start_date:this.state.when,
      description:this.state.description,
      duration:this.state.exampleFormControlSelect2,
     level:this.state.exampleFormControlSelect1,
@@ -3079,9 +3141,16 @@ submitForm = (event) => {
       <div className="modal-body">
       <h3>Calender</h3>
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      
+      {/* <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} /> */}
+      <Calendar
+           onChange={this.onChange1}
+           value={this.state.sessionCalender}
+           minDate={new Date()}
+          // calendarType= "ISO 8601"
+         />
       <div className="botm_container">
         <div className="row mt-4">
         <div className="col-md-5 mt-2 pl-4">
@@ -3115,7 +3184,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" className="done mt-0" data-dismiss="modal">done</button>}
+        {this.state.repeatSession?'':<button type="button" className="done mt-0" onClick= {this.sessionDate} data-dismiss="modal">done</button>}
         </div>
       </div>
       {this.state.repeatSession?
@@ -3175,52 +3244,6 @@ submitForm = (event) => {
   </div>
 </div>
 {/* Signup Calender Model */}
-<div className="modal cal_modal" id="signUpCalenderModel">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h4 className="modal-title white">Select Duration</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
-      </div>
-      <div className="modal-body">
-      <h3>Calender</h3>
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
-      disableDates={date => date <= (new Date().getTime())}
-      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
-      <div className="botm_container">
-        <div className="row mt-4">
-        <div className="col-md-5 mt-2 pl-4">
-            <div className="form-group mb-0"><span className="cover-border"></span>
-                <label className="label">Enter Time</label>
-                <TimePicker
-                  onChange={this.timeset}
-                  value={this.state.time}
-                  disableClock	={true}
-                  />
-                {/* <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" /> */}
-                {/* <span className="clock-icon "></span> */}
-            </div>
-          </div>
-          <div className="col-md-7">
-          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
-          <div className="form-group input-txt">
-              <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider round"></span>
-              </label>
-              <span>This is a repeated session</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-        <div className="text-center position-absolute btn_btn1">
-          {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0" data-dismiss="modal">done</button>}
-        </div>
-      </div>
-  </div>
-</div>
-
 
 {/* Sign Up Calender Model End */}
 <div className="modal cal_modal" id="signUpCalenderModel1">
@@ -3233,16 +3256,28 @@ submitForm = (event) => {
       <div className="modal-body">
       <h3>Calender</h3>
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      {/* <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
       startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={false}  />
+        */}
+        <Calendar
+           onChange={this.onChange2}
+           value={this.state.reminderCalender}
+           minDate={new Date()}
+          // calendarType= "ISO 8601"
+         />
        <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="Time" disabled />
-                <span className="clock-icon"></span>
+                <TimePicker
+                  onChange={this.timeset}
+                  value={this.state.time}
+                  disableClock	={true}
+                  />
+                {/* <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="Time" disabled /> */}
+                {/* <span className="clock-icon"></span> */}
             </div>
           </div>
           <div className="col-md-1"></div>
@@ -3264,7 +3299,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0">done</button>}
+        {this.state.signUpSessionStatus?'':<button type="button"  onClick= {this.reminderDate} data-dismiss="modal" className="done mt-0">done</button>}
         </div>
       </div>
       {this.state.signUpSessionStatus?
