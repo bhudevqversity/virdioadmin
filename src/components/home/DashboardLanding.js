@@ -43,7 +43,7 @@ componentDidMount(){
 			<div class="tab-sec px-3 pb-5">
 				<div class="cont">
 					<div class="row">
-						<div class="col-lg-8">
+						<div class="col-lg-7">
 							<ul class="nav nav-tabs" role="tablist">
 							    <li class="nav-item">
 							      <a class="nav-link active" data-toggle="tab" href="#us">Upcoming Session</a>
@@ -56,9 +56,17 @@ componentDidMount(){
 							    </li>
 						    </ul>
 						</div>
-						<div class="col-lg-4 datepick">
-							<input type="text" name="" class="form-control" id="datepicker" />
-							<div class="c_icon"><img src="images/cal.png" className="translat" /><img src="images/angle-down.png" className="translat" /></div>
+						<div class="col-lg-5 datepick d-flex justify-content-end">
+							<div className="position-relative">
+								<input type="text" name="" class="form-control" id="datepicker" />
+								<div class="c_icon">
+									<img src="images/cal.png" className="translat" />
+									<img src="images/angle-down.png" className="translat" />
+								</div>
+							</div>
+							<div className="align-self-center px-4 srch_icon position-relative">
+								<a href="#"><img src="images/search1.png" /></a>
+							</div>
 						</div>
 					</div>
 				</div>
