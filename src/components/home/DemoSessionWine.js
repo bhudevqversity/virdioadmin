@@ -1390,12 +1390,12 @@ handleShareholderLink = idx => evt => {
   );
 };
 testerStatus = (e) =>{
-  let testerContainer = this.state.tablerows;
+  let testerContainer = this.state.tablerows1;
     testerContainer[e.target.id].testerStatus = !testerContainer[e.target.id].testerStatus;
     this.setState({
-    tablerows : testerContainer,
+    tablerows1 : testerContainer,
     },()=>
-    { console.log('testerContainer==>',this.state.tablerows);
+    { console.log('testerContainer==>',this.state.tablerows1);
     });
 }
 removeWineActivity = (e) => {
@@ -1655,11 +1655,61 @@ finalEmoji = () =>{
   //   listPalate:la2,
   //   testerStatus:false
   //   }
-    let arr1=[];
-   // let arr2 =this.state.tablerows;
-    for(let i=0;i<this.state.tablerows.length;i++){
-      if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus){
-       let ak = JSON.parse(JSON.stringify(this.state.tablerows[i]))
+
+  //   let arr1=[];
+  //  // let arr2 =this.state.tablerows;
+  //   for(let i=0;i<this.state.tablerows.length;i++){
+  //     if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus){
+  //      let ak = JSON.parse(JSON.stringify(this.state.tablerows[i]))
+  //   const a = {
+  //     wineChoice:ak.wineChoice,
+  //     id:ak.id,
+  //     wineProductId:ak.wineProductId,
+  //     productId:ak.productId,
+  //     appearanceSelect:ak.appearanceSelect,
+  //     aromaSelect:ak.aromaSelect,
+  //     palateSelect:ak.palateSelect,
+  //     listAppearance:ak.listAppearance,
+  //     listAroma :ak.listAroma,
+  //     listPalate:ak.listPalate,
+  //     testerStatus:ak.testerStatus
+  //     }
+  //     //arr1.push(this.state.tablerows[i]);
+  //     arr1.push(a);
+  //     }
+      
+
+  //   }
+  let arr1=this.state.tablerows1;
+  let x=0,n=0;
+for(let i=0;i<arr1.length;i++){
+    n=i;
+      if(this.state.tablerows[this.state.emojiForWineProduct].appearanceSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].aromaSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].palateSelect[0].appearanceStatus){
+       let ak = JSON.parse(JSON.stringify(this.state.tablerows[this.state.emojiForWineProduct]))
+       if(arr1[i].wineProductId===ak.wineProductId){
+        x=1;
+        arr1[i].wineChoice=ak.wineChoice;
+        arr1[i].id=ak.id;
+        arr1[i].wineProductId=ak.wineProductId;
+        arr1[i].productId=ak.productId;
+        arr1[i].appearanceSelect=ak.appearanceSelect;
+        arr1[i].aromaSelect=ak.aromaSelect;
+        arr1[i].palateSelect=ak.palateSelect;
+        arr1[i].listAppearance=ak.listAppearance;
+        arr1[i].listAroma =ak.listAroma;
+        arr1[i].listPalate=ak.listPalate;
+        arr1[i].testerStatus=arr1[i].testerStatus;
+      
+      
+       }
+      }
+      
+
+    }
+
+    if(x===0){
+     if(this.state.tablerows[this.state.emojiForWineProduct].appearanceSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].aromaSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].palateSelect[0].appearanceStatus){
+     let ak = JSON.parse(JSON.stringify(this.state.tablerows[this.state.emojiForWineProduct]))
     const a = {
       wineChoice:ak.wineChoice,
       id:ak.id,
@@ -1676,8 +1726,6 @@ finalEmoji = () =>{
       //arr1.push(this.state.tablerows[i]);
       arr1.push(a);
       }
-      
-
     }
     if(this.state.emojiForWineProduct==1){
       console.log(this.state.tablerows[this.state.emojiForWineProduct],'this.state.emojiForWineProduct-----------------',this.state.tablerows[1])

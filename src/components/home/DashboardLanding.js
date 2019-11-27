@@ -2,63 +2,90 @@ import React, { Component } from "react";
 class DashboardLanding extends Component {
    constructor(props) {
 	super(props);
+	this.state={
+		sessionInformation:''
+	}
 }
  
 componentDidMount(){
   }
- render() {
+  scriptOnDate=(e)=>{
+	  console.log("AK",e.target.name);
+  }
+  pastSession=(e)=>{
+	  console.log(new Date().getTime())
+	  this.setState({
+		  sessionInformation:'-1'
+	  },()=>console.log('this.state.pastSession',this.state.sessionInformation))
+  }
+  upcomingSession=(e)=>{
+	console.log(new Date().getTime())
+	this.setState({
+		sessionInformation:'1'
+	},()=>console.log('this.state.pastSession',this.state.sessionInformation))
+}
+onDemand=(e)=>{
+	console.log(new Date().getTime())
+	this.setState({
+		sessionInformation:'0'
+	},()=>console.log('this.state.pastSession',this.state.sessionInformation))
+}
+nextDate = (e)=>{
+	console.log(e.target);
+}
+  render() {
 
     return (
     <div>
     <div id="root">
-    <div class="App">
-        <div class="container-fluid">
-			<div class="row top-header px-4 py-3">
-                <div class="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="images/login-logo.png" class="logo" alt="logo" /></div>
-                <div class="col-lg-4 d-flex d-md-block justify-content-center p-4">
-                    <div class="user-info d-flex align-items-center"><img src="images/attendee.png" class="user-avtar pic" alt="" />
-                        <div class="pl-4">
-                            <h3>Welcome Cersei!</h3>
-                            <p>You have 3 sessions this week</p>
-                            <p>Next Session, Wednesday, 24 July 2019</p>
+    <div className="App">
+        <div className="container-fluid">
+			<div className="row top-header px-4 py-3">
+                <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="images/login-logo.png" class="logo" alt="logo" /></div>
+                <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
+                    <div className="user-info d-flex align-items-center"><img src="images/attendee.png" class="user-avtar pic" alt="" />
+                        <div className="pl-4">
+                            <h3>Welcome Arjun</h3>
+                            <p>No Session coming up this week</p>
+                            {/* <p>Next Session, Wednesday, 24 July 2019</p> */}
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 ">
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <div class="header-info-right">
+                <div className="col-lg-6 ">
+                    <div className="d-flex justify-content-between flex-wrap">
+                        <div className="header-info-right">
                             <p>Weekly Attendance</p>
-                            <h3>66%</h3></div><span class="border-right gray-border"></span>
-                        <div class="header-info-right">
+                            <h3>0%</h3></div><span className="border-right gray-border"></span>
+                        <div className="header-info-right">
                             <p>Total Views</p>
-                            <h3>45.6K</h3></div><span class="border-right gray-border"></span>
-                        <div class="header-info-right">
+                            <h3>0</h3></div><span class="border-right gray-border"></span>
+                        <div className="header-info-right">
                             <p>Total Revenue</p>
-                            <h3>$44,000</h3></div><span class="border-right gray-border"></span>
-                              <div class="message-notification"><img src="images/message.png" alt="" />
-                          <span class="message-count">2</span></div>
+                            <h3>$0</h3></div><span className="border-right gray-border"></span>
+                              <div className="message-notification"><img src="images/message.png" alt="" />
+                          <span className="message-count">0</span></div>
                     </div>
                 </div>
             </div>
-			<div class="tab-sec px-3 pb-5">
-				<div class="cont">
-					<div class="row">
-						<div class="col-lg-8">
-							<ul class="nav nav-tabs" role="tablist">
-							    <li class="nav-item">
-							      <a class="nav-link active" data-toggle="tab" href="#us">Upcoming Session</a>
+			<div className="tab-sec px-3 pb-5">
+				<div className="cont">
+					<div className="row">
+						<div className="col-lg-8">
+							<ul className="nav nav-tabs" role="tablist">
+							    <li className="nav-item">
+							      <a className="nav-link active" data-toggle="tab" onClick={this.upcomingSession} href="#us">Upcoming Session</a>
 							    </li>
-							    <li class="nav-item">
-							      <a class="nav-link" data-toggle="tab" href="#ps">Past Session</a>
+							    <li className="nav-item">
+							      <a className="nav-link" data-toggle="tab" onClick={this.pastSession} href="#ps">Past Session</a>
 							    </li>
-							    <li class="nav-item">
-							      <a class="nav-link" data-toggle="tab" href="#onde">On Demand</a>
+							    <li className="nav-item">
+							      <a className="nav-link" data-toggle="tab" onClick={this.onDemand} href="#onde">On Demand</a>
 							    </li>
 						    </ul>
 						</div>
-						<div class="col-lg-4 datepick">
-							<input type="text" name="" class="form-control" id="datepicker" />
-							<div class="c_icon"><img src="images/cal.png" className="translat" /><img src="images/angle-down.png" className="translat" /></div>
+						<div className="col-lg-4 datepick">
+							<input type="text" name="" className="form-control" id="datepicker" />
+							<div className="c_icon"><img src="images/cal.png" className="translat" /><img src="images/angle-down.png" className="translat" /></div>
 						</div>
 					</div>
 				</div>
@@ -69,7 +96,7 @@ componentDidMount(){
 						
 						    <ul class="nav nav-tabs mx-0" role="tablist">
 							    <li class="nav-item flex-fill">
-							      <a class="nav-link active act" data-toggle="tab" href="#dt1">22<br /><span>MON</span></a>
+							      <a class="nav-link active act" data-toggle="tab" name = "22/9/2018" onClick={this.scriptOnDate} href="#dt1">22<br /><span>MON</span></a>
 							    </li>
 							    <li class="nav-item flex-fill">
 							      <a class="nav-link" data-toggle="tab" href="#dt2">23<br /><span>TUE</span></a>
@@ -90,7 +117,7 @@ componentDidMount(){
 							      <a class="nav-link act" data-toggle="tab" href="#dt3">28<br /><span>SUN</span></a>
 							    </li>
 							    <li class="nav-item angle-img">
-							      <a class="nav-link" data-toggle="tab" href="#dt3"><img src="images/Triangle-right.png" alt="arrow" /></a>
+							      <a class="nav-link" data-toggle="tab"  href="#dt3"><img onClick={this.nextDate} src="images/Triangle-right.png" alt="arrow" /></a>
 							    </li>
 						    </ul>
 						    <div class="content-container mt-2">
