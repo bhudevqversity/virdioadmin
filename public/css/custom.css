@@ -416,6 +416,45 @@ select.input-field{
     top: 15px;
 
 }
+.form_email{
+    background-image: url("../images/form-email.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 33px;
+    height: 33px;
+    float: right;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+    background-size: 22px;
+
+}
+.mobile_phone1{
+    background-image: url("../images/phone.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 33px;
+    height: 33px;
+    float: right;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+    background-size: 22px;
+
+}
+.pass_word{
+    background-image: url("../images/passwrd.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 33px;
+    height: 33px;
+    float: right;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+    background-size: 22px;
+
+}
 .dollar{
     background-image: url("../images/dollar.png");
     background-repeat: no-repeat;
