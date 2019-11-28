@@ -11,6 +11,8 @@ import DemoSessionWine from "./components/home/DemoSessionWine"
 import HostSessionCreation from './components/home/HostSessionCreation'
 import verifyuser from "./components/auth/VerifyUser";
 import DashboardLanding from './components/home/DashboardLanding'
+import Header1 from './components/home/Header';
+
 /*function App() {
   return (
     <div className="App">
@@ -38,6 +40,7 @@ class App extends Component {
       <Route path="/verify-user/:sessionId" component={verifyuser} />
       {/* <Route exact path="/HostSessionCreation" component={HostSessionCreation} /> */}
       <Route exact path="/DashboardLanding" component={DashboardLanding} />
+      <Route  path="/sessiondetail/:id" component={Header} />
 
 
 		</div>

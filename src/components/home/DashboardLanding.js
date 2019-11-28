@@ -41,9 +41,9 @@ nextDate = (e)=>{
     <div className="App">
         <div className="container-fluid">
 			<div className="row top-header px-4 py-3">
-                <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="images/login-logo.png" class="logo" alt="logo" /></div>
+                <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="/images/login-logo.png" class="logo" alt="logo" /></div>
                 <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
-                    <div className="user-info d-flex align-items-center"><img src="images/attendee.png" class="user-avtar pic" alt="" />
+                    <div className="user-info d-flex align-items-center"><img src="/images/attendee.png" class="user-avtar pic" alt="" />
                         <div className="pl-4">
                             <h3>Welcome Arjun</h3>
                             <p>No Session coming up this week</p>
@@ -62,7 +62,7 @@ nextDate = (e)=>{
                         <div className="header-info-right">
                             <p>Total Revenue</p>
                             <h3>$0</h3></div><span className="border-right gray-border"></span>
-                              <div className="message-notification"><img src="images/message.png" alt="" />
+                              <div className="message-notification"><img src="/images/message.png" alt="" />
                           <span className="message-count">0</span></div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ nextDate = (e)=>{
 						</div>
 						<div className="col-lg-4 datepick">
 							<input type="text" name="" className="form-control" id="datepicker" />
-							<div className="c_icon"><img src="images/cal.png" className="translat" /><img src="images/angle-down.png" className="translat" /></div>
+							<div className="c_icon"><img src="/images/cal.png" className="translat" /><img src="/images/angle-down.png" className="translat" /></div>
 						</div>
 					</div>
 				</div>
@@ -117,7 +117,7 @@ nextDate = (e)=>{
 							      <a class="nav-link act" data-toggle="tab" href="#dt3">28<br /><span>SUN</span></a>
 							    </li>
 							    <li class="nav-item angle-img">
-							      <a class="nav-link" data-toggle="tab"  href="#dt3"><img onClick={this.nextDate} src="images/Triangle-right.png" alt="arrow" /></a>
+							      <a class="nav-link" data-toggle="tab"  href="#dt3"><img onClick={this.nextDate} src="/images/Triangle-right.png" alt="arrow" /></a>
 							    </li>
 						    </ul>
 						    <div class="content-container mt-2">
@@ -125,75 +125,75 @@ nextDate = (e)=>{
 						    		<div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div>
 						    		<div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div>
 						    		<div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div>
 						    		<div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div>
 						    		<div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div>
@@ -205,16 +205,16 @@ nextDate = (e)=>{
 						    </div>
 						    <div class="inner_containr px-4 py-4 mx--6 d-flex justify-content-between align-items-center">
 						    	<h4 class="px-2 m-0 white">Create Channel</h4>
-						    	<a href="#"><img src="images/add.png" class="px-2" /></a>
+						    	<a href="#"><img src="/images/add.png" class="px-2" /></a>
 						    </div>
 						    <div class="row">
 						    	<div class="col-lg-4 mt-3 px-2">
 						    		<div class="inner_containr px-3 py-4">
 						    			<div class="d-flex justify-content-between flex-wrap">
 						    				<h4 class="hdng1 font-weight-bold">Boisset Wines</h4>
-						    				<a href="#"><img src="images/edit.png" /></a>
+						    				<a href="#"><img src="/images/edit.png" /></a>
 						    			</div>
-						    			<img src="images/wine1.jpg" class="d-block img-fluid inner_containr my-3" />
+						    			<img src="/images/wine1.jpg" class="d-block img-fluid inner_containr my-3" />
 						    			<div class="d-flex justify-content-between flex-wrap">
 						    				<div class="">
 						    					<p class="checktxt mb-0 mt-2">Upcoming</p>
@@ -231,10 +231,10 @@ nextDate = (e)=>{
 						    			</div>
 						    			<div class="d-flex justify-content-between flex-wrap align-items-center mt-3">
 						    				<h4 class="white">Channel Host</h4>
-						    				<a href="#"><img src="images/add.png" /></a>
+						    				<a href="#"><img src="/images/add.png" /></a>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div>
 				                                <p class="checktxt_name pb-0 mb-2">Ritesh Shrivastva</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -242,7 +242,7 @@ nextDate = (e)=>{
 				                            </div>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div>
 				                                <p class="checktxt_name pb-0 mb-2">David Cornel</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -251,10 +251,10 @@ nextDate = (e)=>{
 						    			</div>
 						    			<div class="d-flex justify-content-between flex-wrap mt-4 align-items-center">
 						    				<h4 class="white">Interests</h4>
-						    				<a href="#"><img src="images/add.png" /></a>
+						    				<a href="#"><img src="/images/add.png" /></a>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div class="flex-grow-1">
 				                                <p class="checktxt_name pb-0 mb-2">Napa Wines</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -266,7 +266,7 @@ nextDate = (e)=>{
 				                            </div>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div class="flex-grow-1">
 				                                <p class="checktxt_name pb-0 mb-2">Sonoma Wines</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -283,9 +283,9 @@ nextDate = (e)=>{
 						    		<div class="inner_containr px-3 py-4">
 						    			<div class="d-flex justify-content-between flex-wrap">
 						    				<h4 class="hdng1 font-weight-bold">Boisset Wines</h4>
-						    				<a href="#"><img src="images/edit.png" /></a>
+						    				<a href="#"><img src="/images/edit.png" /></a>
 						    			</div>
-						    			<img src="images/wine1.jpg" class="d-block img-fluid inner_containr my-3" />
+						    			<img src="/images/wine1.jpg" class="d-block img-fluid inner_containr my-3" />
 						    			<div class="d-flex justify-content-between flex-wrap">
 						    				<div class="">
 						    					<p class="checktxt mb-0 mt-2">Upcoming</p>
@@ -302,10 +302,10 @@ nextDate = (e)=>{
 						    			</div>
 						    			<div class="d-flex justify-content-between flex-wrap align-items-center mt-3">
 						    				<h4 class="white">Channel Host</h4>
-						    				<a href="#"><img src="images/add.png" /></a>
+						    				<a href="#"><img src="/images/add.png" /></a>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div>
 				                                <p class="checktxt_name pb-0 mb-2">Ritesh Shrivastva</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -313,7 +313,7 @@ nextDate = (e)=>{
 				                            </div>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div>
 				                                <p class="checktxt_name pb-0 mb-2">David Cornel</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -322,10 +322,10 @@ nextDate = (e)=>{
 						    			</div>
 						    			<div class="d-flex justify-content-between flex-wrap mt-4">
 						    				<h4 class="white">Interests</h4>
-						    				<a href="#"><img src="images/add.png" /></a>
+						    				<a href="#"><img src="/images/add.png" /></a>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div class="flex-grow-1">
 				                                <p class="checktxt_name pb-0 mb-2">Napa Wines</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>

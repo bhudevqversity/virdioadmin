@@ -173,6 +173,7 @@ modalClose = e => {
 }
  
 componentDidMount(){
+  console.log('===========================',this.props.params.id);
   this.fetchPrevSessionList();
   this.fetchExistingHostList();
   this.fetchExistingEquipments();
@@ -1295,7 +1296,7 @@ submitForm = (event) => {
           </div>
           <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
             <div className="user-info d-flex align-items-center">
-              <img src="images/attendee.png" className="user-avtar" alt = '#'/>
+              <img src="/images/attendee.png" className="user-avtar" alt = '#'/>
               <div className="pl-4">
                 <h3>Welcome Arjun!</h3>
                 <p>No Session coming up this week</p>
@@ -1342,7 +1343,7 @@ submitForm = (event) => {
       <div className="clearfix"></div>
         <div className="gray-box">
           <div className="row session mx-0">
-            <h3 className="col-md-6 info"><img src="images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
+            <h3 className="col-md-6 info"><img src="/images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
             <div className="col-md-6" id="msg" style={{color:'green'}}>{this.state.msg}</div>                    
           </div>
           
@@ -1477,7 +1478,7 @@ submitForm = (event) => {
                         <span className="slider round"></span>
                     </label>
                     
-                    {this.state.sessionProperty?<span>Public Session</span>:<span>Private Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+                    {this.state.sessionProperty?<span>Public Session</span>:<span>Private Session</span>}<img src="/images/bulb.png" className="ml-3 mb-2" />
                     </div>
 
                     <div className="form-group input-txt h-90">
@@ -1485,7 +1486,7 @@ submitForm = (event) => {
                         <input type="checkbox" id = "searchParticipant"  checked={this.state.searchParticipant} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.searchParticipant},()=>console.log('searchparticipant',this.state.searchParticipant))}}/>
                         <span className="slider round"></span>
                     </label>
-                      <span>Show Participants Signed Up Count on Searches?</span><img src="images/bulb.png" className="ml-3 mb-2" />
+                      <span>Show Participants Signed Up Count on Searches?</span><img src="/images/bulb.png" className="ml-3 mb-2" />
                     </div>
                     <div class="row">
                       <div class="col-lg-7 pr-0">
@@ -1544,7 +1545,7 @@ submitForm = (event) => {
         </div>
         <div className="gray-box2">
           <div className="session">
-            <h3 className="info"><img src="images/reminder.png" className="mr-3 mb-2" />Reminders</h3>
+            <h3 className="info"><img src="/images/reminder.png" className="mr-3 mb-2" />Reminders</h3>
           </div>
 
           <div className="container-fluid register-form">
@@ -1609,7 +1610,7 @@ submitForm = (event) => {
         </div>
         <div className="p-3 gray-box no-border-radius">
         <div className="row">
-        <div className="session"><h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" />Privacy during Session</h3></div>
+        <div className="session"><h3 className="info"><img src="/images/privacy.png" className="mr-3 mb-2" />Privacy during Session</h3></div>
         <div className="col-md-6 px-4">
               <div className="form-group input-txt">
               <label className="switch">
@@ -1621,7 +1622,7 @@ submitForm = (event) => {
                   <span className="slider round"></span>
               </label>
                 <span>Participants allowed to disable DM with others</span>
-                <img src="images/bulb.png" className="ml-3 mb-2" />
+                <img src="/images/bulb.png" className="ml-3 mb-2" />
               </div>
               <div className="form-group input-txt">
                 <label className="switch">
@@ -1654,7 +1655,7 @@ submitForm = (event) => {
         </div>
         </div>
         <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" />Groups</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/teamwork.png" className="mr-3 mb-2" />Groups</h3></div>
           <div className="col-md-6 px-4">
               <div className="form-group input-txt">
               <label className="switch">
@@ -1672,15 +1673,15 @@ submitForm = (event) => {
             </div>
         </div>
         <div className="pb-4">
-          <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" />Select Host(s)</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/user.png" className="mr-3 mb-2" />Select Host(s)</h3></div>
           <div className="px-3 pb-4">
           <div className="row">
             <div className="col-md-4">
                 {/* <Link to="header" className="pick" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link> */}
-                <Link to ="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myHost"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
+                <Link to ="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myHost"><img src="/images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 mt-3 mt-md-0 px-4">
-                <Link to ="FitnessSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
+                <Link to ="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
           </div>
@@ -1688,7 +1689,7 @@ submitForm = (event) => {
         </div>
         {/* Script Start */}
         <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info"><img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Script</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Script</h3></div>
           <div className="row mx-0">
             <div className="col-md-5 px-4">
               <span className="white-text pl-0">Start next activity?</span>
@@ -1927,14 +1928,14 @@ submitForm = (event) => {
         {/* Shopping List Start */}
         
         <div className="gray-box no-border-radius pb-2">
-          <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/shopping-icon.png" className="mr-3 mb-2" />Shopping List</h3></div>
           <div className="px-4 pb-4">
             <div className="row pb-4">
               <div className="col-md-4">
-                  <Link to ="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
+                  <Link to ="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="/images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to="FitnessSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+                  <Link to="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
               </div>
             </div>
           </div>
@@ -1981,14 +1982,14 @@ submitForm = (event) => {
 
         {/* Equipement List Start  */}
         <div className="gray-box2 no-border-radius">
-          <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/shopping_icon.png" className="mr-3 mb-2" />Equipment List</h3></div>
           <div className="px-4 pb-4">
             <div className="row pb-4">
               <div className="col-md-4">
-                  <Link to="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
+                  <Link to="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="/images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to ="FitnessSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
+                  <Link to ="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
               </div>
             </div>
           </div>
@@ -2483,7 +2484,7 @@ submitForm = (event) => {
         </div>
       </div>
       {this.state.repeatSession?
-      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
+      <div className="wd align-self-end d-none d-md-block"><img src="/images/path.png" className="w-100" /></div>:''}
       {this.state.repeatSession?
       <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
       <div className="modal-header headerborder px-0">
@@ -2590,7 +2591,7 @@ submitForm = (event) => {
         </div>
       </div>
       {this.state.signUpSessionStatus?
-      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" /></div>:''}
+      <div className="wd align-self-end d-none d-md-block"><img src="/images/path.png" className="w-100" /></div>:''}
       {this.state.signUpSessionStatus?
       <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
       <div className="modal-header headerborder px-0">
