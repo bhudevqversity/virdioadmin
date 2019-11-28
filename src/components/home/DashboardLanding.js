@@ -67,6 +67,7 @@ nextDate = (e)=>{
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
 			<div className="tab-sec px-3 pb-5">
 				<div className="cont">
 					<div className="row">
@@ -74,6 +75,15 @@ nextDate = (e)=>{
 							<ul className="nav nav-tabs" role="tablist">
 							    <li className="nav-item">
 							      <a className="nav-link active" data-toggle="tab" onClick={this.upcomingSession} href="#us">Upcoming Session</a>
+=======
+			<div class="tab-sec px-3 pb-5">
+				<div class="cont">
+					<div class="row">
+						<div class="col-lg-7">
+							<ul class="nav nav-tabs" role="tablist">
+							    <li class="nav-item">
+							      <a class="nav-link active" data-toggle="tab" href="#us">Upcoming Session</a>
+>>>>>>> 163b4a984509028b8205874f2e9d937a774a8be5
 							    </li>
 							    <li className="nav-item">
 							      <a className="nav-link" data-toggle="tab" onClick={this.pastSession} href="#ps">Past Session</a>
@@ -83,9 +93,23 @@ nextDate = (e)=>{
 							    </li>
 						    </ul>
 						</div>
+<<<<<<< HEAD
 						<div className="col-lg-4 datepick">
 							<input type="text" name="" className="form-control" id="datepicker" />
 							<div className="c_icon"><img src="/images/cal.png" className="translat" /><img src="/images/angle-down.png" className="translat" /></div>
+=======
+						<div class="col-lg-5 datepick d-flex justify-content-end">
+							<div className="position-relative">
+								<input type="text" name="" class="form-control" id="datepicker" />
+								<div class="c_icon">
+									<img src="images/cal.png" className="translat" />
+									<img src="images/angle-down.png" className="translat" />
+								</div>
+							</div>
+							<div className="align-self-center px-4 srch_icon position-relative">
+								<a href="#"><img src="images/search1.png" /></a>
+							</div>
+>>>>>>> 163b4a984509028b8205874f2e9d937a774a8be5
 						</div>
 					</div>
 				</div>

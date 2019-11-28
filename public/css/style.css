@@ -255,7 +255,7 @@ input.form-control:focus
 {
 	position: absolute;
 	top: 27px;
-	right: 41px;
+	right: 35px;
 	padding-left: 25px;
 }
 .c_icon:before
@@ -266,7 +266,17 @@ input.form-control:focus
 	height: 30px;
 	background-color: gray;
 	top: 0;
-	left: 0;
+	left: -4px;
+}
+.srch_icon:before
+{
+	content: "";
+	position: absolute;
+	width: 1px;
+	height: 30px;
+	background-color: gray;
+	top: 0;
+	left: -9px;
 }
 .datepick i
 {
@@ -818,7 +828,42 @@ a.act:before
 .select-items div:hover, .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
-    
+ 
+/*---------slide-1 CSS----------------*/
+
+.parti_box .b-image
+    	{
+    		padding: 35px;
+    		box-sizing: border-box;
+    	}
+      .parti_box p.white
+      {
+      	font-family: Avenir-Book;
+      }
+      .parti_box
+      {
+      	display: flex;
+      	flex-direction: column;
+      	width: 210px;
+      	margin: 25px;
+	  }
+	  
+      .width-200
+      {
+      	width: 200px;
+      }
+       .b-image .custom-control
+      {
+      	position: absolute;
+      	top: 2px;
+      	right: 0px;
+      }
+      .font-16
+      {
+      	font-size: 16px !important;
+	  }
+	  
+
 /*---------slide-36 CSS----------------*/
 .hdng
 {
@@ -872,7 +917,7 @@ a.purple_link
 }
 .font-18
 {
-	font-size: 18px;
+	font-size: 18px !important;
 }
 .overflow-hidden
 {
@@ -1550,7 +1595,7 @@ input.timepicki-input
 
 .gray-box-5
 {
-	background-color: #363636;
+	background-color: #363636 !important;
 	border-radius: 10px;
 	overflow: hidden;
 }
@@ -1653,6 +1698,107 @@ input.timepicki-input
 	{
 		transform: translateY(-4px);
 	}
+
+	/*-------------slide-2 & 3 CSS----------------*/
+
+	.inp_cover-border
+      {
+        position: absolute;
+        top: 12px;
+        background-color: #262626;
+        z-index: -1;
+        left: -15px;
+        width: 125%;
+        height: 3px;
+      }
+      .input_bx-cont .form-group .input-field
+      {
+        height: 63px;
+      }
+      .left_innr_cont
+      {
+        padding: 35px 30px 1px 30px;
+        background-color: #262626;
+        border-radius: 10px;
+      }
+      .left_innr_cont p img
+      {
+        transform: translateY(-4px);
+      }
+      .left_innr_cont p.checktxt
+      {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+      .mb-30
+      {
+        margin-bottom: 30px;
+      }
+      .font-16
+      {
+        font-size: 16px !important;
+      }
+      .w-80
+      {
+        width: 80%;
+      }
+      .sms_email_box
+      {
+        flex-basis: 45%;
+      }
+      .sms_email_box .b-image
+      {
+        background-color: #454545;
+        padding: 50px;
+      }
+      .sms_email_box .b-image img
+      {
+        width: 85px;
+        height: 85px;
+      }
+      .sml_input_box
+      {
+        display: inline-block;
+        
+      }
+      .sml_input_box input
+      {
+        width: 50px;
+        height: 60px;
+        background: transparent;
+        border:1px solid #bd00ff;
+        border-radius: 5px;
+        color: white;
+        padding: 5px;
+        margin-right: 12px;
+        font-size: 26px;
+        text-align: center;
+      }
+      .o-hidden
+      {
+        overflow: hidden;
+      }
+      .color_gray
+      {
+        color: #878787 !important;
+      }
+      .custom_btn
+      {
+        border-radius: 35px;
+        background: #5d067c;
+        color: #fff;
+        text-align: center;
+        font-family: "Avenir-Book";
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        padding: 15px 40px;
+        bottom: -90px;
+        transform: translateX(-50%);
+        left: 50%;
+      }
 /* Responsive Code */
 
 @media(max-width: 900px)
