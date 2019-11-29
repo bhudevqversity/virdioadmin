@@ -59,6 +59,44 @@ this.setState({
 }
 
 
+// next date
+nextDate = (e)=>{
+	console.log(e.target,	  this.state.upcomingSession[this.state.upcomingSession.length-1].timestamp);
+let date = 1574726400000 ;
+	let date1=date;
+  let upcomingSession=[];
+  console.log('----------------',new Date(date).getMonth(),new Date(date).getDate());
+  let dateofMonth = new Date(date).getDate();
+   let timeSelection =  (new Date (date).getMonth()) ;
+   console.log(timeSelection);
+	date = new Date(Date.UTC(2019, timeSelection, 1));
+   var days = [];
+   var dayofWeek=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  console.log('date.getMonth()',date.getMonth());
+   while (date.getMonth() === timeSelection) {
+	  //days.push(new Date(date).getDate());
+	   let n ={date:new Date(date).getDate(),
+		  day:dayofWeek[new Date(date).getDay()],
+		  timestamp:new Date(date).getTime(),
+	  }
+	   days.push(n);
+	   //days.push(new Date(date).getDay());
+	   date.setDate(date.getDate() + 1);
+	}
+  console.log(days)
+	for (let i=dateofMonth-1 ;i<days.length;i++){
+		console.log(days[i])
+		upcomingSession.push(days[i]);
+	} 
+  
+  this.setState({
+	  startDate:date1,
+	  daysOfMonth:days,
+	  upcomingSession:upcomingSession,
+  },()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
+
+}
+// end next date
 
 
   render() {
@@ -209,7 +247,7 @@ this.setState({
 				      <a className="nav-link act" data-toggle="tab" href="#dt3">28<br /><span>SUN</span></a>
 				    </li> */}
 				    <div className="nav-item angle-img">
-				      <a className="nav-link" data-toggle="tab" href="#dt3"><i className="fa fa-angle-right" onClick={this.changeDate}></i></a>
+				      <a className="nav-link" data-toggle="tab" href="#dt3"><img src="images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></a>
 				    </div>
 			    </div>
 			    <div className="content-container mt-5">

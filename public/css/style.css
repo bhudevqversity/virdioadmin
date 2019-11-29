@@ -456,7 +456,44 @@ a.act:before
     padding: 10px 15px;
 }
 
-
+#dasboard_myModal2 .modal-content
+{
+	background: transparent !important;
+}
+#dasboard_myModal2 .modal-content .form-group .cover-border
+{
+	background-color: #2a2a2a !important;
+}
+#dasboard_myModal2 .done {
+    border-radius: 35px;
+    background: #5d067c;
+    color: #fff;
+    text-align: center;
+    font-family: "Avenir-Book";
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    width: 150px;
+    height: 60px;
+    margin-top: 23px;
+}
+.dashboard_land {
+    background-image: url(../images/msg.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 30px;
+    height: 32px;
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+#dasboard_myModal2 .modal-body
+{
+	background: #2a2a2a;
+}
 /*Carousel CSS */
 .slider_sec
 {
@@ -1903,3 +1940,41 @@ abbr[data-original-title], abbr[title] {
     cursor: default !important;
     
 }
+/* fitness creation */
+.input-field2 {
+    /* border-radius: 0px 15px 15px 15px; */
+    background: #34213b;
+    color: #fff;
+    border: 2px solid #b002ed;
+    height: 44px;
+    width: 100%;
+    margin-bottom: 22px;
+    padding-left: 18px;
+    font-size: 18px;
+    position: relative;
+}
+.copy_link.btn-primary {
+    display: table;
+    border-radius: 40px;
+    font-size: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: Avenir-Medium;
+    font-weight: 600;
+    background: #570078 !important;
+	border-color: #570078 !important;
+	color: #ffffff !important;
+}
+.submit_congrat{
+	font-size: 16px !important;
+    color: #d6d4d4 !important;
+}
+.fitness_save{
+	margin: 0 auto;
+    margin-bottom: 20px;
+}
+.fitness_save> button{
+	border-radius: 20px !important;
+   }

@@ -2454,7 +2454,7 @@ submitForm = (event) => {
                 <Link to="WineSessionCreation" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
-                <Link to ="/" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
+                <Link to ="/" className="pick"><img src="images/add.png"  className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
           </div>

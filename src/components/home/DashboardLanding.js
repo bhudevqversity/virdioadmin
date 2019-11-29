@@ -9,6 +9,8 @@ class DashboardLanding extends Component {
 		daysOfMonth:[],
 		upcomingSession:[],
 		sessionInformation:'',
+		dash_land_prop:false,
+		channelPopup:0,
 		sessionData :[{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
 		oTime:"4:30 PM",
@@ -74,6 +76,8 @@ class DashboardLanding extends Component {
  
 componentDidMount(){
   }
+
+ 
   setStartDate =(date)=>{
 	let date1=date;
 	let upcomingSession=[];
@@ -396,7 +400,11 @@ componentDidMount(){
 						    			<div className="d-flex justify-content-between flex-wrap align-items-center mt-3">
 						    				<h4 className="white">Channel Host</h4>
 						    				{/* <a href="#"><img src="images/add.png" /></a> */}
-											<a href="#"><img src="images/add.png"  alt="" /></a>
+											<a className="pick" data-toggle="modal" data-target="#dasboard_myModal2"><img src="images/add.png" id={i}
+											 onClick={e=>this.setState({
+												channelPopup:i
+											 },()=>console.log(this.state.channelPopup))} alt="" /></a>
+											
 						    			</div>
 										{row.channelHost.map((channl_array,l)=>
 						    			<div className="d-flex mt-3" key={l}>
@@ -450,6 +458,7 @@ componentDidMount(){
 								
 								</div>
 								)}
+
 						    	{/* <div class="col-lg-4 mt-3 px-2">
 						    		<div class="inner_containr px-3 py-4">
 						    			<div class="d-flex justify-content-between flex-wrap">
@@ -510,6 +519,93 @@ componentDidMount(){
 						    		</div>
 						    	</div> */}
 						    </div>
+
+						{/* Select add  channel host Start */}
+							<div className="modal" id="dasboard_myModal2">
+								<div className="modal-dialog modal-dialog-centered">
+								<div className="modal-content">
+									<div className="">
+									<div className="text-center">
+										<img src="/images/host.png" alt="" />
+										<p className="white">Invite Someone to be a Host</p>
+									</div>
+									</div>
+									<div className="modal-body ">
+										<div className="card cardbg">
+										<div class="form-group ">
+											<div className="row">
+											<div className="col-md-6 pr-md-2">
+												<div className="form-group input-txt">
+													<label className="switch">
+														<input type="checkbox"  id = "dash_land_prop"  checked={this.state.dash_land_prop} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.dash_land_prop},()=>console.log('dash_land_prop',this.state.dash_land_prop))}}/>
+														<span className="slider round" ></span>
+													</label>
+													{this.state.dash_land_prop?<span>Nagendra </span>:<span>Kumar</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
+												</div>
+												</div>
+												<div className="col-md-6 pl-md-2">
+												<div className="form-group input-txt">
+													<label className="switch">
+														<input type="checkbox"  />
+														<span className="slider round"></span>
+													</label>
+													<span>Nagendra 2</span><img src="images/bulb.png" className="ml-3 mb-2" />
+												</div>
+												</div>
+												<div className="col-md-6 pr-md-2">
+													<span className="cover-border "></span>
+													<label className="label">Enter First Name</label>
+													<div className="">
+														<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} placeholder="First name" />
+														<span className="signedup_2"></span>
+													</div>
+												</div>
+												<div className="col-md-6 pr-md-2">
+													<span className="cover-border "></span>
+													<label className="label">Enter Last Name</label>
+													<div className="">
+														<input type="text" className="input-field" placeholder="Last name" />
+														<span className="signedup_2"></span>
+													</div>
+												</div>
+												<div className="col-md-12 pr-md-2">
+													<span className="cover-border "></span>
+													<label className="label">Email Address</label>
+													<div className="">
+														<input type="email" className="input-field" placeholder="Last name" />
+														<span className="dashboard_land"></span>
+													</div>
+												</div>
+												<div className="col-md-6 pr-md-2">
+												<div className="form-group input-txt">
+													<label className="switch">
+														<input type="checkbox"  />
+														<span className="slider round"></span>
+													</label>
+													<span>Nagendra 1</span><img src="images/bulb.png" className="ml-3 mb-2" />
+												</div>
+												</div>
+												<div className="col-md-6 pl-md-2">
+												<div className="form-group input-txt">
+													<label className="switch">
+														<input type="checkbox"  />
+														<span className="slider round"></span>
+													</label>
+													<span>Nagendra 2</span><img src="images/bulb.png" className="ml-3 mb-2" />
+												</div>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div className="donebg"><button type="button" data-toggle="modal" data-dismiss="modal"  className="done">Done</button></div>
+								</div>
+								
+								</div>
+								
+							</div>
+							{/* Select add  channel host End */}
+
 						</div>
 					    {/* <div id="ps" class="container tab-pane fade"><br />
 					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries. </p>

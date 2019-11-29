@@ -1207,7 +1207,11 @@ handleShow=()=>{
   })
    console.log(this.state.onSave);
  }
- handleClose=()=>{
+ handleClose=(e)=>{
+   this.textArea.select();
+   document.execCommand('copy');
+   e.target.focus();
+   $("#link_generator").attr({'style':'display:none'});
    this.setState({
      onSave:false
    })
@@ -1215,6 +1219,7 @@ handleShow=()=>{
 ////////////////Submit data
 submitForm = (event) => {
   event.preventDefault();
+  $("#link_generator").attr({'style':'display:block'});
   var activity_info = [];
   var activities = [];
   let input_result=[];
@@ -2177,7 +2182,8 @@ submitForm = (event) => {
       </div>
     {/* Equipement List End  */}
 
-    <Link to ="FitnessSessionCreation" className="save-btn btn btn-primary my-5 mx-auto"  onClick={this.submitForm}>Save</Link>
+    <Link to ="FitnessSessionCreation" className="save-btn btn btn-primary my-5 mx-auto"   onClick={this.submitForm}>Save</Link>
+    
     <div className="modal" id="myModal">
     <div className="modal-dialog dialogwidth modal-dialog-centered">
       <div className="modal-content modalbg">
@@ -2674,35 +2680,64 @@ submitForm = (event) => {
   </div>
 </div>
  {/* Add a new Product End */}
+
+ <div className="modal" id="link_generator" show={this.state.onSave} onHide={this.handleShow}>
+  <div className="modal-dialog small_width">
+    <div className="modal-content">
+      <div className="modal-header headerborder">
+        <h4 className="modal-title text-white text-center">You have successfully created a session</h4>
+       
+      </div>
+      <div className="modal-body">
+      <h6 className="white text-center submit_congrat">Congratulations ,you have created the session "Introduction to wine testing" to be hosted by Arjun on August 13th2019 12:30PM</h6>
+      <h6 className="white text-center submit_congrat">You can start inviting Participants by sharing  the link below </h6>
+      
+      <div className="form-group mb-0">
+       
+      <input type="text" ref={(textarea)=>this.textArea=textarea}  className="input-field2" placeholder="Session Name" value="https//virdio.com" onChange={(e)=>console.log()}/>
+             
+      </div>
+      
+    </div>
+    <div className="fitness_save">
+          <Link className="copy_link btn btn-primary mx-auto"   variant="secondary" onClick={this.handleClose}>
+            Copy link
+          </Link>
+      </div>
+
+       </div>
+  </div>
+</div> 
   
- <Modal size="sm" show={this.state.onSave} onHide={this.handleShow}>
+
+ {/* <Modal  size="sm" show={this.state.onSave} onHide={this.handleShow}>
     
-    <Modal.Header closeButton>
-      <Modal.Title className="text-white">You have successfully created a session</Modal.Title>
+    <Modal.Header className="text-center">
+      <Modal.Title className="text-white h6">You have successfully created a session</Modal.Title>
     </Modal.Header>
       <Modal.Body>
-        <p className="text-white">Congratulations ,you have created the session "Introduction to wine testing" to be hosted by Arjun on August 13th2019 12:30PM
-You can start inviting Participants by sharing the link below 
-</p><br></br>
-         <div className="col-md-5 m-auto">                           
-          <div className="form-group"><span className="cover-border"></span>
-            <label className="label">Description</label>
-            <input type="text"  className="input-field" placeholder="Session Name" value="https//virdio.com" onChange={(e)=>console.log()}/>
+        <p className="text-white text-center">Congratulations ,you have created the session "Introduction to wine testing" to be hosted by Arjun on August 13th2019 12:30PM. </p><br></br>
+      <p className="text-white text-center">You can start inviting Participants by sharing the link below, you can also find this link in Session detail, from your dashboard.
+      </p><br></br>
+         <div className="col-md-12 m-auto">                           
+          <div className="form-group">
+           
+            <input type="text" ref={(textarea)=>this.textArea=textarea}  className="input-field2" placeholder="Session Name" value="https//virdio.com" onChange={(e)=>console.log()}/>
               
           </div>
         </div>  
-          {/* <input type="text" className="input-field"   placeholder="Session Name" /> */}
+         
       </Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={this.handleClose}>
-        Close
-      </Button>
-      {/* <Button variant="primary" onClick={handleClose}>
-        Save Changes
-      </Button> */}
-    </Modal.Footer>
+        <div className="fitness_save">
+          <Button className="m-auto btn-primary pb-10 text-uppercase" variant="secondary" onClick={this.handleClose}>
+            Copy link
+          </Button>
+      </div>
     
-  </Modal>
+    
+  </Modal> */}
+
+  
 {/* end */}
 {/* Sign Up Calender Start */}
 <div className="modal cal_modal" id="signUpCalenderModel">
