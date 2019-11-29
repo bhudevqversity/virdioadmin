@@ -1139,7 +1139,7 @@ return(
                 <label className="custom-file-label px-1"  htmlFor="videoFile">
                     <img src="images/video2.png" className="browse_image1" alt=''/>
                     <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
-                    <a href="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></a>
+                    <Link to="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
                 </label>
               </div>
             </div>
@@ -1147,9 +1147,9 @@ return(
               <div className="custom-file mb-3">
                 <input type="file" className="custom-file-input" id="imageFile" name="file" onChange = {this.saveVideoFile} />
                 <label className="custom-file-label px-1" htmlFor="imageFile">
-                    <img src="images/image1.png" className="browse_image1" />
+                    <img src="/images/image1.png" className="browse_image1" alt="#"/>
                     <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
-                    <a href="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></a>
+                    <Link to="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
                 </label>
               </div>
             </div>

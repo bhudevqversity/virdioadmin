@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {  browserHistory} from 'react-router'
+
 class DashboardLanding extends Component {
    constructor(props) {
 	super(props);
@@ -14,6 +16,8 @@ componentDidMount(){
   }
   pastSession=(e)=>{
 	  console.log(new Date().getTime())
+	  	browserHistory.push("/sessiondetail/"+1);  
+	 
 	  this.setState({
 		  sessionInformation:'-1'
 	  },()=>console.log('this.state.pastSession',this.state.sessionInformation))

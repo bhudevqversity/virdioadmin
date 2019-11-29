@@ -1798,6 +1798,47 @@ input.timepicki-input
         bottom: -90px;
         transform: translateX(-50%);
         left: 50%;
+	  }
+	  
+	  /*-------------slide-2 & 3 CSS----------------*/
+
+	  .custom_btn1
+      {
+      	border-radius: 25px;
+        background: #731C92
+;
+        color: #fff;
+        text-align: center;
+        font-family: "Avenir-Book";
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        padding: 10px 35px;
+      }
+      .modl_bg_drk
+      {
+      	background-color: #383737
+ !important;
+      	box-shadow: 1px 13px 34px black;
+      }
+      #registration_popup .modal-dialog.small_width
+      {
+      	max-width: 30%;
+      }
+      .font-12
+      {
+      	font-size: 12px;
+      }
+      .small
+      {
+      	line-height: 17px;
+      }
+      .small a
+      {
+      	color: #eee !important;
+      	text-decoration: none;
       }
 /* Responsive Code */
 
