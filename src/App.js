@@ -11,7 +11,8 @@ import DemoSessionWine from "./components/home/DemoSessionWine"
 import HostSessionCreation from './components/home/HostSessionCreation'
 import verifyuser from "./components/auth/VerifyUser";
 import DashboardLanding from './components/home/DashboardLanding'
-
+import hostSignUp from './components/home/hostsignup'
+import signUp from './components/home/signup'
 /*function App() {
   return (
     <div className="App">
@@ -38,7 +39,9 @@ class App extends Component {
       <Route exact path="/ChannelCreation" component={HostSessionCreation} />
       <Route path="/verify-user/:sessionId" component={verifyuser} />
       {/* <Route exact path="/HostSessionCreation" component={HostSessionCreation} /> */}
-      <Route exact path="/DashboardLanding" component={DashboardLanding} />
+      <Route exact path="/DashboardLanding" component={DashboardLanding} />hostSignUp
+      <Route exact path="/hostSignUp" component={hostSignUp} />
+      <Route exact path="/signUp" component={signUp} />
 
 
 		</div>

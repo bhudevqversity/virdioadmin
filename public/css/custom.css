@@ -429,7 +429,7 @@ select.input-field{
 
 }
 .pick{
-    color: #fff;
+    color: #fff !important;
     font-size: 20px;
     font-family: Avenir-Book;
 }
