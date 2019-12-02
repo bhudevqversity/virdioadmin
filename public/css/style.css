@@ -507,7 +507,7 @@ a.act:before
     top: 15px;
 }
 .srv-validation-message{
-	color:#c7bcbc !important;
+	color:#dc0f0fde !important;
 }
 #dasboard_myModal2 .modal-body
 {
@@ -1976,7 +1976,9 @@ input.timepicki-input
     color: white;
     border-radius: 50%;
 } */
-
+sup{
+	color: #dc0f0fde !important;
+}
 /* slider element */
 .slide-ele{
     width: 100%;

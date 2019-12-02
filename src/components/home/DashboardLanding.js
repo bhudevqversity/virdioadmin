@@ -603,7 +603,7 @@ componentDidMount(){
 														<span className="cover-border "></span>
 														<label className="label">Enter First Name</label>
 														<div className="">
-															<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} placeholder="First name" disabled/>
+															<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} onChange={e=>console.log()} placeholder="First name" />
 															<span className="signedup_2"></span>
 														</div>
 													</div>
@@ -613,7 +613,7 @@ componentDidMount(){
 														<span className="cover-border "></span>
 														<label className="label">Enter Last Name</label>
 														<div className="">
-															<input type="text" className="input-field" placeholder="Last name" disabled/>
+															<input type="text" className="input-field" placeholder="Last name" />
 															<span className="signedup_2"></span>
 														</div>
 													</div>
@@ -624,11 +624,8 @@ componentDidMount(){
 													<span className="cover-border "></span>
 													<label className="label">Email Address</label>
 													<div className="">
-														{/* <input type="email" className="input-field" value={this.state.email} placeholder="Email Address" /> */}
-														<select className="input-field">                     
-															{this.forEmailer()}
-														</select>
-														{/* <span className="dashboard_land"></span> */}
+														<input type="email" className="input-field" value={this.state.email} placeholder="Email Address" />
+														<span className="dashboard_land"></span>
 													</div>
 												</div>
 												:''}
@@ -639,7 +636,7 @@ componentDidMount(){
 														<span className="cover-border "></span>
 														<label className="label">Enter First Name</label>
 														<div className="">
-															<input type="text" className="input-field"  placeholder="First namedasdsadsadasdasdsad" />
+															<input type="text" className="input-field"  placeholder="First name" disabled/>
 															<span className="signedup_2"></span>
 														</div>
 													</div>
@@ -649,7 +646,7 @@ componentDidMount(){
 														<span className="cover-border "></span>
 														<label className="label">Enter Last Name</label>
 														<div className="">
-															<input type="text" className="input-field" placeholder="Last name" />
+															<input type="text" className="input-field" placeholder="Last name" disabled/>
 															<span className="signedup_2"></span>
 														</div>
 													</div>
@@ -659,8 +656,11 @@ componentDidMount(){
 													<span className="cover-border "></span>
 													<label className="label">Email Address</label>
 													<div className="">
-														<input type="email" className="input-field" placeholder="Last name" />
-														<span className="dashboard_land"></span>
+														{/* <input type="email" className="input-field" placeholder="Last name" />
+														<span className="dashboard_land"></span> */}
+														<select className="input-field">                     
+															{this.forEmailer()}
+														</select>
 													</div>
 												</div>
 												:''}

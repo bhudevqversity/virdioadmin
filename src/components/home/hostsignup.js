@@ -52,39 +52,39 @@ render() {
             <h4 class="white text-center py-4">Signing up as a host</h4>
             <div class="gray-box-4 px-4 pt-5 pb-4 input_bx-cont">
               <div class="form-group">
-                <label class="label">Enter First Name<span class="inp_cover-border"></span></label>
+                <label class="label">Enter First Name<sup>*</sup><span class="inp_cover-border"></span></label>
                 <input type="text" class="input-field" value={this.state.firstName} id ='firstName' onChange={this.sessionInfo}  />
                 {this.validator.message('firstName', this.state.firstName, 'required|alpha')}
                 <span class="signedup_2"></span>
               </div>
               <div class="form-group">
-                <label class="label">Enter Last Name<span class="inp_cover-border"></span></label>
+                <label class="label">Enter Last Name<sup>*</sup><span class="inp_cover-border"></span></label>
                 <input type="text" class="input-field" value={this.state.lastName} id ='lastName' onChange={this.sessionInfo}/>
                 {this.validator.message('lastName', this.state.lastName, 'required|alpha')}
                 <span class="signedup_2"></span>
               </div>
               <div class="form-group">
-                <label class="label">Enter Address<span class="inp_cover-border"></span></label>
+                <label class="label">Enter Address<sup>*</sup><span class="inp_cover-border"></span></label>
                 <input type="text" class="input-field myinput" value={this.state.address} id ='address' onChange={this.sessionInfo} />
                 {this.validator.message('address', this.state.address, 'required')}
 
                 <span class="form_email"></span>
               </div>
               <div class="form-group">
-                <label class="label">Mobile Number<span class="inp_cover-border"></span></label>
+                <label class="label">Mobile Number<sup>*</sup><span class="inp_cover-border"></span></label>
                 <input type="text" class="input-field"  value={this.state.phone} id ='phone' onChange={this.sessionInfo}/>
                 {this.validator.message('phone', this.state.phone, 'required|phone|size:10')}
                 <span class="mobile_phone1"></span>
               </div>
               <div class="form-group">
-                <label class="label">Create a Password<span class="inp_cover-border"></span></label>
+                <label class="label">Create a Password<sup>*</sup><span class="inp_cover-border"></span></label>
                 <input type="text" class="input-field" value={this.state.password} id ='password' onChange={this.sessionInfo} />
                 {this.validator.message('password', this.state.password, 'required')}
 
                 <span class="pass_word"></span>
               </div>
               <div class="form-group">
-                <label class="label">Retype Password<span class="inp_cover-border"></span></label>
+                <label class="label">Retype Password<sup>*</sup><span class="inp_cover-border"></span></label>
                 <input type="text" class="input-field" value={this.state.rePassword} id ='rePassword' onChange={this.sessionInfo} />
                 {this.validator.message('rePassword', this.state.rePassword, 'required')}
 
@@ -103,27 +103,27 @@ render() {
               <div class="col-lg-6">
                 <div class="left_innr_cont h-100">
                   <div class="mb-30">
-                    <p class="checktxt">Enter First Name</p>
+                    <p class="checktxt">Enter First Name<sup>*</sup></p>
                     <p class="checktxt_name border border-0 mb-0"><img src="images/signedup.png" class="mr-3" alt="user-icon" />{this.state.firstName}</p>
                   </div>
                   <div class="mb-30">
-                    <p class="checktxt">Enter Last Name</p>
+                    <p class="checktxt">Enter Last Name<sup>*</sup></p>
                     <p class="checktxt_name border border-0 mb-0"><img src="images/signedup.png" class="mr-3" alt="user-icon" />{this.state.lastName}</p>
                   </div>
                   <div class="mb-30">
-                    <p class="checktxt">Email Address</p>
+                    <p class="checktxt">Email Address<sup>*</sup></p>
                     <p class="checktxt_name border border-0 mb-0"><img src="images/form-email.png" class="mr-3" alt="user-icon" />arjun.rishi@gmail.com</p>
                   </div>
                   <div class="mb-30">
-                    <p class="checktxt">Mobile Number</p>
+                    <p class="checktxt">Mobile Number<sup>*</sup></p>
                     <p class="checktxt_name border border-0 mb-0"><img src="images/phone.png" class="mr-3" alt="user-icon" />{this.state.phone}</p>
                   </div>
                   <div class="mb-30">
-                    <p class="checktxt">Create A Password</p>
+                    <p class="checktxt">Create A Password<sup>*</sup></p>
                     <p class="checktxt_name border border-0 mb-0"><img src="images/passwrd.png" class="mr-3" alt="user-icon" />{this.state.password}</p>
                   </div>
                   <div class="mb-30">
-                    <p class="checktxt">Retype Password</p>
+                    <p class="checktxt">Retype Password<sup>*</sup></p>
                     <p class="checktxt_name border border-0 mb-0"><img src="images/passwrd.png" class="mr-3" alt="user-icon" />{this.state.rePassword}</p>
                   </div>
                 </div>
