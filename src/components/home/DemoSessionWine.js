@@ -16,10 +16,13 @@ class DemoSessionWine extends Component {
   constructor(props) {
     super(props);
     const date = new Date();
+    // let minDate= new Date();
+    // minDate.setDate(minDate.getDate() - 1)
     const startDate = date.getTime();
     this.state = {
         sessions: [],
         session_details:'',
+       // disableDate:minDate.getTime(),
         something:[false,false,false,false,false,false],
         send_input:'',
         // time: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
@@ -33,6 +36,7 @@ class DemoSessionWine extends Component {
         startDate, // Today
         endDate: '', // Today + 6 days
         dateFormat : '',
+        singUpEndDate:'',
         cutoffStartDate:date.getTime(),
         cutoffEndDate:'',
         repeatSession:false,
@@ -220,7 +224,7 @@ componentDidMount(){
 
     let  channelId=1;
     
-    let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
+    let eqarray =[{id: 10, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
       ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
       {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
       {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
@@ -703,12 +707,22 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   let year;
   let time;
   let t;
+  const singUpEndDate = cutoffEndDate;
+  if(this.state.singUpEndDate<cutoffEndDate){
+    cutoffStartDate=cutoffEndDate
+   console.log('next Date');
+  }else
+  { 
+    console.log('previous date');
+    cutoffEndDate=cutoffStartDate;
+  }
   let dt2 = new Date(cutoffStartDate);
   cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
-    cutoffDateTime
+    cutoffDateTime,
+    singUpEndDate
   });
   let timeSelection =  new Date (dt2.getTime()).getHours() ;
   if(timeSelection>=13){
@@ -813,7 +827,14 @@ onChange = (startDate, endDate) => {
   let year;
   let time;
   let t;
-  const dateFormat = startDate;
+  const dateFormat = endDate;
+  if(this.state.dateFormat<endDate){
+    startDate=endDate
+   console.log('next Date');
+ }else{
+  console.log('previous date');
+  endDate=startDate
+}
   // let dt = new Date(startDate).toUTCString();
   let dt2 = new Date(startDate);
   // dt = dt.split('GMT')
@@ -1466,12 +1487,12 @@ handleShareholderLink = idx => evt => {
   );
 };
 testerStatus = (e) =>{
-  let testerContainer = this.state.tablerows;
+  let testerContainer = this.state.tablerows1;
     testerContainer[e.target.id].testerStatus = !testerContainer[e.target.id].testerStatus;
     this.setState({
-    tablerows : testerContainer,
+    tablerows1 : testerContainer,
     },()=>
-    { console.log('testerContainer==>',this.state.tablerows);
+    { console.log('testerContainer==>',this.state.tablerows1);
     });
 }
 removeWineActivity = (e) => {
@@ -1585,6 +1606,7 @@ wineProductSelect = (e) => {
       wineChoice:wineContainer[e.target.id].product_name,
       id:indexValue,
       wineProductId:e.target.id,
+      productId:wineContainer[e.target.id].id,
       // [{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}]
       //[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}]
       //[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
@@ -1615,7 +1637,7 @@ wineProductSelect = (e) => {
          wineArray.splice(i,1);
         this.setState({
           wineProduct : wineContainer,
-          tablerows:wineArray,
+          tablerows3:wineArray,
           wineIndexValue:indexValue,
           //chooseWine:!this.state.chooseWine,
           emojiForWineProduct:0
@@ -1685,15 +1707,40 @@ apperanceSelect = (e) => {
   setChooseWineStatus=(e)=>{
     console.log('HELLO');
      let wineArray = [];
+     let addWine;
     //this.state.tablerows;
+    // let a = JSON.parse(JSON.stringify(this.state.tablerows3[0]));
+    // console.log('json value',a.appearanceSelect)
     for(let i=0;i<this.state.tablerows3.length;i++){
-      wineArray.push(this.state.tablerows3[i]);
+     wineArray.push(this.state.tablerows3[i]);
     }
+    
+  //   let arr2=[];
+  //   arr2=this.state.tablerows3;
+    // for(let i=0;i<this.state.tablerows3.length;i++){
+    // let ak = JSON.parse(JSON.stringify(this.state.tablerows3[i]))
+    // const a = {
+    //   wineChoice:ak.wineChoice,
+    //   id:ak.id,
+    //   wineProductId:ak.wineProductId,
+    //   productId:ak.productId,
+    //   appearanceSelect:ak.appearanceSelect,
+    //   aromaSelect:ak.aromaSelect,
+    //   palateSelect:ak.palateSelect,
+    //   listAppearance:ak.listAppearance,
+    //   listAroma :ak.listAroma,
+    //   listPalate:ak.listPalate,
+    //   testerStatus:ak.testerStatus
+    //   }
+    //   console.log('addWine',a);
+    //   wineArray.push(a);
+    // }
     this.setState({
       chooseWine:false,
       //tablerows:wineArray,
       tablerows:wineArray
     },()=>console.log(this.state.chooseWine,this.state.tablerows))
+
   }
 finalEmoji = () =>{
   // let addWine = {
@@ -1705,13 +1752,77 @@ finalEmoji = () =>{
   //   listPalate:la2,
   //   testerStatus:false
   //   }
-    let arr1=[];
-    let arr2 =this.state.tablerows;
-    for(let i=0;i<this.state.tablerows.length;i++){
-      if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus)
-      arr1.push(this.state.tablerows[i]);
+
+  //   let arr1=[];
+  //  // let arr2 =this.state.tablerows;
+  //   for(let i=0;i<this.state.tablerows.length;i++){
+  //     if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus){
+  //      let ak = JSON.parse(JSON.stringify(this.state.tablerows[i]))
+  //   const a = {
+  //     wineChoice:ak.wineChoice,
+  //     id:ak.id,
+  //     wineProductId:ak.wineProductId,
+  //     productId:ak.productId,
+  //     appearanceSelect:ak.appearanceSelect,
+  //     aromaSelect:ak.aromaSelect,
+  //     palateSelect:ak.palateSelect,
+  //     listAppearance:ak.listAppearance,
+  //     listAroma :ak.listAroma,
+  //     listPalate:ak.listPalate,
+  //     testerStatus:ak.testerStatus
+  //     }
+  //     //arr1.push(this.state.tablerows[i]);
+  //     arr1.push(a);
+  //     }
       
 
+  //   }
+  let arr1=this.state.tablerows1;
+  let x=0,n=0;
+for(let i=0;i<arr1.length;i++){
+    n=i;
+      if(this.state.tablerows[this.state.emojiForWineProduct].appearanceSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].aromaSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].palateSelect[0].appearanceStatus){
+       let ak = JSON.parse(JSON.stringify(this.state.tablerows[this.state.emojiForWineProduct]))
+       if(arr1[i].wineProductId===ak.wineProductId){
+        x=1;
+        arr1[i].wineChoice=ak.wineChoice;
+        arr1[i].id=ak.id;
+        arr1[i].wineProductId=ak.wineProductId;
+        arr1[i].productId=ak.productId;
+        arr1[i].appearanceSelect=ak.appearanceSelect;
+        arr1[i].aromaSelect=ak.aromaSelect;
+        arr1[i].palateSelect=ak.palateSelect;
+        arr1[i].listAppearance=ak.listAppearance;
+        arr1[i].listAroma =ak.listAroma;
+        arr1[i].listPalate=ak.listPalate;
+        arr1[i].testerStatus=arr1[i].testerStatus;
+      
+      
+       }
+      }
+      
+
+    }
+
+    if(x===0){
+     if(this.state.tablerows[this.state.emojiForWineProduct].appearanceSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].aromaSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].palateSelect[0].appearanceStatus){
+     let ak = JSON.parse(JSON.stringify(this.state.tablerows[this.state.emojiForWineProduct]))
+    const a = {
+      wineChoice:ak.wineChoice,
+      id:ak.id,
+      wineProductId:ak.wineProductId,
+      productId:ak.productId,
+      appearanceSelect:ak.appearanceSelect,
+      aromaSelect:ak.aromaSelect,
+      palateSelect:ak.palateSelect,
+      listAppearance:ak.listAppearance,
+      listAroma :ak.listAroma,
+      listPalate:ak.listPalate,
+      testerStatus:ak.testerStatus
+      }
+      //arr1.push(this.state.tablerows[i]);
+      arr1.push(a);
+      }
     }
     if(this.state.emojiForWineProduct==1){
       console.log(this.state.tablerows[this.state.emojiForWineProduct],'this.state.emojiForWineProduct-----------------',this.state.tablerows[1])
@@ -1870,7 +1981,7 @@ submitForm = (event) => {
   
   for(let i=0;i<this.state.tablerows1.length;i++){
     ap = { wineChoice: this.state.tablerows1[i].wineChoice,
-      id: this.state.tablerows1[i].id,
+      id: this.state.tablerows1[i].productId,
       Emojies:[],
       testerStatus: this.state.tablerows1[i].testerStatus };
     wineDetail.push(ap);
@@ -2335,6 +2446,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      {/* {this.validator.message('hostSessionStart', this.state.hostSessionStart, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-38">Sign up Cut off Date/Time</p>
@@ -2361,6 +2473,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      {/* {this.validator.message('participantSessionStart', this.state.participantSessionStart, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-38">for 'minimum not met'</p>
@@ -2368,6 +2481,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
                       <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
+                      {/* {this.validator.message('minimumNotMet', this.state.minimumNotMet, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     
@@ -2508,8 +2622,8 @@ submitForm = (event) => {
                  <td>{row.wineChoice}</td>
                   <td>
                   <div className="color-icons pl-3">
-                    {row.listAppearance.map((row,i) => (
-                    (row.status) ?<img src={row.path} className="mr-2" alt="cherry" key = {i} />:''
+                    {row.listAppearance.map((row,l) => (
+                    (this.state.tablerows1[i].appearanceSelect[0].appearanceStatus && row.status) ?<img src={row.path} className="mr-2" alt="cherry" key = {l} />:''
                     ))}
                     <span>...</span>
                     </div>
@@ -2590,9 +2704,9 @@ submitForm = (event) => {
               {this.state.tablerows.map((row,i)=>
                         <div className="row mt-5" key= {i}>                        
                             <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
-                                <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
+                                <div className="form-group mb-0" ><span className="cover-border"></span>
                                     <label className="label">Pick a Wine</label>
-                                    <input type="text" value = {row.wineChoice} className="input-field" disabled /><span className="emojis-icon"></span>
+                                    <input type="text" value = {row.wineChoice} className="input-field" disabled />
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
@@ -2678,7 +2792,7 @@ submitForm = (event) => {
                      var splitData = order[i].split(',');
                        for(let l =0;l<this.state.wineInfoArray.length;l++){
                           console.log(splitData[1],'this.state.tablerows',this.state.wineInfoArray[l].id);
-                            if(this.state.wineInfoArray[l].id===splitData[1]){
+                            if(this.state.wineInfoArray[l].id==splitData[1]){
                             arr.push(this.state.wineInfoArray[l]);
                             console.log(this.state.wineInfoArray[l],'*************************************',arr);
                           }
@@ -3405,7 +3519,7 @@ submitForm = (event) => {
         <article className="card-group-item">
           <div className="filter-content">
           <div className="card-body ">
-          <form>
+          {/* <form> */}
           {this.state.wineProduct.map((row,i) =>
           <label className="form-check labelborder" key ={i}>
           <input 
@@ -3423,7 +3537,7 @@ submitForm = (event) => {
           <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
           <label className="form-check labelborder">
           <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label> */}
-        </form>
+        {/* </form> */}
       </div>
       </div>
       </article>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {  browserHistory} from 'react-router'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import $ from 'jquery';
@@ -355,60 +356,60 @@ componentDidMount(){
 						    		{/* <div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div>
 						    		<div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div>
 						    		<div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div>
 						    		<div class="col-12 col-lg-4 col-sm-6 mt-4 px-2">
 						    			<div class="inner_containr p-4">
 						    				<h4 class="white mb-3">Napa Wine Testing</h4>
-						    				<p><img src="images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
-						    				<p><img src="images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
-						    				<p><img src="images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
-						    				<p class="mb-4"><img src="images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
+						    				<p><img src="/images/gray-icons/user.png" class="mr-3" />By Peter Parker</p>
+						    				<p><img src="/images/gray-icons/clock.png" class="mr-3" />4:30 PM</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" class="mr-3" />Signid Up 2340 / 5000(max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" class="mr-3" />$50.00 per session</p>
+						    				<p class="mb-4"><img src="/images/gray-icons/date.png" class="mr-3" />Cut off date 09/12/2019</p>
 						    				<div class="d-flex flex-wrap justify-content-between">
 						    					<div class="mt-3 flex-grow-1"><button class="session_btn text-uppercase">session details</button></div>
-						    					<div class="mt-3 mr-4"><img src="images/invite.png" class="mt-2" /></div>
-						    					<div class="mt-3"><img src="images/edit.png" class="mt-2 ml-2" /></div>
+						    					<div class="mt-3 mr-4"><img src="/images/invite.png" class="mt-2" /></div>
+						    					<div class="mt-3"><img src="/images/edit.png" class="mt-2 ml-2" /></div>
 						    				</div>
 						    			</div>
 						    		</div> */}
@@ -513,9 +514,9 @@ componentDidMount(){
 						    		<div class="inner_containr px-3 py-4">
 						    			<div class="d-flex justify-content-between flex-wrap">
 						    				<h4 class="hdng1 font-weight-bold">Boisset Wines</h4>
-						    				<a href="#"><img src="images/edit.png" /></a>
+						    				<a href="#"><img src="/images/edit.png" /></a>
 						    			</div>
-						    			<img src="images/wine1.jpg" class="d-block img-fluid inner_containr my-3" />
+						    			<img src="/images/wine1.jpg" class="d-block img-fluid inner_containr my-3" />
 						    			<div class="d-flex justify-content-between flex-wrap">
 						    				<div class="">
 						    					<p class="checktxt mb-0 mt-2">Upcoming</p>
@@ -532,10 +533,10 @@ componentDidMount(){
 						    			</div>
 						    			<div class="d-flex justify-content-between flex-wrap align-items-center mt-3">
 						    				<h4 class="white">Channel Host</h4>
-						    				<a href="#"><img src="images/add.png" /></a>
+						    				<a href="#"><img src="/images/add.png" /></a>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div>
 				                                <p class="checktxt_name pb-0 mb-2">Ritesh Shrivastva</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -543,7 +544,7 @@ componentDidMount(){
 				                            </div>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div>
 				                                <p class="checktxt_name pb-0 mb-2">David Cornel</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
@@ -552,10 +553,10 @@ componentDidMount(){
 						    			</div>
 						    			<div class="d-flex justify-content-between flex-wrap mt-4">
 						    				<h4 class="white">Interests</h4>
-						    				<a href="#"><img src="images/add.png" /></a>
+						    				<a href="#"><img src="/images/add.png" /></a>
 						    			</div>
 						    			<div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
+				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
 				                            <div class="flex-grow-1">
 				                                <p class="checktxt_name pb-0 mb-2">Napa Wines</p>
 				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>

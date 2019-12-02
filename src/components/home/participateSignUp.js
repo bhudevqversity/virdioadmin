@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import SimpleReactValidator from 'simple-react-validator';
-import { Link } from 'react-router'
 import $ from 'jquery'
+import { Link } from 'react-router'
 
-class hostSignUp extends Component {
+
+class participentSignup extends Component {
   constructor(props) {
   super(props);
   this.state={
@@ -49,7 +50,6 @@ verify=(e)=>{
  }
  submitHost=(e)=>{
   if(this.state.sms || this.state.byEmail){
-    console.log('nextPage');
     $("#registration_popup").attr({'style':'display:block'});
   }else{
     this.setState({
@@ -69,7 +69,7 @@ render() {
           {this.state.signup?
           <div className="w-50 mx-auto py-5">
             <div className="text-center"><img src="/images/host.png" alt="host" /></div>
-            <h4 className="white text-center py-4">Signing up as a host</h4>
+            <h4 className="white text-center py-4">Signing up as a Participent</h4>
             <div className="gray-box-4 px-4 pt-5 pb-4 input_bx-cont">
               <div className="form-group">
                 <label className="label">Enter First Name<span className="inp_cover-border"></span></label>
@@ -118,7 +118,7 @@ render() {
           {this.state.verify?
           <div className="py-5 w-80 mx-auto mb-5">
             <div className="text-center"><img src="/images/host.png" alt="host" /></div>
-            <h4 className="white text-center py-4">Signing up as a host</h4>
+            <h4 className="white text-center py-4">Signing up as a Participent</h4>
             <div className="row">
               <div className="col-lg-6">
                 <div className="left_innr_cont h-100">
@@ -157,7 +157,7 @@ render() {
                   <div className="d-flex justify-content-center align-items-center flex-wrap pb-2">
                     <div className="sms_email_box mr-3">
                         <div className="b-image text-center">
-                            <img src="/images/sms.png"  alt ="#"/>
+                            <img src="/images/sms.png" alt="#" />
                         </div>
                         <p className="hdng1 font-16 text-center mt-3">
                           <label className="custom-control pl-0 custom-checkbox">
@@ -172,7 +172,7 @@ render() {
                     </div>
                     <div className="sms_email_box ml-3">
                         <div className="b-image text-center gray-box-5">
-                            <img src="/images/email.png" alt ="#" />
+                            <img src="/images/email.png" alt="#" />
                         </div>
                         <p className="hdng1 font-18 text-center color_gray mt-3">
                           <label className="custom-control pl-0 custom-checkbox">
@@ -191,16 +191,16 @@ render() {
                   <div className="o-hidden">
                     <div className="float-left">
                       <p className="sml_input_box d-inline">
-                        <input type="text" maxLength="1"/>
+                        <input type="text" />
                       </p>
                       <p className="sml_input_box d-inline">
-                        <input type="text" maxLength="1"/>
+                        <input type="text" />
                       </p>
                       <p className="sml_input_box d-inline">
-                        <input type="text" maxLength="1"/>
+                        <input type="text" />
                       </p>
                       <p className="sml_input_box d-inline">
-                        <input type="text" maxLength="1"/>
+                        <input type="text" />
                       </p>
                     </div>
                     <div className="float-left ml-4">
@@ -208,7 +208,7 @@ render() {
                       <h4 className="font-16 px-0 font-weight-bold mt-0 purple_text"><Link to="#" className="purple_text text-decoration-none">RESEND</Link></h4>
                     </div>
                   </div>
-                  <Link to = "/hostSignUp" className="position-absolute custom_btn"   onClick={this.submitHost}>done</Link>
+                  <button type="button" className="position-absolute custom_btn" onClick={this.submitHost}>done</button>
                 </div>
               </div>
               
@@ -236,4 +236,4 @@ render() {
   }
 }
 
-export default hostSignUp;
+export default participentSignup;
