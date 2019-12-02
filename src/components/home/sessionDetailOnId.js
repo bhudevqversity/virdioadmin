@@ -260,13 +260,32 @@ componentDidMount(){
     arr2.push(appendData);
   }
   this.setState({
-    tablerows:arr2
+    tablerows:arr2,
+    session_details:'Jumping',
+    description:'Hello Virdio',
+    exampleFormControlSelect1:'Beginner',
+    when:'2019-20-11 7:30:00',
+    minimumParticipants:2,
+    maximumParticipants:5,
+    sessionProperty:true,
+    searchParticipant:true,
+    sessionCharge:true,
+    amountCharge:10,
+    hostSessionStart:2,
+    signUpDateTime:'2019-20-11 7:30:00',
+    participantSessionStart:5,
+    minimumNotMet:1,
+    disableParticipant:true,
+    showParticipant:false,
+    allowParticipant:true,
+    allowLocation:true
   })
   console.log('@@@@@@@@@@@@@@',arr2);
   $("#session_close :input").attr("disabled", true);
   $(".pick").attr("data-target", '');
   $(".when-icon").attr("data-target", '');
   $(".activity-link").attr("disabled",true);
+
   this.fetchPrevSessionList();
   this.fetchExistingHostList();
   this.fetchExistingEquipments();
@@ -1505,24 +1524,6 @@ submitForm = (event) => {
                           </div>
                       </div>
                     </div>
-                    {/* <div className="form-group">
-                      <span className="cover-border bg_gray_clr"></span>
-                      <label className="label">How long?</label>
-                      <select
-                        className="input-field"
-                        id="exampleFormControlSelect2"
-                        value = {this.state.exampleFormControlSelect2}
-                        onChange = {this.sessionInfo}
-                      >
-                        <option>Pick a Duration</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      {this.validator.message('exampleFormControlSelect2', this.state.exampleFormControlSelect2, 'required|integer')}
-                      
-                    </div> */}
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Minimum Participants</label>
@@ -1585,35 +1586,6 @@ submitForm = (event) => {
                         </div>
                       </div>
                     </div>
-
-                    {/* <div className="form-group input-txt h-90">
-                      <label className="switch">
-                          <input type="checkbox" id = "sessionCharge" defaultChecked = {this.state.sessionCharge} onChange = {(e)=>this.setState({[e.target.id]:!this.state.sessionCharge},()=>console.log("sessionCharge",this.state.sessionCharge))} />
-                          <span className="slider round"></span>
-                      </label>
-                      <span>Charging for Session?</span>
-                      {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
-                    </div>
-
-                    {this.state.sessionCharge?
-                    <div className="form-group w-50 ml-5 h-90 mt-2">
-                      <span className="cover-border bg_gray_clr"></span>
-                      <label className="label">Charge amount</label>
-                      <div className="mt-4">
-                        <input
-                          type="text"
-                          className="input-field"
-                          id = "amountCharge"
-                          value = {this.state.amountCharge}
-                          onChange = {this.sessionInfo}
-                          placeholder="Enter amount"
-                        />
-                        {this.validator.message('amountCharge', this.state.amountCharge, 'required|integer')}
-                        <span className="dollar"></span>
-                      </div>
-                    </div>:''} */}
-
-                    
                   </div>
                 </div>
               </div>
