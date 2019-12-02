@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import $ from 'jquery';
+
 class DashboardLanding extends Component {
    constructor(props) {
 	super(props);
@@ -9,7 +11,7 @@ class DashboardLanding extends Component {
 		daysOfMonth:[],
 		upcomingSession:[],
 		sessionInformation:'',
-		dash_land_prop:false,
+		// dash_land_prop:true,
 		channelPopup:0,
 		sessionData :[{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
@@ -65,19 +67,67 @@ class DashboardLanding extends Component {
 				pastSession:23,
 				nextSession:"03:45",
 				path:"images/banner1.jpg"
-				
-		
-					}
-		]
+			}
+		],
+		checkHost:'',
+		customRadio2:false,
+		customRadio1:true,
+		customRollRadio1:true,
+		customRollRadio2:false,
 			
 
 	}
 }
- 
-componentDidMount(){
+
+checkHost1=(e)=>{
+	console.log(e.target)
+	this.setState({
+		[e.target.id]:!this.state.customRadio1,
+		customRadio2:!this.state.customRadio2
+		},()=>console.log(this.state.customRadio1))
+}
+checkHost2=(e)=>{
+	console.log(e.target)
+	this.setState({
+		[e.target.id]:!this.state.customRadio2,
+		customRadio1:!this.state.customRadio1
+		},()=>console.log(this.state.customRadio2))
+}
+
+checkRoll1=(e)=>{
+	console.log(e.target)
+	this.setState({
+		[e.target.id]:!this.state.customRollRadio1,
+		customRollRadio2:!this.state.customRollRadio2
+		},()=>console.log(this.state.customRollRadio1))
+}
+checkRoll2=(e)=>{
+	console.log(e.target)
+	this.setState({
+		[e.target.id]:!this.state.customRollRadio2,
+		customRollRadio1:!this.state.customRollRadio1
+		},()=>console.log(this.state.customRollRadio2))
+}
+
+forEmailer() {
+	var arr = [];
+	//   for (let i = 0; i <= 23; i++) {
+	// 	  arr.push(<option key={i} value="{i}">{i}</option>)
+	//   }
+	return arr; 
   }
 
- 
+componentDidMount(){
+	// $("#dash_land_block :input").attr("disabled", true);
+  }
+
+
+  getInitialState=()=>{
+    return {
+      selectedOption: 'option1'
+    };
+  }
+
   setStartDate =(date)=>{
 	let date1=date;
 	let upcomingSession=[];
@@ -532,42 +582,79 @@ componentDidMount(){
 									</div>
 									<div className="modal-body ">
 										<div className="card cardbg">
-										<div class="form-group ">
+										<div className="form-group ">
 											<div className="row">
-											<div className="col-md-6 pr-md-2">
-												<div className="form-group input-txt">
-													<label className="switch">
-														<input type="checkbox"  id = "dash_land_prop"  checked={this.state.dash_land_prop} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.dash_land_prop},()=>console.log('dash_land_prop',this.state.dash_land_prop))}}/>
-														<span className="slider round" ></span>
-													</label>
-													{this.state.dash_land_prop?<span>Nagendra </span>:<span>Kumar</span>}<img src="images/bulb.png" className="ml-3 mb-2" />
-												</div>
-												</div>
-												<div className="col-md-6 pl-md-2">
-												<div className="form-group input-txt">
-													<label className="switch">
-														<input type="checkbox"  />
-														<span className="slider round"></span>
-													</label>
-													<span>Nagendra 2</span><img src="images/bulb.png" className="ml-3 mb-2" />
-												</div>
+												<div className="col-md-6 pr-md-2">
+													<div className="custom-control custom-radio">
+														<input type="radio" className="custom-control-input" id="customRadio1" value="true"   name="example1" checked={this.state.customRadio1} onChange={this.checkHost1} />
+														<label className="custom-control-label" htmlFor="customRadio1"> Existing Host</label>
+													</div>    
 												</div>
 												<div className="col-md-6 pr-md-2">
+													<div className="custom-control custom-radio mb-20">
+														<input type="radio" className="custom-control-input" id="customRadio2" value="false" name="example1" checked={this.state.customRadio2} onChange={this.checkHost2}  />
+														<label className="custom-control-label" htmlFor="customRadio2">New Host</label>
+													</div>  
+												</div>
+												<div className="clearfix"></div>
+												
+													{this.state.customRadio2 ?
+													<div className="col-md-6 pr-md-2" id="dash_land_block">
+														<span className="cover-border "></span>
+														<label className="label">Enter First Name</label>
+														<div className="">
+															<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} placeholder="First name" disabled/>
+															<span className="signedup_2"></span>
+														</div>
+													</div>
+													:''}	
+													{this.state.customRadio2 ?
+													<div className="col-md-6 pr-md-2" id="dash_land_block">
+														<span className="cover-border "></span>
+														<label className="label">Enter Last Name</label>
+														<div className="">
+															<input type="text" className="input-field" placeholder="Last name" disabled/>
+															<span className="signedup_2"></span>
+														</div>
+													</div>
+													:''}
+												
+												{this.state.customRadio2 ?
+												<div className="col-md-12 pr-md-2">
 													<span className="cover-border "></span>
-													<label className="label">Enter First Name</label>
+													<label className="label">Email Address</label>
 													<div className="">
-														<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} placeholder="First name" />
-														<span className="signedup_2"></span>
+														{/* <input type="email" className="input-field" value={this.state.email} placeholder="Email Address" /> */}
+														<select className="input-field">                     
+															{this.forEmailer()}
+														</select>
+														{/* <span className="dashboard_land"></span> */}
 													</div>
 												</div>
-												<div className="col-md-6 pr-md-2">
-													<span className="cover-border "></span>
-													<label className="label">Enter Last Name</label>
-													<div className="">
-														<input type="text" className="input-field" placeholder="Last name" />
-														<span className="signedup_2"></span>
+												:''}
+												{/* XYZ */}
+												{/* new user*/}
+												{this.state.customRadio1 ?
+													<div className="col-md-6 pr-md-2">
+														<span className="cover-border "></span>
+														<label className="label">Enter First Name</label>
+														<div className="">
+															<input type="text" className="input-field"  placeholder="First namedasdsadsadasdasdsad" />
+															<span className="signedup_2"></span>
+														</div>
 													</div>
-												</div>
+													:''}
+													{this.state.customRadio1 ?
+													<div className="col-md-6 pr-md-2">
+														<span className="cover-border "></span>
+														<label className="label">Enter Last Name</label>
+														<div className="">
+															<input type="text" className="input-field" placeholder="Last name" />
+															<span className="signedup_2"></span>
+														</div>
+													</div>
+													:''}
+												{this.state.customRadio1 ?
 												<div className="col-md-12 pr-md-2">
 													<span className="cover-border "></span>
 													<label className="label">Email Address</label>
@@ -576,29 +663,29 @@ componentDidMount(){
 														<span className="dashboard_land"></span>
 													</div>
 												</div>
-												<div className="col-md-6 pr-md-2">
-												<div className="form-group input-txt">
-													<label className="switch">
-														<input type="checkbox"  />
-														<span className="slider round"></span>
-													</label>
-													<span>Nagendra 1</span><img src="images/bulb.png" className="ml-3 mb-2" />
+												:''}
+
+												{/* new user end */}
+												<div className="col-md-4 pr-md-2">
+													<h3 className="info">
+														<img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Role
+													</h3>
 												</div>
-												</div>
-												<div className="col-md-6 pl-md-2">
-												<div className="form-group input-txt">
-													<label className="switch">
-														<input type="checkbox"  />
-														<span className="slider round"></span>
-													</label>
-													<span>Nagendra 2</span><img src="images/bulb.png" className="ml-3 mb-2" />
-												</div>
-												</div>
+													<div className="col-md-4 px-4">
+														<div className="custom-control custom-radio">
+															<input type="radio" className="custom-control-input" id="customRollRadio1" value="true"   name="example2" checked={this.state.customRollRadio1} onChange={this.checkRoll1} />
+															<label className="custom-control-label" htmlFor="customRollRadio1">  Adminstration & host</label>
+														</div> <br/>
+														<div className="custom-control custom-radio">
+															<input type="radio" className="custom-control-input" id="customRollRadio2" value="false"  name="example2" checked={this.state.customRollRadio2} onChange={this.checkRoll2} />
+															<label className="custom-control-label" htmlFor="customRollRadio2">  Host</label>
+														</div>  
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div className="donebg"><button type="button" data-toggle="modal" data-dismiss="modal"  className="done">Done</button></div>
+									<div className="donebg"><button type="button" data-toggle="modal" data-dismiss="modal"  className="done" id="checkHost" >Invite</button></div>
 								</div>
 								
 								</div>

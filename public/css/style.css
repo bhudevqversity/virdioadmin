@@ -465,6 +465,12 @@ a.act:before
     font-size: 16px;
     padding: 10px 15px;
 }
+#dasboard_myModal2{
+	background-color: #0000008c !important;
+}
+#link_generator{
+	background-color: #3434347d !important;
+}
 
 #dasboard_myModal2 .modal-content
 {
@@ -497,8 +503,11 @@ a.act:before
     height: 32px;
     float: right;
     position: absolute;
-    right: 10px;
+    right: 14px;
     top: 15px;
+}
+.srv-validation-message{
+	color:#c7bcbc !important;
 }
 #dasboard_myModal2 .modal-body
 {
@@ -2116,6 +2125,9 @@ abbr[data-original-title], abbr[title] {
 .submit_congrat{
 	font-size: 16px !important;
     color: #d6d4d4 !important;
+}
+.mb-20{
+	margin-bottom: 20px;
 }
 .fitness_save{
 	margin: 0 auto;
