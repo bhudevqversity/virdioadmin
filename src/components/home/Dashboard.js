@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router';
+import Slider from "react-slick";
 
 class Dashboard extends Component {
 constructor(props) {
@@ -45,6 +46,47 @@ componentDidMount(){
   
 
   render() {
+
+	var settings = {
+		dots: false,
+		infinite: true,
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		autoplay: true,
+		speed: 2000,
+		autoplaySpeed: 3000,
+		arrows:false,
+  		pauseOnHover:true,
+		cssEase: "linear",
+		responsive: [
+			{
+		  breakpoint: 1024,
+		  settings: {
+			slidesToShow: 3,
+			slidesToScroll: 1,
+		  }
+		},
+		{
+		  breakpoint: 600,
+		  settings: {
+			slidesToShow: 2,
+			slidesToScroll: 1,
+			arrows:false
+		  }
+		},
+		{
+		  breakpoint: 480,
+		  settings: {
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			arrows:false
+		  }
+		}
+		]
+	  };
+
+	
+	  
 
     return (
 	<div>
@@ -186,13 +228,15 @@ componentDidMount(){
 			</div>
 		<div className="small_img_part mt-4">
 			<h3 className="my-3">FITNESS<sup className="ml-2">(24)</sup></h3>
-			<div className="slides_inner_part">
+			{/* <div className="slides_inner_part"> */}
+			<Slider {...settings}>
 				{this.state.fitnessData.map((row,i)=>
-				<div className="item" key ={i}>
-					<img src={row.path} alt='' />
+				<div className="item slide-ele" key ={i}>
+					<img src={row.path}  />
 					<p className="mt-3">Strength Training 1</p>
 				</div>
 				)}
+				</Slider>
 				{/* <div className="item">
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training 2</p>
@@ -213,17 +257,19 @@ componentDidMount(){
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training 6</p>
 				</div> */}
-			</div>
+			{/* </div> */}
 		</div>
 		<div className="small_img_part">
 			<h3 className="my-3">WINE<sup className="ml-2">(24)</sup></h3>
-			<div className="slides_inner_part">
+			{/* <div className="slides_inner_part"> */}
+			<Slider {...settings}>
 				{this.state.wineData.map((row,i)=>
-				<div className="item" key={i} >
-					<img src={row.path} alt='' />
+				<div className="item slide-ele" key={i} >
+					<img src={row.path}  />
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}
+				</Slider>
 				{/* <div className="item">
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training</p>
@@ -244,17 +290,19 @@ componentDidMount(){
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training</p>
 				</div> */}
-			</div>
+			{/* </div> */}
 		</div>
 		<div className="small_img_part">
 			<h3 className="my-3">COOKING<sup className="ml-2">(24)</sup></h3>
-			<div className="slides_inner_part">
+			{/* <div className="slides_inner_part"> */}
+			<Slider {...settings}>
 				{this.state.cookingData.map((row,i)=>
-				<div className="item" key = {i}>
-					<img src={row.path} alt=''/>
+				<div className="item slide-ele" key = {i}>
+					<img src={row.path} />
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}
+				</Slider>
 				{/* <div className="item">
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training</p>
@@ -275,7 +323,7 @@ componentDidMount(){
 					<img src="images/wine.jpg" />
 					<p className="mt-3">Strength Training</p>
 				</div> */}
-			</div>
+			{/* </div> */}
 		</div>
 	</div>
 	

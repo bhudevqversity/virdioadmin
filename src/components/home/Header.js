@@ -6,8 +6,14 @@ import Sortable from 'react-sortablejs';
 import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
-import { Link } from 'react-router'
-import $ from 'jquery'
+import { Link } from 'react-router';
+import TimePicker from 'react-time-picker';
+// import Modal from 'react-bootstrap/Modal';
+// import Button from 'react-bootstrap/Button';
+import Calendar from 'react-calendar';
+import $ from 'jquery';
+
+
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class Header extends Component {
@@ -28,7 +34,13 @@ class Header extends Component {
         activityType:[],
         session_details:'',
         send_input:'',
+        // time: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        // time2: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        time: '00:00',
+        time2: '00:00',
         msg:'',
+        sessionCalender: new Date(),
+        reminderCalender: new Date(),
         urlLink:'',
         sess_name:'',
         sess_time:'',
@@ -47,6 +59,8 @@ class Header extends Component {
         sessionYear:'',
         sessionDay:'',
         sessionTime:'',
+        sessionHour:0,
+        sessionMinute:0,
         sessionAttribute:[],
         sessionClass:[false,false,false,false,false,false,false,false,false,false],
         signUpSessionStatus:false,
@@ -396,11 +410,103 @@ componentDidMount(){
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
 
+onChange1 = date =>
+{
+  //2019-10-20
+  let getFullYear=new Date(date).getFullYear();
+  let getMonth=(new Date(date).getMonth())+1;
+  let getDate=new Date(date).getDate();
+  console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
+//let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
+this.setState({
+  sessionCalender: date,
+  sessionDay:getDate,
+  sessionMonth:getMonth,
+  sessionYear:getFullYear
+},()=>console.log(this.state.sessionCalender))
+
+}
+
+
+
+onChange2 = date =>
+{
+  //2019-10-20
+  let getFullYear=new Date(date).getFullYear();
+  let getMonth=(new Date(date).getMonth())+1;
+  let getDate=new Date(date).getDate();
+  console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
+//let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
+this.setState({
+  reminderCalender: date,
+  reminderDay:getDate,
+  reminderYear:getFullYear,
+  reminderMonth:getMonth
+},()=>console.log(this.state.reminderCalender))
+
+}
+
+////for Reminder
+timeset = time => {
+  
+  console.log(time.split(':')[0],time.split(':')[1]);
+  
+    let b = time.split(':')[1];
+    let a = parseInt(time.split(':')[0]);
+    b= parseInt(time.split(':')[1]);
+    if(a==12 && b>0){
+      a=a+ ' PM';
+    }
+    if(a>12 ){
+      a=a-12+ ' PM';
+    }
+    if(a<12){
+      a = a+' AM';
+    }
+    // if(b>59){
+    //   b=0;
+    //   time=parseInt(time.split(':')[0])+':'+b;
+    // }else{
+    //   time=parseInt(time.split(':')[0])+':'+parseInt(time.split(':')[1])
+    // }
+  // console.log(time1 ,'print')
+this.setState(
+  { time:time,
+    reminderTime:a,
+ },()=>console.log(this.state.time))}
+
+
+// end
+//For Session
+timeset2 = time2 => {
+  
+  console.log(time2.split(':')[0],time2.split(':')[1]);
+  
+    let b = time2.split(':')[1];
+    let a = parseInt(time2.split(':')[0]);
+    b= parseInt(time2.split(':')[1]);
+    if(a==12 && b>0){
+      a=a+ ' PM';
+    }
+    if(a>12 ){
+      a=a-12+' PM';
+    }
+    if(a<12){
+      a = a+' AM';
+    }
+  // console.log(time1 ,'print')
+this.setState(
+  { time2:time2,
+    sessionTime:a,
+  //  when : this.state.when +' '+this.state.time2,
+ },()=>console.log(this.state.time2))}
+//end 
+
 // hour value
 forWineHour() {
   var arr = [];
     for (let i = 0; i <= 23; i++) {
-        arr.push(<option key={i} value="{i}">{i}</option>)
+        arr.push(<option key={i} value={i}>{i}</option>)
     }
   return arr; 
 }
@@ -409,9 +515,31 @@ forWineHour() {
 forWineMinute() {
   var arr = [];
     for (let i = 0; i <= 59; i++) {
-        arr.push(<option key={i} value="{i}">{i}</option>)
+        arr.push(<option key={i} value={i}>{i}</option>)
     }
   return arr; 
+}
+
+// end time
+sessionDate=(e)=>{
+  let getFullYear=new Date(this.state.sessionCalender).getFullYear();
+  let getMonth=(new Date(this.state.sessionCalender).getMonth())+1;
+  let getDate=new Date(this.state.sessionCalender).getDate();
+  this.setState({
+    when:getFullYear+'-'+getMonth+'-'+getDate+' '+this.state.time2+':'+'00'
+  })
+  
+}
+
+
+reminderDate=(e)=>{
+  let getFullYear=new Date(this.state.reminderCalender).getFullYear();
+  let getMonth=(new Date(this.state.reminderCalender).getMonth())+1;
+  let getDate=new Date(this.state.reminderCalender).getDate();
+  this.setState({
+    signUpDateTime:getFullYear+'-'+getMonth+'-'+getDate+' '+this.state.time+':'+'00'
+  })
+  
 }
 
 
@@ -432,7 +560,7 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
     cutoffEndDate=cutoffStartDate;
   }
   let dt2 = new Date(cutoffStartDate);
-//  cutoffStartDate=cutoffEndDate;
+ cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
@@ -451,7 +579,7 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   year =new Date (dt2.getTime()).getFullYear();
   t= month[new Date (dt2.getTime()).getMonth()]; 
  
-  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" ";
   this.setState({
   signUpDateTime : dt2,
   reminderSessionTime :timeSelection,
@@ -542,14 +670,24 @@ onChange = (startDate, endDate) => {
   let year;
   let time;
   let t;
-  const dateFormat = startDate;
-  // let dt = new Date(startDate).toUTCString();
-  let dt2 = new Date(startDate);
+  const dateFormat = endDate;
+ // let dt = new Date(startDate).toUTCString();
+ console.log(new Date(startDate),'compare==========',new Date(endDate))
+ if(this.state.dateFormat<endDate){
+   startDate=endDate
+  console.log('next Date');
+ }else{console.log('previous date');
+endDate=startDate
+}
+  //let dt2 = new Date(startDate);
   // dt = dt.split('GMT')
 //  endDate = startDate;
+ // startDate=endDate;
+  let dt2 = new Date(startDate);
   this.setState({ startDate, endDate,dateFormat },
-  ()=>console.log('sds',this.state.startDate,this.state.endDate))
-  let timeSelection =  new Date (dt2.getTime()).getHours() ;
+  ()=>console.log('sds',this.state.startDate,this.state.endDate));
+ // let dt2 = new Date(endDate);
+   let timeSelection =  new Date (dt2.getTime()).getHours() ;
   if(timeSelection>=13){
   timeSelection =  ((new Date (dt2.getTime()).getHours())-12) + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds()+' PM';
   time = ((new Date (dt2.getTime()).getHours())-12)+' PM';
@@ -561,7 +699,7 @@ onChange = (startDate, endDate) => {
   year =new Date (dt2.getTime()).getFullYear();
   t= month[new Date (dt2.getTime()).getMonth()]; 
  
-  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" ";
   this.setState({
   when : dt2,
   whenTime :timeSelection,
@@ -1073,14 +1211,32 @@ handleShareholderLink = idx => evt => {
   }
   );
 };
+
+handleShow=()=>{
+  this.setState({
+    onSave:false
+  })
+   console.log(this.state.onSave);
+ }
+ handleClose=(e)=>{
+   this.textArea.select();
+   document.execCommand('copy');
+   e.target.focus();
+   $("#link_generator").attr({'style':'display:none'});
+   this.setState({
+     onSave:false
+   })
+ }
 ////////////////Submit data
 submitForm = (event) => {
   event.preventDefault();
+  $("#link_generator").attr({'style':'display:block'});
   var activity_info = [];
   var activities = [];
   let input_result=[];
   let min_participants='';
   let max_participants='';
+  this.state.onSave=true;
 // console.log('-------munahostlist-----------',this.state.hostList)
 //   var datavar=this.state.hostList;
 //   datavar.forEach(ele => {
@@ -1101,16 +1257,17 @@ submitForm = (event) => {
       name:this.state.session_details,
      // when:this.state.when,
      //start_date:"2019-10-20 15:06:01",
-     start_date:this.state.when,
-     description:this.state.description,
-     duration:this.state.exampleFormControlSelect2,
-    level:this.state.exampleFormControlSelect1,
+      start_date:this.state.when,
+      description:this.state.description,
+      duration:this.state.exampleFormControlSelect2,
+      level:this.state.exampleFormControlSelect1,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
       sessionProperty:this.state.sessionProperty,
       session_charge:this.state.sessionCharge,
       currency:"USD",
+      hour:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
       show_particpants_count:"false",
       amountCharge:this.state.amountCharge
       }
@@ -1399,34 +1556,6 @@ submitForm = (event) => {
                       {/* <span  className="when-icon"></span> */}
                       <a href="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></a>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6 pr-md-2">
-                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Hours</label>
-                          <select class="input-field" id="">
-                            {/* <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option> */}
-                            {this.forWineHour()}
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-6 pl-md-1">
-                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Minutes</label>
-                            <select class="input-field" id="">
-                              {/* <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option> */}
-                              {this.forWineMinute()}
-                            </select>
-                          </div>
-                      </div>
-                    </div>
                     {/* <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">How long?</label>
@@ -1445,6 +1574,24 @@ submitForm = (event) => {
                       {this.validator.message('exampleFormControlSelect2', this.state.exampleFormControlSelect2, 'required|integer')}
                       
                     </div> */}
+                     <div className="row">
+                      <div className="col-md-6 pr-md-2">
+                        <div className="form-group"><span className="cover-border"></span>
+                          <label className="label">Hours</label>
+                          <select className="input-field" id="sessionHour" value={this.state.sessionHour} onChange={this.sessionInfo}>
+                            {this.forWineHour()}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6 pl-md-1">
+                        <div className="form-group"><span className="cover-border"></span>
+                          <label className="label">Minutes</label>
+                            <select className="input-field" id="sessionMinute" value={this.state.sessionMinute} onChange={this.sessionInfo}>
+                            {this.forWineMinute()}
+                            </select>
+                          </div>
+                      </div>
+                    </div>
                     <div className="form-group">
                       <span className="cover-border bg_gray_clr"></span>
                       <label className="label">Minimum Participants</label>
@@ -1487,25 +1634,27 @@ submitForm = (event) => {
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span><img src="/images/bulb.png" className="ml-3 mb-2" />
                     </div>
-                    <div class="row">
-                      <div class="col-lg-7 pr-0">
-                          <div class="form-group input-txt h-90">
-                              <label class="switch">
-                                <input type="checkbox" id="sessionCharge" checked="" />
-                                <span class="slider round"></span>
+                    <div className="row">
+                      <div className="col-lg-7 pr-0">
+                          <div className="form-group input-txt h-90">
+                              <label className="switch">
+                                <input type="checkbox" id="sessionCharge" defaultChecked = {this.state.sessionCharge} onChange ={(e)=>this.setState({[e.target.id]:!this.state.sessionCharge})} />
+                                <span className="slider round"></span>
                               </label>
                               <span>Charging for Session?</span>
-                              <p class="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>
+                              {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                           </div>
                       </div>
-                      <div class="col-lg-5">
-                        <div class="form-group h-90"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Charge amount</label>
-                          <div class=" mb-2 mt-2">
-                            <input type="text" class="input-field" id="amountCharge" placeholder="Enter amount" value="" /><span class="dollar"></span>
+                      {this.state.sessionCharge?
+                      <div className="col-lg-5">
+                        <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>
+                          <label className="label">Charge amount</label>
+                          <div className=" mb-2 mt-2">
+                            <input type="text" className="input-field" id="amountCharge" placeholder="Enter amount" value={this.state.amountCharge} onChange= {this.sessionInfo}/><span className="dollar"></span>
                           </div>
                         </div>
                       </div>
+                      :''}
                     </div>
 
                     {/* <div className="form-group input-txt h-90">
@@ -1597,10 +1746,6 @@ submitForm = (event) => {
                     </div>
                     
                   </div>
-                  
-
-                  
-
                   
                 </div>
               </div>
@@ -2051,7 +2196,8 @@ submitForm = (event) => {
       </div>
     {/* Equipement List End  */}
 
-    <Link to ="FitnessSessionCreation" className="save-btn btn btn-primary my-5 mx-auto" data-toggle="modal" data-target="#linkGenerator" onClick={this.submitForm}>Save</Link>
+    <Link to ="FitnessSessionCreation" className="save-btn btn btn-primary my-5 mx-auto"   onClick={this.submitForm}>Save</Link>
+    
     <div className="modal" id="myModal">
     <div className="modal-dialog dialogwidth modal-dialog-centered">
       <div className="modal-content modalbg">
@@ -2447,15 +2593,27 @@ submitForm = (event) => {
       <h3>Calender</h3>
       
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      {/* <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} /> */}
+
+        <Calendar
+           onChange={this.onChange1}
+           value={this.state.sessionCalender}
+           minDate={new Date()}
+          // calendarType= "ISO 8601"
+         />
       <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" />
+                {/* <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" /> */}
+                <TimePicker
+                  onChange={this.timeset2}
+                  value={this.state.time2}
+                  disableClock	={true}
+                  />
                 {/* <span className="clock-icon "></span> */}
             </div>
           </div>
@@ -2479,7 +2637,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" className="done mt-0">done</button>}
+        {this.state.repeatSession?'':<button type="button" className="done mt-0" onClick={this.sessionDate} data-dismiss="modal">done</button>}
         </div>
       </div>
       {this.state.repeatSession?
@@ -2536,6 +2694,66 @@ submitForm = (event) => {
       </div>:''}
   </div>
 </div>
+ {/* Add a new Product End */}
+
+ <div className="modal" id="link_generator" show={this.state.onSave} onHide={this.handleShow}>
+  <div className="modal-dialog small_width">
+    <div className="modal-content">
+      <div className="modal-header headerborder">
+        <h4 className="modal-title text-white text-center">You have successfully created a session</h4>
+       
+      </div>
+      <div className="modal-body">
+      <h6 className="white text-center submit_congrat">Congratulations ,you have created the session "Introduction to wine testing" to be hosted by Arjun on August 13th2019 12:30PM</h6>
+      <h6 className="white text-center submit_congrat">You can start inviting Participants by sharing  the link below </h6>
+      
+      <div className="form-group mb-0">
+       
+      <input type="text" ref={(textarea)=>this.textArea=textarea}  className="input-field2" placeholder="Session Name" value="https//virdio.com" onChange={(e)=>console.log()}/>
+             
+      </div>
+      
+    </div>
+    <div className="fitness_save">
+          <Link className="copy_link btn btn-primary mx-auto"   variant="secondary" onClick={this.handleClose}>
+            Copy link
+          </Link>
+      </div>
+
+       </div>
+  </div>
+</div> 
+  
+
+ {/* <Modal  size="sm" show={this.state.onSave} onHide={this.handleShow}>
+    
+    <Modal.Header className="text-center">
+      <Modal.Title className="text-white h6">You have successfully created a session</Modal.Title>
+    </Modal.Header>
+      <Modal.Body>
+        <p className="text-white text-center">Congratulations ,you have created the session "Introduction to wine testing" to be hosted by Arjun on August 13th2019 12:30PM. </p><br></br>
+      <p className="text-white text-center">You can start inviting Participants by sharing the link below, you can also find this link in Session detail, from your dashboard.
+      </p><br></br>
+         <div className="col-md-12 m-auto">                           
+          <div className="form-group">
+           
+            <input type="text" ref={(textarea)=>this.textArea=textarea}  className="input-field2" placeholder="Session Name" value="https//virdio.com" onChange={(e)=>console.log()}/>
+              
+          </div>
+        </div>  
+         
+      </Modal.Body>
+        <div className="fitness_save">
+          <Button className="m-auto btn-primary pb-10 text-uppercase" variant="secondary" onClick={this.handleClose}>
+            Copy link
+          </Button>
+      </div>
+    
+    
+  </Modal> */}
+
+  
+{/* end */}
 {/* Sign Up Calender Start */}
 <div className="modal cal_modal" id="signUpCalenderModel">
   <div className="modal-dialog">
@@ -2560,24 +2778,35 @@ submitForm = (event) => {
       <div className="modal-body">
       <h3>Calender</h3>
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      {/* <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
+      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} /> */}
+      <Calendar
+           onChange={this.onChange2}
+           value={this.state.reminderCalender}
+           minDate={new Date()}
+          // calendarType= "ISO 8601"
+         />
       <div className="botm_container">
         <div className="row mt-4">
         <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" />
+                {/* <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" /> */}
+                <TimePicker
+                  onChange={this.timeset}
+                  value={this.state.time}
+                  disableClock	={true}
+                  />
                 {/* <span className="clock-icon "></span> */}
             </div>
           </div>
           <div className="col-md-7">
           <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
-          <div class="form-group input-txt">
-              <label class="switch">
+          <div className="form-group input-txt">
+              <label className="switch">
                   <input type="checkbox" />
-                  <span class="slider round"></span>
+                  <span className="slider round"></span>
               </label>
               <span>This is a repeated session</span>
             </div>
@@ -2586,7 +2815,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0">done</button>}
+        {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0"onClick= {this.reminderDate} data-dismiss="modal">done</button>}
         </div>
       </div>
       {this.state.signUpSessionStatus?
