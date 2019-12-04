@@ -13,6 +13,9 @@ import verifyuser from "./components/auth/VerifyUser";
 import DashboardLanding from './components/home/DashboardLanding'
 import hostSignUp from './components/home/hostsignup'
 import signUp from './components/home/signup'
+import participentSignup from './components/home/participateSignUp'
+import SessionDetailOnId from './components/home/sessionDetailOnId'
+import AdminDashboard from './components/home/AdminDashboard'
 /*function App() {
   return (
     <div className="App">
@@ -41,7 +44,11 @@ class App extends Component {
       {/* <Route exact path="/HostSessionCreation" component={HostSessionCreation} /> */}
       <Route exact path="/DashboardLanding" component={DashboardLanding} />hostSignUp
       <Route exact path="/hostSignUp" component={hostSignUp} />
+      <Route exact path="/participentSignup" component={participentSignup} />
       <Route exact path="/signUp" component={signUp} />
+      <Route  path="/sessiondetail/:id" component={SessionDetailOnId} />
+      <Route  path="/AdminDashboard" component={AdminDashboard} />
+
 
 
 		</div>

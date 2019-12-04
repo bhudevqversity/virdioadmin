@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from 'react-router';
-
+//import $ from 'jquery'
 class HostSessionCreation extends Component {
   
   constructor(props) {
@@ -56,7 +56,9 @@ class HostSessionCreation extends Component {
         addAttribute:[],
         something:[false,false,false,false,false,false],
         addProduct:[],
-        productInformation:[],    
+        productInformation:[],
+        videoFile:'',
+        imageFile:'',    
     }
 
 
@@ -276,14 +278,27 @@ onChangeHandler=event=>{
     console.log('----------------------',data);
     this.setState({
         imageName:event.target.files[0]
-    })
+    },()=>console.log('=========================',this.state.imageName))
+}
+saveVideoFile = event=>{
+    console.log(event.target.files[0]);
+    const data = new FormData() 
+      data.append('file', event.target.files[0]);
+      console.log('----------------------',data);
+      this.setState({
+          [event.target.id]:data
+    },()=>console.log(this.state.videoFile,'Preview---------',this.state.imageFile))
 }
 saveProductList=(e)=>{
+    //e.preventDefault();
+    //console.log('$("#description").val()',$("#description").val());
     console.log('Product List',this.state.productInformation);
     const saveProduct = {
         name:this.state.addProduct[0].name,
         productName:this.state.shoppingProductName,
-        productInfo:this.state.productInformation
+        attributes:this.state.productInformation,
+        videoFile:this.state.videoFile,
+        imageFile:this.state.imageFile
     }
     console.log('saveProduct',saveProduct)
     // if (this.validator.allValid()) {
@@ -1047,7 +1062,7 @@ return(
         </div>
         </div>
         <div className="modal pr-0 show" id="product_lst_modal">
-         <div className="modal-dialog large_width">
+           <div className="modal-dialog large_width">
             <div className="modal-content modl_bg_color">
                 <div className="modal-header px-4">
                     <h4 className="modal-title white">Product List<span>Tap on an attribute to make it active in the Product list</span></h4>
@@ -1069,26 +1084,6 @@ return(
                         <Link to="HostSessionCreation" key={i} id ={i} name={row.attrKey} onClick = {this.addAttribute} className={(row.status?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"} >{row.attrKey}</Link>
                         // )}
                         )):''}
-                        {/* <Link to="HostSessionCreation" id ='year' name='1' onClick = {this.addAttribute} className={(this.state.something[1]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>year</Link>
-                        <Link to ="HostSessionCreation" id ='country' name='2' onClick = {this.addAttribute} className={(this.state.something[2]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>country</Link>
-                        <Link to="HostSessionCreation" id = 'applellation' name='3' onClick = {this.addAttribute} className={(this.state.something[3]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>applellation</Link>
-                        <Link to="HostSessionCreation" id = 'harvest date' name='4' onClick = {this.addAttribute} className={(this.state.something[4]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>harvest date</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">alcohol acidity</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">bottle date</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">acidity</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">aging</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">price</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">score</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">case production</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">storage temperature</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary mr-2 mt-2">pH</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">appearance</Link>
-                        <Link to="HostSessionCreation" className="btn btn-outline-secondary text-uppercase mr-2 mt-2">varietal composition</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">aroma</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">palate</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">winemaking notes</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">testing notes</Link>
-                        <Link to="HostSessionCreation" className="btn btn-primary text-uppercase mr-2 mt-2">pairs with</Link> */}
                         </div>
                         <div className="border_bottom_dotted mt-4"></div>
                     </div>
@@ -1108,67 +1103,68 @@ return(
                                 {/* {this.validator.message(row.attrKey, row.attrValue, this.state.test1+'|'+this.state.test2)} */}
                             </div>
                             )):''}
-                            {/* <div className="col-md-4">
-                                <div className="form-group mb-0"><span className="cover-border"></span>
-                                    <label className="label">Price</label>
-                                    <input type="text" id = 'shoppingPrice' value = {this.state.shoppingPrice} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPrice))} className="input-field" />
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group mb-0">
-                                    <label className="label">pH</label>
-                                    <input type="text" id = 'shoppingPh' value = {this.state.shoppingPh} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPh))} className="input-field footerborder" />
-                                </div>
-                            </div> */}
                         </div>
-                        {/* <div className="row mt-4">
-                            <div className="col-md-4">
-                                <div className="form-group mb-0"><span className="cover-border"></span>
-                                    <label className="label">Appearance</label>
-                                    <input type="text" id = 'shoppingAppearance' value = {this.state.shoppingAppearance} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingAppearance))} className="input-field" />
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group mb-0"><span className="cover-border"></span>
-                                    <label className="label">Aroma</label>
-                                    <input type="text" id = 'shoppingAroma' value = {this.state.shoppingAroma} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingAroma))} className="input-field" />
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group mb-0">
-                                    <label className="label">Palate</label>
-                                    <input type="text" id = 'shoppingPalate' value = {this.state.shoppingPalate} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPalate))} className="input-field footerborder" />
-                                </div>
-                            </div>
-                        </div> */}
-                        {/* <div className="row mt-4">
-                            <div className="col-md-4">
-                                <div className="form-group mb-0"><span className="cover-border"></span>
-                                    <label className="label">Testing Notes</label>
-                                    <textarea rows="5" id = 'shoppingTestingNote' value = {this.state.shoppingTestingNote} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingTestingNote))} className="input-field"></textarea>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group mb-0"><span className="cover-border"></span>
-                                    <label className="label">Winemaking Notes</label>
-                                    <textarea rows="5" id = 'shoppingWineMakingNote' value = {this.state.shoppingWineMakingNote} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingWineMakingNote))} className="input-field"></textarea>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="form-group mb-0"><span className="cover-border"></span>
-                                    <label className="label">Pairs With</label>
-                                    <textarea rows="5" id = 'shoppingPair' value = {this.state.shoppingPair} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.shoppingPair))} className="input-field"></textarea>
-                                </div>
-                            </div>
-                        </div> */}
-                    </div>
+                        </div>
                 </div>
             </div>
         </div> 
         <div className="text-center">
             <button type="button" className="done mb-5 mt-2 mr-3">Preview</button>
-            <button type="button" onClick= {this.saveProductList} className="done mt-4 mt-2">save</button>
+            {/* <button type="button" data-toggle="modal" data-target="#audio_video_mdl" onClick= {this.state.saveProductList} className="done mt-4 mt-2">save</button> */}
+            <button type="button" data-toggle="modal" data-target="#audio_video_mdl"  className="done mt-4 mt-2">save</button>
+            {/* <input type="submit" name="submit" value={this.saveProductList}/>                     */}
         </div>
+       </div>
+
+    <div className="modal pr-0 show" id="audio_video_mdl">
+         <div className="modal-dialog large_width">
+            <div className="modal-content modl_bg_color">
+                {/* <div className="modal-header px-4">
+                    <h4 className="modal-title white">Product List<span>Tap on an attribute to make it active in the Product list</span></h4>
+                    <button type="button" className="close white closepopup" data-dismiss="modal">×</button>
+                </div> */}
+                <div className="modal-body px-4 pb-5">
+                    <div className="card cardbg mt-4">
+                    <div className="gray-box-5 mt-5">
+      <div className="container-fluid register-frm pb-3 mt-md-4 px-4">                
+        <div className="video_img position-relative">
+          <span className="cover-border"></span>
+          <label className="label">Description</label>
+          <div className="input-field position-relative d-lg-flex flex-wrap d-block px-3">
+            
+            <div className="one flex-fill mr-4 position-relative">
+            
+              <div className="custom-file mb-3">
+                <input type="file" className="custom-file-input" id="videoFile" name="file" onChange = {this.saveVideoFile} />
+                <label className="custom-file-label px-1"  htmlFor="videoFile">
+                    <img src="images/video2.png" className="browse_image1" alt=''/>
+                    <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
+                    <Link to="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
+                </label>
+              </div>
+            </div>
+            <div className="one flex-fill position-relative">
+              <div className="custom-file mb-3">
+                <input type="file" className="custom-file-input" id="imageFile" name="file" onChange = {this.saveVideoFile} />
+                <label className="custom-file-label px-1" htmlFor="imageFile">
+                    <img src="/images/image1.png" className="browse_image1" alt="#"/>
+                    <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
+                    <Link to="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="text-center">
+          <button type="button" data-toggle="modal" data-target="#audio_video_mdl" onClick= {this.saveProductList} className="done m-auto" >save</button>
+            </div>
+        </div>                          
+      </div>
+    </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div> 
     </div>
     </div>
 )

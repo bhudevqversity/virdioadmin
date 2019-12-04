@@ -17,12 +17,12 @@ Contents:
     font-family: "Avenir-Medium";
     src: url("../fonts/Avenir-Medium.ttf") format("truetype");
 }
-}
+
 @font-face {
     font-family: "AvenirNextMedium";
     src: url("../fonts/AvenirNextMedium.otf") format("opentype");
 }
-}
+
 @font-face {
     font-family: "AvenirNextRegular";
     src: url("../fonts/AvenirNextRegular.otf") format("opentype");
@@ -125,6 +125,23 @@ img.logo{
     padding: 0;
     line-height: normal;
     font-family: "Avenir-Medium";
+}
+.custom-control-input:checked~.custom-control-label::before
+{
+    color: #fff;
+    border-color: #BD00FF;
+    background-color: #BD00FF;
+    box-shadow: 0px 0px 1px 2px #BD00FF;
+}
+.custom-control-label::before
+{
+    width: 1.3rem;
+    height: 1.3rem;
+}
+.custom-control-label::after
+{
+    width: 1.3rem;
+    height: 1.3rem;
 }
 .header-info-right p{
 	    color: #9B9B9B;
@@ -616,7 +633,7 @@ input:checked + .slider:before {
     overflow: hidden;
     height: 28px;
     font-size: 14px;
-    display: inline;
+    /* display: inline; */
     border-radius: 50px;	
     color: #fff;
     text-align: center;
@@ -841,7 +858,7 @@ input:checked + .slider:before {
     color: #fff;
 	    border-top: none;
 }
-.bg-circle{
+/* .bg-circle{
 	background: #bd00ff;
     padding: 3px;
     width: 28px;
@@ -854,7 +871,7 @@ input:checked + .slider:before {
     text-align: center;
     vertical-align: middle;
     float: left;
-}
+} */
 .activity-table{
 	border-bottom: 1px solid #777!important;
 }

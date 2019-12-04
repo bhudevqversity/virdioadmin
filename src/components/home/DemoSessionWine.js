@@ -3,11 +3,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import uniqueId from 'lodash/uniqueId';
 import Sortable from 'react-sortablejs';
-import ReactLightCalendar from '@lls/react-light-calendar'
+// import ReactLightCalendar from '@lls/react-light-calendar'
 import '@lls/react-light-calendar/dist/index.css'
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router';
-// import TimePicker from 'react-time-picker';
+import TimePicker from 'react-time-picker';
+import Calendar from 'react-calendar';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class DemoSessionWine extends Component {
@@ -15,20 +16,32 @@ class DemoSessionWine extends Component {
   constructor(props) {
     super(props);
     const date = new Date();
+    // let minDate= new Date();
+    // minDate.setDate(minDate.getDate() - 1)
     const startDate = date.getTime();
     this.state = {
         sessions: [],
         session_details:'',
+       // disableDate:minDate.getTime(),
         something:[false,false,false,false,false,false],
         send_input:'',
+        // time: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        // time2: new Date (date.getTime()).getHours()+':'+new Date (date.getTime()).getMinutes(),
+        time: '00:00',
+        time2: '00:00',
         msg:'',
-        //////////Calender /////////////
+        sessionCalender: new Date(),
+        reminderCalender: new Date(),
+        //////////Calender /////////////y
         startDate, // Today
         endDate: '', // Today + 6 days
         dateFormat : '',
+        singUpEndDate:'',
         cutoffStartDate:date.getTime(),
         cutoffEndDate:'',
         repeatSession:false,
+        sessionHour:0,
+        sessionMinute:0,
         sessionAttribute:[],
         sessionClass:[false,false,false,false,false,false,false,false,false,false],
         cutoffDateTime:'',
@@ -211,7 +224,7 @@ componentDidMount(){
 
     let  channelId=1;
     
-    let eqarray =[{id: 1, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
+    let eqarray =[{id: 10, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
       ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
       {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
       {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
@@ -555,11 +568,124 @@ componentDidMount(){
   }   
 //////////////////////////////Integration Api///////////////////////////////////
 //////////Calender
+sessionDate=(e)=>{
+  let getFullYear=new Date(this.state.sessionCalender).getFullYear();
+  let getMonth=(new Date(this.state.sessionCalender).getMonth())+1;
+  let getDate=new Date(this.state.sessionCalender).getDate();
+  this.setState({
+    when:getFullYear+'-'+getMonth+'-'+getDate+' '+this.state.time2+':'+'00'
+  })
+  
+}
+
+reminderDate=(e)=>{
+  let getFullYear=new Date(this.state.reminderCalender).getFullYear();
+  let getMonth=(new Date(this.state.reminderCalender).getMonth())+1;
+  let getDate=new Date(this.state.reminderCalender).getDate();
+  this.setState({
+    signUpDateTime:getFullYear+'-'+getMonth+'-'+getDate+' '+this.state.time+':'+'00'
+  })
+  
+}
+
+
+onChange1 = date =>
+{
+  //2019-10-20
+  let getFullYear=new Date(date).getFullYear();
+  let getMonth=(new Date(date).getMonth())+1;
+  let getDate=new Date(date).getDate();
+  console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
+//let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
+this.setState({
+  sessionCalender: date,
+  sessionDay:getDate,
+  sessionMonth:getMonth,
+  sessionYear:getFullYear
+},()=>console.log(this.state.sessionCalender))
+
+}
+
+
+
+onChange2 = date =>
+{
+  //2019-10-20
+  let getFullYear=new Date(date).getFullYear();
+  let getMonth=(new Date(date).getMonth())+1;
+  let getDate=new Date(date).getDate();
+  console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
+//let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
+this.setState({
+  reminderCalender: date,
+  reminderDay:getDate,
+  reminderYear:getFullYear,
+  reminderMonth:getMonth
+},()=>console.log(this.state.reminderCalender))
+
+}
+
+////for Reminder
+timeset = time => {
+  
+  console.log(time.split(':')[0],time.split(':')[1]);
+  
+    let b = time.split(':')[1];
+    let a = parseInt(time.split(':')[0]);
+    b= parseInt(time.split(':')[1]);
+    if(a==12 && b>0){
+      a=a+ ' PM';
+    }
+    if(a>12 ){
+      a=a-12+ ' PM';
+    }
+    if(a<12){
+      a = a+' AM';
+    }
+    // if(b>59){
+    //   b=0;
+    //   time=parseInt(time.split(':')[0])+':'+b;
+    // }else{
+    //   time=parseInt(time.split(':')[0])+':'+parseInt(time.split(':')[1])
+    // }
+  // console.log(time1 ,'print')
+this.setState(
+  { time:time,
+    reminderTime:a,
+ },()=>console.log(this.state.time))}
+
+
+// end
+//For Session
+timeset2 = time2 => {
+  
+  console.log(time2.split(':')[0],time2.split(':')[1]);
+  
+    let b = time2.split(':')[1];
+    let a = parseInt(time2.split(':')[0]);
+    b= parseInt(time2.split(':')[1]);
+    if(a==12 && b>0){
+      a=a+ ' PM';
+    }
+    if(a>12 ){
+      a=a-12+' PM';
+    }
+    if(a<12){
+      a = a+' AM';
+    }
+  // console.log(time1 ,'print')
+this.setState(
+  { time2:time2,
+    sessionTime:a,
+  //  when : this.state.when +' '+this.state.time2,
+ },()=>console.log(this.state.time2))}
+//end 
+
 // hour value
 forWineHour() {
   var arr = [];
     for (let i = 0; i <= 23; i++) {
-        arr.push(<option key={i} value="{i}">{i}</option>)
+        arr.push(<option key={i} value={i}>{i}</option>)
     }
   return arr; 
 }
@@ -568,36 +694,11 @@ forWineHour() {
 forWineMinute() {
   var arr = [];
     for (let i = 0; i <= 59; i++) {
-        arr.push(<option key={i} value="{i}">{i}</option>)
+        arr.push(<option key={i} value={i}>{i}</option>)
     }
   return arr; 
 }
 
-// timeset = time1 => {
-  
-//   console.log(time1.split(':')[0],time1.split(':')[1]);
-  
-//     let b = time1.split(':')[1];
-//     let a = parseInt(time1.split(':')[0]);
-//     if(a==12 && b>0){
-//       a = 12 + ' PM'
-//     }
-//     if(a>12 ){
-//       a=a-12+ ' PM';
-//     }
-//     else{
-//       a = a+' AM';
-//     }
-   
-
-  
-  // console.log(time1 ,'print')
-// this.setState(
-//   { time:time1,
-//     reminderTime:a
-//  },()=>console.log(this.state.time))}
-
-/////Calender pick time
 
 signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
@@ -606,12 +707,22 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   let year;
   let time;
   let t;
+  const singUpEndDate = cutoffEndDate;
+  if(this.state.singUpEndDate<cutoffEndDate){
+    cutoffStartDate=cutoffEndDate
+   console.log('next Date');
+  }else
+  { 
+    console.log('previous date');
+    cutoffEndDate=cutoffStartDate;
+  }
   let dt2 = new Date(cutoffStartDate);
-  //  cutoffStartDate=cutoffEndDate;
+  cutoffStartDate=cutoffEndDate;
   this.setState({
     cutoffStartDate,
     cutoffEndDate,
-    cutoffDateTime
+    cutoffDateTime,
+    singUpEndDate
   });
   let timeSelection =  new Date (dt2.getTime()).getHours() ;
   if(timeSelection>=13){
@@ -625,7 +736,7 @@ signUpCutOff = (cutoffStartDate, cutoffEndDate) => {
   year =new Date (dt2.getTime()).getFullYear();
   t= month[new Date (dt2.getTime()).getMonth()]; 
  
-  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" ";
   this.setState({
   signUpDateTime : dt2,
   reminderSessionTime :timeSelection,
@@ -716,11 +827,19 @@ onChange = (startDate, endDate) => {
   let year;
   let time;
   let t;
-  const dateFormat = startDate;
+  const dateFormat = endDate;
+  if(this.state.dateFormat<endDate){
+    startDate=endDate
+   console.log('next Date');
+ }else{
+  console.log('previous date');
+  endDate=startDate
+}
   // let dt = new Date(startDate).toUTCString();
   let dt2 = new Date(startDate);
   // dt = dt.split('GMT')
 //  endDate = startDate;
+  startDate=endDate;
   this.setState({ startDate, endDate,dateFormat },
   ()=>console.log('sds',this.state.startDate,this.state.endDate))
   let timeSelection =  new Date (dt2.getTime()).getHours() ;
@@ -735,9 +854,9 @@ onChange = (startDate, endDate) => {
   year =new Date (dt2.getTime()).getFullYear();
   t= month[new Date (dt2.getTime()).getMonth()]; 
  
-  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" "+ new Date (dt2.getTime()).getHours() + ':' +new Date (dt2.getTime()).getMinutes()+ ':' +new Date (dt2.getTime()).getSeconds();
+  dt2 = new Date (dt2.getTime()).getFullYear() +"-"+(new Date (dt2.getTime()).getMonth()+1)+"-"+new Date (dt2.getTime()).getDate()+" ";
   this.setState({
-  when : dt2,
+  when : dt2 ,
   whenTime :timeSelection,
   sessionMonth:t,
   sessionDay:day,
@@ -1368,12 +1487,12 @@ handleShareholderLink = idx => evt => {
   );
 };
 testerStatus = (e) =>{
-  let testerContainer = this.state.tablerows;
+  let testerContainer = this.state.tablerows1;
     testerContainer[e.target.id].testerStatus = !testerContainer[e.target.id].testerStatus;
     this.setState({
-    tablerows : testerContainer,
+    tablerows1 : testerContainer,
     },()=>
-    { console.log('testerContainer==>',this.state.tablerows);
+    { console.log('testerContainer==>',this.state.tablerows1);
     });
 }
 removeWineActivity = (e) => {
@@ -1487,6 +1606,7 @@ wineProductSelect = (e) => {
       wineChoice:wineContainer[e.target.id].product_name,
       id:indexValue,
       wineProductId:e.target.id,
+      productId:wineContainer[e.target.id].id,
       // [{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}]
       //[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}]
       //[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
@@ -1517,7 +1637,7 @@ wineProductSelect = (e) => {
          wineArray.splice(i,1);
         this.setState({
           wineProduct : wineContainer,
-          tablerows:wineArray,
+          tablerows3:wineArray,
           wineIndexValue:indexValue,
           //chooseWine:!this.state.chooseWine,
           emojiForWineProduct:0
@@ -1587,15 +1707,40 @@ apperanceSelect = (e) => {
   setChooseWineStatus=(e)=>{
     console.log('HELLO');
      let wineArray = [];
+     let addWine;
     //this.state.tablerows;
+    // let a = JSON.parse(JSON.stringify(this.state.tablerows3[0]));
+    // console.log('json value',a.appearanceSelect)
     for(let i=0;i<this.state.tablerows3.length;i++){
-      wineArray.push(this.state.tablerows3[i]);
+     wineArray.push(this.state.tablerows3[i]);
     }
+    
+  //   let arr2=[];
+  //   arr2=this.state.tablerows3;
+    // for(let i=0;i<this.state.tablerows3.length;i++){
+    // let ak = JSON.parse(JSON.stringify(this.state.tablerows3[i]))
+    // const a = {
+    //   wineChoice:ak.wineChoice,
+    //   id:ak.id,
+    //   wineProductId:ak.wineProductId,
+    //   productId:ak.productId,
+    //   appearanceSelect:ak.appearanceSelect,
+    //   aromaSelect:ak.aromaSelect,
+    //   palateSelect:ak.palateSelect,
+    //   listAppearance:ak.listAppearance,
+    //   listAroma :ak.listAroma,
+    //   listPalate:ak.listPalate,
+    //   testerStatus:ak.testerStatus
+    //   }
+    //   console.log('addWine',a);
+    //   wineArray.push(a);
+    // }
     this.setState({
       chooseWine:false,
       //tablerows:wineArray,
       tablerows:wineArray
     },()=>console.log(this.state.chooseWine,this.state.tablerows))
+
   }
 finalEmoji = () =>{
   // let addWine = {
@@ -1607,13 +1752,77 @@ finalEmoji = () =>{
   //   listPalate:la2,
   //   testerStatus:false
   //   }
-    let arr1=[];
-    let arr2 =this.state.tablerows;
-    for(let i=0;i<this.state.tablerows.length;i++){
-      if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus)
-      arr1.push(this.state.tablerows[i]);
+
+  //   let arr1=[];
+  //  // let arr2 =this.state.tablerows;
+  //   for(let i=0;i<this.state.tablerows.length;i++){
+  //     if(this.state.tablerows[i].appearanceSelect[0].appearanceStatus || this.state.tablerows[i].aromaSelect[0].appearanceStatus || this.state.tablerows[i].palateSelect[0].appearanceStatus){
+  //      let ak = JSON.parse(JSON.stringify(this.state.tablerows[i]))
+  //   const a = {
+  //     wineChoice:ak.wineChoice,
+  //     id:ak.id,
+  //     wineProductId:ak.wineProductId,
+  //     productId:ak.productId,
+  //     appearanceSelect:ak.appearanceSelect,
+  //     aromaSelect:ak.aromaSelect,
+  //     palateSelect:ak.palateSelect,
+  //     listAppearance:ak.listAppearance,
+  //     listAroma :ak.listAroma,
+  //     listPalate:ak.listPalate,
+  //     testerStatus:ak.testerStatus
+  //     }
+  //     //arr1.push(this.state.tablerows[i]);
+  //     arr1.push(a);
+  //     }
       
 
+  //   }
+  let arr1=this.state.tablerows1;
+  let x=0,n=0;
+for(let i=0;i<arr1.length;i++){
+    n=i;
+      if(this.state.tablerows[this.state.emojiForWineProduct].appearanceSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].aromaSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].palateSelect[0].appearanceStatus){
+       let ak = JSON.parse(JSON.stringify(this.state.tablerows[this.state.emojiForWineProduct]))
+       if(arr1[i].wineProductId===ak.wineProductId){
+        x=1;
+        arr1[i].wineChoice=ak.wineChoice;
+        arr1[i].id=ak.id;
+        arr1[i].wineProductId=ak.wineProductId;
+        arr1[i].productId=ak.productId;
+        arr1[i].appearanceSelect=ak.appearanceSelect;
+        arr1[i].aromaSelect=ak.aromaSelect;
+        arr1[i].palateSelect=ak.palateSelect;
+        arr1[i].listAppearance=ak.listAppearance;
+        arr1[i].listAroma =ak.listAroma;
+        arr1[i].listPalate=ak.listPalate;
+        arr1[i].testerStatus=arr1[i].testerStatus;
+      
+      
+       }
+      }
+      
+
+    }
+
+    if(x===0){
+     if(this.state.tablerows[this.state.emojiForWineProduct].appearanceSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].aromaSelect[0].appearanceStatus || this.state.tablerows[this.state.emojiForWineProduct].palateSelect[0].appearanceStatus){
+     let ak = JSON.parse(JSON.stringify(this.state.tablerows[this.state.emojiForWineProduct]))
+    const a = {
+      wineChoice:ak.wineChoice,
+      id:ak.id,
+      wineProductId:ak.wineProductId,
+      productId:ak.productId,
+      appearanceSelect:ak.appearanceSelect,
+      aromaSelect:ak.aromaSelect,
+      palateSelect:ak.palateSelect,
+      listAppearance:ak.listAppearance,
+      listAroma :ak.listAroma,
+      listPalate:ak.listPalate,
+      testerStatus:ak.testerStatus
+      }
+      //arr1.push(this.state.tablerows[i]);
+      arr1.push(a);
+      }
     }
     if(this.state.emojiForWineProduct==1){
       console.log(this.state.tablerows[this.state.emojiForWineProduct],'this.state.emojiForWineProduct-----------------',this.state.tablerows[1])
@@ -1772,7 +1981,7 @@ submitForm = (event) => {
   
   for(let i=0;i<this.state.tablerows1.length;i++){
     ap = { wineChoice: this.state.tablerows1[i].wineChoice,
-      id: this.state.tablerows1[i].id,
+      id: this.state.tablerows1[i].productId,
       Emojies:[],
       testerStatus: this.state.tablerows1[i].testerStatus };
     wineDetail.push(ap);
@@ -1872,6 +2081,8 @@ submitForm = (event) => {
       sessionProperty:this.state.sessionProperty,
       session_charge:this.state.sessionCharge,
       currency:"USD",
+      hour:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
+     // minute:this.state.sessionMinute,
       show_particpants_count:"false",
       amountCharge:this.state.amountCharge
       }
@@ -2092,30 +2303,20 @@ submitForm = (event) => {
                       {/* <span  className="when-icon"></span> */}
                       <Link to ="#" className="when-icon" data-toggle="modal" data-target="#calenderModel1"></Link>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6 pr-md-2">
-                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Hours</label>
-                          <select class="input-field" id="">
-                            {/* <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option> */}
+                    <div className="row">
+                      <div className="col-md-6 pr-md-2">
+                        <div className="form-group"><span className="cover-border"></span>
+                          <label className="label">Hours</label>
+                          <select className="input-field" id="sessionHour" value={this.state.sessionHour} onChange={this.sessionInfo}>
                             {this.forWineHour()}
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-6 pl-md-1">
-                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Minutes</label>
-                            <select class="input-field" id="">
-                              {/* <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option> */}
-                              {this.forWineMinute()}
+                      <div className="col-md-6 pl-md-1">
+                        <div className="form-group"><span className="cover-border"></span>
+                          <label className="label">Minutes</label>
+                            <select className="input-field" id="sessionMinute" value={this.state.sessionMinute} onChange={this.sessionInfo}>
+                            {this.forWineMinute()}
                             </select>
                           </div>
                       </div>
@@ -2160,25 +2361,27 @@ submitForm = (event) => {
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-7 pr-0">
-                          <div class="form-group input-txt h-90">
-                              <label class="switch">
-                                <input type="checkbox" id="sessionCharge" checked="" />
-                                <span class="slider round"></span>
+                    <div className="row">
+                      <div className="col-lg-7 pr-0">
+                          <div className="form-group input-txt h-90">
+                              <label className="switch">
+                                <input type="checkbox" id="sessionCharge"  defaultChecked = {this.state.sessionCharge} onChange ={(e)=>this.setState({[e.target.id]:!this.state.sessionCharge})} />
+                                <span className="slider round"></span>
                               </label>
                               <span>Charging for Session?</span>
-                              <p class="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>
+                              {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                           </div>
                       </div>
-                      <div class="col-lg-5">
-                        <div class="form-group h-90"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Charge amount</label>
-                          <div class=" mb-2 mt-2">
-                            <input type="text" class="input-field" id="amountCharge" placeholder="Enter amount" value="" /><span class="dollar"></span>
+                      {this.state.sessionCharge?
+                      <div className="col-lg-5">
+                        <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>
+                          <label className="label">Charge amount</label>
+                          <div className=" mb-2 mt-2">
+                            <input type="text" className="input-field"id="amountCharge" placeholder="Enter amount" value={this.state.amountCharge} onChange= {this.sessionInfo} /><span className="dollar"></span>
                           </div>
                         </div>
                       </div>
+                      :''}
                     </div>
                     {/* <div className="form-group input-txt h-90">
                       <label className="switch">
@@ -2243,6 +2446,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text"  id ="hostSessionStart" value = {this.state.hostSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      {/* {this.validator.message('hostSessionStart', this.state.hostSessionStart, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-38">Sign up Cut off Date/Time</p>
@@ -2269,6 +2473,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in Minutes</label>
                       <input type="text" id ="participantSessionStart" value = {this.state.participantSessionStart} onChange = {this.sessionInfo} className="input-field" min = {1} max = {60}/>
+                      {/* {this.validator.message('participantSessionStart', this.state.participantSessionStart, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     <p className="text1 mb-38">for 'minimum not met'</p>
@@ -2276,6 +2481,7 @@ submitForm = (event) => {
                       <span className="cover-border"></span>
                       <label className="label">Enter a value in days</label>
                       <input type="text" id ="minimumNotMet" value = {this.state.minimumNotMet} onChange ={this.sessionInfo} className="input-field" min = {1}/>
+                      {/* {this.validator.message('minimumNotMet', this.state.minimumNotMet, 'required|integer')} */}
                       <span className="clock-icon"></span>
                     </div>
                     
@@ -2362,7 +2568,7 @@ submitForm = (event) => {
                 <Link to="WineSessionCreation" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
-                <Link to ="/" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
+                <Link to ="/" className="pick"><img src="images/add.png"  className="mr-2" alt = '#'/> Add a new Host</Link>
             </div>
           </div>
           </div>
@@ -2416,8 +2622,8 @@ submitForm = (event) => {
                  <td>{row.wineChoice}</td>
                   <td>
                   <div className="color-icons pl-3">
-                    {row.listAppearance.map((row,i) => (
-                    (row.status) ?<img src={row.path} className="mr-2" alt="cherry" key = {i} />:''
+                    {row.listAppearance.map((row,l) => (
+                    (this.state.tablerows1[i].appearanceSelect[0].appearanceStatus && row.status) ?<img src={row.path} className="mr-2" alt="cherry" key = {l} />:''
                     ))}
                     <span>...</span>
                     </div>
@@ -2498,9 +2704,9 @@ submitForm = (event) => {
               {this.state.tablerows.map((row,i)=>
                         <div className="row mt-5" key= {i}>                        
                             <div className="col-lg-3 col-md-6 mt-3 mt-md-0">
-                                <div className="form-group mb-0" data-toggle="modal" data-target="#myPickWineModel"><span className="cover-border"></span>
+                                <div className="form-group mb-0" ><span className="cover-border"></span>
                                     <label className="label">Pick a Wine</label>
-                                    <input type="text" value = {row.wineChoice} className="input-field" disabled /><span className="emojis-icon"></span>
+                                    <input type="text" value = {row.wineChoice} className="input-field" disabled />
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-6 mt-3 mt-md-0 pr-lg-4">
@@ -2586,7 +2792,7 @@ submitForm = (event) => {
                      var splitData = order[i].split(',');
                        for(let l =0;l<this.state.wineInfoArray.length;l++){
                           console.log(splitData[1],'this.state.tablerows',this.state.wineInfoArray[l].id);
-                            if(this.state.wineInfoArray[l].id===splitData[1]){
+                            if(this.state.wineInfoArray[l].id==splitData[1]){
                             arr.push(this.state.wineInfoArray[l]);
                             console.log(this.state.wineInfoArray[l],'*************************************',arr);
                           }
@@ -3049,23 +3255,28 @@ submitForm = (event) => {
       <div className="modal-body">
       <h3>Calender</h3>
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      
+      {/* <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
-      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} />
+      startDate={startDate} endDate={endDate} onChange={this.onChange} range = {true} displayTime ={true} /> */}
+      <Calendar
+           onChange={this.onChange1}
+           value={this.state.sessionCalender}
+           minDate={new Date()}
+          // calendarType= "ISO 8601"
+         />
       <div className="botm_container">
         <div className="row mt-4">
         <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" />
-                <span className="clock-icon "></span>
-                {/* <TimePicker
-           amPmAriaLabel
-           onChange={this.timeset}
-           value={this.state.time}
-           disableClock	={true}
-          /> */}
-
+                {/* <input type="text" className="clockk input-field" id="timepicker1" placeholder="Time" /> */}
+                <TimePicker
+                  onChange={this.timeset2}
+                  value={this.state.time2}
+                  disableClock	={true}
+                  />
+                {/* <span className="clock-icon "></span> */}
             </div>
           </div>
           <div className="col-md-1"></div>
@@ -3087,7 +3298,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.repeatSession?'':<button type="button" className="done mt-0">done</button>}
+        {this.state.repeatSession?'':<button type="button" className="done mt-0" onClick= {this.sessionDate} data-dismiss="modal">done</button>}
         </div>
       </div>
       {this.state.repeatSession?
@@ -3147,44 +3358,6 @@ submitForm = (event) => {
   </div>
 </div>
 {/* Signup Calender Model */}
-<div className="modal cal_modal" id="signUpCalenderModel">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h4 className="modal-title white">Select Duration</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
-      </div>
-      <div className="modal-body">
-      <h3>Calender</h3>
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
-      disableDates={date => date <= (new Date().getTime())}
-      startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={true} />
-      <div className="botm_container">
-        <div className="row mt-4">
-        <div className="col-md-5 mt-2 pl-4">
-            <div className="form-group mb-0"><span className="cover-border"></span>
-                <label className="label">Enter Time</label>
-                <input type="text" className="clockk input-field" id="timepicker2" placeholder="Time" />
-                {/* <span className="clock-icon "></span> */}
-            </div>
-          </div>
-          <div className="col-md-7">
-          <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
-          <div className="form-group input-txt">
-              <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider round"></span>
-              </label>
-              <span>This is a repeated session</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-      </div>
-  </div>
-</div>
-
 
 {/* Sign Up Calender Model End */}
 <div className="modal cal_modal" id="signUpCalenderModel1">
@@ -3197,16 +3370,28 @@ submitForm = (event) => {
       <div className="modal-body">
       <h3>Calender</h3>
       {/* <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime /> */}
-      <ReactLightCalendar timezone = {this.state.localTimeZone}
+      {/* <ReactLightCalendar timezone = {this.state.localTimeZone}
       disableDates={date => date <= (new Date().getTime())}
       startDate={this.state.cutoffStartDate} endDate={this.state.cutoffEndDate} onChange={this.signUpCutOff} range = {true} displayTime ={false}  />
+        */}
+        <Calendar
+           onChange={this.onChange2}
+           value={this.state.reminderCalender}
+           minDate={new Date()}
+          // calendarType= "ISO 8601"
+         />
        <div className="botm_container">
         <div className="row mt-4">
           <div className="col-md-5 mt-2 pl-4">
             <div className="form-group mb-0"><span className="cover-border"></span>
                 <label className="label">Enter Time</label>
-                <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="Time" disabled />
-                <span className="clock-icon"></span>
+                <TimePicker
+                  onChange={this.timeset}
+                  value={this.state.time}
+                  disableClock	={true}
+                  />
+                {/* <input type="text" value = {this.state.reminderSessionTime} onChange={(e)=>console.log()} className="input-field" placeholder="Time" disabled /> */}
+                {/* <span className="clock-icon"></span> */}
             </div>
           </div>
           <div className="col-md-1"></div>
@@ -3228,7 +3413,7 @@ submitForm = (event) => {
       </div>
       </div>
         <div className="text-center position-absolute btn_btn1">
-        {this.state.signUpSessionStatus?'':<button type="button" className="done mt-0">done</button>}
+        {this.state.signUpSessionStatus?'':<button type="button"  onClick= {this.reminderDate} data-dismiss="modal" className="done mt-0">done</button>}
         </div>
       </div>
       {this.state.signUpSessionStatus?
@@ -3334,7 +3519,7 @@ submitForm = (event) => {
         <article className="card-group-item">
           <div className="filter-content">
           <div className="card-body ">
-          <form>
+          {/* <form> */}
           {this.state.wineProduct.map((row,i) =>
           <label className="form-check labelborder" key ={i}>
           <input 
@@ -3352,7 +3537,7 @@ submitForm = (event) => {
           <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Nissan Altima</span></label>
           <label className="form-check labelborder">
           <input className="form-radio" type="radio" name="audio-type" id="lbl-communications" value="communications" /><span className="form-check-label">Another Brand</span></label> */}
-        </form>
+        {/* </form> */}
       </div>
       </div>
       </article>

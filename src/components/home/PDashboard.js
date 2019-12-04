@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+// import Slider from "react-slick";
+
 
 //import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
@@ -7,6 +11,13 @@ class PDashboard extends Component {
   
   constructor(props) {
 	super(props);
+	this.state={
+		startDate:new Date(),
+		daysOfMonth:[],
+		upcomingSession:[]
+
+	}
+	
     
 }
  
@@ -15,14 +26,119 @@ componentDidMount(){
 
   }
 
+  setStartDate =(date)=>{
+let date1=date;
+let upcomingSession=[];
+console.log('----------------',new Date(date).getMonth(),new Date(date).getDate());
+let dateofMonth = new Date(date).getDate();
+ let timeSelection =  (new Date (date).getMonth()) ;
+ console.log(timeSelection);
+  date = new Date(Date.UTC(2019, timeSelection, 1));
+ var days = [];
+ var dayofWeek=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+console.log('date.getMonth()',date.getMonth());
+ while (date.getMonth() === timeSelection) {
+    //days.push(new Date(date).getDate());
+     let n ={date:new Date(date).getDate(),day:dayofWeek[new Date(date).getDay()]}
+     days.push(n);
+     //days.push(new Date(date).getDay());
+     date.setDate(date.getDate() + 1);
+  }
+console.log(days)
+  for (let i=dateofMonth-1 ;i<days.length;i++){
+	  console.log(days[i])
+	  upcomingSession.push(days[i]);
+  } 
+
+this.setState({
+	startDate:date1,
+	daysOfMonth:days,
+	upcomingSession:upcomingSession
+},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
+
+}
+
+
+// next date
+nextDate = (e)=>{
+	console.log(e.target,	  this.state.upcomingSession[this.state.upcomingSession.length-1].timestamp);
+let date = 1574726400000 ;
+	let date1=date;
+  let upcomingSession=[];
+  console.log('----------------',new Date(date).getMonth(),new Date(date).getDate());
+  let dateofMonth = new Date(date).getDate();
+   let timeSelection =  (new Date (date).getMonth()) ;
+   console.log(timeSelection);
+	date = new Date(Date.UTC(2019, timeSelection, 1));
+   var days = [];
+   var dayofWeek=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  console.log('date.getMonth()',date.getMonth());
+   while (date.getMonth() === timeSelection) {
+	  //days.push(new Date(date).getDate());
+	   let n ={date:new Date(date).getDate(),
+		  day:dayofWeek[new Date(date).getDay()],
+		  timestamp:new Date(date).getTime(),
+	  }
+	   days.push(n);
+	   //days.push(new Date(date).getDay());
+	   date.setDate(date.getDate() + 1);
+	}
+  console.log(days)
+	for (let i=dateofMonth-1 ;i<days.length;i++){
+		console.log(days[i])
+		upcomingSession.push(days[i]);
+	} 
   
+  this.setState({
+	  startDate:date1,
+	  daysOfMonth:days,
+	  upcomingSession:upcomingSession,
+  },()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
+
+}
+// end next date
+
 
   render() {
+	var settings = {
+		dots: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 4,
+      initialSlide: 0,
+		// responsive: [
+		// 	{
+		//   breakpoint: 1024,
+		//   settings: {
+		// 	slidesToShow: 3,
+		// 	slidesToScroll: 1,
+		//   }
+		// },
+		// {
+		//   breakpoint: 600,
+		//   settings: {
+		// 	slidesToShow: 2,
+		// 	slidesToScroll: 1,
+		// 	arrows:false
+		//   }
+		// },
+		// {
+		//   breakpoint: 480,
+		//   settings: {
+		// 	slidesToShow: 1,
+		// 	slidesToScroll: 1,
+		// 	arrows:false
+		//   }
+		// }
+		// ]
+	  };
+
 
     return (
 	<div>
 	
-		<div className="container-fluid px-3 px-md-5 pb-2">
+	<div className="container-fluid px-3 px-md-5 pb-2">
 	<div className="hdr pt-4 pb-3">
 		<div className="row">
 			<div className="col-lg-1 pt-2 px-lg-0">
@@ -30,7 +146,7 @@ componentDidMount(){
 			</div>
 			<div className="col-lg-4 d-flex d-md-block justify-content-center">
 				<div className="user-info d-flex align-items-center">
-					<img src="images/pic.jpg" className="user-avtar pic" />
+					<img src="images/pic.jpg" className="user-avtar pic" alt=''/>
 					<div className="pl-4">
 						<h2 className="mb-0">Welcome Cersei!</h2>
 						<p className="mb-0">You have 3 sessions this week</p>
@@ -39,29 +155,29 @@ componentDidMount(){
 				</div>
 			</div>
 			<div className="col-lg-7 mt-3 mt-md-0">
-			<div class="row">
-					<div class="col-sm-10 col-xl-10 input-box">
-						<div class="input_field_container p-0">
-							<div class="row mx-0">
-								<div class="col-xl-8 pr-lg-0">
-						    		<input type="text" class="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
+			<div className="row">
+					<div className="col-sm-10 col-xl-10 input-box">
+						<div className="input_field_container p-0">
+							<div className="row mx-0">
+								<div className="col-xl-8 pr-lg-0">
+						    		<input type="text" className="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
 								</div>
-								<div class="col-xl-4 pl-4 pos-relative">
-									<div class="custom-control custom-checkbox mb-3">
-								     <input type="checkbox" class="custom-control-input" id="customCheck" name="" />
-								      <label class="custom-control-label mt-3" for="customCheck">Advance</label>
+								<div className="col-xl-4 pl-4 pos-relative">
+									<div className="custom-control custom-checkbox mb-3">
+								     <input type="checkbox" className="custom-control-input" id="customCheck" name="" />
+								      <label className="custom-control-label mt-3" htmlFor="customCheck">Advance</label>
 								    </div>
 								</div>
-								<div class="right-small-box">
-									<i class="fa fa-search"></i>
+								<div className="right-small-box">
+									<i className="fa fa-search"></i>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-2 col-xl-2">
-						<div class="text-sm-center pt-sm-2">
-							<p class="mb-2 icons"><i class="fa fa-commenting"></i>
-								<span class="badge">2</span>
+					<div className="col-sm-2 col-xl-2">
+						<div className="text-sm-center pt-sm-2">
+							<p className="mb-2 icons"><i className="fa fa-commenting"></i>
+								<span className="badge">2</span>
 							</p>
 						</div>
 					</div>
@@ -89,9 +205,12 @@ componentDidMount(){
 			    </ul>
 			</div>
 			<div className="col-lg-4 datepick">
-				<input type="text" name="" className="form-control" id="datepicker" />
-				<div className="c_icon"><i className="fa fa-calendar"></i><i className="fa fa-angle-down ml-3"></i></div>
-
+				{/* <input type="text" name="" className="form-control" id="datepicker" /> */}
+				<DatePicker className="form-control" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
+				<div className="c_icon">
+					<i className="fa fa-calendar"></i>
+					<i className="fa fa-angle-down ml-3"></i>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -100,11 +219,16 @@ componentDidMount(){
 	    <div className="tab-content">
 			<div id="us" className="tab-pane active">
 			
-			    <ul className="nav nav-tabs" role="tablist">
-				    <li className="nav-item flex-fill">
-				      <a className="nav-link active act" data-toggle="tab" href="#dt1">22<br /><span>MON</span></a>
-				    </li>
-				    <li className="nav-item flex-fill">
+			    <div className="nav nav-tabs" role="tablist">
+					{this.state.upcomingSession.length>0?
+				
+					(this.state.upcomingSession.map((row,i)=>
+				    <div className="nav-item flex-fill" key={i}>
+				      <a className="nav-link active act" data-toggle="tab" href="#dt1">{row.date}<br /><span>{row.day}</span></a>
+				    </div>
+					)):''}
+					
+				    {/* <li className="nav-item flex-fill">
 				      <a className="nav-link" data-toggle="tab" href="#dt2">23<br /><span>TUE</span></a>
 				    </li>
 				    <li className="nav-item flex-fill">
@@ -121,15 +245,15 @@ componentDidMount(){
 				    </li>
 				    <li className="nav-item flex-fill">
 				      <a className="nav-link act" data-toggle="tab" href="#dt3">28<br /><span>SUN</span></a>
-				    </li>
-				    <li className="nav-item angle-img">
-				      <a className="nav-link" data-toggle="tab" href="#dt3"><i className="fa fa-angle-right"></i></a>
-				    </li>
-			    </ul>
+				    </li> */}
+				    <div className="nav-item angle-img">
+				      <a className="nav-link" data-toggle="tab" href="#dt3"><img src="images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></a>
+				    </div>
+			    </div>
 			    <div className="content-container mt-5">
 			    	<div className="row mb-5">
 			    		<div className="col-xl-8 col-lg-7 pr-xl-5">
-			    			<div className="image"><img src="images/wine.jpg" className="img-fluid" /></div>
+			    			<div className="image"><img src="images/wine.jpg" className="img-fluid" alt=''/></div>
 			    		</div>
 			    		<div className="col-xl-4 col-lg-5">
 			    			<h2 className="mt-0 mt-lg-0">A Crash Course in Wine Testing</h2>
@@ -144,7 +268,7 @@ componentDidMount(){
 			    	</div>
 			    	<div className="row mb-5">
 			    		<div className="col-xl-8 col-lg-7 pr-xl-5">
-			    			<div className="image"><img src="images/wine.jpg" className="img-fluid" /></div>
+			    			<div className="image"><img src="images/wine.jpg" className="img-fluid" alt=''/></div>
 			    		</div>
 			    		<div className="col-xl-4 col-lg-5">
 			    			<h2 className="mt-0 mt-lg-0">A Crash Course in Wine Testing</h2>
