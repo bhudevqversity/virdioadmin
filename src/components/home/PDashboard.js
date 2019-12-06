@@ -146,7 +146,7 @@ let date = 1574726400000 ;
 			</div>
 			<div className="col-lg-4 d-flex d-md-block justify-content-center">
 				<div className="user-info d-flex align-items-center">
-					<img src="images/pic.jpg" className="user-avtar pic" alt=''/>
+					<img src="/images/pic.jpg" className="user-avtar pic" alt=''/>
 					<div className="pl-4">
 						<h2 className="mb-0">Welcome Cersei!</h2>
 						<p className="mb-0">You have 3 sessions this week</p>
@@ -247,13 +247,13 @@ let date = 1574726400000 ;
 				      <a className="nav-link act" data-toggle="tab" href="#dt3">28<br /><span>SUN</span></a>
 				    </li> */}
 				    <div className="nav-item angle-img">
-				      <a className="nav-link" data-toggle="tab" href="#dt3"><img src="images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></a>
+				      <a className="nav-link" data-toggle="tab" href="#dt3"><img src="/images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></a>
 				    </div>
 			    </div>
 			    <div className="content-container mt-5">
 			    	<div className="row mb-5">
 			    		<div className="col-xl-8 col-lg-7 pr-xl-5">
-			    			<div className="image"><img src="images/wine.jpg" className="img-fluid" alt=''/></div>
+			    			<div className="image"><img src="/images/wine.jpg" className="img-fluid" alt=''/></div>
 			    		</div>
 			    		<div className="col-xl-4 col-lg-5">
 			    			<h2 className="mt-0 mt-lg-0">A Crash Course in Wine Testing</h2>
@@ -268,7 +268,7 @@ let date = 1574726400000 ;
 			    	</div>
 			    	<div className="row mb-5">
 			    		<div className="col-xl-8 col-lg-7 pr-xl-5">
-			    			<div className="image"><img src="images/wine.jpg" className="img-fluid" alt=''/></div>
+			    			<div className="image"><img src="/images/wine.jpg" className="img-fluid" alt=''/></div>
 			    		</div>
 			    		<div className="col-xl-4 col-lg-5">
 			    			<h2 className="mt-0 mt-lg-0">A Crash Course in Wine Testing</h2>

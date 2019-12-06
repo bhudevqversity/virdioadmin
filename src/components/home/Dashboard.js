@@ -6,10 +6,10 @@ class Dashboard extends Component {
 constructor(props) {
 	super(props);
 	this.state = {
-	carouselData :[{path:"images/banner1.jpg"},{path:"images/banner2.jpg"},{path:"images/banner3.jpg"}],
-	fitnessData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}],
-	wineData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}],
-    cookingData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}]
+	carouselData :[{path:"/images/banner1.jpg"},{path:"/images/banner2.jpg"},{path:"/images/banner3.jpg"}],
+	fitnessData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
+	wineData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
+    cookingData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}]
 	}
 	
 }
@@ -232,7 +232,7 @@ componentDidMount(){
 			<Slider {...settings}>
 				{this.state.fitnessData.map((row,i)=>
 				<div className="item slide-ele" key ={i}>
-					<img src={row.path}  />
+					<img src={row.path} alt="#" />
 					<p className="mt-3">Strength Training 1</p>
 				</div>
 				)}
@@ -265,7 +265,7 @@ componentDidMount(){
 			<Slider {...settings}>
 				{this.state.wineData.map((row,i)=>
 				<div className="item slide-ele" key={i} >
-					<img src={row.path}  />
+					<img src={row.path}  alt="#"/>
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}
@@ -298,7 +298,7 @@ componentDidMount(){
 			<Slider {...settings}>
 				{this.state.cookingData.map((row,i)=>
 				<div className="item slide-ele" key = {i}>
-					<img src={row.path} />
+					<img src={row.path} alt="#"/>
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}

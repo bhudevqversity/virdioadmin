@@ -592,8 +592,9 @@ reminderDate=(e)=>{
 onChange1 = date =>
 {
   //2019-10-20
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   let getFullYear=new Date(date).getFullYear();
-  let getMonth=(new Date(date).getMonth())+1;
+  let getMonth=month[(new Date(date).getMonth())];
   let getDate=new Date(date).getDate();
   console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
 //let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
@@ -611,8 +612,9 @@ this.setState({
 onChange2 = date =>
 {
   //2019-10-20
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   let getFullYear=new Date(date).getFullYear();
-  let getMonth=(new Date(date).getMonth())+1;
+  let getMonth=month[(new Date(date).getMonth())];
   let getDate=new Date(date).getDate();
   console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
 //let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
@@ -2568,7 +2570,7 @@ submitForm = (event) => {
                 <Link to="WineSessionCreation" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
-                <Link to ="/" className="pick"><img src="images/add.png"  className="mr-2" alt = '#'/> Add a new Host</Link>
+                {/* <Link to ="/" className="pick"><img src="images/add.png"  className="mr-2" alt = '#'/> Add a new Host</Link> */}
             </div>
           </div>
           </div>
@@ -2869,17 +2871,17 @@ submitForm = (event) => {
         
         {/* Shopping List Start */}
         <div className="gray-box no-border-radius pb-2">
-          <div className="session"><h3 className="info"><img src="images/shopping-icon.png" className="mr-3 mb-2" alt='' />Shopping List</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/shopping-icon.png" className="mr-3 mb-2" alt='' />Shopping List</h3></div>
           <div className="px-3 pb-4">
             <div className="row pb-4">
               <div className="col-md-4">
-                  <Link to ="WineSessionCreation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
+                  <Link to ="WineSessionCreation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="/images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               <div className="col-lg-4 col-md-4">
-                <Link to="WineSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt=''/> Add all Product from Script</Link>
+                {/* <Link to="WineSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt=''/> Add all Product from Script</Link> */}
               </div>
               <div className="col-md-4">
-                  <Link to="WineSessionCreation" className="pick" data-toggle="modal" data-target="#add_product_modal" ><img src="images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+                  {/* <Link to="WineSessionCreation" className="pick" data-toggle="modal" data-target="#add_product_modal" ><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link> */}
               </div>
             </div>
           </div>
@@ -2926,14 +2928,14 @@ submitForm = (event) => {
 
         {/* Equipemnt List Start */}
         <div className="gray-box2 no-border-radius">
-          <div className="session"><h3 className="info"><img src="images/shopping_icon.png" className="mr-3 mb-2" alt='' />Equipment List</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/shopping_icon.png" className="mr-3 mb-2" alt='' />Equipment List</h3></div>
           <div className="px-3 pb-4">
             <div className="row pb-4">
               <div className="col-md-4">
-                  <Link to="WineSessionCreation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
+                  <Link to="WineSessionCreation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="/images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to ="WineSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
+                  {/* <Link to ="WineSessionCreation" className="pick"><img src="images/add.png" className="mr-2" alt = '#'/> Add a new item</Link> */}
               </div>
             </div>
           </div>
