@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import Slider from "react-slick";
 import DatePicker from "react-datepicker";
 import $ from 'jquery';
-import {  browserHistory} from 'react-router'
+import {browserHistory} from 'react-router'
 
 class Dashboard extends Component {
 constructor(props) {

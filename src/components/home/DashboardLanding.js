@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import {  browserHistory} from 'react-router'
+import {  browserHistory} from 'react-router'
 import DatePicker from "react-datepicker";
 import { Link } from 'react-router';
 import "react-datepicker/dist/react-datepicker.css";
@@ -80,6 +80,8 @@ class DashboardLanding extends Component {
 		customRollRadio2:false,
 		mail:'',
 		hostMail:[{mail:''},{mail:'ak@gmail.com'},{mail:'ak1@gmail.com'}],
+		customRadio3:false,
+		customRadio4:true
 			
 
 	}
