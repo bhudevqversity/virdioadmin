@@ -9,6 +9,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router';
 import TimePicker from 'react-time-picker';
 import Calendar from 'react-calendar';
+import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class DemoSessionWine extends Component {
@@ -68,6 +69,10 @@ class DemoSessionWine extends Component {
         messageCount:'',
         ///////////session info state ////////////////
         sessionName:'',
+        urlLink:'',
+        sess_name:'',
+        sess_time:'',
+        uname:'',
         when:'',
         phoneNumber:'',
         description:'',
@@ -208,6 +213,10 @@ class DemoSessionWine extends Component {
     }
     this.setHeaderValue();
     this.validator = new SimpleReactValidator();    
+}
+
+modalClose = e => {
+  $("#successResult").attr({'style':'display:none'});
 }
  
 componentDidMount(){
@@ -2073,7 +2082,8 @@ submitForm = (event) => {
      //start_date:"2019-10-20 15:06:01",
      start_date:this.state.when,
      description:this.state.description,
-     duration:this.state.exampleFormControlSelect2,
+     //duration:this.state.exampleFormControlSelect2,
+     duration:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
     level:this.state.exampleFormControlSelect1,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
@@ -2139,6 +2149,16 @@ submitForm = (event) => {
             this.setState({
             msg: "Session hasbeen created Successfully!!!!!!!",
           });
+
+          this.setState({
+            // msg: "Session hasbeen created Successfully!!!!!!!",
+             urlLink:res.data.responseData.urlcode,
+             sess_name:res.data.responseData.sessionDt.name,
+             sess_time:res.data.responseData.sessionDt.scheduleDate,
+             uname:res.data.responseData.sessionDt.firstName,
+           });
+ 
+           $("#successResult").attr({'style':'display:block'});
           }else{
 
           this.setState({
@@ -3875,6 +3895,34 @@ submitForm = (event) => {
         </div>
     </div>
   {/* Select from existing host end */}
+
+  <div className="modal" id="successResult">
+  <div className="modal-dialog">
+    <div className="modal-content equipmodalbg">
+
+      <div className="modal-header headerborder">
+        <h4 className="modal-title white">Success Result</h4>
+        <button type="button" className="close white closepopup" onClick={this.modalClose.bind(this)} data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <div className="modal-body">
+        <p>Congratulation, You have created the session,"{this.state.sess_name}" to be hosted by {this.state.uname} on {this.state.sess_time}...
+          you can start inviting the paticipants by sharingthe link below. you can also find this link in session details,
+           from your Dashboard.
+        </p>
+
+      <input type="text" value = {this.state.urlLink} onChange = {(e)=>console.log(e.target.value)} className="input-field" />
+      </div>
+
+
+      {/* <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> */}
+
+    </div>
+  </div>
+</div> 
       </div>
     );
   }

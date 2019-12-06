@@ -1229,6 +1229,7 @@ handleShow=()=>{
  }
 ////////////////Submit data
 submitForm = (event) => {
+ // alert('hi');
   event.preventDefault();
   $("#link_generator").attr({'style':'display:block'});
   var activity_info = [];
@@ -1259,7 +1260,8 @@ submitForm = (event) => {
      //start_date:"2019-10-20 15:06:01",
       start_date:this.state.when,
       description:this.state.description,
-      duration:this.state.exampleFormControlSelect2,
+      //duration:this.state.exampleFormControlSelect2,
+      duration:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
       level:this.state.exampleFormControlSelect1,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
