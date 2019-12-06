@@ -31,6 +31,10 @@ Contents:
 {
     color: #dedede;
 }
+button:focus
+{
+    outline: none !important;
+}
 .gray-text{
 	color:#ccc;
 	font-size:18px;
@@ -275,11 +279,11 @@ img.logo{
     color: #fff;
 }
 .input-field{
-    border-radius: 0px 15px 15px 15px;
+    border-radius: 0px 12px 12px 12px;
     background: #34213b;
     color: #fff;
     border:2px solid #b002ed;
-    height: 65px;
+    height: 71px;
     width: 100%;
     margin-bottom: 22px;
     padding-left: 18px;
@@ -628,17 +632,24 @@ input:checked + .slider:before {
 }
 .bg-circle{
 	background: #bd00ff;
-    padding: 3px;
+    position: relative;
     width: 28px;
     overflow: hidden;
     height: 28px;
     font-size: 14px;
-    /* display: inline; */
+    display: inline;
     border-radius: 50px;	
     color: #fff;
     text-align: center;
     vertical-align: middle;			 
     float: left;						
+}
+.bg-circle .fa
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .activity-table{
 	border-bottom: 1px solid #777!important;					
@@ -998,7 +1009,7 @@ input:checked + .slider:before {
 
 
 .input-field-2 {
-    border-radius: 0px 15px 15px 15px;
+    border-radius: 0px 12px 12px 12px;
     background: #34213b;
     color: #fff;
     border: 2px solid #b002ed;

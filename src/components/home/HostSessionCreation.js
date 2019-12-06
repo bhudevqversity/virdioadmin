@@ -717,7 +717,7 @@ return(
                                         </div>
                                         {this.state.shoppingStatus?
                                         <div className="add_text">
-                                            <Link to="ChannelCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
+                                            <Link to="ChannelCreation" className="bg-circle text-white mr-4" data-toggle="modal" data-target="#shopping_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.ShoppingCount} Items Added</span>
                                         </div> 
                                         :''
@@ -737,7 +737,7 @@ return(
                                         </div>
                                         {this.state.equipmentStatus ?
                                         <div className="add_text">
-                                            <Link tp ="HostSessionCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#equipment_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
+                                            <Link tp ="HostSessionCreation" className="bg-circle text-white mr-4" data-toggle="modal" data-target="#equipment_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.equipmentCount} Equipments Added</span>
                                         </div>    
                                         :''
@@ -757,7 +757,7 @@ return(
                                         </div>
                                         {this.state.productStatus?
                                         <div className="add_text">
-                                            <Link to="ChannelCreation" className="bg-circle mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
+                                            <Link to="ChannelCreation" className="bg-circle text-white mr-4" data-toggle="modal" data-target="#product_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.productCount} Product Added</span>
                                         </div>
                                         :''
@@ -912,8 +912,8 @@ return(
                             onChange ={(e)=>console.log(this.state.selectedShoppingList)}
                             className="input-field"
                             placeholder="" disabled />
-                            <Link to="ChannelCreation" className="bg-circle position-absolute">
-                                <i className="fa fa-minus pt-1" id={i} onClick={this.removeShoppingList} aria-hidden="true"></i>
+                            <Link to="ChannelCreation" className="bg-circle text-white position-absolute">
+                                <i className="fa fa-minus" id={i} onClick={this.removeShoppingList} aria-hidden="true"></i>
                             </Link>
                         </div>
                         )}
@@ -931,7 +931,7 @@ return(
                        
                     </div>
                     <div className="add_text text-center">
-                        <Link to="ChannelCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></Link>
+                        <Link to="ChannelCreation" className="bg-circle text-white mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addShoppingListMethod} aria-hidden="true"></i></Link>
                     </div> 
                     {/*  */}
                 </div>
@@ -950,7 +950,7 @@ return(
                        
                     </div>
                     <div className="add_text text-center">
-                        <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></a>
+                        <a href="#" className="bg-circle text-white mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></a>
                     </div> 
                 </div> */}
             </div>
@@ -971,8 +971,8 @@ return(
                             <div className="form-group"><span className="cover-border"></span>
                                 <label className="label">Item Name</label>
                                 <input type="text" className="input-field" placeholder="" />
-                                <a href="#" className="bg-circle position-absolute">
-                                    <i className="fa fa-minus pt-1" aria-hidden="true"></i>
+                                <a href="#" className="bg-circle text-white position-absolute">
+                                    <i className="fa fa-minus" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
@@ -980,8 +980,8 @@ return(
                             <div className="form-group"><span className="cover-border"></span>
                                 <label className="label">Item Name</label>
                                 <input type="text" className="input-field" placeholder="" />
-                                <a href="#" className="bg-circle position-absolute">
-                                    <i className="fa fa-minus pt-1" aria-hidden="true"></i>
+                                <a href="#" className="bg-circle text-white position-absolute">
+                                    <i className="fa fa-minus" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
@@ -989,8 +989,8 @@ return(
                             <div className="form-group"><span className="cover-border"></span>
                                 <label className="label">Item Name</label>
                                 <input type="text" className="input-field" placeholder="" />
-                                <a href="#" className="bg-circle position-absolute">
-                                    <i className="fa fa-minus pt-1" aria-hidden="true"></i>
+                                <a href="#" className="bg-circle text-white position-absolute">
+                                    <i className="fa fa-minus" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
@@ -998,7 +998,7 @@ return(
                     <div className="row">
                         <div className="col-md-12">
                             <div className="add_text text-center">
-                                <a href="#" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" aria-hidden="true"></i></a>
+                                <a href="#" className="bg-circle text-white mr-4 d-inline-block float-none"><i className="fa fa-plus" aria-hidden="true"></i></a>
                             </div>
                         </div> 
                     </div>
@@ -1037,8 +1037,8 @@ return(
                             className="input-field"
                             placeholder="" 
                             disabled/>
-                            <Link to="ChannelCreation" className="bg-circle position-absolute">
-                                <i className="fa fa-minus pt-1" id={i} onClick={this.removeEquipment} aria-hidden="true"></i>
+                            <Link to="ChannelCreation" className="bg-circle text-white position-absolute">
+                                <i className="fa fa-minus" id={i} onClick={this.removeEquipment} aria-hidden="true"></i>
                             </Link>
                         </div>
                         )}
@@ -1055,7 +1055,7 @@ return(
                          placeholder="" />
                     </div>
                     <div className="add_text text-center">
-                        <Link to="ChannelCreation" className="bg-circle mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></Link>
+                        <Link to="ChannelCreation" className="bg-circle text-white mr-4 d-inline-block float-none"><i className="fa fa-plus" onClick= {this.addEquipment} aria-hidden="true"></i></Link>
                     </div> 
                 </div>                
             </div>
@@ -1139,7 +1139,7 @@ return(
                 <label className="custom-file-label px-1"  htmlFor="videoFile">
                     <img src="images/video2.png" className="browse_image1" alt=''/>
                     <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
-                    <Link to="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
+                    <Link to="#" className="bg-circle text-white position-absolute"><i className="fa fa-minus" id="0" aria-hidden="true"></i></Link>
                 </label>
               </div>
             </div>
@@ -1149,7 +1149,7 @@ return(
                 <label className="custom-file-label px-1" htmlFor="imageFile">
                     <img src="/images/image1.png" className="browse_image1" alt="#"/>
                     <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
-                    <Link to="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
+                    <Link to="#" className="bg-circle text-white position-absolute"><i className="fa fa-minus" id="0" aria-hidden="true"></i></Link>
                 </label>
               </div>
             </div>
