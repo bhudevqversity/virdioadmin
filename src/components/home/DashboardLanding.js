@@ -79,11 +79,7 @@ class DashboardLanding extends Component {
 		customRollRadio1:true,
 		customRollRadio2:false,
 		mail:'',
-        hostMail:[{mail:''},{mail:'nk@gmail.com'},{mail:'nk1@gmail.com'}],
-		// add participient
-		checkParticipient:'',
-		customRadio3:false,
-		customRadio4:true,
+		hostMail:[{mail:''},{mail:'ak@gmail.com'},{mail:'ak1@gmail.com'}],
 			
 
 	}
@@ -207,8 +203,12 @@ componentDidMount(){
 		
 	
 	}
-
+	uneditableMode=(e)=>{
+		console.log(e.target.id);
+		browserHistory.push("/sessiondetail/"+e.target.id);
+	}
 	pastSession=(e)=>{
+		browserHistory.push("/sessiondetail/"+1);
 		console.log(new Date().getTime())
 		this.setState({
 			sessionInformation:'-1'
@@ -262,13 +262,11 @@ componentDidMount(){
 	},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
 
  }
- mail=e=>{
-  this.setState({
-    [e.target.id]:e.target.value
-    })
-}
-
-
+mail=e=>{
+	this.setState({
+		[e.target.id]:e.target.value
+	})
+} 
  
  render() {
 

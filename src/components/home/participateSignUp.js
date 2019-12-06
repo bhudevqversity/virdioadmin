@@ -196,16 +196,16 @@ render() {
                   <div className="o-hidden">
                     <div className="float-left">
                       <p className="sml_input_box d-inline">
-                        <input type="text" />
+                        <input type="text" maxLength="1"/>
                       </p>
                       <p className="sml_input_box d-inline">
-                        <input type="text" />
+                        <input type="text" maxLength="1"/>
                       </p>
                       <p className="sml_input_box d-inline">
-                        <input type="text" />
+                        <input type="text" maxLength="1"/>
                       </p>
                       <p className="sml_input_box d-inline">
-                        <input type="text" />
+                        <input type="text" maxLength="1"/>
                       </p>
                     </div>
                     <div className="float-left ml-4">
