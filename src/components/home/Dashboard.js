@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router';
 import Slider from "react-slick";
+import {  browserHistory} from 'react-router'
 
 class Dashboard extends Component {
 constructor(props) {
@@ -101,7 +102,7 @@ componentDidMount(){
 				<div className="col-md-7">
 					<div className="d-flex justify-content-md-end justify-content-center align-items-center flex-wrap">
 						<p>Sign Up It's Free</p>
-						<button className="btn btn-primary text-uppercase mr-3">Sign Up</button>
+						<button className="btn btn-primary text-uppercase mr-3" onClick={e=>browserHistory.push("/signUp")}>Sign Up</button>
 						<button className="btn btn-outline-secondary">Login</button>
 					</div>
 				</div>
@@ -345,7 +346,7 @@ componentDidMount(){
 				<p>GET STARTED</p>
 				<ul className="list">
 					<li><Link to="/">Sign In</Link></li>
-					<li><Link to="/">Sign Up</Link></li>
+					<li><Link to="/signUp">Sign Up</Link></li>
 					<li><Link to="/">Learn More</Link></li>
 					<li><Link to="/">Session Guidelines</Link></li>
 				</ul>
