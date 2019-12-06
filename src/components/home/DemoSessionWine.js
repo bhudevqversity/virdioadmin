@@ -2279,10 +2279,9 @@ submitForm = (event) => {
                         onChange = {this.sessionInfo}
                       >
                         <option>Pick a Difficulty level</option>											
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Advance</option>
                       </select>
                       {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required|integer')}						  
                 

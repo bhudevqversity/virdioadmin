@@ -1236,7 +1236,7 @@ handleShow=()=>{
 ////////////////Submit data
 submitForm = (event) => {
   event.preventDefault();
-  $("#link_generator").attr({'style':'display:block'});
+  //$("#link_generator").attr({'style':'display:block'});
   var activity_info = [];
   var activities = [];
   let input_result=[];
