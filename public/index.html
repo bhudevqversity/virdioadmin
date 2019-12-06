@@ -108,16 +108,18 @@ $('.slides_inner_part').slick({
     }
 	]
 });
-$("#customCheck1").click(function(){
-	if($(this).is(":checked"))
-	{
-		$(".parent-row").show();
-	}
-	else if($(this).is(":not(:checked)"))
-	{
-		$(".parent-row").hide();
-	}
-});
+
+// $("#customCheck1").click(function(){
+// 	if($(this).is(":checked"))
+// 	{
+// 		$(".parent-row").show();
+// 	}
+// 	else if($(this).is(":not(:checked)"))
+// 	{
+// 		$(".parent-row").hide();
+// 	}
+// });
+
 $( function() {
     // $( "#datepicker" ).datepicker();
     $(".c_icon").click(function(){$( "#datepicker" ).focus()})
@@ -129,6 +131,7 @@ $( function() {
   
 $(".react-calendar__navigation__next-button").html('<img id="" src="images/Triangle-right.png" />');
 $(".react-calendar__navigation__prev-button").html('<img id="" src="images/Triangle.png" />');
+
 });
 </script>
 <script src="%PUBLIC_URL%/js/timepicki.js"></script>

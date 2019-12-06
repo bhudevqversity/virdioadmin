@@ -698,7 +698,7 @@ return(
                                                 <option>4</option>
                                                 <option>5</option>
                                             </select>
-                                            <span className="dropdown-icon"></span>
+                                            {/* <span className="dropdown-icon"></span> */}
                                         </div>  
                                     </div>
                                 </div>

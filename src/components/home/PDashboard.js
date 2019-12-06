@@ -100,39 +100,15 @@ let date = 1574726400000 ;
 
 
   render() {
-	var settings = {
-		dots: true,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 4,
-      initialSlide: 0,
-		// responsive: [
-		// 	{
-		//   breakpoint: 1024,
-		//   settings: {
-		// 	slidesToShow: 3,
-		// 	slidesToScroll: 1,
-		//   }
-		// },
-		// {
-		//   breakpoint: 600,
-		//   settings: {
-		// 	slidesToShow: 2,
-		// 	slidesToScroll: 1,
-		// 	arrows:false
-		//   }
-		// },
-		// {
-		//   breakpoint: 480,
-		//   settings: {
-		// 	slidesToShow: 1,
-		// 	slidesToScroll: 1,
-		// 	arrows:false
-		//   }
-		// }
-		// ]
-	  };
+	// var settings = {
+	// 	dots: true,
+    //   infinite: false,
+    //   speed: 500,
+    //   slidesToShow: 1,
+    //   slidesToScroll: 4,
+    //   initialSlide: 0,
+		
+	//   };
 
 
     return (
