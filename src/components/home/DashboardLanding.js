@@ -357,7 +357,7 @@ mail=e=>{
 						    				<div className="d-flex flex-wrap justify-content-between">
 						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id ={i} onClick={this.uneditableMode}>session details</button></div>
 						    					<div className="mt-3 mr-4"><img src="images/invite.png" className="mt-2"  alt="" /></div>
-						    					<div className="mt-3"><img src="images/edit.png" className="mt-2 ml-2"  alt="" /></div>
+						    					<div className="mt-3"><img src="images/edit.png" className="mt-2 ml-2" id ={i} alt="" onClick={e=>browserHistory.push("/sessionEditable/"+e.target.id)} /></div>
 						    				</div>
 										</div>
 										

@@ -46,6 +46,7 @@ class App extends Component {
       <Route exact path="/participentSignup" component={participentSignup} />
       <Route exact path="/signUp" component={signUp} />
       <Route  path="/sessiondetail/:id" component={SessionDetailOnId} />
+      <Route  path="/sessionEditable/:id" component={Header} />
 
 
 		</div>

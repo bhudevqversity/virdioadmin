@@ -2704,7 +2704,7 @@ submitForm = (event) => {
 </div>
  {/* Add a new Product End */}
 
- <div className="modal" id="link_generator" show={this.state.onSave} onHide={this.handleShow}>
+ <div className="modal" id="link_generator" >
   <div className="modal-dialog small_width">
     <div className="modal-content">
       <div className="modal-header headerborder">
