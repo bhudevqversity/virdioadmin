@@ -190,7 +190,8 @@ setChannelHost=(e)=>{
     let  channelId=1;
     axios      
 
-    .get("/api/v1/session/"+channelId+"/hosts-list1")          
+    //.get("/api/v1/session/"+channelId+"/hosts-list1")    
+    .get("/api/v1/session/"+channelId+"/hosts-list1")      
     .then(res => {
       console.log('---------channelHost--------------',res.data.responseData);
       let channelArray= this.state.hostList;

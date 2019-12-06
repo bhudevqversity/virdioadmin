@@ -1937,7 +1937,7 @@ palateEmojiSelect =(e)=>{
   }
 ////////////////Submit data
 submitForm = (event) => {
-
+alert('hi');
  let wineDetail = []; 
   // this.state.tablerows;
   let ap = [];
@@ -2161,7 +2161,8 @@ submitForm = (event) => {
            });
  
            $("#successResult").attr({'style':'display:block'});
-          }else{
+          }
+          else{
 
           this.setState({
             msg: "There Is a error in session creation",
@@ -2173,8 +2174,10 @@ submitForm = (event) => {
     }
     else {
       console.log('Wrong');
+      console.log('----------------This is a error--------------------')
     }
-    }else{
+    }
+    else{
 
       console.log('----------------This is a error--------------------')
       this.validator.showMessages();
@@ -2303,7 +2306,7 @@ submitForm = (event) => {
                         <option>Intermediate</option>
                         <option>Advance</option>
                       </select>
-                      {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required|integer')}						  
+                      {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required')}						  
                 
                   </div>
                   </div>
