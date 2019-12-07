@@ -291,10 +291,11 @@ componentDidMount(){
 							    </li>
 						    </ul>
 						</div>
-						<div className="col-lg-4 datepick">
+						<div className="col-lg-4 datepick d-flex justify-content-start flex-wrap justify-content-md-between align-items-center">
 							{/* <input type="text" name="" class="form-control" id="datepicker" /> */}
 							<DatePicker className="form-control" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
-							<div className="c_icon"><img src="images/cal.png" className="translat"  alt="" /><img src="images/angle-down.png" className="translat"  alt="" /></div>
+							<div className="c_icon position-relative"><img src="images/cal.png" className=""  alt="" /><img src="images/angle-down.png" className="mr-4"  alt="" /></div>
+							<div className="c_icon position-relative"><img src="images/search1.png" className="mr-4"  alt="" /></div>
 						</div>
 					</div>
 				</div>
@@ -329,7 +330,7 @@ componentDidMount(){
 							      <a class="nav-link act" data-toggle="tab" href="#dt3">28<br /><span>SUN</span></a>
 							    </li> */}
 							    <li className="nav-item angle-img">
-							      <a className="nav-link" data-toggle="tab" href="#dt3"><img src="images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></a>
+							      <a className="pt-4 pb-3 d-inline-block" data-toggle="tab" href="#dt3"><img src="images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></a>
 							    </li>
 						    </ul>
 						    <div className="content-container mt-2">

@@ -376,7 +376,7 @@ render() {
                             <div className="input-field position-relative d-lg-flex d-block px-3">                      
                             <div className="one flex-fill mr-3 position-relative">                                  
                                 <div className="custom-file mb-3">
-                                <input type="file" className="custom-file-input" id="mycustomFile1" name="filename" />
+                                <input type="file" accept="video/*" className="custom-file-input" id="mycustomFile1" name="filename" />
                                 <label className="custom-file-label px-1" for="mycustomFile1">
                                     <img src="/images/video.png" className="browse_image1" />
                                     <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
@@ -385,7 +385,7 @@ render() {
                             </div>
                             <div className="one flex-fill position-relative">
                                 <div className="custom-file mb-3">
-                                <input type="file" className="custom-file-input" id="mycustomFile2" name="filename1" />
+                                <input type="file" accept="image/*" className="custom-file-input" id="mycustomFile2" name="filename1" />
                                 <label className="custom-file-label px-1" for="mycustomFile2">
                                     <img src="/images/browse-img.png" className="browse_image1" />
                                     <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
