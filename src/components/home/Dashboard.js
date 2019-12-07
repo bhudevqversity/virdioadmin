@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { Link } from 'react-router';
 import Slider from "react-slick";
+import {  browserHistory} from 'react-router'
 
 class Dashboard extends Component {
 constructor(props) {
 	super(props);
 	this.state = {
-	carouselData :[{path:"images/banner1.jpg"},{path:"images/banner2.jpg"},{path:"images/banner3.jpg"}],
-	fitnessData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}],
-	wineData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}],
-    cookingData:[{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"},{path:"images/wine.jpg"}]
+	carouselData :[{path:"/images/banner1.jpg"},{path:"/images/banner2.jpg"},{path:"/images/banner3.jpg"}],
+	fitnessData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
+	wineData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
+    cookingData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}]
 	}
 	
 }
@@ -101,7 +102,7 @@ componentDidMount(){
 				<div className="col-md-7">
 					<div className="d-flex justify-content-md-end justify-content-center align-items-center flex-wrap">
 						<p>Sign Up It's Free</p>
-						<button className="btn btn-primary text-uppercase mr-3">Sign Up</button>
+						<button className="btn btn-primary text-uppercase mr-3" onClick={e=>browserHistory.push("/signUp")}>Sign Up</button>
 						<button className="btn btn-outline-secondary">Login</button>
 					</div>
 				</div>
@@ -232,7 +233,7 @@ componentDidMount(){
 			<Slider {...settings}>
 				{this.state.fitnessData.map((row,i)=>
 				<div className="item slide-ele" key ={i}>
-					<img src={row.path}  />
+					<img src={row.path} alt="#" />
 					<p className="mt-3">Strength Training 1</p>
 				</div>
 				)}
@@ -265,7 +266,7 @@ componentDidMount(){
 			<Slider {...settings}>
 				{this.state.wineData.map((row,i)=>
 				<div className="item slide-ele" key={i} >
-					<img src={row.path}  />
+					<img src={row.path}  alt="#"/>
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}
@@ -298,7 +299,7 @@ componentDidMount(){
 			<Slider {...settings}>
 				{this.state.cookingData.map((row,i)=>
 				<div className="item slide-ele" key = {i}>
-					<img src={row.path} />
+					<img src={row.path} alt="#"/>
 					<p className="mt-3">Strength Training</p>
 				</div>
 				)}
@@ -345,7 +346,7 @@ componentDidMount(){
 				<p>GET STARTED</p>
 				<ul className="list">
 					<li><Link to="/">Sign In</Link></li>
-					<li><Link to="/">Sign Up</Link></li>
+					<li><Link to="/signUp">Sign Up</Link></li>
 					<li><Link to="/">Learn More</Link></li>
 					<li><Link to="/">Session Guidelines</Link></li>
 				</ul>

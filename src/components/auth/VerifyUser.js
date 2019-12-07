@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { hashHistory } from 'react-router';
 import axios from "axios";
+import {  browserHistory} from 'react-router'
 import  { Redirect } from 'react-router-dom'
 
 import {
@@ -60,7 +61,7 @@ class VerifyUser extends Component {
         };
 
          axios
-         .post("/api/v1/session/verifyuser",userData)                
+         .post("http://192.168.1.177:8001/api/v1/session/verifyuser",userData)                
          .then(res => {
 
           console.log('---------verifyuser123333--------------',res.data)
@@ -75,8 +76,9 @@ class VerifyUser extends Component {
          // this.props.history.push("/participent-dashboard");
 
         //  this.props.history.push('/participent-dashboard/');
+        browserHistory.push("/signUp");
 
-          return (<Redirect to='/participent-dashboard'  />)
+          // return (<Redirect to='/participent-dashboard'  />)
           }
 
         })

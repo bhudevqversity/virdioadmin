@@ -54,6 +54,8 @@ class SessionDetailOnId extends Component {
         signUpClass:[false,false,false,false,false,false,false,false,false,false],
         reminderSessionTime:'',
         reminderMonth:'',
+        sessionHour:0,
+        sessionMinute:0,
         reminderYear:'',
         reminderDay:'',
         reminderTime:'',
@@ -274,6 +276,8 @@ componentDidMount(){
     hostSessionStart:2,
     signUpDateTime:'2019-20-11 7:30:00',
     participantSessionStart:5,
+    sessionHour:2,
+    sessionMinute:40,
     minimumNotMet:1,
     disableParticipant:true,
     showParticipant:false,
@@ -1496,11 +1500,12 @@ submitForm = (event) => {
                       {/* <span  className="when-icon"></span> */}
                       <Link to="#" className="when-icon" data-toggle="modal" data-target="#calenderModel"></Link>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6 pr-md-2">
-                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Hours</label>
-                          <select class="input-field" id="">
+                    <div className="row">
+                      <div className="col-md-6 pr-md-2">
+                        <div className="form-group"><span className="cover-border bg_gray_clr"></span>
+                          <label className="label">Hours</label>
+                          <select className="input-field" id="">
+                          <option>{this.state.sessionHour}</option>
                             {/* <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -1510,10 +1515,11 @@ submitForm = (event) => {
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-6 pl-md-1">
-                        <div class="form-group"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Minutes</label>
-                            <select class="input-field" id="">
+                      <div className="col-md-6 pl-md-1">
+                        <div className="form-group"><span className="cover-border bg_gray_clr"></span>
+                          <label className="label">Minutes</label>
+                            <select className="input-field" id="">
+                            <option>{this.state.sessionMinute}</option>
                               {/* <option>1</option>
                               <option>2</option>
                               <option>3</option>
@@ -1566,25 +1572,26 @@ submitForm = (event) => {
                     </label>
                       <span>Show Participants Signed Up Count on Searches?</span><img src="/images/bulb.png" className="ml-3 mb-2" alt="#"/>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-7 pr-0">
-                          <div class="form-group input-txt h-90">
-                              <label class="switch">
-                                <input type="checkbox" id="sessionCharge" checked="" />
-                                <span class="slider round"></span>
+                    <div className="row">
+                      <div className="col-lg-7 pr-0">
+                          <div className="form-group input-txt h-90">
+                              <label className="switch">
+                                <input type="checkbox" id="sessionCharge" checked={this.state.sessionCharge} onChange ={(e)=>this.setState({[e.target.id]:!this.state.sessionCharge})}/>
+                                <span className="slider round"></span>
                               </label>
                               <span>Charging for Session?</span>
-                              <p class="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>
+                              {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                           </div>
                       </div>
-                      <div class="col-lg-5">
-                        <div class="form-group h-90"><span class="cover-border bg_gray_clr"></span>
-                          <label class="label">Charge amount</label>
-                          <div class=" mb-2 mt-2">
-                            <input type="text" class="input-field" id="amountCharge" placeholder="Enter amount" value="" /><span class="dollar"></span>
+                      {this.state.sessionCharge?
+                      <div className="col-lg-5">
+                        <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>
+                          <label className="label">Charge amount</label>
+                          <div className=" mb-2 mt-2">
+                            <input type="text" className="input-field" id="amountCharge" placeholder="Enter amount"  value={this.state.amountCharge} onChange={e=>console.log()}/><span className="dollar"></span>
                           </div>
                         </div>
-                      </div>
+                      </div>:''}
                     </div>
                   </div>
                 </div>
@@ -2609,10 +2616,10 @@ submitForm = (event) => {
           </div>
           <div className="col-md-7">
           <p className="mb-2 input-txt">On {this.state.reminderDay} {this.state.reminderMonth} {this.state.reminderYear}, at {this.state.reminderTime}</p>
-          <div class="form-group input-txt">
-              <label class="switch">
+          <div className="form-group input-txt">
+              <label className="switch">
                   <input type="checkbox" />
-                  <span class="slider round"></span>
+                  <span className="slider round"></span>
               </label>
               <span>This is a repeated session</span>
             </div>

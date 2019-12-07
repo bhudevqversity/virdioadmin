@@ -190,15 +190,22 @@ setChannelHost=(e)=>{
     let  channelId=1;
     axios      
 
-    .get("/api/v1/session/"+channelId+"/hosts-list1")          
+    //.get("/api/v1/session/"+channelId+"/hosts-list1")    
+    .get("/api/v1/session/"+channelId+"/hosts-list1")      
     .then(res => {
       console.log('---------channelHost--------------',res.data.responseData);
       let channelArray= this.state.hostList;
-       let eqarray=res.data.responseData;        
-      for(let i=0;i<eqarray.length;i++){
-        let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
-        channelArray.push(n); 
-      }
+       let eqarray=res.data.responseData; 
+
+       let n = {userId: eqarray.id, username: eqarray.firstName,image :'images/pic.jpg',type:false};
+    channelArray.push(n); 
+
+    //   for(let i=0;i<eqarray.length;i++){
+    //    // let n = {userId: eqarray[i].userId, username: eqarray[i].username,image :'images/pic.jpg',type:false};
+    //     let n = {userId: eqarray.id, username: eqarray.firstName,image :'images/pic.jpg',type:false};
+    //     channelArray.push(n); 
+    //   }
+     // console.log('---------channelHost1111--------------',eqarray.id);   
       this.setState({
         hostList: channelArray
           });
@@ -698,7 +705,7 @@ return(
                                                 <option>4</option>
                                                 <option>5</option>
                                             </select>
-                                            <span className="dropdown-icon"></span>
+                                            {/* <span className="dropdown-icon"></span> */}
                                         </div>  
                                     </div>
                                 </div>

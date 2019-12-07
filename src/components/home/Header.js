@@ -413,8 +413,9 @@ componentDidMount(){
 onChange1 = date =>
 {
   //2019-10-20
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   let getFullYear=new Date(date).getFullYear();
-  let getMonth=(new Date(date).getMonth())+1;
+  let getMonth=month[(new Date(date).getMonth())];
   let getDate=new Date(date).getDate();
   console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
 //let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
@@ -432,8 +433,9 @@ this.setState({
 onChange2 = date =>
 {
   //2019-10-20
+  const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
   let getFullYear=new Date(date).getFullYear();
-  let getMonth=(new Date(date).getMonth())+1;
+  let getMonth=month[(new Date(date).getMonth())];
   let getDate=new Date(date).getDate();
   console.log(getFullYear+'-'+getMonth+'-'+getDate,'--------------',new Date(date).getFullYear(),new Date(date).getDate(),new Date(date).getMonth());
 //let sessionDate =new Date(this.state.when).getDate()+'-'++''new Date(this.state.when).getDate() 
@@ -922,12 +924,16 @@ findListIndex =(listItem) =>{
   if (listItem.name === this.state.searchEquipment) {
     console.log(listItem.type);
     return listItem};
+  // return listItem.name.toLowerCase().search(
+  //   this.state.searchEquipment.toLowerCase()) !== -1;
 }
 findShoppingList = (listItem) => {
   console.log(listItem,this.state.shoppingListValue)
   if (listItem.name === this.state.shoppingListValue) {
     console.log(listItem.type);
     return listItem};
+  // return listItem.name.toLowerCase().search(
+  //   this.state.shoppingListValue.toLowerCase()) !== -1;
 }
 removeShoppingList = (e) => {
   console.log('=====================================',e.target.id);
@@ -1229,8 +1235,9 @@ handleShow=()=>{
  }
 ////////////////Submit data
 submitForm = (event) => {
+ // alert('hi');
   event.preventDefault();
-  $("#link_generator").attr({'style':'display:block'});
+  //$("#link_generator").attr({'style':'display:block'});
   var activity_info = [];
   var activities = [];
   let input_result=[];
@@ -1259,7 +1266,8 @@ submitForm = (event) => {
      //start_date:"2019-10-20 15:06:01",
       start_date:this.state.when,
       description:this.state.description,
-      duration:this.state.exampleFormControlSelect2,
+      //duration:this.state.exampleFormControlSelect2,
+      duration:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
       level:this.state.exampleFormControlSelect1,
       min_participants:this.state.minimumParticipants,
       max_participants:this.state.maximumParticipants,
@@ -1825,7 +1833,7 @@ submitForm = (event) => {
                 <Link to ="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myHost"><img src="/images/picking.png" className="mr-2" alt = '#'/> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 mt-3 mt-md-0 px-4">
-                <Link to ="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link>
+                {/* <Link to ="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new Host</Link> */}
             </div>
           </div>
           </div>
@@ -2079,7 +2087,7 @@ submitForm = (event) => {
                   <Link to ="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myModal3"><img src="/images/picking.png" className="mr-2" alt = '#'/> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link>
+                  {/* <Link to="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new Product</Link> */}
               </div>
             </div>
           </div>
@@ -2133,7 +2141,7 @@ submitForm = (event) => {
                   <Link to="FitnessSessionCreation" className="pick" data-toggle="modal" data-target="#myModal2"><img src="/images/picking.png" className="mr-2" alt = '#' /> Pick from existing list</Link>
               </div>
               <div className="col-md-4 mt-3 mt-md-0">
-                  <Link to ="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new item</Link>
+                  {/* <Link to ="FitnessSessionCreation" className="pick"><img src="/images/add.png" className="mr-2" alt = '#'/> Add a new item</Link> */}
               </div>
             </div>
           </div>

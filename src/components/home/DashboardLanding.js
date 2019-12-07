@@ -75,6 +75,8 @@ class DashboardLanding extends Component {
 		customRadio1:true,
 		customRollRadio1:true,
 		customRollRadio2:false,
+		mail:'',
+		hostMail:[{mail:''},{mail:'ak@gmail.com'},{mail:'ak1@gmail.com'}],
 			
 
 	}
@@ -182,8 +184,12 @@ componentDidMount(){
 		
 	
 	}
-
+	uneditableMode=(e)=>{
+		console.log(e.target.id);
+		browserHistory.push("/sessiondetail/"+e.target.id);
+	}
 	pastSession=(e)=>{
+		browserHistory.push("/sessiondetail/"+1);
 		console.log(new Date().getTime())
 		this.setState({
 			sessionInformation:'-1'
@@ -237,7 +243,11 @@ componentDidMount(){
 	},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
 
  }
- 
+mail=e=>{
+	this.setState({
+		[e.target.id]:e.target.value
+	})
+} 
  
  render() {
 
@@ -346,7 +356,7 @@ componentDidMount(){
 						    				<p><img src="images/gray-icons/dollar.png" className="mr-3"  alt="" />${row.oPrice} per session</p>
 						    				<p className="mb-4"><img src="images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {row.oCutDate}</p>
 						    				<div className="d-flex flex-wrap justify-content-between">
-						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase">session details</button></div>
+						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id ={i} onClick={this.uneditableMode}>session details</button></div>
 						    					<div className="mt-3 mr-4"><img src="images/invite.png" className="mt-2"  alt="" /></div>
 						    					<div className="mt-3"><img src="images/edit.png" className="mt-2 ml-2"  alt="" /></div>
 						    				</div>
@@ -589,13 +599,13 @@ componentDidMount(){
 												<div className="col-md-6 pr-md-2">
 													<div className="custom-control custom-radio">
 														<input type="radio" className="custom-control-input" id="customRadio1" value="true"   name="example1" checked={this.state.customRadio1} onChange={this.checkHost1} />
-														<label className="custom-control-label" htmlFor="customRadio1"> Existing Host</label>
+														<label className="custom-control-label" htmlFor="customRadio1">New Host </label>
 													</div>    
 												</div>
 												<div className="col-md-6 pr-md-2">
 													<div className="custom-control custom-radio mb-20">
 														<input type="radio" className="custom-control-input" id="customRadio2" value="false" name="example1" checked={this.state.customRadio2} onChange={this.checkHost2}  />
-														<label className="custom-control-label" htmlFor="customRadio2">New Host</label>
+														<label className="custom-control-label" htmlFor="customRadio2">Existing Host</label>
 													</div>  
 												</div>
 												<div className="clearfix"></div>
@@ -627,8 +637,10 @@ componentDidMount(){
 													<label className="label">Email Address</label>
 													<div className="">
 														{/* <input type="email" className="input-field" value={this.state.email} placeholder="Email Address" /> */}
-														<select className="input-field">                     
-															{this.forEmailer()}
+														<select className="input-field" id="mail" value={this.state.mail} onChange={this.mail}>                     
+														{this.state.hostMail.map((row,i)=>
+														<option key={i} value={row.mail}>{row.mail}</option>
+														)}	
 														</select>
 														{/* <span className="dashboard_land"></span> */}
 													</div>
