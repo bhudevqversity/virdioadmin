@@ -16,6 +16,8 @@ import signUp from './components/home/signup'
 import participentSignup from './components/home/participateSignUp'
 import SessionDetailOnId from './components/home/sessionDetailOnId'
 import AdminDashboard from './components/home/AdminDashboard'
+import WineSessionOnId from './components/home/wineSessionOnId'
+import NoAdmin from './components/home/NoAdmin'
 /*function App() {
   return (
     <div className="App">
@@ -49,9 +51,9 @@ class App extends Component {
       <Route  path="/sessiondetail/:id" component={SessionDetailOnId} />
       <Route  path="/sessionEditable/:id" component={Header} />
       <Route  path="/AdminDashboard" component={AdminDashboard} />
-
-
-
+      <Route  path="/winedetail/:id" component={WineSessionOnId} />
+      <Route  path="/noAdmin" component={NoAdmin} />
+      <Route  path="/wineSessionEditable/:id" component={DemoSessionWine} />
 		</div>
      </Router>
    );

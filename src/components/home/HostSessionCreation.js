@@ -520,7 +520,7 @@ return(
                     <div className="hdng_text py-4 d-flex justify-content-between px-4 headerborder align-items-center">
                         <h3 className="p-0 m-0">Create Channel</h3>
                         <div  id="msg" style={{color:'green'}}>{this.state.msg}</div>
-                        <button type="button" className="close">×</button>
+                        <button type="button" className="close" onClick={e=>browserHistory.push("/DashboardLanding")}>×</button>
                     </div>
                     <div className="py-4 px-4 session_text">
                         <div className="row">

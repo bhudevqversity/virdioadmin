@@ -28,10 +28,9 @@ componentDidMount(){
 }
 
 sessionInfo=(e)=>{
-  console.log('ak');
   this.setState({
     [e.target.id]:e.target.value
-  },()=>console.log(this.state))
+  })
 }
 verify=(e)=>{
     if (this.validator.allValid()) {
@@ -225,10 +224,10 @@ render() {
                 <div className="modal-content modl_bg_drk">
                     <div className="modal-body px-4 pb-4">
                       <h4 className="modal-title font-weight-bold white pt-3 text-center">Welcome To Virdio</h4>
-                        <p className="py-4 text-light text-center">Your registration was successful! As a host you can do many things on the plateform. Would you like to see a tutorial ? </p>
+                        <p className="py-4 text-light text-center">Your registration was successful! As a participent you can do many things on the plateform. Would you like to see a tutorial ? </p>
                         <div className="d-flex justify-content-between align-items-center">
                           <button type="button" className="custom_btn1" onClick={this.closePopUp}>yes</button>
-                          <p className="text-center mb-0 mt-2 small"><Link to="#" className="main-heading font-12" data-dismiss="modal">skip<br /> for now</Link></p>                    	
+                          <p className="text-center mb-0 mt-2 small"><Link to="/participent-dashboard" className="main-heading font-12" data-dismiss="modal">skip<br /> for now</Link></p>                    	
                         </div>
                     </div>
                 </div>

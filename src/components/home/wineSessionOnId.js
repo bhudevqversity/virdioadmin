@@ -12,7 +12,7 @@ import Calendar from 'react-calendar';
 import $ from 'jquery';
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
-class DemoSessionWine extends Component {
+class wineSessionOnId extends Component {
   
   constructor(props) {
     super(props);
@@ -113,13 +113,13 @@ class DemoSessionWine extends Component {
         tablerows2:[
           { id:0,
             wineChoice:"Tom",
-            ActivityType:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+            ActivityType:[{emoji:"/images/cherry.png",type:true,name:"Cherry"},{emoji:"/images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
             DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"90bpm",TargetZone:"90%"
           },
           {
           id:1,  
           wineChoice:"Tommy",
-          ActivityType:[{emoji:"images/cherry.png",type:true,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}],
+          ActivityType:[{emoji:"/images/cherry.png",type:true,name:"Cherry"},{emoji:"/images/burgundy.png",type:false,name:"Burgundy"},{emoji:"/images/auburn.png",type:false,name:"Auburn"}],
           DurationType:23,Count:"30sec",Video:"NA",TargetBPM:"88bpm",TargetZone:"67%"},
         ],
         // tablerows:[
@@ -138,27 +138,27 @@ class DemoSessionWine extends Component {
         productModelStatus:0,
         wineChoice:[{wine:"Lacrima Lui Ovidiu 2001"},{wine:"Lui  2001"}],
          //listAppearance:[{image:"images/cherry.png"},{image:"images/burgundy.png"},{image:"images/auburn.png"}],
-         listAroma :[{image:"images/apple.png"},{image:"images/grapes.png"},{image:"images/cheese.png"}],
-         listPalate:[{image:"images/smily.png"},{image:"images/smily.png"},{image:"images/smily.png"}],
+         listAroma :[{image:"/images/apple.png"},{image:"/images/grapes.png"},{image:"/images/cheese.png"}],
+         listPalate:[{image:"/images/smily.png"},{image:"/images/smily.png"},{image:"/images/smily.png"}],
         listAppearance:[],
-         appearanceEmoji:[{emoji:"images/cherry.png",type:false,name:"Cherry"},
-        {emoji:"images/burgundy.png",type:false,name:"Burgundy"},
-        {emoji:"images/auburn.png",type:false,name:"Auburn"}],
+         appearanceEmoji:[{emoji:"/images/cherry.png",type:false,name:"Cherry"},
+        {emoji:"/images/burgundy.png",type:false,name:"Burgundy"},
+        {emoji:"/images/auburn.png",type:false,name:"Auburn"}],
         appearanceStatus:[],
         assignEmojiStatus:false,
         aromaStatus:false,
         palateStatus:false,
         //appearanceEmoji:[],
 
-        aromaEmoji:[{emoji:"images/apple.png",type:false,name:"Apple"},
-        {emoji:"images/grapes.png",type:false,name:"Grape"},
-        {emoji:"images/cheese.png",type:false,name:"Cheese"}],
+        aromaEmoji:[{emoji:"/images/apple.png",type:false,name:"Apple"},
+        {emoji:"/images/grapes.png",type:false,name:"Grape"},
+        {emoji:"/images/cheese.png",type:false,name:"Cheese"}],
 
         //aromaEmoji:[],
         
-        palateEmoji:[{emoji:"images/apple.png",type:false,name:"Example"},
-        {emoji:"images/grapes.png",type:false,name:"Another"},
-        {emoji:"images/cheese.png",type:false,name:"Few Example"}], 
+        palateEmoji:[{emoji:"/images/apple.png",type:false,name:"Example"},
+        {emoji:"/images/grapes.png",type:false,name:"Another"},
+        {emoji:"/images/cheese.png",type:false,name:"Few Example"}], 
 
         //palateEmoji:[], 
 
@@ -227,6 +227,32 @@ componentDidMount(){
   this.fetchEmojiesList();
   this.fetchProductList();
   this.addToProductList();
+  this.setState({
+    session_details:'Jumping',
+    description:'Hello Virdio',
+    exampleFormControlSelect1:'Beginner',
+    when:'2019-20-11 7:30:00',
+    minimumParticipants:2,
+    maximumParticipants:5,
+    sessionProperty:true,
+    searchParticipant:true,
+    sessionCharge:true,
+    amountCharge:10,
+    hostSessionStart:2,
+    signUpDateTime:'2019-20-11 7:30:00',
+    participantSessionStart:5,
+    sessionHour:2,
+    sessionMinute:40,
+    minimumNotMet:1,
+    disableParticipant:true,
+    showParticipant:false,
+    allowParticipant:true,
+    allowLocation:true
+  })
+  $("#session_close :input").attr("disabled", true);
+  $(".pick").attr("data-target", '');
+  $(".when-icon").attr("data-target", '');
+  $(".activity-link").attr("disabled",true);
   }
 
   fetchProductList() {  
@@ -293,15 +319,15 @@ componentDidMount(){
 
   fetchEmojiesList() {  
     let  interestId=1;
-    let ka = [{id: 1, interestId: 1, name: "Cherry", emojies_type: "Appearance", path: "images/cherry.png"},
-    {id: 2, interestId: 1, name: "Burgundy", emojies_type: "Appearance", path: "images/burgundy.png"},
-    {id: 3, interestId: 1, name: "Auburn", emojies_type: "Appearance", path: "images/auburn.png"},
-    {id: 4, interestId: 1, name: "Apple", emojies_type: "Aroma", path: "images/apple.png"},
-    {id: 5, interestId: 1, name: "Grape", emojies_type: "Aroma", path: "images/grapes.png"},
-    {id: 6, interestId: 1, name: "Cheese", emojies_type: "Aroma", path: "images/cheese.png"},
-    {id: 7, interestId: 1, name: "Example", emojies_type: "Palate", path: "images/apple.png"},
-    {id: 8, interestId: 1, name: "Another", emojies_type: "Palate", path: "images/grapes.png"},
-    {id: 9, interestId: 1, name: "Few Example", emojies_type: "Palate", path: "images/cheese.png"}]   
+    let ka = [{id: 1, interestId: 1, name: "Cherry", emojies_type: "Appearance", path: "/images/cherry.png"},
+    {id: 2, interestId: 1, name: "Burgundy", emojies_type: "Appearance", path: "/images/burgundy.png"},
+    {id: 3, interestId: 1, name: "Auburn", emojies_type: "Appearance", path: "/imageauburn.png"},
+    {id: 4, interestId: 1, name: "Apple", emojies_type: "Aroma", path: "/images/apple.png"},
+    {id: 5, interestId: 1, name: "Grape", emojies_type: "Aroma", path: "/images/grapes.png"},
+    {id: 6, interestId: 1, name: "Cheese", emojies_type: "Aroma", path: "/images/cheese.png"},
+    {id: 7, interestId: 1, name: "Example", emojies_type: "Palate", path: "/images/apple.png"},
+    {id: 8, interestId: 1, name: "Another", emojies_type: "Palate", path: "/images/grapes.png"},
+    {id: 9, interestId: 1, name: "Few Example", emojies_type: "Palate", path: "/images/cheese.png"}]   
     this.setState({
       emojiesList: ka
     });
@@ -322,41 +348,41 @@ componentDidMount(){
         //     "Appearence": [{
         //       "id": 1,
         //       "name": "Cherry",
-        //       "path": "images/cherry.png"
+        //       "path": "/images/cherry.png"
         //     }, {
         //       "id": 2,
         //       "name": "Burgundy",
-        //       "path": "images/burgundy.png"
+        //       "path": "/images/burgundy.png"
         //     }, {
         //       "id": 3,
         //       "name": "Auburn",
-        //       "path": "images/auburn.png"
+        //       "path": "/images/auburn.png"
         //     }],
         //     "Aroma": [{
         //       "id": 4,
         //       "name": "Apple",
-        //       "path": "images/apple.png"
+        //       "path": "/images/apple.png"
         //     }, {
         //       "id": 5,
         //       "name": "Grape",
-        //       "path": "images/grapes.png"
+        //       "path": "/images/grapes.png"
         //     }, {
         //       "id": 6,
         //       "name": "Cheese",
-        //       "path": "images/cheese.png"
+        //       "path": "/images/cheese.png"
         //     }],
         //     "Palate": [{
         //       "id": 7,
         //       "name": "Example",
-        //       "path": "images/apple.png"
+        //       "path": "/images/apple.png"
         //     }, {
         //       "id": 8,
         //       "name": "Another",
-        //       "path": "images/grapes.png"
+        //       "path": "/images/grapes.png"
         //     }, {
         //       "id": 9,
         //       "name": "Few Example",
-        //       "path": "images/cheese.png"
+        //       "path": "/images/cheese.png"
         //     }]
         //   }
         //     });
@@ -1619,9 +1645,9 @@ wineProductSelect = (e) => {
       id:indexValue,
       wineProductId:e.target.id,
       productId:wineContainer[e.target.id].id,
-      // [{emoji:"images/cherry.png",type:false,name:"Cherry"},{emoji:"images/burgundy.png",type:false,name:"Burgundy"},{emoji:"images/auburn.png",type:false,name:"Auburn"}]
-      //[{emoji:"images/apple.png",type:false,name:"Apple"},{emoji:"images/grapes.png",type:false,name:"Grape"},{emoji:"images/cheese.png",type:false,name:"Cheese"}]
-      //[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      // [{emoji:"/images/cherry.png",type:false,name:"Cherry"},{emoji:"/images/burgundy.png",type:false,name:"Burgundy"},{emoji:"/images/auburn.png",type:false,name:"Auburn"}]
+      //[{emoji:"/images/apple.png",type:false,name:"Apple"},{emoji:"/images/grapes.png",type:false,name:"Grape"},{emoji:"/images/cheese.png",type:false,name:"Cheese"}]
+      //[{emoji:"/images/apple.png",type:false,name:"Example"},{emoji:"/images/grapes.png",type:false,name:"Another"},{emoji:"/images/cheese.png",type:false,name:"Few Example"}]
       appearanceSelect:appearanceSta,
       aromaSelect:aromaCheck,
       palateSelect:palateCheck,
@@ -1669,7 +1695,7 @@ addToWineDescription = (e) => {
       wineDescription:this.state.wineDescription,
       id:wineArray.length+1,
       wineMedia:this.state.wineMedia,
-      listPalate:[{emoji:"images/apple.png",type:false,name:"Example"},{emoji:"images/grapes.png",type:false,name:"Another"},{emoji:"images/cheese.png",type:false,name:"Few Example"}]
+      listPalate:[{emoji:"/images/apple.png",type:false,name:"Example"},{emoji:"/images/grapes.png",type:false,name:"Another"},{emoji:"/images/cheese.png",type:false,name:"Few Example"}]
       }
       wineArray.push(addWine);
       this.setState({
@@ -2045,19 +2071,19 @@ alert('hi');
 //   id: 1,
 //   Emojies:
 //    [ 
-// { path: 'images/cherry.png', type: 'Appearence', name: 'Cherry',id:1 },
-//   { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy' ,id:2},
-// { path: 'images/grapes.png', type: 'Aroma', name: 'Grape',id:6 },
-// { path: 'images/cheese.png', type: 'Aroma', name: 'Cheese',id:7 },
-// { emoji: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+// { path: '/images/cherry.png', type: 'Appearence', name: 'Cherry',id:1 },
+//   { path: '/images/burgundy.png', type: 'Appearence', name: 'Burgundy' ,id:2},
+// { path: '/images/grapes.png', type: 'Aroma', name: 'Grape',id:6 },
+// { path: '/images/cheese.png', type: 'Aroma', name: 'Cheese',id:7 },
+// { emoji: '/images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
 // ],testerStatus: true },
 // { wineChoice: 'Nissan Altima',
 //   id: 2,
 // Emojies:
-//    [ { path: 'images/burgundy.png', type: 'Appearence', name: 'Burgundy',id:3 },
-//      { path: 'images/auburn.png', type: 'Appearence', name: 'Auburn',id:4 },
-//    { path: 'images/grapes.png', type: 'Aroma', name: 'Grape' ,id:6 } ,
-//    { path: 'images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
+//    [ { path: '/images/burgundy.png', type: 'Appearence', name: 'Burgundy',id:3 },
+//      { path: '/images/auburn.png', type: 'Appearence', name: 'Auburn',id:4 },
+//    { path: '/images/grapes.png', type: 'Aroma', name: 'Grape' ,id:6 } ,
+//    { path: '/images/grapes.png', type: 'Palate', name: 'Another',id:8 } 
 // ],testerStatus: false }];
 
   let input_result=[];
@@ -2225,7 +2251,7 @@ alert('hi');
           </div>
           <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
             <div className="user-info d-flex align-items-center">
-              <img src="images/attendee.png" className="user-avtar" alt = '#'/>
+              <img src="/images/attendee.png" className="user-avtar" alt = '#'/>
               <div className="pl-4">
                 <h3>Welcome Arjun!</h3>
                 <p>No Session coming up this week</p>
@@ -2269,9 +2295,10 @@ alert('hi');
 
         <a href="#" className="btn btn-primary float-right" data-toggle="modal" data-target="#allprevsession"> COPY FORM ....</a>
       <div className="clearfix"></div> */}
+       <div id = 'session_close'>
         <div className="gray-box">
           <div className="row session mx-0">
-            <h3 className="col-md-6 info"><img src="images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
+            <h3 className="col-md-6 info"><img src="/images/information.png" className="mr-3 mb-2 text_lft_icon" alt="information" />Session Info</h3>   
             <div className="col-md-6" id="msg" style={{color:'green'}}>{this.state.msg}</div>                    
           </div>
           
@@ -2377,7 +2404,7 @@ alert('hi');
                         <span className="slider round"></span>
                     </label>
                     
-                    {this.state.sessionProperty?<span>Public Session</span>:<span>Private Session</span>}<img src="images/bulb.png" className="ml-3 mb-2" alt ='' />
+                    {this.state.sessionProperty?<span>Public Session</span>:<span>Private Session</span>}<img src="/images/bulb.png" className="ml-3 mb-2" alt ='' />
                     </div>
                     <div className="form-group input-txt h-90">
                     <label className="switch">
@@ -2458,7 +2485,7 @@ alert('hi');
         </div>
         <div className="gray-box2">
           <div className="session">
-            <h3 className="info"><img src="images/reminder.png" className="mr-3 mb-2" alt="reminder-icon" />Reminders</h3>
+            <h3 className="info"><img src="/images/reminder.png" className="mr-3 mb-2" alt="reminder-icon" />Reminders</h3>
           </div>
 
           <div className="container-fluid register-form">
@@ -2523,7 +2550,7 @@ alert('hi');
         </div>
         <div className="px-3 pb-4 gray-box no-border-radius">
         <div className="row">
-        <div className="session"><h3 className="info"><img src="images/privacy.png" className="mr-3 mb-2" alt="privacy" />Privacy during Session</h3></div>
+        <div className="session"><h3 className="info"><img src="/images/privacy.png" className="mr-3 mb-2" alt="privacy" />Privacy during Session</h3></div>
         <div className="col-md-6 px-4">
               <div className="form-group input-txt">
               <label className="switch">
@@ -2567,7 +2594,7 @@ alert('hi');
         </div>
         </div>
         <div className="gray-box2 pb-4">
-          <div className="session"><h3 className="info"><img src="images/teamwork.png" className="mr-3 mb-2" alt="team" />Groups</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/teamwork.png" className="mr-3 mb-2" alt="team" />Groups</h3></div>
           <div className="col-md-6 px-4">
               <div className="form-group input-txt">
               <label className="switch">
@@ -2579,18 +2606,18 @@ alert('hi');
                   <span className="slider round"></span>
               </label>
                 <span>Allow Groups at a Location?</span>
-                <img src="images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" />
+                <img src="/images/bulb.png" className="ml-3 mb-2" alt="bulb-icon" />
               </div>
               
               
             </div>
         </div>
         <div className="pb-4">
-          <div className="session"><h3 className="info"><img src="images/user.png" className="mr-3 mb-2" alt="user-icon" />Select Host(s)</h3></div>
+          <div className="session"><h3 className="info"><img src="/images/user.png" className="mr-3 mb-2" alt="user-icon" />Select Host(s)</h3></div>
           <div className="px-3 pb-4">
           <div className="row">
             <div className="col-md-4 px-4">
-                <Link to="WineSessionCreation" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
+                <Link to="WineSessionCreation" data-toggle="modal" data-target="#pick_host_modal" className="pick"><img src="/images/picking.png" className="mr-2" alt = '#' /> Pick from existing hosts</Link>
             </div>
             <div className="col-md-4 px-4 mt-3 mt-md-0">
                 {/* <Link to ="/" className="pick"><img src="images/add.png"  className="mr-2" alt = '#'/> Add a new Host</Link> */}
@@ -2602,7 +2629,7 @@ alert('hi');
         {/* Testing Script Start */}
         <div className="gray-box2 pb-4">
           <div className="session">
-          <h3 className="info myheading"><img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
+          <h3 className="info myheading"><img src="/images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Testing Script</h3>
             </div>
           {/* Wine Product With Testing Sortable  */}
           {this.state.tablerows1.length?
@@ -2881,8 +2908,8 @@ alert('hi');
                       {/* <div className="border-bottom mt-3">
                   </div> */}
                     <div className="px-3">                    
-                        <Link to="WineSessionCreation" className="activity-link add_wine" onClick = {(e)=> this.setState({chooseWine : true})} ><span>+</span> Wine</Link>
-                        <Link to="WineSessionCreation" className="activity-link ml-5"><span onClick = {this.addToWineDescription}>+</span> Info</Link><img src="images/bulb.png" className="ml-3 mb-2" alt='' />
+                        <Link to="/winedetail/1" className="activity-link add_wine"><span>+</span> Wine</Link>
+                        <Link to="/winedetail/1" className="activity-link ml-5"><span >+</span> Info</Link><img src="/images/bulb.png" className="ml-3 mb-2" alt='' />
                     </div>
                 </div>
           {/* Next Description Box End */}
@@ -3013,7 +3040,8 @@ alert('hi');
     </div>
     {/* Equipemnt List End */}
 
-  <Link to ="WineSessionCreation" className="save-btn btn btn-primary my-5 mx-auto" onClick={this.submitForm}>Save</Link>
+    <button  className="save-btn btn btn-primary my-5 mx-auto" data-toggle="modal" data-target="#linkGenerator" onClick={this.submitForm}>Save</button>
+  </div>
          
   {/* Select Equipemnt List Start */}
   <div className="modal" id="myModal2">
@@ -3327,7 +3355,7 @@ alert('hi');
         </div>
       </div>
       {this.state.repeatSession?
-      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" alt='' /></div>:''}
+      <div className="wd align-self-end d-none d-md-block"><img src="/images/path.png" className="w-100" alt='' /></div>:''}
       {this.state.repeatSession?
       <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
       <div className="modal-header headerborder px-0">
@@ -3442,7 +3470,7 @@ alert('hi');
         </div>
       </div>
       {this.state.signUpSessionStatus?
-      <div className="wd align-self-end d-none d-md-block"><img src="images/path.png" className="w-100" alt=''/></div>:''}
+      <div className="wd align-self-end d-none d-md-block"><img src="/images/path.png" className="w-100" alt=''/></div>:''}
       {this.state.signUpSessionStatus?
       <div className="modal-content modalbg align-self-end px-4 py-4 mt-2 mt-md-0">
       <div className="modal-header headerborder px-0">
@@ -3933,4 +3961,4 @@ alert('hi');
   }
 }
 
-export default DemoSessionWine;
+export default wineSessionOnId;
