@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from 'react-router';
 //import $ from 'jquery'
+import {  browserHistory} from 'react-router'
 class HostSessionCreation extends Component {
   
   constructor(props) {
@@ -479,7 +480,9 @@ selectHost = (e) => {
 //   this.forceUpdate();
 //   }
 }
-
+ goToSession=e=>{
+    browserHistory.push("/sessiondetail/"+1);
+ }
 render() {
 return(
 <div>
@@ -884,7 +887,7 @@ return(
                     <div className="border_line">
                         <div className="text_icn d-flex">
                             <h4 className="mr-4 white">Sessions</h4>
-                            <div className="plusicon position-static mr-0"><i className="fa fa-plus" aria-hidden="true"></i>                           </div>
+                            <div className="plusicon position-static mr-0" onClick={this.goToSession}><i className="fa fa-plus" aria-hidden="true"></i>                           </div>
 
                         </div>
                     </div>  

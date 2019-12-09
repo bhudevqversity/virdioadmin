@@ -42,7 +42,7 @@ class App extends Component {
       <Route exact path="/ChannelCreation" component={HostSessionCreation} />
       <Route path="/verify-user/:sessionId" component={verifyuser} />
       {/* <Route exact path="/HostSessionCreation" component={HostSessionCreation} /> */}
-      <Route exact path="/DashboardLanding" component={DashboardLanding} />hostSignUp
+      <Route exact path="/DashboardLanding" component={DashboardLanding} />
       <Route exact path="/hostSignUp" component={hostSignUp} />
       <Route exact path="/participentSignup" component={participentSignup} />
       <Route exact path="/signUp" component={signUp} />

@@ -31,6 +31,16 @@ submitHost=(e)=>{
     $("#bigg_cont").attr({'style':'display:none'});
 
   }
+  addInterest=(e)=>{
+    console.log('ak');
+    $("#add_interest").attr({'style':'display:block'});
+
+  }
+  closeInterest=(e)=>{
+    console.log('ak');
+    $("#add_interest").attr({'style':'display:none'});
+
+  }
 
 render() {
     return (
@@ -217,9 +227,9 @@ render() {
                                             <p>Weight Lifting</p>
                                             <p>Weight Lifting</p>
                                             <p>Weight Lifting</p>
-                                            <p>Weight Lifting</p>
+                                            <p>AK</p>
                                             <div className="add_intrst pt-3">
-                                            <p className=" add_intrs text-uppercase mb-0 pb-0"><a href="#"><span className="mr-2 pr-1">+</span>add interest</a></p>
+                                            <p className=" add_intrs text-uppercase mb-0 pb-0"  onClick={this.addInterest}><a href="#"><span className="mr-2 pr-1">+</span>add interest</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -309,7 +319,7 @@ render() {
                         </div>
                     </div>
                 </div>
-            <div className="container-fluid1 px-4 py-5">
+            <div className="container-fluid1 px-4 py-5" id="add_interest">
 			        <div className="bg-gray-shade radius-10 p-4">
                     <div className="outer-container px-5 pb-4">
                     <div className="row">
@@ -712,7 +722,7 @@ render() {
           </div>      
         </div>
         <div className="text-center">
-          <button type="button" className="done mt-5">Done</button>
+          <button type="button" className="done mt-5" onClick={this.closeInterest}>Done</button>
         </div>
       </div>
             </div>

@@ -304,8 +304,8 @@ mail=e=>{
 						<div className="col-lg-4 datepick d-flex justify-content-start flex-wrap justify-content-md-between align-items-center">
 							{/* <input type="text" name="" class="form-control" id="datepicker" /> */}
 							<DatePicker className="form-control" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
-							<div className="c_icon position-relative"><img src="images/cal.png" className=""  alt="" /><img src="images/angle-down.png" className="mr-4"  alt="" /></div>
-							<div className="c_icon position-relative"><img src="images/search1.png" className="mr-4"  alt="" /></div>
+							<div className="c_icon position-relative"><img src="/images/cal.png" className=""  alt="" /><img src="images/angle-down.png" className="mr-4"  alt="" /></div>
+							<div className="c_icon position-relative"><img src="/images/search1.png" className="mr-4"  alt="" /></div>
 						</div>
 					</div>
 				</div>
