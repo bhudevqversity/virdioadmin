@@ -129,7 +129,6 @@ fetchAttributesList() {
         addProduct:productList
         },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
 
-
     let  interestId=1;
     
     console.log('-----asdfghjkl----------',interestId);  
@@ -142,23 +141,23 @@ fetchAttributesList() {
 
           let eqarray=res.data.responseData;        
      
-        // let ka=[];
-        // for(let i=0;i<eqarray.length;i++){
-        //   //type:false,name:"Mersedes Benz"
-        //   let n = {
-        //     id: eqarray[i].id,
-        //     type:false,
-        //     channelId:eqarray[i].channelId,
-        //     interestId:eqarray[i].interestId,
-        //     product_name:eqarray[i].product_name,
-        //     description: eqarray[i].description
-        //   };
-        //   ka.push(n)
-        // }
-
-        // this.setState({
-        //   wineProduct:ka
-        //     });
+          let attributes = [];
+          let productList= this.state.addProduct;
+          for(let i=0;i<eqarray.length;i++){
+           attributes=[];
+           for(let l =0;l<eqarray[i].attributes.length;l++){
+           let n = {attrKey:eqarray[i].attributes[l].attrKey,attrValue:eqarray[i].attributes[l].attrValue,status:false,id:l};
+           attributes.push(n);   
+             }
+          
+          let n = {name : arr[i].name,
+              attributes
+          }
+          productList.push(n);
+          }
+          this.setState({
+          addProduct:productList
+          },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
       })
       .catch(err =>{
           console.log('----------there is problem------------');
@@ -415,7 +414,20 @@ saveProductList=(e)=>{
     //     this.validator.showMessages();
     // }
 
+
+    axios.post("/api/v1/session/addProduct", {saveProduct})
+    .then(res => {
+
+      //console.log(res);
+
+      console.log('=============lallittiwari12345===================>',res.data);
+
+
+
+    })   
+
 }
+
 handleProductList = idx => evt => {
     const newShareholders = this.state.productInformation.map((shareholder, sidx) => {
       if (idx !== sidx) return shareholder;
