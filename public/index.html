@@ -108,16 +108,16 @@ $('.slides_inner_part').slick({
     }
 	]
 });
-$("#customCheck1").click(function(){
-	if($(this).is(":checked"))
-	{
-		$(".parent-row").show();
-	}
-	else if($(this).is(":not(:checked)"))
-	{
-		$(".parent-row").hide();
-	}
-});
+// $("#customCheck1").click(function(){
+// 	if($(this).is(":checked"))
+// 	{
+// 		$(".parent-row").show();
+// 	}
+// 	else if($(this).is(":not(:checked)"))
+// 	{
+// 		$(".parent-row").hide();
+// 	}
+// });
 $( function() {
     // $( "#datepicker" ).datepicker();
     $(".c_icon").click(function(){$( "#datepicker" ).focus()})
@@ -141,6 +141,34 @@ $(".react-calendar__navigation__prev-button").html('<img id="" src="images/Trian
 <script>
 $('#timepicker1').timepicki();
 $('#timepicker2').timepicki();
+function readURL(input,img) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+           
+            reader.onload = function (e) {
+                $(img).attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("input[class='custom-file-input']").change(function(){
+        var im = $(this).parents('.w-100').find('img');
+        readURL(this,im);
+        // console.log(im);
+    });
+
+
+    $(document).on("change", "#file_multi_video", function(evt) {
+  var $source = $('#video_here');
+  $source[0].src = URL.createObjectURL(this.files[0]);
+  $source.parent()[0].load();
+});
+
+     $(document).on("change", "#file_multi_video1", function(evt) {
+  var $source = $('#video_here1');
+  $source[0].src = URL.createObjectURL(this.files[0]);
+  $source.parent()[0].load();
+});
 
 </script>
 

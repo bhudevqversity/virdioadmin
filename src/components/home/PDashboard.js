@@ -204,12 +204,11 @@ let date = 1574726400000 ;
 				    </li>
 			    </ul>
 			</div>
-			<div className="col-lg-4 datepick">
+			<div className="col-lg-4 pt-3 datepick11 position-relative">
 				{/* <input type="text" name="" className="form-control" id="datepicker" /> */}
 				<DatePicker className="form-control" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
-				<div className="c_icon">
-					<i className="fa fa-calendar"></i>
-					<i className="fa fa-angle-down ml-3"></i>
+				<div className="c_icon11">
+				<img src="images/cal.png" className=""  alt="" /><img src="images/angle-down.png" className="mr-4"  alt="" />
 				</div>
 			</div>
 		</div>

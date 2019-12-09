@@ -373,25 +373,29 @@ render() {
                             <label className="label text-white">Add Media Type 
                             <span className="inp_cover-border bg-gray-shade"></span>
                             </label>                    
-                            <div className="input-field position-relative d-lg-flex d-block px-3">                      
-                            <div className="one flex-fill mr-3 position-relative">                                  
-                                <div className="custom-file mb-3">
-                                <input type="file" accept="video/*" className="custom-file-input" id="mycustomFile1" name="filename" />
-                                <label className="custom-file-label px-1" for="mycustomFile1">
-                                    <img src="/images/video.png" className="browse_image1" />
-                                    <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
-                                    </label>
+                            <div className="input-field position-relative d-flex px-3">                      
+                              <div className="one flex-fill mr-3 position-relative">                                  
+                              <div class="custom-file mb-3 h-100">
+                                <video class="v-image-tag2">
+                                  <source src="" id="video_here1" />
+                                </video>
+                                <input type="file" class="custom-file-input" id="file_multi_video1" name="filename" accept="video/*" />
+                                <label class="custom-file-label px-1" for="file_multi_video1">
+                                    <img src="images/video.png" class="browse_image1" />
+                                    <p class="purple_text browse_text"><span class="white">VIDEO</span><br />Browse File</p>
+                                  </label>
+                              </div>
+                              </div>
+                              <div class="one flex-fill position-relative">
+                                <div class="custom-file mb-3 w-100 h-100">
+                                  <input type="file" class="custom-file-input" id="mycustomFile2" name="filename1" accept="image/*" />
+                                  <img src="" class="v-image-tag2" id="profile-img-tag" />
+                                  <label class="custom-file-label px-1" for="mycustomFile2">
+                                      <img src="images/browse-img.png" class="browse_image1" />
+                                      <p class="purple_text browse_text"><span class="white">IMAGE</span><br />Browse File</p>
+                                  </label>
                                 </div>
-                            </div>
-                            <div className="one flex-fill position-relative">
-                                <div className="custom-file mb-3">
-                                <input type="file" accept="image/*" className="custom-file-input" id="mycustomFile2" name="filename1" />
-                                <label className="custom-file-label px-1" for="mycustomFile2">
-                                    <img src="/images/browse-img.png" className="browse_image1" />
-                                    <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
-                                </label>
-                                </div>
-                            </div>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -688,22 +692,26 @@ render() {
                 
                 <div className="one flex-fill mr-4 position-relative">
                 
-                  <div className="custom-file mb-3">
-                    <input type="file" className="custom-file-input" id="mycustomFile3" name="filename" />
-                    <label className="custom-file-label px-1" for="mycustomFile3">
-                        <img src="/images/video2.png" className="browse_image1" />
-                        <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
-                        <a href="#" className="bg-circle position-absolute"><i className="fa fa-minus" id="0" aria-hidden="true"></i></a>
+                <div class="custom-file h-100 mb-3">
+                    <input type="file" class="custom-file-input" accept="video/*" id="file_multi_video" name="file" />
+                    <video class="v-image-tag1">
+                      <source src="" id="video_here" />
+                    </video>
+                    <label class="custom-file-label px-1" for="file_multi_video">
+                        <img src="images/video2.png" class="browse_image1" />
+                        <p class="purple_text browse_text"><span class="white">VIDEO</span><br />Browse File</p>
+                        <a href="#" class="bg-circle position-absolute"><i class="fa fa-minus" id="0" aria-hidden="true"></i></a>
                     </label>
                   </div>
                 </div>
-                <div className="one flex-fill position-relative">
-                  <div className="custom-file mb-3">
-                    <input type="file" className="custom-file-input" id="mycustomFile4" name="filename1" />
-                    <label className="custom-file-label px-1" for="mycustomFile4">
-                        <img src="/images/image1.png" className="browse_image1" />
-                        <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
-                        <a href="#" className="bg-circle position-absolute"><i className="fa fa-minus" id="0" aria-hidden="true"></i></a>
+                <div class="one flex-fill position-relative">
+                  <div class="custom-file h-100 mb-3 w-100">
+                    <input type="file" class="custom-file-input" accept="image/*" id="profile-img" name="filename1" />
+                    <img src="" class="brimg" id="profile-img-tag" width="200px" />
+                    <label class="custom-file-label px-1" for="profile-img">
+                        <img src="images/image1.png" class="browse_image1" />
+                        <p class="purple_text browse_text"><span class="white">IMAGE</span><br />Browse File</p>
+                        <a href="#" class="bg-circle position-absolute"><i class="fa fa-minus" id="0" aria-hidden="true"></i></a>
                     </label>
                   </div>
                 </div>
