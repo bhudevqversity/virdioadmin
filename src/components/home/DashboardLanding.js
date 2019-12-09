@@ -362,11 +362,7 @@ mail=e=>{
 							      <a class="nav-link act" data-toggle="tab" href="#dt3">28<br /><span>SUN</span></a>
 							    </li> */}
 							    <li className="nav-item angle-img">
-<<<<<<< HEAD
-							      <a className="pt-4 pb-3 d-inline-block" data-toggle="tab" href="#dt3"><img src="images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></a>
-=======
 							      <Link to="#dt3" className="nav-link" data-toggle="tab" ><img src="/images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></Link>
->>>>>>> nagendra-virdio
 							    </li>
 						    </ul>
 						    <div className="content-container mt-2">
