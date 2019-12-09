@@ -2768,7 +2768,7 @@ submitForm = (event) => {
     <div className="modal-content">
       <div className="modal-header">
         <h4 className="modal-title white">Select Duration</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+        <button type="button pr-3" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
       {/* <div className="modal-body">
       <ReactLightCalendar timezone = {this.state.localTimeZone}
