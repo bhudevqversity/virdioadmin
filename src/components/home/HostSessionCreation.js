@@ -80,32 +80,32 @@ fetchAttributesList() {
         {
             name: "thunderbird",
             attributes: [{
-                    attrKey: "Varietal",
+                attrLabel: "Varietal",
                     attrValue:'80% Pinot Noir',
                     
                 },
                 {
-                    attrKey: "Price",
+                    attrLabel: "Price",
                     attrValue: "80",
                     
                 },
                 {
-                    attrKey: "pH",
+                    attrLabel: "pH",
                     attrValue: 3.69,
                     
                 },
                 {
-                    attrKey: "Tasting Notes",
+                    attrLabel: "Tasting Notes",
                     attrValue: "NA",
                     
                 },
                 {
-                    attrKey: "Winemaking",
+                    attrLabel: "Winemaking",
                     attrValue: "The 2014 vintage in Napa Valley was one of the earliest harvested vintages in years. A warm spring led to early bud break and created the perfect environment for flowering and fruit set. ",
                     
                 },
                 {
-                    attrKey: "Pairs Well With",
+                    attrLabel: "Pairs Well With",
                     attrValue: "Meats and Fish: Seared Filet Mignon, Pan Roasted Veal Chops",
                  }
             ]
