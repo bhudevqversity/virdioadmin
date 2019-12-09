@@ -27,10 +27,9 @@ componentDidMount(){
 }
 
 sessionInfo=(e)=>{
-  console.log('ak');
-  this.setState({
+ this.setState({
     [e.target.id]:e.target.value
-  },()=>console.log(this.state))
+  })
 }
 verify=(e)=>{
     if (this.validator.allValid()) {
@@ -51,6 +50,10 @@ verify=(e)=>{
   if(this.state.sms || this.state.byEmail){
     console.log('nextPage');
     $("#registration_popup").attr({'style':'display:block'});
+    this.setState({
+      message:'',
+      
+    })
   }else{
     this.setState({
       message:'Choose either sms or email'
@@ -72,46 +75,48 @@ render() {
             <h4 className="white text-center py-4">Signing up as a host</h4>
             <div className="gray-box-4 px-4 pt-5 pb-4 input_bx-cont">
               <div className="form-group">
-                <label className="label">Enter First Name<span className="inp_cover-border"></span></label>
+                <label className="label">Enter First Name<sup>*</sup><span className="inp_cover-border"></span></label>
                 <input type="text" className="input-field" value={this.state.firstName} id ='firstName' onChange={this.sessionInfo}  />
                 {this.validator.message('firstName', this.state.firstName, 'required|alpha')}
                 <span className="signedup_2"></span>
               </div>
               <div className="form-group">
-                <label className="label">Enter Last Name<span className="inp_cover-border"></span></label>
+                <label className="label">Enter Last Name<sup>*</sup><span className="inp_cover-border"></span></label>
                 <input type="text" className="input-field" value={this.state.lastName} id ='lastName' onChange={this.sessionInfo}/>
                 {this.validator.message('lastName', this.state.lastName, 'required|alpha')}
                 <span className="signedup_2"></span>
               </div>
               <div className="form-group">
-                <label className="label">Email Address<span className="inp_cover-border"></span></label>
+                <label className="label">Email Address<sup>*</sup><span className="inp_cover-border"></span></label>
                 <input type="text" className="input-field myinput" value={this.state.email} id ='email' onChange={this.sessionInfo} />
                 {this.validator.message('email', this.state.email, 'required|email')}
 
                 <span className="form_email"></span>
               </div>
               <div className="form-group">
-                <label className="label">Mobile Number<span className="inp_cover-border"></span></label>
+                <label className="label">Mobile Number<sup>*</sup><span className="inp_cover-border"></span></label>
                 <input type="text" className="input-field"  value={this.state.phone} id ='phone' onChange={this.sessionInfo}/>
                 {this.validator.message('phone', this.state.phone, 'required|phone|size:10')}
                 <span className="mobile_phone1"></span>
               </div>
               <div className="form-group">
-                <label className="label">Create a Password<span className="inp_cover-border"></span></label>
+                <label className="label">Create a Password<sup>*</sup><span className="inp_cover-border"></span></label>
                 <input type="password" className="input-field" value={this.state.password} id ='password' onChange={this.sessionInfo} />
                 {this.validator.message('password', this.state.password, 'required')}
 
                 <span className="pass_word"></span>
               </div>
               <div className="form-group">
-                <label className="label">Retype Password<span className="inp_cover-border"></span></label>
+                <label className="label">Retype Password<sup>*</sup><span className="inp_cover-border"></span></label>
                 <input type="password" className="input-field" value={this.state.rePassword} id ='rePassword' onChange={this.sessionInfo} />
                 {this.validator.message('rePassword', this.state.rePassword, 'required')}
 
                 <span className="pass_word"></span>
               </div>
             </div>
-            <div className="text-center"><button type="button" className="done mt-5" onClick={this.verify}>verify</button></div>
+            <div className="text-center">
+              <button type="button" className="done mt-5" onClick={this.verify}>verify</button>
+            </div>
           </div>
           :''}
 
@@ -154,7 +159,7 @@ render() {
                 <div className="left_innr_cont h-100 pb-4 position-relative">
                   <p className="pick pb-2">Verify Your Account</p>
                   <p className="checktxt font-18 my-4">Where should we send you the verification code?</p>
-                  <div className="d-flex justify-content-center align-items-center flex-wrap pb-2">
+                  <div className="d-flex justify-content-center align-items-center flex-wrap pb-2 err_msg">
                     <div className="sms_email_box mr-3">
                         <div className="b-image text-center">
                             <img src="/images/sms.png"  alt ="#"/>
@@ -185,7 +190,7 @@ render() {
                           </label>
                         </p>
                     </div>
-                    {this.state.message}
+                    <span className="err_msg">{this.state.message}</span>
                   </div>
                   <p className="pick mt-4 mb-4 font-18">ENTER THE CODE</p>
                   <div className="o-hidden">
@@ -223,7 +228,7 @@ render() {
                         <p className="py-4 text-light text-center">Your registration was successful! As a host you can do many things on the plateform. Would you like to see a tutorial ? </p>
                         <div className="d-flex justify-content-between align-items-center">
                           <button type="button" className="custom_btn1" onClick={this.closePopUp}>yes</button>
-                          <p className="text-center mb-0 mt-2 small"><Link to="#" className="main-heading font-12" data-dismiss="modal">skip<br /> for now</Link></p>                    	
+                          <p className="text-center mb-0 mt-2 small"><Link to="/DashboardLanding" className="main-heading font-12" data-dismiss="modal">skip<br /> for now</Link></p>                    	
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import "react-datepicker/dist/react-datepicker.css";
 // import $ from 'jquery';
 
-class DashboardLanding extends Component {
+class NoAdmin extends Component {
    constructor(props) {
 	super(props);
 	this.state={
@@ -17,7 +17,7 @@ class DashboardLanding extends Component {
 		// emailer:'select email',
 		channelPopup:0,
 		participientPopup:0,
-		sessionData :[{oTitle:"Napa Fitness Testing",
+		sessionData :[{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
 		oTime:"4:30 PM",
 		oId:"2340 / 5000",
@@ -31,7 +31,7 @@ class DashboardLanding extends Component {
 		timestamp:1574553600000,
 		oPrice:"50.00",
 		oCutDate:"09/12/2019"},
-		{oTitle:"Napa Fitness Testing",
+		{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
 		oTime:"4:30 PM",
 		timestamp:1574553600001,
@@ -45,7 +45,7 @@ class DashboardLanding extends Component {
 		timestamp:1574553600002,
 		oPrice:"50.00",
 		oCutDate:"09/12/2019"},
-		{oTitle:"Napa Fitness Testing",
+		{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
 		oTime:"4:30 PM",
 		oId:"2340 / 5000",
@@ -56,7 +56,7 @@ class DashboardLanding extends Component {
 
 		boissetWine :[ {
 		channelHost :[{path:"/images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"},{path:"/images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"}],
-		winesInterest :[{path:"/images/pic.jpg",hostName:"nikhi"},{path:"/images/pic.jpg"}],
+		winesInterest :[{path:"/mages/pic.jpg",hostName:"nikhi"},{path:"/images/pic.jpg"}],
 		upComing:2,
 		pastSession:23,
 		nextSession:"03:45",
@@ -207,18 +207,7 @@ componentDidMount(){
 	}
 	uneditableMode=(e)=>{
 		console.log(e.target.id);
-		if(e.target.id%2===0){
 		browserHistory.push("/sessiondetail/"+e.target.id);
-		}else{
-		browserHistory.push("/winedetail/"+e.target.id);	
-		}
-	}
-	editableMode=(e)=>{
-		if(e.target.id%2===0){
-		browserHistory.push("/sessionEditable/"+e.target.id);
-		}else{
-		browserHistory.push("/wineSessionEditable/"+e.target.id);	
-		}
 	}
 	pastSession=(e)=>{
 		browserHistory.push("/sessiondetail/"+1);
@@ -295,9 +284,9 @@ mail=e=>{
                 <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
                     <div className="user-info d-flex align-items-center"><img src="/images/attendee.png" className="user-avtar pic" alt="" />
                         <div className="pl-4">
-                            <h3>Welcome Arjun</h3>
-                            <p>You have no sessions this week</p>
-                            {/* <p>Next Session, Wednesday, 24 July 2019</p> */}
+                            <h3>Welcome Cersei!</h3>
+                            <p>You have 3 sessions this week</p>
+                            <p>Next Session, Wednesday, 24 July 2019</p>
                         </div>
                     </div>
                 </div>
@@ -305,15 +294,15 @@ mail=e=>{
                     <div className="d-flex justify-content-between flex-wrap">
                         <div className="header-info-right">
                             <p>Weekly Attendance</p>
-                            <h3>0%</h3></div><span className="border-right gray-border"></span>
+                            <h3>66%</h3></div><span className="border-right gray-border"></span>
                         <div className="header-info-right">
                             <p>Total Views</p>
-                            <h3>0K</h3></div><span className="border-right gray-border"></span>
+                            <h3>45.6K</h3></div><span className="border-right gray-border"></span>
                         <div className="header-info-right">
                             <p>Total Revenue</p>
-                            <h3>$0</h3></div><span className="border-right gray-border"></span>
+                            <h3>$44,000</h3></div><span className="border-right gray-border"></span>
                               <div className="message-notification"><img src="/images/message.png" alt="" />
-                          <span className="message-count">0</span></div>
+                          <span className="message-count">2</span></div>
                     </div>
                 </div>
             </div>
@@ -340,128 +329,7 @@ mail=e=>{
 							<div className="c_icon position-relative"><img src="/images/search1.png" className="mr-4"  alt="" /></div>
 						</div>
 					</div>
-					<div className="parent_field_cont pb-4">
-						<div className="input_field_container round">
-							<div className="row">
-								<div className="col-xl-5 pr-lg-0">
-									<input type="text" className="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
-								</div>
-								<div className="col-xl-7 pl-4">
-									<div className="row mx-0 mt-3 mt-xl-0">
-										<div className="col-md-12">
-											<div className="custom-control custom-checkbox mb-3 text_input">
-											<input type="checkbox" className="custom-control-input" id="customCheck1" name="example1" />
-											<label className="custom-control-label" htmlFor="customCheck1">Advance</label>
-											</div>
-										</div>
-									</div>
-									<div className="parent-row">
-										<div className="row mx-0 row1 d-flex">
-											<div className="col-lg-4 col-md-6">
-												<p>On a specific date</p>
-												<input type="text" name="" className="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" />
-											</div>
-											<div className="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
-												<p>On Demand</p>
-												<div className="custom-control custom-checkbox mb-3">
-												<input type="checkbox" className="custom-control-input" id="customCheck" name="" />
-												<label className="custom-control-label" htmlFor="customCheck"></label>
-												</div>
-											</div>
-											<div className="col-lg-4 col-md-6">
-												<p>Length of session</p>
-												<div className="custom-select1">
-													<select name="">
-													<option value="30">30 min</option>
-													<option value="40">40 min</option>
-													<option value="30">30 min</option>
-													<option value="30">30 min</option>
-													</select>
-												</div>
-											</div>
-										</div>
-									</div>									
-								</div>
-							</div>
-							<div className="right-small-box">
-								<img src="images/search.png" />
-							</div>						
-						</div>
-						<div className="row mt-4">
-							<div className="col-md-3">
-								<h4 class="white mt-3 mb-3 font-22">Channel</h4>
-								<div className="">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-								<div className="">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-							</div>
-							<div className="col-md-5">
-								<h4 class="white mt-3 mb-3 font-22">Hosts</h4>								
-								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-							</div>
-							<div className="col-md-4">
-								<h4 class="white mt-3 mb-3 font-22">Interest</h4>						
-								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
-									</label>
-								</div>
-							</div>														
-						</div>							
-					</div>
 				</div>
-
-				
 				<div className="cont1">
 				
 				    <div className="tab-content">
@@ -517,7 +385,7 @@ mail=e=>{
 												onClick={e=>this.setState({
 													participientPopup:i
 												},()=>console.log(this.state.participientPopup))} alt="" /></Link>
-												<div className="mt-3"><img src="/images/edit.png" className="mt-2 ml-2"  alt="" id = {i} onClick={this.editableMode} /></div>
+												<div className="mt-3"><img src="/images/edit.png" className="mt-2 ml-2"  alt="" id = {i} onClick={e=>browserHistory.push("/sessionEditable/"+e.target.id)} /></div>
 						    				</div>
 										</div>
 										
@@ -589,159 +457,7 @@ mail=e=>{
 						    	</div>
 						    	
 						    </div>
-						    <div className="inner_containr px-4 py-4 mx--6 d-flex justify-content-between align-items-center">
-						    	<h4 className="px-2 m-0 white">Create Channel</h4>
-						    	<Link to="/ChannelCreation"><img src="/images/add.png" className="px-2"  alt="" /></Link>
-						    </div>
-						    <div className="row">
-							{this.state.boissetWine.map((row,i)=>
-						    	<div className="col-lg-4 mt-3 px-2" key={i}>
-								
-						    		<div className="inner_containr px-3 py-4">
-						    			<div className="d-flex justify-content-between flex-wrap">
-						    				<h4 className="hdng1 font-weight-bold">Boisset Wines</h4>
-						    				<Link to="/"><img src="/images/edit.png" alt="" /></Link>
-						    			</div>
-						    			<img src={row.path} alt="" className="d-block img-fluid inner_containr my-3" />
-						    			<div className="d-flex justify-content-between flex-wrap">
-						    				<div className="">
-						    					<p className="checktxt mb-0 mt-2">Upcoming</p>
-						    					<p className="pick text-center">{row.upComing}</p>
-						    				</div>
-						    				<div className="px-3">
-						    					<p className="checktxt mb-0 mt-2">Past Session</p>
-						    					<p className="pick text-center">{row.pastSession}</p>
-						    				</div>
-						    				<div className="">
-						    					<p className="checktxt mb-0 mt-2 text-right">Next Session by Damien Smith</p>
-						    					<p className="pick text-center">25 JUL, {row.nextSession} Pm</p>
-						    				</div>
-						    			</div>
-
-						    			<div className="d-flex justify-content-between flex-wrap align-items-center mt-3">
-						    				<h4 className="white">Channel Host</h4>
-						    				{/* <a href="#"><img src="images/add.png" /></a> */}
-											<Link className="pick" data-toggle="modal" data-target="#dasboard_myModal2"><img src="/images/add.png" id={i}
-											 onClick={e=>this.setState({
-												channelPopup:i
-											 },()=>console.log(this.state.channelPopup))} alt="" /></Link>
-											
-						    			</div>
-										{row.channelHost.map((channl_array,l)=>
-						    			<div className="d-flex mt-3" key={l}>
-				                            <img src={channl_array.path} className="mr-3 mt-1 w-70" alt="user-icon" />
-				                            <div>
-				                                <p className="checktxt_name pb-0 mb-2">{channl_array.hostName}</p>
-				                                <p className="checktxt mb-0">Next session on {channl_array.next_session}</p>
-				                                <p className="checktxt mb-0">Past Revenue {channl_array.p_revenue}</p>
-				                            </div>
-						    			</div>
-										)}
-						    			{/* <div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
-				                            <div>
-				                                <p class="checktxt_name pb-0 mb-2">David Cornel</p>
-				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
-				                                <p class="checktxt mb-0">Past Revenue $34,000</p>
-				                            </div>
-						    			</div> */}
-						    			<div className="d-flex justify-content-between flex-wrap mt-4 align-items-center">
-						    				<h4 className="white">Interests</h4>
-						    				<Link to="#"><img src="/images/add.png"  alt="" /></Link>
-						    			</div>
-										{row.winesInterest.map((inter_array,l)=>
-						    			<div className="d-flex mt-3" key={l}>
-				                            <img src={inter_array.path} className="mr-3 mt-1 w-70" alt="user-icon" />
-				                            <div className="flex-grow-1">
-				                                <p className="checktxt_name pb-0 mb-2">Napa Wines</p>
-				                                <p className="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
-				                                <div className="overflow-hidden">
-					                                <p className="checktxt mb-0 float-left">Upcoming Sessions 3</p>
-					                                <p className="checktxt mb-0 float-right">Past Sessions 33</p>
-				                            	</div>
-				                            	<div className="clearfix"></div>
-				                            </div>
-						    			</div>
-										)}
-						    			{/* <div class="d-flex mt-3">
-				                            <img src="images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
-				                            <div class="flex-grow-1">
-				                                <p class="checktxt_name pb-0 mb-2">Sonoma Wines</p>
-				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
-				                                <div class="overflow-hidden">
-					                                <p class="checktxt mb-0 float-left">Upcoming Sessions 2</p>
-					                                <p class="checktxt mb-0 float-right">Past Sessions 22</p>
-				                            	</div>
-				                            	<div class="clearfix"></div>
-				                            </div>
-						    			</div> */}
-						    		</div>
-								
-								</div>
-								)}
-
-						    	{/* <div class="col-lg-4 mt-3 px-2">
-						    		<div class="inner_containr px-3 py-4">
-						    			<div class="d-flex justify-content-between flex-wrap">
-						    				<h4 class="hdng1 font-weight-bold">Boisset Wines</h4>
-						    				<a href="#"><img src="/images/edit.png" /></a>
-						    			</div>
-						    			<img src="/images/wine1.jpg" class="d-block img-fluid inner_containr my-3" />
-						    			<div class="d-flex justify-content-between flex-wrap">
-						    				<div class="">
-						    					<p class="checktxt mb-0 mt-2">Upcoming</p>
-						    					<p class="pick text-center">3</p>
-						    				</div>
-						    				<div class="px-3">
-						    					<p class="checktxt mb-0 mt-2">Past Sessions</p>
-						    					<p class="pick text-center">23</p>
-						    				</div>
-						    				<div class="">
-						    					<p class="checktxt mb-0 mt-2 text-right">Next Session by Damien Smith</p>
-						    					<p class="pick text-center">25 JUL, 03:45 PM</p>
-						    				</div>
-						    			</div>
-						    			<div class="d-flex justify-content-between flex-wrap align-items-center mt-3">
-						    				<h4 class="white">Channel Host</h4>
-						    				<a href="#"><img src="/images/add.png" /></a>
-						    			</div>
-						    			<div class="d-flex mt-3">
-				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
-				                            <div>
-				                                <p class="checktxt_name pb-0 mb-2">Ritesh Shrivastva</p>
-				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
-				                                <p class="checktxt mb-0">Past Revenue $34,000</p>
-				                            </div>
-						    			</div>
-						    			<div class="d-flex mt-3">
-				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
-				                            <div>
-				                                <p class="checktxt_name pb-0 mb-2">David Cornel</p>
-				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
-				                                <p class="checktxt mb-0">Past Revenue $34,000</p>
-				                            </div>
-						    			</div>
-						    			<div class="d-flex justify-content-between flex-wrap mt-4">
-						    				<h4 class="white">Interests</h4>
-						    				<a href="#"><img src="/images/add.png" /></a>
-						    			</div>
-						    			<div class="d-flex mt-3">
-				                            <img src="/images/pic.jpg" class="mr-3 mt-1 w-70" alt="user-icon" />
-				                            <div class="flex-grow-1">
-				                                <p class="checktxt_name pb-0 mb-2">Napa Wines</p>
-				                                <p class="checktxt mb-0">Next session on 22 JUL, 3:45 PM</p>
-				                                <div class="overflow-hidden">
-					                                <p class="checktxt mb-0 float-left">Upcoming Sessions 3</p>
-					                                <p class="checktxt mb-0 float-right">Past Sessions 33</p>
-				                            	</div>
-				                            	<div class="clearfix"></div>
-				                            </div>
-						    			</div>
-						    		</div>
-						    	</div> */}
-						    </div>
-
-						{/* Select add channel host Start */}
+						    {/* Select add channel host Start */}
 							
 						<div className="modal" id="dasboard_myModal2">
 						<div className="modal-dialog modal-dialog-centered">
@@ -1002,4 +718,4 @@ mail=e=>{
  }
 }
 
-export default DashboardLanding;
+export default NoAdmin;

@@ -1496,7 +1496,7 @@ submitForm = (event) => {
           <h4 className="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
           <div className="d-flex flex-wrap float-right">
               <p className="float-right purple_text mr-4 bordr-right mb-0"><a href="#" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</a></p>
-              <p className="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" className="purple_text">x</Link></p>
+              <p className="float-right purple_text mr-4 ml-4 mb-0"><Link to="/DashboardLanding" className="purple_text">x</Link></p>
           </div>    
         </div>
         {/* <div className="overflow-hidden">
@@ -2704,7 +2704,7 @@ submitForm = (event) => {
 </div>
  {/* Add a new Product End */}
 
- <div className="modal" id="link_generator" show={this.state.onSave} onHide={this.handleShow}>
+ <div className="modal" id="link_generator" >
   <div className="modal-dialog small_width">
     <div className="modal-content">
       <div className="modal-header headerborder">
@@ -2768,7 +2768,7 @@ submitForm = (event) => {
     <div className="modal-content">
       <div className="modal-header">
         <h4 className="modal-title white">Select Duration</h4>
-        <button type="button" className="close white closepopup" data-dismiss="modal">&times;</button>
+        <button type="button pr-3" className="close white closepopup" data-dismiss="modal">&times;</button>
       </div>
       {/* <div className="modal-body">
       <ReactLightCalendar timezone = {this.state.localTimeZone}

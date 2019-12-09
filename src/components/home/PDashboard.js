@@ -100,39 +100,15 @@ let date = 1574726400000 ;
 
 
   render() {
-	var settings = {
-		dots: true,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 4,
-      initialSlide: 0,
-		// responsive: [
-		// 	{
-		//   breakpoint: 1024,
-		//   settings: {
-		// 	slidesToShow: 3,
-		// 	slidesToScroll: 1,
-		//   }
-		// },
-		// {
-		//   breakpoint: 600,
-		//   settings: {
-		// 	slidesToShow: 2,
-		// 	slidesToScroll: 1,
-		// 	arrows:false
-		//   }
-		// },
-		// {
-		//   breakpoint: 480,
-		//   settings: {
-		// 	slidesToShow: 1,
-		// 	slidesToScroll: 1,
-		// 	arrows:false
-		//   }
-		// }
-		// ]
-	  };
+	// var settings = {
+	// 	dots: true,
+    //   infinite: false,
+    //   speed: 500,
+    //   slidesToShow: 1,
+    //   slidesToScroll: 4,
+    //   initialSlide: 0,
+		
+	//   };
 
 
     return (
@@ -148,9 +124,9 @@ let date = 1574726400000 ;
 				<div className="user-info d-flex align-items-center">
 					<img src="/images/pic.jpg" className="user-avtar pic" alt=''/>
 					<div className="pl-4">
-						<h2 className="mb-0">Welcome Cersei!</h2>
-						<p className="mb-0">You have 3 sessions this week</p>
-						<p>Next Session, Wednesday, 24 July 2019</p>
+						<h2 className="mb-0">Welcome Arjun!</h2>
+						<p className="mb-0">You have no sessions this week</p>
+						{/* <p>Next Session, Wednesday, 24 July 2019</p> */}
 					</div>
 				</div>
 			</div>
@@ -177,7 +153,7 @@ let date = 1574726400000 ;
 					<div className="col-sm-2 col-xl-2">
 						<div className="text-sm-center pt-sm-2">
 							<p className="mb-2 icons"><i className="fa fa-commenting"></i>
-								<span className="badge">2</span>
+								<span className="badge">0</span>
 							</p>
 						</div>
 					</div>
