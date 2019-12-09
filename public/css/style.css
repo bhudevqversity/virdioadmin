@@ -237,14 +237,20 @@ select.input-field
 {
 	position: relative;
 }
-.datepick input.form-control
+.datepick input
 {
 	background-color: transparent;
 	border: none;
-	font-size: 30px;
-	color: gray;
-	margin-top: 12px;
-	padding-left: 40px;
+	font-size: 28px;
+	color: white;
+	width: 200px;
+	font-family: Avenir-Book;
+}
+.datepick input:focus
+{
+	background-color: transparent;
+	border: none;
+	color: white;
 }
 input.form-control:focus
 {
@@ -253,10 +259,10 @@ input.form-control:focus
 }
 .c_icon
 {
-	position: absolute;
+	/* position: absolute;
 	top: 27px;
-	right: 35px;
-	padding-left: 25px;
+	right: 35px; */
+	/* padding-left: 25px; */
 }
 .c_icon:before
 {
@@ -265,8 +271,8 @@ input.form-control:focus
 	width: 1px;
 	height: 30px;
 	background-color: gray;
-	top: 0;
-	left: -4px;
+	top: 0px;
+    left: -24px;
 }
 .srch_icon:before
 {
@@ -1275,7 +1281,11 @@ div.overflow-hidden p:nth-child(1) a:after
 }
 .cal_modal .modal-dialog .modal-content:nth-child(1)
 {
-	width: 529px;
+	width: 50%;
+}
+.cal_modal .modal-dialog .modal-content:nth-child(3)
+{
+	width: 50%;
 }
 .cal_modal .label
 {
@@ -1295,7 +1305,7 @@ div.overflow-hidden p:nth-child(1) a:after
 
 .wd
 {
-	flex-basis: 3%;
+	flex-basis: 2%;
 	margin-bottom: 50px;
 }
 .cal_modal .modal-content:nth-child(2) span.dropdown-icon
@@ -1481,10 +1491,7 @@ input.timepicki-input
 {
 	color: white;
 }
-.add_text .fa-plus
-{
-	padding-top: 5px;
-}
+
 .register-frm .switch
 {
 	width: 32px;
@@ -1528,7 +1535,7 @@ input.timepicki-input
 }
 .custom-file-label
 {
-	top: -38px;
+	top: -48px;
 }
 .custom-file-label.input-field
 {
@@ -1756,7 +1763,7 @@ input.timepicki-input
         z-index: -1;
         left: -15px;
         width: 125%;
-        height: 3px;
+        height: 2px;
       }
       .input_bx-cont .form-group .input-field
       {
@@ -1836,24 +1843,20 @@ input.timepicki-input
         color: #fff;
         text-align: center;
         font-family: "Avenir-Book";
-        font-size: 18px;
+        font-size: 17px;
         text-transform: uppercase;
         font-weight: bold;
         cursor: pointer;
         border: none;
-        padding: 15px 40px;
+        padding: 12px 35px;
         bottom: -90px;
         transform: translateX(-50%);
         left: 50%;
-	  }
-	  
-	  /*-------------slide-2 & 3 CSS----------------*/
-
-	  .custom_btn1
+      }
+      .custom_btn1
       {
       	border-radius: 25px;
-        background: #731C92
-;
+        background: #731c92;
         color: #fff;
         text-align: center;
         font-family: "Avenir-Book";
@@ -1862,12 +1865,11 @@ input.timepicki-input
         font-weight: bold;
         cursor: pointer;
         border: none;
-        padding: 10px 35px;
+        padding: 10px 35px;      
       }
       .modl_bg_drk
       {
-      	background-color: #383737
- !important;
+      	background-color: #383737 !important;
       	box-shadow: 1px 13px 34px black;
       }
       #registration_popup .modal-dialog.small_width
@@ -1886,7 +1888,359 @@ input.timepicki-input
       {
       	color: #eee !important;
       	text-decoration: none;
+	  }
+	  
+/*-------------slide-11 to slide-18 CSS----------------*/
+
+.gray_bx1
+{
+  background-color: #2a2a2a;
+  border-radius: 10px;
+}
+.text_dark_gray
+{
+  color: #777777;
+}
+.line_custom
+{
+  height: 1px;
+  background-color: #541d68;
+}
+
+.flx p
+{
+  padding: 0px 10px;
+  margin-bottom: 0;
+  color: #c2c2c2;
+  position: relative;
+}
+.flx p:before
+{
+  content: "";
+  position: absolute;
+  top: 6px;
+  height: 55%;
+  background-color: #541d68;
+  left: 0;
+  width: 2px; 
+}
+.flx .btn_link p:before
+{
+  display: none;
+}
+
+.flx .flex-fill.btn_link
+{
+  border-radius: 10px;
+  background-color: #541d68;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+}
+.cursor-pointer
+{
+  cursor: pointer;
+}
+.innr_boxx h3.activity-link
+{
+  font-size: 35px;
+}
+.innr_boxx h3.activity-link:before
+{
+  content: "";
+  position: absolute;
+  top: 6px;
+  height: 70%;
+  background-color: #bd00ff;
+  left: 0;
+  width: 3px; 
+}
+#manage_group_modal, #interest_to_fitness
+{
+  background-color: black;
+}
+#manage_group_modal .modal-content, #interest_to_fitness .modal-content
+{
+  background-color: transparent;
+}
+button.closee
+{
+  position: absolute;
+  top: 8px;
+  right: 5px;
+}
+h2.display-2
+{
+  color: #646464;
+  font-family: unset;
+}
+.custom_btn11
+  {
+	border-radius: 24px;
+	background: rgba(189,0,255,0.5);
+	color: #fff;
+	text-align: center;
+	font-family: "Avenir-Medium";
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+	padding: 12px 50px;      
+  }
+  .round
+  {
+	border-radius: 10px;
+  }
+  .big_container
+  {
+	display: none;
+	z-index: 99999;
+	top: 0;
+	left: 0;
+	background-color: rgba(46, 46, 46, 0.7);
+  }
+  .big_container .inp_cover-border
+  {
+	background-color: #383737;
+  }
+  .big_container .small_width
+  {
+	max-width: 35%;
+  }
+  .big_container .input-field
+  {
+	height: 55px;
+  }
+  .big_container .custom_btn
+  {
+	transform: translateX(0);
+  }
+  .modl_bg_drk1 
+  {
+	box-shadow: 1px 13px 34px #222222;
+  }
+	.bg-gray-shade
+  {
+	background-color: #3c3c3c;
+  }
+  .radius-10
+  {
+	border-radius: 10px !important;
+  }
+  .float_container .card-body h2
+  {
+	  color: #b404f2;
+	font-weight: bolder;
+	font-size: 22px;
+	transform: translateY(25px);
+	margin-bottom: 50px;
+  }
+  
+  .float_container .card-body p
+  {
+	  color: white;
+	  font-size: 17px;
+	  padding-bottom: 8px;
+  }
+  .float_container .edt_icon
+  {
+	  position: absolute;
+	  top: 15px;
+	  right: 15px;
+	  width: 25px;
+  }
+
+  sup.sup-white
+  {
+	  color: white;
+	  font-family: Avenir-Book;
+	  font-weight: normal;
+	  top: -1.2em;
+  }
+  .translatee
+  {
+	  transform: translateY(-10px);
+  }
+  .w-95
+  {
+	  max-width: 95% !important;
+  }
+  .card-columns
+  {
+	  column-count: 4;
+  }
+  .add_intrst
+  {
+	  border-top: 1px solid #b404f2;
+  }
+  .add_intrst p a, .add_intrst p
+  {
+	  text-decoration: none;
+	  color: white;
+	  font-size: 15px !important;
+  }
+  .add_intrst p a span
+  {
+	  color: #bd00ff;
+	  font-size: 30px;
+	  transform: translateY(3px);
+	  display: inline-block;
+  }
+  .gray_text
+      {
+      	color: #767676;
+      	font-family: "Avenir-Medium" !important; 
       }
+      input.input-field-trans
+      {
+      	background-color: transparent;
+      	color: white;
+      	font-size: 20px;
+      	border: none;
+      	font-family: "Avenir-Book";
+      	width: 100%;
+      }
+      #interest_to_fitness .switch
+      {
+      	    height: 20px;
+      	    width: 32px;
+      }
+      #interest_to_fitness .slider:before
+      {
+      	height: 14px;
+    	width: 14px;
+    	left: 4px;
+    	bottom: 3px;
+      }
+      #interest_to_fitness input:checked + .slider:before
+      {
+      	-webkit-transform: translateX(10px);
+		-ms-transform: translateX(10px);
+		transform: translateX(10px);
+      }
+      #interest_to_fitness .slider
+      {
+      	background-color: #4c4c4c;
+      	box-shadow: none;
+      }
+     #interest_to_fitness input:checked + .slider {
+	  background-color: #fff;
+	}
+ 
+  .container-fluid1
+  {
+	position: fixed;
+	height: 100%;
+	overflow-y: auto;
+	display: none;
+	z-index: 99999;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.9);
+  }
+  .container-fluid1 .video_img .one
+  {
+	height: 193px;
+
+  }
+  .container-fluid1 .video_img .custom-file-label
+  {
+    height: 176px;
+	border: none;
+	width: 100%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  .container-fluid1 .custom-file-label
+  {
+	top: 0;
+  }
+  .container-fluid1 .video_img .input-field
+  {
+	height: auto;
+  }
+  .container-fluid1 .browse_image1 {
+  width: 100%;
+  margin-top: 10px;
+  height: 160px;
+  }
+.container-fluid1 .outer-container.browse_text
+{
+left: 43%;
+right: 0;
+top: 65px;
+}
+.line_custom-purple
+{
+height: 1px;
+background-color: #bd00ff;
+}
+  
+.gray-box-5 .cover-border
+{
+background-color: #363636;
+height: 2px;
+}
+.container-fluid1 .video_img .bg-circle
+{
+right: -10px;
+top: 53%;
+transform: translateY(-53%);
+z-index: 999;
+color: white;
+}
+.text_dark_gray1
+{
+  color: #838383 !important;
+}
+.font-book
+{
+font-family: Avenir-Book !important;
+}
+.font-medium
+{
+font-family: Avenir-Medium !important;
+}
+.input-fld-outer .form-group
+{
+width: 339px;
+margin-right: 40px;
+}
+.input-fld-outer .form-group .span1
+{
+position: absolute;
+right: 30px;
+top: 20px;
+color: #b7b0ba;
+}
+.input-fld-outer .input-field
+{
+height: 66px;
+
+}
+.outer-container1 .input-field, .outer-container1 .video_img .custom-file-label
+{
+background-color: #47344e;
+}
+.outer-container .bg-circle
+{
+width: 24px;
+height: 24px;
+font-size: 12px;
+}
+.input-fld-outer .bg-circle.position-absolute
+{
+
+top: 20px;
+right: -12px;
+}
+.w-300
+{
+width: 378px;
+}
 /* Responsive Code */
 
 @media(max-width: 900px)
@@ -1927,14 +2281,14 @@ input.timepicki-input
 	font-size: 1.1vw !important;
 	color: white !important;
 }
- .datepick input.form-control
+ .datepick input
 	{
 		font-size: 25px;
 	}
-	.c_icon
+	/* .c_icon
 	{
 		padding-left: 15px;
-	}
+	} */
 	.input_field_container .col-xl-7:before
 	{
 		display: none;
@@ -2141,10 +2495,10 @@ input.timepicki-input
 .react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
     background-color: #343434 !important;
 }
-[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+/* [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
     cursor: pointer;
     color: #ffffff !important;
-}
+} */
 .react-calendar__navigation__label{
 	color: aliceblue !important;
 }
