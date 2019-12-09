@@ -233,26 +233,26 @@ componentDidMount(){
 
     let  channelId=1;
     
-    let eqarray =[{id: 10, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
-      ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
-      {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
-      {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
-    let ka=[];
-    for(let i=0;i<eqarray.length;i++){
-      //type:false,name:"Mersedes Benz"
-      let n = {
-        id: eqarray[i].id,
-        type:false,
-        channelId:eqarray[i].channelId,
-        interestId:eqarray[i].interestId,
-        product_name:eqarray[i].product_name,
-        description: eqarray[i].description
-      };
-      ka.push(n)
-    } 
-    this.setState({
-      wineProduct:ka
-    },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
+    // let eqarray =[{id: 10, channelId: 1, interestId: 1, product_name: "JCB", description: "This is good"}
+    //   ,{id: 2, channelId: 1, interestId: 1, product_name: "Lynmar", description: "this is"},
+    //   {id: 3, channelId: 1, interestId: 1, product_name: "2014 Bliss Block Pinot Noir", description: "this is "},
+    //   {id: 4, channelId: 1, interestId: 1, product_name: "2016 Block 10 Pinot Noir", description: "this is"}]
+    // let ka=[];
+    // for(let i=0;i<eqarray.length;i++){
+    //   //type:false,name:"Mersedes Benz"
+    //   let n = {
+    //     id: eqarray[i].id,
+    //     type:false,
+    //     channelId:eqarray[i].channelId,
+    //     interestId:eqarray[i].interestId,
+    //     product_name:eqarray[i].product_name,
+    //     description: eqarray[i].description
+    //   };
+    //   ka.push(n)
+    // } 
+    // this.setState({
+    //   wineProduct:ka
+    // },()=>console.log('this.state.wineProduct--------------------',this.state.wineProduct))  
 
 
     console.log('-----asdfghjkl----------',channelId);  

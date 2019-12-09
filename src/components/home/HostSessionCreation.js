@@ -69,7 +69,51 @@ componentDidMount(){
 this.setChannelInterest();
 this.setChannelHost();
 this.addToProductList();
+this.fetchAttributesList();
+//this.addToProductList();
 }
+
+
+fetchAttributesList() {  
+
+    let  interestId=1;
+    
+    console.log('-----asdfghjkl----------',interestId);  
+
+      axios      
+      
+      .get("/api/v1/session/"+interestId+"/attributeList")          
+      .then(res => {
+        console.log('---------interestIdproduct--------------',res.data.responseData);
+
+          let eqarray=res.data.responseData;        
+     
+        // let ka=[];
+        // for(let i=0;i<eqarray.length;i++){
+        //   //type:false,name:"Mersedes Benz"
+        //   let n = {
+        //     id: eqarray[i].id,
+        //     type:false,
+        //     channelId:eqarray[i].channelId,
+        //     interestId:eqarray[i].interestId,
+        //     product_name:eqarray[i].product_name,
+        //     description: eqarray[i].description
+        //   };
+        //   ka.push(n)
+        // }
+
+        // this.setState({
+        //   wineProduct:ka
+        //     });
+      })
+      .catch(err =>{
+          console.log('----------there is problem------------');
+
+      });
+
+  }
+  
+
 addToProductList=(e)=>{
     let arr = [
         {
@@ -297,6 +341,7 @@ saveVideoFile = event=>{
     },()=>console.log(this.state.videoFile,'Preview---------',this.state.imageFile))
 }
 saveProductList=(e)=>{
+   // alert('hi');
     //e.preventDefault();
     //console.log('$("#description").val()',$("#description").val());
     console.log('Product List',this.state.productInformation);
