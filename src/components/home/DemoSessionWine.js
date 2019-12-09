@@ -2304,7 +2304,7 @@ submitForm = (event) => {
                         <option>Intermediate</option>
                         <option>Advance</option>
                       </select>
-                      {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required|integer')}						  
+                      {this.validator.message('exampleFormControlSelect1', this.state.exampleFormControlSelect1, 'required')}						  
                 
                   </div>
                   </div>

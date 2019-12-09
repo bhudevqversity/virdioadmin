@@ -379,7 +379,7 @@ mail=e=>{
 						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase">session details</button></div>
 						    					
 												{/* <div className="mt-3 mr-4"><img src="/images/invite.png" className="mt-2"  alt="" /></div> */}
-						    					<Link to ="/DashboardLanding" className="pick mt-3" data-toggle="modal" data-target="#dash_add_participent"><img src="/images/invite.png" className="mt-2 ml-2" id={i}
+						    					<Link to ="/DashboardLanding" className="pick mt-3" data-toggle="modal" data-target="#dash_add_participent"><img src="/images/invite.png" className="mt-2 ml-2 mr-4" id={i}
 											 onClick={e=>this.setState({
 												participientPopup:i
 											 },()=>console.log(this.state.participientPopup))} alt="" /></Link>
