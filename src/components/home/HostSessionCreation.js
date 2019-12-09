@@ -75,59 +75,60 @@ this.fetchAttributesList();
 }
 
 
-fetchAttributesList() {  
+fetchAttributesList() {
+    let attributes = [];
+    let productList= this.state.addProduct;  
     let arr = [
-        {
-            name: "thunderbird",
-            attributes: [{
-                attrLabel: "Varietal",
-                    attrValue:'80% Pinot Noir',
+        // {
+        //     name: "thunderbird",
+        //     attributes: [{
+        //         attrLabel: "Varietal",
+        //             attrValue:'80% Pinot Noir',
                     
-                },
-                {
-                    attrLabel: "Price",
-                    attrValue: "80",
+        //         },
+        //         {
+        //             attrLabel: "Price",
+        //             attrValue: "80",
                     
-                },
-                {
-                    attrLabel: "pH",
-                    attrValue: 3.69,
+        //         },
+        //         {
+        //             attrLabel: "pH",
+        //             attrValue: 3.69,
                     
-                },
-                {
-                    attrLabel: "Tasting Notes",
-                    attrValue: "NA",
+        //         },
+        //         {
+        //             attrLabel: "Tasting Notes",
+        //             attrValue: "NA",
                     
-                },
-                {
-                    attrLabel: "Winemaking",
-                    attrValue: "The 2014 vintage in Napa Valley was one of the earliest harvested vintages in years. A warm spring led to early bud break and created the perfect environment for flowering and fruit set. ",
+        //         },
+        //         {
+        //             attrLabel: "Winemaking",
+        //             attrValue: "The 2014 vintage in Napa Valley was one of the earliest harvested vintages in years. A warm spring led to early bud break and created the perfect environment for flowering and fruit set. ",
                     
-                },
-                {
-                    attrLabel: "Pairs Well With",
-                    attrValue: "Meats and Fish: Seared Filet Mignon, Pan Roasted Veal Chops",
-                 }
-            ]
-        }
+        //         },
+        //         {
+        //             attrLabel: "Pairs Well With",
+        //             attrValue: "Meats and Fish: Seared Filet Mignon, Pan Roasted Veal Chops",
+        //          }
+        //     ]
+        // }
         ];
-        let attributes = [];
-        let productList= this.state.addProduct;
-        for(let i=0;i<arr.length;i++){
-         attributes=[];
-         for(let l =0;l<arr[i].attributes.length;l++){
-         let n = {attrKey:arr[i].attributes[l].attrKey,attrValue:arr[i].attributes[l].attrValue,status:false,id:l};
-         attributes.push(n);   
-           }
         
-        let n = {name : arr[i].name,
-            attributes
-        }
-        productList.push(n);
-        }
-        this.setState({
-        addProduct:productList
-        },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
+        // for(let i=0;i<arr.length;i++){
+        //  attributes=[];
+        //  for(let l =0;l<arr[i].attributes.length;l++){
+        //  let n = {attrKey:arr[i].attributes[l].attrKey,attrValue:arr[i].attributes[l].attrValue,status:false,id:l};
+        //  attributes.push(n);   
+        //    }
+        
+        // let n = {name : arr[i].name,
+        //     attributes
+        // }
+        // productList.push(n);
+        // }
+        // this.setState({
+        // addProduct:productList
+        // },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
 
     let  interestId=1;
     
@@ -135,7 +136,7 @@ fetchAttributesList() {
 
       axios      
       
-      .get("/api/v1/session/"+interestId+"/attributeList")          
+      .get("http://192.168.1.177:8001/api/v1/session/"+interestId+"/attributeList")          
       .then(res => {
         console.log('---------interestIdproduct--------------',res.data.responseData);
 
@@ -143,18 +144,16 @@ fetchAttributesList() {
      
           let attributes = [];
           let productList= this.state.addProduct;
-          for(let i=0;i<eqarray.length;i++){
-           attributes=[];
-           for(let l =0;l<eqarray[i].attributes.length;l++){
-           let n = {attrKey:eqarray[i].attributes[l].attrKey,attrValue:eqarray[i].attributes[l].attrValue,status:false,id:l};
-           attributes.push(n);   
+          for(let i =0;i<eqarray.length;i++){
+           let n = {attrKey:eqarray[i].attrLabel,attrValue:'',status:false,id:i};
+           attributes.push(n);
+           console.log('attributes-----',attributes);   
              }
           
-          let n = {name : arr[i].name,
+          let n = {name : 'ChannelCreation',
               attributes
-          }
-          productList.push(n);
-          }
+            }
+            productList.push(n);       
           this.setState({
           addProduct:productList
           },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
@@ -400,8 +399,8 @@ saveProductList=(e)=>{
     //console.log('$("#description").val()',$("#description").val());
     console.log('Product List',this.state.productInformation);
     const saveProduct = {
-        name:this.state.addProduct[0].name,
-        productName:this.state.shoppingProductName,
+        name:this.state.shoppingProductName,
+        productName:this.state.addProduct[0].name,
         attributes:this.state.productInformation,
         videoFile:this.state.videoFile,
         imageFile:this.state.imageFile
@@ -1260,7 +1259,7 @@ return(
                 <label className="custom-file-label px-1"  htmlFor="videoFile">
                     <img src="images/video2.png" className="browse_image1" alt=''/>
                     <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
-                    <Link to="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
+                    <Link to="/ChannelCreation" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
                 </label>
               </div>
             </div>
@@ -1270,7 +1269,7 @@ return(
                 <label className="custom-file-label px-1" htmlFor="imageFile">
                     <img src="/images/image1.png" className="browse_image1" alt="#"/>
                     <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
-                    <Link to="#" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
+                    <Link to="/ChannelCreation" className="bg-circle position-absolute"><i className="fa fa-minus pt-1" id="0" aria-hidden="true"></i></Link>
                 </label>
               </div>
             </div>
