@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import {  browserHistory} from 'react-router'
 import DatePicker from "react-datepicker";
+import { Link } from 'react-router';
 import "react-datepicker/dist/react-datepicker.css";
-import $ from 'jquery';
+// import $ from 'jquery';
 
 class DashboardLanding extends Component {
    constructor(props) {
@@ -13,7 +14,9 @@ class DashboardLanding extends Component {
 		upcomingSession:[],
 		sessionInformation:'',
 		// dash_land_prop:true,
+		// emailer:'select email',
 		channelPopup:0,
+		participientPopup:0,
 		sessionData :[{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
 		oTime:"4:30 PM",
@@ -52,8 +55,8 @@ class DashboardLanding extends Component {
 
 
 		boissetWine :[ {
-		channelHost :[{path:"images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"},{path:"images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"}],
-		winesInterest :[{path:"images/pic.jpg",hostName:"nikhi"},{path:"images/pic.jpg"}],
+		channelHost :[{path:"/images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"},{path:"/images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"}],
+		winesInterest :[{path:"/mages/pic.jpg",hostName:"nikhi"},{path:"/images/pic.jpg"}],
 		upComing:2,
 		pastSession:23,
 		nextSession:"03:45",
@@ -62,12 +65,12 @@ class DashboardLanding extends Component {
 
 			},
 			{
-				channelHost :[{path:"images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"},{path:"images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"}],
-				winesInterest :[{path:"images/pic.jpg",hostName:"nikhi"},{path:"images/pic.jpg"}],
+				channelHost :[{path:"/images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"},{path:"/images/pic.jpg",hostName:"nikhi",next_session:"22 JUL, 3:45 PM",p_revenue:"$34,000"}],
+				winesInterest :[{path:"/images/pic.jpg",hostName:"nikhi"},{path:"/images/pic.jpg"}],
 				upComing:2,
 				pastSession:23,
 				nextSession:"03:45",
-				path:"images/banner1.jpg"
+				path:"/images/banner1.jpg"
 			}
 		],
 		checkHost:'',
@@ -77,10 +80,15 @@ class DashboardLanding extends Component {
 		customRollRadio2:false,
 		mail:'',
 		hostMail:[{mail:''},{mail:'ak@gmail.com'},{mail:'ak1@gmail.com'}],
+		customRadio3:false,
+		customRadio4:true
 			
 
 	}
+	
 }
+
+
 
 checkHost1=(e)=>{
 	console.log(e.target)
@@ -112,13 +120,23 @@ checkRoll2=(e)=>{
 		},()=>console.log(this.state.customRollRadio2))
 }
 
-forEmailer() {
-	var arr = [];
-	//   for (let i = 0; i <= 23; i++) {
-	// 	  arr.push(<option key={i} value="{i}">{i}</option>)
-	//   }
-	return arr; 
-  }
+// add participient
+
+checkHost3=(e)=>{
+	console.log('2',e.target)
+	this.setState({
+		[e.target.id]:!this.state.customRadio3,
+		customRadio4:!this.state.customRadio4
+		},()=>console.log(this.state.customRadio3))
+}
+checkHost4=(e)=>{
+	console.log('1',e.target)
+	this.setState({
+		[e.target.id]:!this.state.customRadio4,
+		customRadio3:!this.state.customRadio3
+		},()=>console.log(this.state.customRadio4))
+}
+
 
 componentDidMount(){
 	// $("#dash_land_block :input").attr("disabled", true);
@@ -165,6 +183,9 @@ componentDidMount(){
 	},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
 	
 	}
+	
+
+	
 
 
 	scriptOnDate=(e)=>{
@@ -259,9 +280,9 @@ mail=e=>{
     <div className="App">
         <div className="container-fluid">
 			<div className="row top-header px-4 py-3">
-                <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="images/login-logo.png" className="logo" alt="logo" /></div>
+                <div className="col-lg-2 d-flex d-md-block justify-content-center p-2"><img src="/images/login-logo.png" className="logo" alt="logo" /></div>
                 <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
-                    <div className="user-info d-flex align-items-center"><img src="images/attendee.png" className="user-avtar pic" alt="" />
+                    <div className="user-info d-flex align-items-center"><img src="/images/attendee.png" className="user-avtar pic" alt="" />
                         <div className="pl-4">
                             <h3>Welcome Cersei!</h3>
                             <p>You have 3 sessions this week</p>
@@ -280,7 +301,7 @@ mail=e=>{
                         <div className="header-info-right">
                             <p>Total Revenue</p>
                             <h3>$44,000</h3></div><span className="border-right gray-border"></span>
-                              <div className="message-notification"><img src="images/message.png" alt="" />
+                              <div className="message-notification"><img src="/images/message.png" alt="" />
                           <span className="message-count">2</span></div>
                     </div>
                 </div>
@@ -291,13 +312,13 @@ mail=e=>{
 						<div className="col-lg-8">
 							<ul className="nav nav-tabs" role="tablist">
 							    <li className="nav-item">
-							      <a className="nav-link active" data-toggle="tab" onClick={this.upcomingSession} href="#us">Upcoming Session</a>
+							      <Link to="#us" className="nav-link active" data-toggle="tab" onClick={this.upcomingSession} >Upcoming Session</Link>
 							    </li>
 							    <li className="nav-item">
-							      <a className="nav-link" data-toggle="tab" onClick={this.pastSession} href="#ps">Past Session</a>
+							      <Link to="#ps" className="nav-link" data-toggle="tab" onClick={this.pastSession} >Past Session</Link>
 							    </li>
 							    <li className="nav-item">
-							      <a className="nav-link" data-toggle="tab" onClick={this.onDemand} href="#onde">On Demand</a>
+							      <Link to="#onde" className="nav-link" data-toggle="tab" onClick={this.onDemand} >On Demand</Link>
 							    </li>
 						    </ul>
 						</div>
@@ -318,7 +339,7 @@ mail=e=>{
 							{this.state.upcomingSession.length>0?
 							(this.state.upcomingSession.map((row,i)=>
 							    <li className="nav-item flex-fill">
-							      <a className="nav-link active act" data-toggle="tab" id = {i} name={row.timestamp} onClick={this.scriptOnDate} href="#dt1">{row.date}<br /><span>{row.day}</span></a>
+							      <Link to="#dt1" className="nav-link active act" data-toggle="tab" id = {i} name={row.timestamp} onClick={this.scriptOnDate} >{row.date}<br /><span>{row.day}</span></Link>
 							    </li>
 								)):''}
 							    {/* <li class="nav-item flex-fill">
@@ -340,7 +361,7 @@ mail=e=>{
 							      <a class="nav-link act" data-toggle="tab" href="#dt3">28<br /><span>SUN</span></a>
 							    </li> */}
 							    <li className="nav-item angle-img">
-							      <a className="pt-4 pb-3 d-inline-block" data-toggle="tab" href="#dt3"><img src="images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></a>
+							      <Link to="#dt3" className="nav-link" data-toggle="tab" ><img src="/images/Triangle-right.png" onClick={this.nextDate} alt="arrow" /></Link>
 							    </li>
 						    </ul>
 						    <div className="content-container mt-2">
@@ -350,15 +371,21 @@ mail=e=>{
 						    			<div className="inner_containr p-4">
 										{/* {oTime:"4:30 PM"},{oId:"Signid Up 2340 / 5000(max)"},{oPrice:"$50.00 per session"},{oCutDate:"Cut off date 09/12/2019"} */}
 											<h4 className="white mb-3">{row.oTitle}</h4>
-						    				<p><img src="images/gray-icons/user.png" className="mr-3"  alt="" />{row.oName}</p>
-						    				<p><img src="images/gray-icons/clock.png" className="mr-3"  alt="" />{row.oTime}</p>
-						    				<p><img src="images/gray-icons/teamwork.png" className="mr-3"  alt="" />Signid Up {row.oId} (max)</p>
-						    				<p><img src="images/gray-icons/dollar.png" className="mr-3"  alt="" />${row.oPrice} per session</p>
-						    				<p className="mb-4"><img src="images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {row.oCutDate}</p>
+						    				<p><img src="/images/gray-icons/user.png" className="mr-3"  alt="" />{row.oName}</p>
+						    				<p><img src="/images/gray-icons/clock.png" className="mr-3"  alt="" />{row.oTime}</p>
+						    				<p><img src="/images/gray-icons/teamwork.png" className="mr-3"  alt="" />Signid Up {row.oId} (max)</p>
+						    				<p><img src="/images/gray-icons/dollar.png" className="mr-3"  alt="" />${row.oPrice} per session</p>
+						    				<p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {row.oCutDate}</p>
 						    				<div className="d-flex flex-wrap justify-content-between">
-						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id ={i} onClick={this.uneditableMode}>session details</button></div>
-						    					<div className="mt-3 mr-4"><img src="images/invite.png" className="mt-2"  alt="" /></div>
-						    					<div className="mt-3"><img src="images/edit.png" className="mt-2 ml-2" id ={i} alt="" onClick={e=>browserHistory.push("/sessionEditable/"+e.target.id)} /></div>
+						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id={i} onClick={this.uneditableMode}>session details</button></div>
+						    					
+												{/* <div className="mt-3 mr-4"><img src="/images/invite.png" className="mt-2"  alt="" /></div> */}
+						    					<Link to ="/DashboardLanding" className="pick mt-3" data-toggle="modal" data-target="#dash_add_participent">
+												<img src="/images/invite.png" className="mt-2 ml-2 mr-4" id={i}
+												onClick={e=>this.setState({
+													participientPopup:i
+												},()=>console.log(this.state.participientPopup))} alt="" /></Link>
+												<div className="mt-3"><img src="/images/edit.png" className="mt-2 ml-2"  alt="" id = {i} onClick={e=>browserHistory.push("/sessionEditable/"+e.target.id)} /></div>
 						    				</div>
 										</div>
 										
@@ -432,7 +459,7 @@ mail=e=>{
 						    </div>
 						    <div className="inner_containr px-4 py-4 mx--6 d-flex justify-content-between align-items-center">
 						    	<h4 className="px-2 m-0 white">Create Channel</h4>
-						    	<a href="#"><img src="images/add.png" className="px-2"  alt="" /></a>
+						    	<Link to="#"><img src="/images/add.png" className="px-2"  alt="" /></Link>
 						    </div>
 						    <div className="row">
 							{this.state.boissetWine.map((row,i)=>
@@ -441,7 +468,7 @@ mail=e=>{
 						    		<div className="inner_containr px-3 py-4">
 						    			<div className="d-flex justify-content-between flex-wrap">
 						    				<h4 className="hdng1 font-weight-bold">Boisset Wines</h4>
-						    				<a href="#"><img src="images/edit.png" alt="" /></a>
+						    				<Link to="/"><img src="/images/edit.png" alt="" /></Link>
 						    			</div>
 						    			<img src={row.path} alt="" className="d-block img-fluid inner_containr my-3" />
 						    			<div className="d-flex justify-content-between flex-wrap">
@@ -462,10 +489,10 @@ mail=e=>{
 						    			<div className="d-flex justify-content-between flex-wrap align-items-center mt-3">
 						    				<h4 className="white">Channel Host</h4>
 						    				{/* <a href="#"><img src="images/add.png" /></a> */}
-											<a className="pick" data-toggle="modal" data-target="#dasboard_myModal2"><img src="images/add.png" id={i}
+											<Link className="pick" data-toggle="modal" data-target="#dasboard_myModal2"><img src="/images/add.png" id={i}
 											 onClick={e=>this.setState({
 												channelPopup:i
-											 },()=>console.log(this.state.channelPopup))} alt="" /></a>
+											 },()=>console.log(this.state.channelPopup))} alt="" /></Link>
 											
 						    			</div>
 										{row.channelHost.map((channl_array,l)=>
@@ -488,7 +515,7 @@ mail=e=>{
 						    			</div> */}
 						    			<div className="d-flex justify-content-between flex-wrap mt-4 align-items-center">
 						    				<h4 className="white">Interests</h4>
-						    				<a href="#"><img src="images/add.png"  alt="" /></a>
+						    				<Link to="#"><img src="/images/add.png"  alt="" /></Link>
 						    			</div>
 										{row.winesInterest.map((inter_array,l)=>
 						    			<div className="d-flex mt-3" key={l}>
@@ -582,84 +609,166 @@ mail=e=>{
 						    	</div> */}
 						    </div>
 
-						{/* Select add  channel host Start */}
-							<div className="modal" id="dasboard_myModal2">
+						{/* Select add channel host Start */}
+							
+						<div className="modal" id="dasboard_myModal2">
+						<div className="modal-dialog modal-dialog-centered">
+						<div className="modal-content">
+							<div className="text-center">
+								<img src="/images/host.png" alt="" />
+								<p className="white">Invite Someone to be a Host</p>
+							</div>
+							<div className="modal-body ">
+								<div className="card cardbg">
+								<div className="form-group ">
+									<div className="row">
+										<div className="col-md-6 pr-md-2">
+											<div className="custom-control custom-radio">
+												<input type="radio" className="custom-control-input" id="customRadio1" value="true"   name="example1" checked={this.state.customRadio1} onChange={this.checkHost1} />
+												<label className="custom-control-label" htmlFor="customRadio1">New Host </label>
+											</div>    
+										</div>
+										<div className="col-md-6 pr-md-2">
+											<div className="custom-control custom-radio mb-20">
+												<input type="radio" className="custom-control-input" id="customRadio2" value="false" name="example1" checked={this.state.customRadio2} onChange={this.checkHost2}  />
+												<label className="custom-control-label" htmlFor="customRadio2">Existing Host</label>
+											</div>  
+										</div>
+										<div className="clearfix"></div>
+											{this.state.customRadio2 ?
+											<div className="col-md-6 pr-md-2" id="dash_land_block">
+												<span className="cover-border "></span>
+												<label className="label">Enter First Name</label>
+												<div className="">
+													<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} placeholder="First name" disabled/>
+													<span className="signedup_2"></span>
+												</div>
+											</div>
+											:''}    
+											{this.state.customRadio2 ?
+											<div className="col-md-6 pr-md-2" id="dash_land_block">
+												<span className="cover-border "></span>
+												<label className="label">Enter Last Name</label>
+												<div className="">
+													<input type="text" className="input-field" placeholder="Last name" disabled/>
+													<span className="signedup_2"></span>
+												</div>
+											</div>
+											:''}
+										{this.state.customRadio2 ?
+										<div className="col-md-12 pr-md-2">
+											<span className="cover-border "></span>
+											<label className="label">Email Address</label>
+											<div className="">
+												{/* <input type="email" className="input-field" value={this.state.email} placeholder="Email Address" /> */}
+												<select className="input-field" id="mail" value={this.state.mail} onChange={this.mail}>                     
+												{this.state.hostMail.map((row,i)=>
+												<option key={i} value={row.mail}>{row.mail}</option>
+												)}  
+												</select>
+												{/* <span className="dashboard_land"></span> */}
+											</div>
+										</div>
+										:''}
+										{/* XYZ */}
+										{/* new user*/}
+										{this.state.customRadio1 ?
+											<div className="col-md-6 pr-md-2">
+												<span className="cover-border "></span>
+												<label className="label">Enter First Name</label>
+												<div className="">
+													<input type="text" className="input-field"  placeholder="First namedasdsadsadasdasdsad" />
+													<span className="signedup_2"></span>
+												</div>
+											</div>
+											:''}
+											{this.state.customRadio1 ?
+											<div className="col-md-6 pr-md-2">
+												<span className="cover-border "></span>
+												<label className="label">Enter Last Name</label>
+												<div className="">
+													<input type="text" className="input-field" placeholder="Last name" />
+													<span className="signedup_2"></span>
+												</div>
+											</div>
+											:''}
+										{this.state.customRadio1 ?
+										<div className="col-md-12 pr-md-2">
+											<span className="cover-border "></span>
+											<label className="label">Email Address</label>
+											<div className="">
+												<input type="email" className="input-field" placeholder="Last name" />
+												<span className="dashboard_land"></span>
+											</div>
+										</div>
+										:''}
+										{/* new user end */}
+										<div className="col-md-4 pr-md-2">
+											<h3 className="info">
+												<img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Role
+											</h3>
+										</div>
+											<div className="col-md-4 px-4">
+												<div className="custom-control custom-radio">
+													<input type="radio" className="custom-control-input" id="customRollRadio1" value="true"   name="example2" checked={this.state.customRollRadio1} onChange={this.checkRoll1} />
+													<label className="custom-control-label" htmlFor="customRollRadio1">  Adminstration & host</label>
+												</div> <br/>
+												<div className="custom-control custom-radio">
+													<input type="radio" className="custom-control-input" id="customRollRadio2" value="false"  name="example2" checked={this.state.customRollRadio2} onChange={this.checkRoll2} />
+													<label className="custom-control-label" htmlFor="customRollRadio2">  Host</label>
+												</div>  
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div className="donebg"><button type="button" data-toggle="modal" data-dismiss="modal"  className="done" id="checkHost" >Invite</button></div>
+						</div>
+						</div>
+						</div>
+
+
+						{/* Select add  channel host End */}
+
+							{/* Select add participient Start */}
+							<div className="modal" id="dash_add_participent">
 								<div className="modal-dialog modal-dialog-centered">
 								<div className="modal-content">
-									<div className="">
 									<div className="text-center">
 										<img src="/images/host.png" alt="" />
-										<p className="white">Invite Someone to be a Host</p>
-									</div>
+										<p className="white">Invite Someone to be a Participant</p>
 									</div>
 									<div className="modal-body ">
 										<div className="card cardbg">
 										<div className="form-group ">
 											<div className="row">
-												<div className="col-md-6 pr-md-2">
-													<div className="custom-control custom-radio">
-														<input type="radio" className="custom-control-input" id="customRadio1" value="true"   name="example1" checked={this.state.customRadio1} onChange={this.checkHost1} />
-														<label className="custom-control-label" htmlFor="customRadio1">New Host </label>
-													</div>    
-												</div>
+												
 												<div className="col-md-6 pr-md-2">
 													<div className="custom-control custom-radio mb-20">
-														<input type="radio" className="custom-control-input" id="customRadio2" value="false" name="example1" checked={this.state.customRadio2} onChange={this.checkHost2}  />
-														<label className="custom-control-label" htmlFor="customRadio2">Existing Host</label>
+														<input type="radio" className="custom-control-input" id="customRadio3" name="example3" checked={this.state.customRadio3} onChange={this.checkHost3}  />
+														<label className="custom-control-label" htmlFor="customRadio3">New Participant</label>
 													</div>  
+												</div>
+												<div className="col-md-6 pr-md-2">
+													<div className="custom-control custom-radio">
+														<input type="radio" className="custom-control-input" id="customRadio4" name="example3" checked={this.state.customRadio4} onChange={this.checkHost4} />
+														<label className="custom-control-label" htmlFor="customRadio4"> Existing Participant</label>
+													</div>    
 												</div>
 												<div className="clearfix"></div>
 												
-													{this.state.customRadio2 ?
+													{this.state.customRadio3 ?
 													<div className="col-md-6 pr-md-2" id="dash_land_block">
 														<span className="cover-border "></span>
 														<label className="label">Enter First Name</label>
 														<div className="">
-															<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} placeholder="First name" disabled/>
+															<input type="text" className="input-field" value={this.state.sessionData[this.state.participientPopup].oName} onChange={e=>console.log()} placeholder="First name" />
 															<span className="signedup_2"></span>
 														</div>
 													</div>
 													:''}	
-													{this.state.customRadio2 ?
+													{this.state.customRadio3 ?
 													<div className="col-md-6 pr-md-2" id="dash_land_block">
-														<span className="cover-border "></span>
-														<label className="label">Enter Last Name</label>
-														<div className="">
-															<input type="text" className="input-field" placeholder="Last name" disabled/>
-															<span className="signedup_2"></span>
-														</div>
-													</div>
-													:''}
-												
-												{this.state.customRadio2 ?
-												<div className="col-md-12 pr-md-2">
-													<span className="cover-border "></span>
-													<label className="label">Email Address</label>
-													<div className="">
-														{/* <input type="email" className="input-field" value={this.state.email} placeholder="Email Address" /> */}
-														<select className="input-field" id="mail" value={this.state.mail} onChange={this.mail}>                     
-														{this.state.hostMail.map((row,i)=>
-														<option key={i} value={row.mail}>{row.mail}</option>
-														)}	
-														</select>
-														{/* <span className="dashboard_land"></span> */}
-													</div>
-												</div>
-												:''}
-												{/* XYZ */}
-												{/* new user*/}
-												{this.state.customRadio1 ?
-													<div className="col-md-6 pr-md-2">
-														<span className="cover-border "></span>
-														<label className="label">Enter First Name</label>
-														<div className="">
-															<input type="text" className="input-field"  placeholder="First namedasdsadsadasdasdsad" />
-															<span className="signedup_2"></span>
-														</div>
-													</div>
-													:''}
-													{this.state.customRadio1 ?
-													<div className="col-md-6 pr-md-2">
 														<span className="cover-border "></span>
 														<label className="label">Enter Last Name</label>
 														<div className="">
@@ -668,44 +777,78 @@ mail=e=>{
 														</div>
 													</div>
 													:''}
-												{this.state.customRadio1 ?
+												
+												{this.state.customRadio3 ?
 												<div className="col-md-12 pr-md-2">
 													<span className="cover-border "></span>
 													<label className="label">Email Address</label>
 													<div className="">
-														<input type="email" className="input-field" placeholder="Last name" />
+														<input type="email" className="input-field" value={this.state.email} placeholder="Email Address" />
 														<span className="dashboard_land"></span>
 													</div>
 												</div>
 												:''}
-
-												{/* new user end */}
-												<div className="col-md-4 pr-md-2">
-													<h3 className="info">
-														<img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Role
-													</h3>
-												</div>
-													<div className="col-md-4 px-4">
-														<div className="custom-control custom-radio">
-															<input type="radio" className="custom-control-input" id="customRollRadio1" value="true"   name="example2" checked={this.state.customRollRadio1} onChange={this.checkRoll1} />
-															<label className="custom-control-label" htmlFor="customRollRadio1">  Adminstration & host</label>
-														</div> <br/>
-														<div className="custom-control custom-radio">
-															<input type="radio" className="custom-control-input" id="customRollRadio2" value="false"  name="example2" checked={this.state.customRollRadio2} onChange={this.checkRoll2} />
-															<label className="custom-control-label" htmlFor="customRollRadio2">  Host</label>
-														</div>  
+												{/* XYZ */}
+												{/* new user*/}
+												{this.state.customRadio4 ?
+													<div className="col-md-6 pr-md-2">
+														<span className="cover-border "></span>
+														<label className="label">Enter First Name</label>
+														<div className="">
+															<input type="text" className="input-field"  placeholder="First name" disabled/>
+															<span className="signedup_2"></span>
+														</div>
 													</div>
+													:''}
+													{this.state.customRadio4 ?
+													<div className="col-md-6 pr-md-2">
+														<span className="cover-border "></span>
+														<label className="label">Enter Last Name</label>
+														<div className="">
+															<input type="text" className="input-field" placeholder="Last name" disabled/>
+															<span className="signedup_2"></span>
+														</div>
+													</div>
+													:''}
+												{this.state.customRadio4 ?
+												<div className="col-md-12 pr-md-2">
+													<span className="cover-border "></span>
+													<label className="label">Email Address</label>
+													<div className="">
+														{/* <input type="email" className="input-field" placeholder="Last name" /> */}
+														<select className="input-field" id="mail" value={this.state.mail} onChange={this.mail}>                     
+															{this.state.hostMail.map((row,i)=>
+															<option key={i} value={row.mail}>{row.mail}</option>
+															)}  
+														</select>
+														{/* <span className="dashboard_land"></span> */}
+														{/* <select className="input-field">                     
+															{this.forEmailer()}
+														</select> */}
+														{/* <select className="input-field" id="emailer" value = {this.state.emailer} onChange = {this.sessionInfo} > */}
+														
+															{/* </select> */}
+															{/* <option>Select Email Address</option>											
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+															<option>5</option> */}
+														
+														{/* {this.validator.message('emailer', this.state.emailer,)} */}
+													</div>
+												</div>
+												:''}
 												</div>
 											</div>
 										</div>
 									</div>
-									<div className="donebg"><button type="button" data-toggle="modal" data-dismiss="modal"  className="done" id="checkHost" >Invite</button></div>
+									<div className="donebg"><button type="button" data-toggle="modal" data-dismiss="modal"  className="done" id="checkParticipient" >Invite</button></div>
 								</div>
 								
 								</div>
 								
 							</div>
-							{/* Select add  channel host End */}
+							{/* Select add participient End */}
 
 						</div>
 					    {/* <div id="ps" class="container tab-pane fade"><br />

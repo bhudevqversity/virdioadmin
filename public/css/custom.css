@@ -319,6 +319,9 @@ select.input-field{
 .input-field::placeholder{
     color:#605265 !important;
 }
+.input-field::-ms-input-placeholder{
+    color:#605265 !important;
+}
 .cover-border::after{
     content: '';
     position: absolute;
@@ -367,6 +370,9 @@ select.input-field{
     top: 21px;
 }
 .input-field::placeholder{
+    color:#ccc;
+}
+.input-field::-ms-input-placeholder{
     color:#ccc;
 }
 .cover-border::after{
@@ -706,6 +712,7 @@ Popup
 }
 .modalbg{
     background: #343434 !important;
+    width: 50%;
 }
 .cardbg{
   background: none !important;
