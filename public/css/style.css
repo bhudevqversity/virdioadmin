@@ -178,7 +178,7 @@ select.input-field
   transform: scaleX(-1);
   font-size: 22px;
 }
-.input-box ::placeholder
+.input-box ::placeholder, .input-box :-ms-input-placeholder, .input-box ::-webkit-input-placeholder
 {
 	font-size: 1.2vw !important;
 	color: white !important;
@@ -732,6 +732,10 @@ a.act:before
     border-radius: 50%;
 }
 .footer_sec ::placeholder
+{
+	color: #f8f8f8 !important;
+}
+.footer_sec :-ms-input-placeholder, .footer_sec ::-webkit-input-placeholder
 {
 	color: #f8f8f8 !important;
 }
@@ -2379,7 +2383,7 @@ width: 378px;
 	max-width: 529px;
 	margin: auto;
 }
-.input-box ::placeholder
+.input-box ::placeholder, .input-box :-ms-input-placeholder
 {
 	font-size: 1.6vw !important;
 	color: white !important;
