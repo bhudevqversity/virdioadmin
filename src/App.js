@@ -48,10 +48,10 @@ class App extends Component {
       <Route exact path="/hostSignUp" component={hostSignUp} />
       <Route exact path="/participentSignup" component={participentSignup} />
       <Route exact path="/signUp" component={signUp} />
-      <Route  path="/sessiondetail/:id" component={SessionDetailOnId} />
+      <Route  path="/fitnessdetail" component={SessionDetailOnId} />
       <Route  path="/sessionEditable/:id" component={Header} />
       <Route  path="/AdminDashboard" component={AdminDashboard} />
-      <Route  path="/winedetail/:id" component={WineSessionOnId} />
+      <Route  path="/winedetail" component={WineSessionOnId} />
       <Route  path="/noAdmin" component={NoAdmin} />
       <Route  path="/wineSessionEditable/:id" component={DemoSessionWine} />
 		</div>
