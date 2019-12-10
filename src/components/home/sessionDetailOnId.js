@@ -1831,7 +1831,7 @@ submitForm = (event) => {
                   <td>{row.TargetZone}</td>
                   <td className="d-flex justify-content-center">
                     <Link to="FitnessSessionCreation" className="mr-2 bg-circle"><i className="fa fa-bars"  onClick = {this.dragDrop} aria-hidden="true"></i></Link>
-                    <Link to="/sessiondetail/1" className="bg-circle"><i className="fa fa-minus" id ={i}  aria-hidden="true"></i></Link>
+                    <Link to="/fitnessdetail" className="bg-circle"><i className="fa fa-minus" id ={i}  aria-hidden="true"></i></Link>
                   </td>
                   {/* <td>{row.name}</td>
                   <td>{row.attributes[0].attrValue}</td>
@@ -1960,7 +1960,7 @@ submitForm = (event) => {
             </div>
             </div>
           </div>
-          <Link to="/sessiondetail/1"  className="activity-link pl-4"><span>+</span> Activity</Link>
+          <Link to="/fitnessdetail"  className="activity-link pl-4"><span>+</span> Activity</Link>
         </div>
 
         {/* Script End */}
@@ -2660,11 +2660,11 @@ submitForm = (event) => {
       </div>
       <h5 className="white mt-4">Duration</h5>
       <div className="d-flex flex-wrap">
-      <Link to="/sessiondetail/1" id='1 week' name='5' onClick = {this.signUpAttribute} className={(this.state.signUpClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</Link>
-      <Link to="/sessiondetail/1" id='2 weeks' name='6' onClick = {this.signUpAttribute} className={(this.state.signUpClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</Link>
-      <Link to="/sessiondetail/1" id='3 weeks' name='7' onClick = {this.signUpAttribute} className={(this.state.signUpClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</Link>
-      <Link to="/sessiondetail/1" id='4 weeks' name='8' onClick = {this.signUpAttribute} className={(this.state.signUpClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</Link>
-      <Link to="/sessiondetail/1" id='5 weeks' name='9' onClick = {this.signUpAttribute} className={(this.state.signUpClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</Link>
+      <Link to="/fitnessdetail" id='1 week' name='5' onClick = {this.signUpAttribute} className={(this.state.signUpClass[5]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>1 week</Link>
+      <Link to="/fitnessdetail" id='2 weeks' name='6' onClick = {this.signUpAttribute} className={(this.state.signUpClass[6]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>2 weeks</Link>
+      <Link to="/fitnessdetail" id='3 weeks' name='7' onClick = {this.signUpAttribute} className={(this.state.signUpClass[7]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>3 weeks</Link>
+      <Link to="/fitnessdetail" id='4 weeks' name='8' onClick = {this.signUpAttribute} className={(this.state.signUpClass[8]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>4 weeks</Link>
+      <Link to="/fitnessdetail" id='5 weeks' name='9' onClick = {this.signUpAttribute} className={(this.state.signUpClass[9]?"btn btn-primary":"")+" btn btn-outline-secondary text-uppercase mr-2 mt-2"}>5 weeks</Link>
       <select className="custom_field mt-2 mb-0" 
       id="signUpDuration"
       value = {this.state.signUpDuration}

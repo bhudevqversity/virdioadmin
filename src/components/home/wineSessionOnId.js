@@ -2908,8 +2908,8 @@ alert('hi');
                       {/* <div className="border-bottom mt-3">
                   </div> */}
                     <div className="px-3">                    
-                        <Link to="/winedetail/1" className="activity-link add_wine"><span>+</span> Wine</Link>
-                        <Link to="/winedetail/1" className="activity-link ml-5"><span >+</span> Info</Link><img src="/images/bulb.png" className="ml-3 mb-2" alt='' />
+                        <Link to="/winedetail" className="activity-link add_wine"><span>+</span> Wine</Link>
+                        <Link to="/winedetail" className="activity-link ml-5"><span >+</span> Info</Link><img src="/images/bulb.png" className="ml-3 mb-2" alt='' />
                     </div>
                 </div>
           {/* Next Description Box End */}

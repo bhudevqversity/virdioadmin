@@ -225,7 +225,7 @@ componentDidMount(){
 		}
 	}
 	pastSession=(e)=>{
-		browserHistory.push("/sessiondetail/"+1);
+		browserHistory.push("/fitnessdetail");
 		console.log(new Date().getTime())
 		this.setState({
 			sessionInformation:'-1'
