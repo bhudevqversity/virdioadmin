@@ -99,6 +99,8 @@ class Header extends Component {
         allowParticipant:false,
         showParticipant:false,
         amountCharge: '',
+        orderWine:false,
+        onDemand:false,
         hostSessionStart:'',
         participantSessionStart:'',
         minimumNotMet: '',
@@ -1274,6 +1276,8 @@ submitForm = (event) => {
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
       sessionProperty:this.state.sessionProperty,
+      onDemand:this.state.onDemand,
+      orderWine:this.state.orderWine,
       session_charge:this.state.sessionCharge,
       currency:"USD",
       hour:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
@@ -1658,7 +1662,7 @@ submitForm = (event) => {
                       <div className="col-lg-7 pr-0">
                         <div className="form-group input-txt">
                           <label className="switch">
-                          <input type="checkbox" id = "demandWine" defaultChecked = {this.state.demandWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.demandWine},()=>console.log("demandWine",this.state.demandWine))} />
+                          <input type="checkbox" id = "onDemand" defaultChecked = {this.state.onDemand} onChange = {(e)=>this.setState({[e.target.id]:!this.state.onDemand},()=>console.log("onDemand",this.state.onDemand))} />
                           <span className="slider round"></span>
                           </label>
                           <span>Allow Participants on Demand</span>

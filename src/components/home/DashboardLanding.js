@@ -344,7 +344,128 @@ mail=e=>{
 							<div className="c_icon position-relative"><img src="/images/search1.png" className="mr-4"  alt="" /></div>
 						</div>
 					</div>
+					<div className="parent_field_cont pb-4">
+						<div className="input_field_container round">
+							<div className="row">
+								<div className="col-xl-5 pr-lg-0">
+									<input type="text" className="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
+								</div>
+								<div className="col-xl-7 pl-4">
+									<div className="row mx-0 mt-3 mt-xl-0">
+										<div className="col-md-12">
+											<div className="custom-control custom-checkbox mb-3 text_input">
+											<input type="checkbox" className="custom-control-input" id="customCheck1" name="example1" />
+											<label className="custom-control-label" htmlFor="customCheck1">Advance</label>
+											</div>
+										</div>
+									</div>
+									<div className="parent-row">
+										<div className="row mx-0 row1 d-flex">
+											<div className="col-lg-4 col-md-6">
+												<p>On a specific date</p>
+												<input type="text" name="" className="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" />
+											</div>
+											<div className="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
+												<p>On Demand</p>
+												<div className="custom-control custom-checkbox mb-3">
+												<input type="checkbox" className="custom-control-input" id="customCheck" name="" />
+												<label className="custom-control-label" htmlFor="customCheck"></label>
+												</div>
+											</div>
+											<div className="col-lg-4 col-md-6">
+												<p>Length of session</p>
+												<div className="custom-select1">
+													<select name="">
+													<option value="30">30 min</option>
+													<option value="40">40 min</option>
+													<option value="30">30 min</option>
+													<option value="30">30 min</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>									
+								</div>
+							</div>
+							<div className="right-small-box">
+								<img src="images/search.png" />
+							</div>						
+						</div>
+						<div className="row mt-4">
+							<div className="col-md-3">
+								<h4 class="white mt-3 mb-3 font-22">Channel</h4>
+								<div className="">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+								<div className="">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+							</div>
+							<div className="col-md-5">
+								<h4 class="white mt-3 mb-3 font-22">Hosts</h4>								
+								<div className="w-50 d-inline-block">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+								<div className="w-50 d-inline-block">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+								<div className="w-50 d-inline-block">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+								<div className="w-50 d-inline-block">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+							</div>
+							<div className="col-md-4">
+								<h4 class="white mt-3 mb-3 font-22">Interest</h4>						
+								<div className="w-50 d-inline-block">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+								<div className="w-50 d-inline-block">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+								<div className="w-50 d-inline-block">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+								<div className="w-50 d-inline-block">								
+									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" class="form-radio" />                                    
+										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									</label>
+								</div>
+							</div>														
+						</div>							
+					</div>
 				</div>
+
+				
 				<div className="cont1">
 				
 				    <div className="tab-content">

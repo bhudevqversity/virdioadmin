@@ -27,6 +27,9 @@ Contents:
     font-family: "AvenirNextRegular";
     src: url("../fonts/AvenirNextRegular.otf") format("opentype");
 }
+input::-ms-clear, input::-ms-reveal {
+    display: none;
+}
 #allprevsession .modal-body table td
 {
     color: #dedede;
@@ -289,6 +292,17 @@ img.logo{
     padding-left: 18px;
     font-size: 18px;
     position: relative;
+}
+.input-field:-webkit-autofill, .input-field:-webkit-autofill:hover, .input-field:-webkit-autofill:focus, .input-field:-webkit-autofill:active
+{
+    -webkit-box-shadow: 0 0 0 1000px #34213b inset;
+    -moz-box-shadow: 0 0 0 1000px #34213b inset;
+    box-shadow: 0 0 0 1000px #34213b inset;
+    /* -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s; */
+    -webkit-text-fill-color: #eee !important;
 }
 textarea.input-field{
     height: 168px;
@@ -643,7 +657,6 @@ input:checked + .slider:before {
     overflow: hidden;
     height: 28px;
     font-size: 14px;
-    display: inline;
     border-radius: 50px;	
     color: #fff;
     text-align: center;
@@ -712,7 +725,7 @@ Popup
 }
 .modalbg{
     background: #343434 !important;
-    width: 50%;
+    /* width: 50%; */
 }
 .cardbg{
   background: none !important;
@@ -743,6 +756,7 @@ max-width: 600px !important;
     border: none;
     border-radius: 50px;
 }
+
 
 .form-radio {
     flex: 0 0 23px;
@@ -1031,13 +1045,26 @@ input:checked + .slider:before {
     border: none;
     border-radius: 50px;
 }
-
+.form-radio::-ms-check {
+    background-color: #BD00FF;
+    border: none;
+    border-radius: 50px;
+}
 .form-radio {
     flex: 0 0 23px;
     top: 7px;
     margin-right: 9px;
 }
 .form-radio:checked::before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    left: 5px;
+    top: 2px;
+    font-size: 13px;
+    color: #fff;
+    content: '\f00c';
+}
+.form-radio::-ms-check::before {
     position: absolute;
     font-family: 'FontAwesome';
     left: 5px;
