@@ -744,7 +744,7 @@ return(
                                         </div>
                                         {this.state.equipmentStatus ?
                                         <div className="add_text">
-                                            <Link tp ="HostSessionCreation" className="bg-circle text-white mr-4" data-toggle="modal" data-target="#equipment_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
+                                            <Link to ="HostSessionCreation" className="bg-circle text-white mr-4" data-toggle="modal" data-target="#equipment_lst_modal"><i className="fa fa-plus" aria-hidden="true"></i></Link>
                                             <span className="gray-text">{this.state.equipmentCount} Equipments Added</span>
                                         </div>    
                                         :''
