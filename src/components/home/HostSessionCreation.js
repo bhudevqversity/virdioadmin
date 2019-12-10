@@ -77,61 +77,6 @@ this.fetchAttributesList();
 fetchAttributesList() {
     let attributes = [];
     let productList= this.state.addProduct;  
-<<<<<<< HEAD
-    let arr = [
-        // {
-        //     name: "thunderbird",
-        //     attributes: [{
-        //         attrLabel: "Varietal",
-        //             attrValue:'80% Pinot Noir',
-                    
-        //         },
-        //         {
-        //             attrLabel: "Price",
-        //             attrValue: "80",
-                    
-        //         },
-        //         {
-        //             attrLabel: "pH",
-        //             attrValue: 3.69,
-                    
-        //         },
-        //         {
-        //             attrLabel: "Tasting Notes",
-        //             attrValue: "NA",
-                    
-        //         },
-        //         {
-        //             attrLabel: "Winemaking",
-        //             attrValue: "The 2014 vintage in Napa Valley was one of the earliest harvested vintages in years. A warm spring led to early bud break and created the perfect environment for flowering and fruit set. ",
-                    
-        //         },
-        //         {
-        //             attrLabel: "Pairs Well With",
-        //             attrValue: "Meats and Fish: Seared Filet Mignon, Pan Roasted Veal Chops",
-        //          }
-        //     ]
-        // }
-        ];
-        
-        // for(let i=0;i<arr.length;i++){
-        //  attributes=[];
-        //  for(let l =0;l<arr[i].attributes.length;l++){
-        //  let n = {attrKey:arr[i].attributes[l].attrKey,attrValue:arr[i].attributes[l].attrValue,status:false,id:l};
-        //  attributes.push(n);   
-        //    }
-        
-        // let n = {name : arr[i].name,
-        //     attributes
-        // }
-        // productList.push(n);
-        // }
-        // this.setState({
-        // addProduct:productList
-        // },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
-
-=======
->>>>>>> 710eb1936b5e82faa88031d9d148d8dd2fe15683
     let  interestId=1;
     
     console.log('-----asdfghjkl----------',interestId);  
