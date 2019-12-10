@@ -711,7 +711,7 @@ Popup
 }
 .modalbg{
     background: #343434 !important;
-    width: 50%;
+    /* width: 50%; */
 }
 .cardbg{
   background: none !important;
