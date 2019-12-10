@@ -41,7 +41,7 @@ p, a
 .modal-dialog
 {
 	
-    max-width: 850px;
+    max-width: 75%;
 }
 .modal-content
 {
@@ -1158,7 +1158,7 @@ div.overflow-hidden p:nth-child(1) a:after
 
 .emojis-dialogwidth
 {
-	max-width: 800px !important;
+	max-width: 75% !important;
 }
 .card.cardbg span img
 {
@@ -1200,12 +1200,15 @@ div.overflow-hidden p:nth-child(1) a:after
 {
 	background-color: transparent;
 }
-#pick_emojis_modal button.btn-primary
+#pick_emojis_modal button.btn-primary, #myPickWineModel button.btn-primary
 {
 	border-radius: 40px;
-	background-color: rgba(189,0,255,0.7) !important;
-	border: none;
-	cursor: pointer;
+    background-color: rgba(189,0,255,0.7) !important;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+	padding: 12px 24px;
+	text-transform: uppercase;
 }
 #pick_emojis_modal button.btn-primary:focus
 {
@@ -1604,7 +1607,7 @@ input.timepicki-input
 }
 .add_text a
 {
-	color: white;
+	color: white !important;
 }
 
 .register-frm .switch

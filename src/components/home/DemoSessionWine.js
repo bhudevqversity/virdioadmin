@@ -3536,7 +3536,7 @@ alert('hi');
     <div className="modal-content modalbg">
       <div className="modal-header headerborder">
       <h4 className="modal-title white">Pick a Product</h4>
-      <button type="button" className="close white" onClick={this.resetEmoji} data-dismiss="modal">×</button>
+      <button type="button" className="close white closepopup" onClick={this.resetEmoji} data-dismiss="modal">×</button>
     </div>
     <form>
     <div className="modal-body ">
