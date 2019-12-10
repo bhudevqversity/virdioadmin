@@ -59,6 +59,7 @@ class Header extends Component {
         sessionYear:'',
         sessionDay:'',
         sessionTime:'',
+        demandWine:false,
         sessionHour:0,
         sessionMinute:0,
         sessionAttribute:[],
@@ -1653,6 +1654,17 @@ submitForm = (event) => {
                               {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                           </div>
                       </div>
+                      {/* new add participient on demand */}
+                      <div className="col-lg-7 pr-0">
+                        <div className="form-group input-txt">
+                          <label className="switch">
+                          <input type="checkbox" id = "demandWine" defaultChecked = {this.state.demandWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.demandWine},()=>console.log("demandWine",this.state.demandWine))} />
+                          <span className="slider round"></span>
+                          </label>
+                          <span>Allow Participants on Demand</span>
+                        </div>
+                      </div>
+
                       {this.state.sessionCharge?
                       <div className="col-lg-5">
                         <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>

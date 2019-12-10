@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from 'react-router';
-//import $ from 'jquery'
+import $ from 'jquery'
 import {  browserHistory} from 'react-router'
 class HostSessionCreation extends Component {
   
@@ -413,7 +413,8 @@ saveProductList=(e)=>{
     //     this.validator.showMessages();
     // }
 
-
+    // $("#product_lst_modal").attr({'style':'display:none'});
+    // $("#audio_video_mdl").attr({'style':'display:none'});
     axios.post("/api/v1/session/addProduct", {saveProduct})
     .then(res => {
 
