@@ -41,7 +41,7 @@ p, a
 .modal-dialog
 {
 	
-    max-width: 850px;
+    max-width: 75%;
 }
 .modal-content
 {
@@ -191,7 +191,7 @@ select.input-field
   transform: scaleX(-1);
   font-size: 22px;
 }
-.input-box ::placeholder
+.input-box ::placeholder, .input-box :-ms-input-placeholder, .input-box ::-webkit-input-placeholder
 {
 	font-size: 1.2vw !important;
 	color: rgb(255,255,255) !important;
@@ -263,24 +263,49 @@ select.input-field
 	width: 200px;
 	font-family: Avenir-Book;
 }
+.datepick11 input
+{
+	background-color: transparent;
+	border: none;
+	font-size: 30px;
+	color: white;
+	font-family: Avenir-Book;
+}
+.datepick11 input:focus
+{
+	background-color: transparent;
+	border: none;
+	color: white;
+}
 .datepick input:focus
 {
 	background-color: transparent;
 	border: none;
 	color: white;
 }
+
 input.form-control:focus
 {
 	outline: none;
 	box-shadow: none;
 }
-/* .c_icon
+.c_icon11
 {
 	position: absolute;
 	top: 27px;
-	right: 35px;
+	right: 10px;
 	padding-left: 25px;
-} */
+}
+.c_icon11:before
+{
+	content: "";
+	position: absolute;
+	width: 1px;
+	height: 30px;
+	background-color: gray;
+	top: 2px;
+    left: -24px;
+}
 .c_icon:before
 {
 	content: "";
@@ -761,7 +786,7 @@ a.act:before
 {
 	color: #f8f8f8 !important;
 }
-.footer_sec ::-ms-input-placeholder
+.footer_sec :-ms-input-placeholder, .footer_sec ::-webkit-input-placeholder
 {
 	color: #f8f8f8 !important;
 }
@@ -778,6 +803,25 @@ a.act:before
 	padding-right: 50px;
 	position: relative;
 }
+
+.cont .parent_field_cont
+{
+	margin: 25px 30px 0px 30px;
+	
+}
+.cont .input_field_container .col-xl-5 ::placeholder
+{
+	font-style: italic !important;
+}
+.cont .input_field_container .col-xl-5 ::-webkit-input-placeholder
+{
+	font-style: italic !important;
+}
+.cont .input_field_container .col-xl-5 :-ms-input-placeholder 
+{
+	font-style: italic !important;
+}
+
 .right-small-box
 {
 	position: absolute;
@@ -791,11 +835,13 @@ a.act:before
 	 justify-content: center;
 	align-items: center;
 	cursor: pointer;
+	border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
-.right-small-box i
+.right-small-box img
 {
-	transform: scaleX(-1);
-    font-size: 22px;
+	/* transform: scaleX(-1); */
+    width: 24px;
 }
 
 .input_field_container .input-group-text
@@ -854,11 +900,11 @@ a.act:before
 	background-image: url(../images/right.jpg);
     
 }
-.input_field_container .custom-control-label::after
+/* .input_field_container .custom-control-label::after
 {
-	top: 0.25rem;
-    left: -1.5rem;
-}
+	top: 0.35rem;
+    left: -1.4rem;
+} */
 .input_field_container .col-xl-7:before
 {
 	content: "";
@@ -971,10 +1017,18 @@ a.act:before
       	position: absolute;
       	top: 2px;
       	right: 0px;
-      }
+	  }
+	  .font-14
+      {
+      	font-size: 14px !important;
+	  }
       .font-16
       {
       	font-size: 16px !important;
+	  }
+	  .font-22
+	  {
+		  font-size: 22px !important;
 	  }
 	  
 
@@ -1003,10 +1057,10 @@ a.act:before
 	color: #bd00ff;
 	
 }
-.parent-row
+/* .parent-row
 {
 	display: none;
-}
+} */
 .myheading
 {
 	position: relative;
@@ -1104,7 +1158,7 @@ div.overflow-hidden p:nth-child(1) a:after
 
 .emojis-dialogwidth
 {
-	max-width: 800px !important;
+	max-width: 75% !important;
 }
 .card.cardbg span img
 {
@@ -1146,12 +1200,15 @@ div.overflow-hidden p:nth-child(1) a:after
 {
 	background-color: transparent;
 }
-#pick_emojis_modal button.btn-primary
+#pick_emojis_modal button.btn-primary, #myPickWineModel button.btn-primary
 {
 	border-radius: 40px;
-	background-color: rgba(189,0,255,0.7) !important;
-	border: none;
-	cursor: pointer;
+    background-color: rgba(189,0,255,0.7) !important;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+	padding: 12px 24px;
+	text-transform: uppercase;
 }
 #pick_emojis_modal button.btn-primary:focus
 {
@@ -1340,11 +1397,11 @@ div.overflow-hidden p:nth-child(1) a:after
 {
 	height: 55px;
 }
-.cal_modal .modal-dialog .modal-content:nth-child(1)
+#calenderModel1 .modal-dialog .modal-content:nth-child(1)
 {
 	width: 50%;
 }
-.cal_modal .modal-dialog .modal-content:nth-child(3)
+#calenderModel1 .modal-dialog .modal-content:nth-child(3)
 {
 	width: 50%;
 }
@@ -1550,7 +1607,7 @@ input.timepicki-input
 }
 .add_text a
 {
-	color: white;
+	color: white !important;
 }
 
 .register-frm .switch
@@ -2054,7 +2111,7 @@ h2.display-2
   }
   .round
   {
-	border-radius: 10px;
+	border-radius: 10px !important;
   }
   .big_container
   {
@@ -2206,12 +2263,16 @@ h2.display-2
   }
   .container-fluid1 .video_img .one
   {
-	height: 193px;
+	height: 200px;
 
   }
+  /* .container-fluid1 .video_img .one
+  {
+	  flex-basis: 50% !important;
+  } */
   .container-fluid1 .video_img .custom-file-label
   {
-    height: 176px;
+    height: 170px;
 	border: none;
 	width: 100%;
 	display: flex;
@@ -2219,10 +2280,10 @@ h2.display-2
     justify-content: center;
     color: white;
   }
-  .container-fluid1 .custom-file-label
+  /* .container-fluid1 .custom-file-label
   {
 	top: 0;
-  }
+  } */
   .container-fluid1 .video_img .input-field
   {
 	height: auto;
@@ -2230,8 +2291,41 @@ h2.display-2
   .container-fluid1 .browse_image1 {
   width: 100%;
   margin-top: 10px;
-  height: 160px;
+  height: 155px;
   }
+  .v-image-tag
+{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+    left: -35px;
+    border-radius: 10px;
+    z-index: 99;
+    width: 140px;
+    
+}
+.v-image-tag2
+{
+	position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -30px;
+    border-radius: 10px;
+    z-index: 99;
+    width: 30%;
+    
+}
+.v-image-tag1
+{
+  position: absolute;
+    top: 50%;
+	transform: translateY(-50%);
+    left: 30px;
+    border-radius: 10px;
+    z-index: 99;
+    width: 30%;
+    
+}
 .container-fluid1 .outer-container.browse_text
 {
 left: 43%;
@@ -2265,6 +2359,7 @@ color: white;
 {
 font-family: Avenir-Book !important;
 }
+
 .font-medium
 {
 font-family: Avenir-Medium !important;
@@ -2306,6 +2401,26 @@ right: -12px;
 {
 width: 378px;
 }
+.w-100 .brimg{
+	position: absolute;
+    top: 50%;
+	transform: translateY(-50%);
+    left: 25px;
+    border-radius: 10px;
+    z-index: 99;
+    width: 110px;
+}  
+.container-fluid1 .custom-file-label
+{
+  background-color: #070707 !important;
+  top: 15px;
+    border-radius: 10px;
+
+}
+.container-fluid1 .col-md-8 .custom-file-label
+{
+	background-color: #34213b !important;
+}
 /* Responsive Code */
 
 @media(max-width: 900px)
@@ -2332,7 +2447,7 @@ width: 378px;
 	max-width: 529px;
 	margin: auto;
 }
-.input-box ::placeholder
+.input-box ::placeholder, .input-box :-ms-input-placeholder
 {
 	font-size: 1.6vw !important;
 	color: white !important;
@@ -2584,10 +2699,6 @@ width: 378px;
     background-color: #343434 !important;
 }
 /* [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
-    cursor: pointer;
-    color: #ffffff !important;
-} */
-[type=button]:not(:disabled){
     cursor: pointer;
     color: #ffffff !important;
 } */

@@ -598,7 +598,7 @@ render() {
                                     <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
                                 </label>
                                 </div>
-                            </div>
+                              </div>
                             </div>
                         </div>
                     </div>

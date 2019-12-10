@@ -59,6 +59,7 @@ class Header extends Component {
         sessionYear:'',
         sessionDay:'',
         sessionTime:'',
+        demandWine:false,
         sessionHour:0,
         sessionMinute:0,
         sessionAttribute:[],
@@ -98,6 +99,8 @@ class Header extends Component {
         allowParticipant:false,
         showParticipant:false,
         amountCharge: '',
+        orderWine:false,
+        onDemand:false,
         hostSessionStart:'',
         participantSessionStart:'',
         minimumNotMet: '',
@@ -1273,6 +1276,8 @@ submitForm = (event) => {
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
       sessionProperty:this.state.sessionProperty,
+      onDemand:this.state.onDemand,
+      orderWine:this.state.orderWine,
       session_charge:this.state.sessionCharge,
       currency:"USD",
       hour:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
@@ -1496,7 +1501,7 @@ submitForm = (event) => {
           <h4 className="text-white float-left pt-1 pl-2">CREATE SESSION</h4>
           <div className="d-flex flex-wrap float-right">
               <p className="float-right purple_text mr-4 bordr-right mb-0"><a href="#" className="purple_text" data-toggle="modal" data-target="#allprevsession">Copy Form...</a></p>
-              <p className="float-right purple_text mr-4 ml-4 mb-0"><Link to="/" className="purple_text">x</Link></p>
+              <p className="float-right purple_text mr-4 ml-4 mb-0"><Link to="/DashboardLanding" className="purple_text">x</Link></p>
           </div>    
         </div>
         {/* <div className="overflow-hidden">
@@ -1653,6 +1658,17 @@ submitForm = (event) => {
                               {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                           </div>
                       </div>
+                      {/* new add participient on demand */}
+                      <div className="col-lg-7 pr-0">
+                        <div className="form-group input-txt">
+                          <label className="switch">
+                          <input type="checkbox" id = "onDemand" defaultChecked = {this.state.onDemand} onChange = {(e)=>this.setState({[e.target.id]:!this.state.onDemand},()=>console.log("onDemand",this.state.onDemand))} />
+                          <span className="slider round"></span>
+                          </label>
+                          <span>Allow Participants on Demand</span>
+                        </div>
+                      </div>
+
                       {this.state.sessionCharge?
                       <div className="col-lg-5">
                         <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>
@@ -2704,7 +2720,7 @@ submitForm = (event) => {
 </div>
  {/* Add a new Product End */}
 
- <div className="modal" id="link_generator" show={this.state.onSave} onHide={this.handleShow}>
+ <div className="modal" id="link_generator" >
   <div className="modal-dialog small_width">
     <div className="modal-content">
       <div className="modal-header headerborder">

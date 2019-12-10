@@ -16,6 +16,8 @@ import signUp from './components/home/signup'
 import participentSignup from './components/home/participateSignUp'
 import SessionDetailOnId from './components/home/sessionDetailOnId'
 import AdminDashboard from './components/home/AdminDashboard'
+import WineSessionOnId from './components/home/wineSessionOnId'
+import NoAdmin from './components/home/NoAdmin'
 /*function App() {
   return (
     <div className="App">
@@ -42,15 +44,16 @@ class App extends Component {
       <Route exact path="/ChannelCreation" component={HostSessionCreation} />
       <Route path="/verify-user/:sessionId" component={verifyuser} />
       {/* <Route exact path="/HostSessionCreation" component={HostSessionCreation} /> */}
-      <Route exact path="/DashboardLanding" component={DashboardLanding} />hostSignUp
+      <Route exact path="/DashboardLanding" component={DashboardLanding} />
       <Route exact path="/hostSignUp" component={hostSignUp} />
       <Route exact path="/participentSignup" component={participentSignup} />
       <Route exact path="/signUp" component={signUp} />
-      <Route  path="/sessiondetail/:id" component={SessionDetailOnId} />
+      <Route  path="/fitnessdetail" component={SessionDetailOnId} />
+      <Route  path="/sessionEditable/:id" component={Header} />
       <Route  path="/AdminDashboard" component={AdminDashboard} />
-
-
-
+      <Route  path="/winedetail" component={WineSessionOnId} />
+      <Route  path="/noAdmin" component={NoAdmin} />
+      <Route  path="/wineSessionEditable/:id" component={DemoSessionWine} />
 		</div>
      </Router>
    );
