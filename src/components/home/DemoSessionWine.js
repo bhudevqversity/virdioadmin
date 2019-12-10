@@ -93,6 +93,11 @@ class DemoSessionWine extends Component {
         showParticipant:false,
         amountCharge: '',
         orderWine:false,
+<<<<<<< HEAD
+        onDemand:false,
+=======
+        orderWineDemand:false,
+>>>>>>> abhi-virdioadmin
         hostSessionStart:'',
         participantSessionStart:'',
         minimumNotMet: '',
@@ -1938,7 +1943,7 @@ palateEmojiSelect =(e)=>{
   }
 ////////////////Submit data
 submitForm = (event) => {
-alert('hi');
+//alert('hi');
  let wineDetail = []; 
   // this.state.tablerows;
   let ap = [];
@@ -2092,6 +2097,8 @@ alert('hi');
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
       sessionProperty:this.state.sessionProperty,
+      onDemand:this.state.onDemand,
+      orderWine:this.state.orderWine,
       session_charge:this.state.sessionCharge,
       currency:"USD",
       hour:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
@@ -2443,7 +2450,11 @@ alert('hi');
                     </div>
                     <div className="form-group input-txt">
                         <label className="switch">
-                        <input type="checkbox" id = "orderWine" defaultChecked = {this.state.orderWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.orderWine},()=>console.log("orderWine",this.state.orderWine))} />
+<<<<<<< HEAD
+                        <input type="checkbox" id = "onDemand" defaultChecked = {this.state.onDemand} onChange = {(e)=>this.setState({[e.target.id]:!this.state.onDemand},()=>console.log("onDemand",this.state.onDemand))} />
+=======
+                        <input type="checkbox" id = "orderWineDemand" defaultChecked = {this.state.orderWineDemand} onChange = {(e)=>this.setState({[e.target.id]:!this.state.orderWineDemand},()=>console.log("orderWineDemand",this.state.orderWineDemand))} />
+>>>>>>> abhi-virdioadmin
                         <span className="slider round"></span>
                         </label>
                         <span>Allow Participants on Demand</span>

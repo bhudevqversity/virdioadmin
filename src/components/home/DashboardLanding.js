@@ -17,7 +17,7 @@ class DashboardLanding extends Component {
 		// emailer:'select email',
 		channelPopup:0,
 		participientPopup:0,
-		sessionData :[{oTitle:"Napa Fitness Testing",
+		sessionData :[{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
 		oTime:"4:30 PM",
 		oId:"2340 / 5000",
@@ -31,7 +31,7 @@ class DashboardLanding extends Component {
 		timestamp:1574553600000,
 		oPrice:"50.00",
 		oCutDate:"09/12/2019"},
-		{oTitle:"Napa Fitness Testing",
+		{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
 		oTime:"4:30 PM",
 		timestamp:1574553600001,
@@ -45,7 +45,7 @@ class DashboardLanding extends Component {
 		timestamp:1574553600002,
 		oPrice:"50.00",
 		oCutDate:"09/12/2019"},
-		{oTitle:"Napa Fitness Testing",
+		{oTitle:"Napa Wine Testing",
 		oName:"By Peter Parker",
 		oTime:"4:30 PM",
 		oId:"2340 / 5000",
@@ -207,11 +207,15 @@ componentDidMount(){
 	}
 	uneditableMode=(e)=>{
 		console.log(e.target.id);
-		if(e.target.id%2===0){
 		browserHistory.push("/sessiondetail/"+e.target.id);
-		}else{
-		browserHistory.push("/winedetail/"+e.target.id);	
-		}
+		// if(e.target.id%2===0){
+		// browserHistory.push("/sessiondetail/"+e.target.id);
+		// }else{
+		// browserHistory.push("/winedetail/"+e.target.id);	
+		// }
+	}
+	wineUneditableMode=(e)=>{
+	browserHistory.push("/winedetail/"+e.target.id);		
 	}
 	editableMode=(e)=>{
 		if(e.target.id%2===0){
@@ -509,8 +513,8 @@ mail=e=>{
 						    				<p><img src="/images/gray-icons/dollar.png" className="mr-3"  alt="" />${row.oPrice} per session</p>
 						    				<p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {row.oCutDate}</p>
 						    				<div className="d-flex flex-wrap justify-content-between">
-						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id={i} onClick={this.uneditableMode}>session details</button></div>
-						    					
+						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id={i} onClick={this.uneditableMode}>Fitness details</button></div>
+						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id={i} onClick={this.wineUneditableMode}>Wine details</button></div>
 												{/* <div className="mt-3 mr-4"><img src="/images/invite.png" className="mt-2"  alt="" /></div> */}
 						    					<Link to ="/DashboardLanding" className="pick mt-3" data-toggle="modal" data-target="#dash_add_participent">
 												<img src="/images/invite.png" className="mt-2 ml-2 mr-4" id={i}

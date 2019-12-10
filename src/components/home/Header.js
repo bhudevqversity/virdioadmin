@@ -59,6 +59,7 @@ class Header extends Component {
         sessionYear:'',
         sessionDay:'',
         sessionTime:'',
+        demandWine:false,
         sessionHour:0,
         sessionMinute:0,
         sessionAttribute:[],
@@ -98,6 +99,8 @@ class Header extends Component {
         allowParticipant:false,
         showParticipant:false,
         amountCharge: '',
+        orderWine:false,
+        onDemand:false,
         hostSessionStart:'',
         participantSessionStart:'',
         minimumNotMet: '',
@@ -1273,6 +1276,8 @@ submitForm = (event) => {
       max_participants:this.state.maximumParticipants,
       searchParticipant:this.state.searchParticipant,
       sessionProperty:this.state.sessionProperty,
+      onDemand:this.state.onDemand,
+      orderWine:this.state.orderWine,
       session_charge:this.state.sessionCharge,
       currency:"USD",
       hour:(parseInt(this.state.sessionHour)*60)+parseInt(this.state.sessionMinute),
@@ -1653,6 +1658,17 @@ submitForm = (event) => {
                               {this.state.sessionCharge?<p className="gray-text ml-5 mt-2 mb-4">You have enabled it in the Channel</p>:''}
                           </div>
                       </div>
+                      {/* new add participient on demand */}
+                      <div className="col-lg-7 pr-0">
+                        <div className="form-group input-txt">
+                          <label className="switch">
+                          <input type="checkbox" id = "demandWine" defaultChecked = {this.state.demandWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.demandWine},()=>console.log("demandWine",this.state.demandWine))} />
+                          <span className="slider round"></span>
+                          </label>
+                          <span>Allow Participants on Demand</span>
+                        </div>
+                      </div>
+
                       {this.state.sessionCharge?
                       <div className="col-lg-5">
                         <div className="form-group h-90"><span className="cover-border bg_gray_clr"></span>
