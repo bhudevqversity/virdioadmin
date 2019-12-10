@@ -71,72 +71,19 @@ this.setChannelInterest();
 this.setChannelHost();
 //this.addToProductList();
 this.fetchAttributesList();
-//this.addToProductList();
 }
 
 
 fetchAttributesList() {
     let attributes = [];
     let productList= this.state.addProduct;  
-    let arr = [
-        // {
-        //     name: "thunderbird",
-        //     attributes: [{
-        //         attrLabel: "Varietal",
-        //             attrValue:'80% Pinot Noir',
-                    
-        //         },
-        //         {
-        //             attrLabel: "Price",
-        //             attrValue: "80",
-                    
-        //         },
-        //         {
-        //             attrLabel: "pH",
-        //             attrValue: 3.69,
-                    
-        //         },
-        //         {
-        //             attrLabel: "Tasting Notes",
-        //             attrValue: "NA",
-                    
-        //         },
-        //         {
-        //             attrLabel: "Winemaking",
-        //             attrValue: "The 2014 vintage in Napa Valley was one of the earliest harvested vintages in years. A warm spring led to early bud break and created the perfect environment for flowering and fruit set. ",
-                    
-        //         },
-        //         {
-        //             attrLabel: "Pairs Well With",
-        //             attrValue: "Meats and Fish: Seared Filet Mignon, Pan Roasted Veal Chops",
-        //          }
-        //     ]
-        // }
-        ];
-        
-        // for(let i=0;i<arr.length;i++){
-        //  attributes=[];
-        //  for(let l =0;l<arr[i].attributes.length;l++){
-        //  let n = {attrKey:arr[i].attributes[l].attrKey,attrValue:arr[i].attributes[l].attrValue,status:false,id:l};
-        //  attributes.push(n);   
-        //    }
-        
-        // let n = {name : arr[i].name,
-        //     attributes
-        // }
-        // productList.push(n);
-        // }
-        // this.setState({
-        // addProduct:productList
-        // },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
-
     let  interestId=1;
     
     console.log('-----asdfghjkl----------',interestId);  
 
       axios      
       
-      .get("http://192.168.1.177:8001/api/v1/session/"+interestId+"/attributeList")          
+      .get("/api/v1/session/"+interestId+"/attributeList")          
       .then(res => {
         console.log('---------interestIdproduct--------------',res.data.responseData);
 
@@ -166,87 +113,13 @@ fetchAttributesList() {
   }
   
 
-addToProductList=(e)=>{
-    let arr = [
-        {
-            name: "thunderbird",
-            attributes: [{
-                    attrKey: "Varietal",
-                    attrValue:'80% Pinot Noir',
-                    
-                },
-                {
-                    attrKey: "Price",
-                    attrValue: "80",
-                    
-                },
-                {
-                    attrKey: "pH",
-                    attrValue: 3.69,
-                    
-                },
-                {
-                    attrKey: "Tasting Notes",
-                    attrValue: "NA",
-                    
-                },
-                {
-                    attrKey: "Winemaking",
-                    attrValue: "The 2014 vintage in Napa Valley was one of the earliest harvested vintages in years. A warm spring led to early bud break and created the perfect environment for flowering and fruit set. ",
-                    
-                },
-                {
-                    attrKey: "Pairs Well With",
-                    attrValue: "Meats and Fish: Seared Filet Mignon, Pan Roasted Veal Chops",
-                 }
-            ]
-        }
-        ];
-        let attributes = [];
-        let productList= this.state.addProduct;
-        for(let i=0;i<arr.length;i++){
-         attributes=[];
-         for(let l =0;l<arr[i].attributes.length;l++){
-         let n = {attrKey:arr[i].attributes[l].attrKey,attrValue:arr[i].attributes[l].attrValue,status:false,id:l};
-         attributes.push(n);   
-           }
-        
-        let n = {name : arr[i].name,
-            attributes
-        }
-        productList.push(n);
-        }
-        this.setState({
-        addProduct:productList
-        },()=>console.log('-------------------------------------------addProduct',this.state.addProduct))
-
-}
-  
 setChannelInterest=(e)=>{
-
-// let arr = [
-//     {
-//         id:1,
-//         title:"Wine"
-//         },
-//         {
-//         id:2,
-//         title:"Fitness"
-//         }
-//     ]
-//     let channelArray= this.state.InterestHost;
-//     for(let i=0;i<arr.length;i++){
-//      let n = {id:arr[i].id,title:arr[i].title,image :'images/pic.jpg',type:false};
-//      channelArray.push(n);   
-//     }
-//     this.setState({
-//     InterestHost:channelArray
-//     })
 
     let  channelId=1;
     axios      
     
-    .get("/api/v1/session/"+channelId+"/interest")          
+    .get("/api/v1/session/"+channelId+"/allInterest")
+   // .get("/api/v1/session/interest")           
     .then(res => {
       console.log('---------channelInterest--------------',res.data.responseData);
       let channelArray= this.state.InterestHost;
@@ -268,22 +141,6 @@ setChannelInterest=(e)=>{
 
 setChannelHost=(e)=>{
 
-    // let arr = [{
-    //     userId:3,
-    //     username:"Lalit A"
-    //     },
-    //     {
-    //     userId:1,
-    //     username:"Deepak A"
-    //     }];
-    //     let channelArray= this.state.hostList;
-    // for(let i=0;i<arr.length;i++){
-    //  let n = {userId:arr[i].userId,username:arr[i].username,image :'images/pic.jpg',type:false};
-    //  channelArray.push(n);   
-    // }
-    // this.setState({
-    // hostList:channelArray
-    // })
     let  channelId=1;
     axios      
 
@@ -418,11 +275,12 @@ saveProductList=(e)=>{
     .then(res => {
 
       //console.log(res);
-
+      if(res.data.responseMessage == "success")
+      {
       console.log('=============lallittiwari12345===================>',res.data);
-
-
-
+      }else{
+        console.log('=============There Is an Error===================>'); 
+      }
     })   
 
 }
