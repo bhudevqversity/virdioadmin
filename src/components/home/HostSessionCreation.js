@@ -450,7 +450,7 @@ selectHost = (e) => {
 //   }
 }
  goToSession=e=>{
-    browserHistory.push("/sessiondetail/"+1);
+    browserHistory.push("/FitnessSessionCreation");
  }
 render() {
 return(
