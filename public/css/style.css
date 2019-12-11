@@ -58,6 +58,191 @@ select.input-field
     background-repeat: no-repeat;
     background-position: right 15px center;
 }
+
+/*---------login page CSS----------------*/
+
+/*--------9. Login Screen---------*/
+.login-bg{
+	background: url(/images/login-bg.png);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    top: 0;
+    left: 0;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.login-logo{
+	margin: 10px auto 25px;
+    display: table;
+	max-width: 200px;
+}
+.login-tagline{
+	font-family: Avenir-Book;
+    font-size: 24px;
+    text-align: center;
+	margin-bottom: 20px;
+	color: #fff;
+}
+.login-box .form-horizontal{
+    background: rgba(0,0,0,0.6);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin: auto;
+        max-width: 400px;
+    width: 100%;
+    border-radius: 12px;
+}
+.login-box .form-horizontal input:focus, .register-box .form-horizontal input:focus{
+	box-shadow: none;
+	background: rgba(176,2,237,0.3);
+}
+.login-box .form-group input, .register-box .form-group input{
+    background: rgba(176,2,237,0.11);
+    border:2px solid #b002ed;
+    border-top: 0px solid transparent;
+    height: 65px;
+	color: #fff;
+    font-size: 16px;
+	border-radius: 0px 12px 12px 12px;
+	position: relative;
+
+}
+.login-box .form-group input:-webkit-autofill,
+.register-box .form-group input:-webkit-autofill,
+.login-box .form-group input:-webkit-autofill:hover,
+.register-box .form-group input:-webkit-autofill:hover,
+.login-box .form-group input:-webkit-autofill:focus,
+.register-box .form-group input:-webkit-autofill:focus,
+.login-box .form-group input:-webkit-autofill:active,
+.register-box .form-group input:-webkit-autofill:active {
+-webkit-animation: autofill 0s forwards;
+    animation: autofill 0s forwards;
+	-webkit-text-fill-color: #fff !important;
+}
+@keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
+
+@-webkit-keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
+.login-box .login-inner, .register-box .register-inner{
+    width: 100%;
+    margin: auto;
+    position: relative;
+    top: 0;
+    height: 100%;
+    padding: 15px 25px;
+	    border-radius: 12px;
+    box-shadow: 0px 13px 18px 10px rgba(0,0,0,0.3);
+}
+.login-box .login-inner .form-group, .register-box .register-inner .form-group{
+	position:relative;
+}
+.login-box .login-inner .text-danger{
+	    top: 62px;
+		overflow:auto;
+		position:absolute;
+		width:100%;
+		padding-left:13px;
+		font-size: 14px;
+    font-family: Avenir-Book;
+}
+.login-box .custom-control-input:checked ~ .custom-control-label::before, 
+.login-box .custom-control-input:not(:disabled):active ~ .custom-control-label::before{
+	box-shadow: none !important;
+}
+.login-box .custom-control-label::after{
+	    background: no-repeat 4px -8px / 11px 33px;
+		left: -9px;
+		top: 3px;
+}
+.login-box .custom-control-label::before{
+	width: 18px;
+    height: 18px;
+	box-shadow: none !important;
+	left: -9px;
+	top: 2px;
+}
+.login-box .custom-control-label{
+	text-indent: 20px;
+    top: 3px !important;
+    cursor: pointer;
+}
+.login-box .login-inner .form-group label, .register-box .register-inner .form-group label{
+    position: absolute;
+    left: 12px;
+    top: -11px;
+	    margin: 0;
+		    color: #fff;
+    font-family: Avenir-Medium;
+}
+.login-box .login-inner .form-group .form-check-inline label, 
+.register-box .register-inner .form-group .form-check-inline label{
+	position: relative;
+    top: 0;
+    left: 0;
+	cursor:pointer;
+}
+.login-box .form-group input[type="radio"], 
+.login-box .form-group input[type="checkbox"], 
+.register-box .form-group input[type="radio"], 
+.register-box .form-group input[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+	cursor:pointer;
+    background: transparent !important;
+    border: none !important;
+    height: auto !important;
+}
+img.user-login{
+    position: absolute;
+    right: 15px;
+    top: 18px;
+    width: 18px;
+}
+.btn-cancel{
+	border: 1.4px solid #B002ED;
+    color: #B002ED;
+    font-size: 16px;
+	    font-family: Avenir-Medium;
+}
+.btn-cancel:hover{
+	background: rgba(189,0,255, 0.53) !important;
+    border-color: rgba(189,0,255, 0.53) !important;
+}
+.btn-login, .btn-register{
+	background: rgba(189,0,255, 0.53) !important;
+    border-color: rgba(189,0,255, 0.53) !important;
+	font-size: 16px;
+	font-family: Avenir-Medium;
+}
+.login-box .forgot-password, .register-box .forgot-password{
+	color: #B002ED;
+	text-decoration:none;
+    font-size: 14px;
+    font-family: Avenir-Book;
+}
+.privacy-link{
+	color:#BD00FF !important;
+	text-decoration:none !important;
+	text-align:center;
+	font-size: 16px;
+	font-family: Avenir-Medium;
+	    margin: 40px auto 20px auto;
+    width: 280px;
+}
 /*---------Session Creation page CSS----------------*/
 
 #allprevsession .table td, .activity-table.table th
@@ -306,6 +491,16 @@ input.form-control:focus
 	top: 2px;
     left: -24px;
 }
+.nc_icon:before
+{
+	content: "";
+	position: absolute;
+	width: 1px;
+	height: 30px;
+	background-color: gray;
+	top: 2px;
+    left: -24px;
+}
 .c_icon:before
 {
 	content: "";
@@ -332,7 +527,10 @@ input.form-control:focus
 	font-size: 30px;
 
 }
-
+.p-top-3
+{
+	padding-top: 2px;
+}
 /* Tab inner part CSS */
 
 .cont1 .nav-link, .cont1 .nav-link.active
@@ -472,8 +670,15 @@ a.act:before
 }
 
 /*----------------Home Page CSS----------------------*/
+.shadow-1
+{
+	box-shadow:2px 4px 18px 11px #3d1a4a inset;
 
-
+}
+.radius-8
+{
+	border-radius: 8px !important;
+}
 .logo-text
 {
 	font-size: 28px;
@@ -496,7 +701,7 @@ a.act:before
     font-family: Avenir-Medium;
     letter-spacing: 0.5px;
     font-size: 16px;
-    padding: 10px 15px;
+    padding: 11px 15px;
 
 }
 .btn-outline-secondary:hover {
@@ -505,14 +710,14 @@ a.act:before
     border-color: #bd00ff;
 }
 
-.btn-primary {
+/* .btn-primary {
     background: #bd00ff;
     background-color: #bd00ff !important;
     border-color: #bd00ff !important;
     font-family: Avenir-Book;
     font-size: 16px;
-    padding: 10px 15px;
-}
+    padding: 11px 15px;
+} */
 #dasboard_myModal2{
 	background-color: #0000008c !important;
 }
@@ -528,31 +733,18 @@ a.act:before
 {
 	background-color: #2a2a2a !important;
 }
-#dasboard_myModal2 .done {
-    border-radius: 35px;
-    background: #5d067c;
-    color: #fff;
-    text-align: center;
-    font-family: "Avenir-Book";
-    font-size: 18px;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    width: 150px;
-    height: 60px;
-    margin-top: 23px;
-}
+
 .dashboard_land {
-    background-image: url(../images/msg.png);
+    background-image: url(../images/form-email.png);
     background-repeat: no-repeat;
     background-position: center;
-    width: 30px;
-    height: 32px;
+    width: 33px;
+    height: 33px;
     float: right;
     position: absolute;
     right: 14px;
-    top: 15px;
+	top: 18px;
+	background-size: 30px;
 }
 .srv-validation-message{
 	color:#dc0f0fde !important;
@@ -851,7 +1043,7 @@ a.act:before
 	padding: .375rem 1rem;
 	border: 1px solid #bd00ff;
 }
-.input_field_container .col-xl-8 input.form-control, .input_field_container .col-xl-5 input.form-control
+.input_field_container .col-xl-8 input.form-control, .input_field_container .col-xl-5 input.form-control, .input_field_container .frst-input-row input.form-control
 {
 	background-color: transparent;
 	border: none;
@@ -860,9 +1052,9 @@ a.act:before
 .input_field_container input.dt_input
 {
 	background-color: transparent;
-	border: 2px solid #bd00ff;
+	border: 1.8px solid #bd00ff;
 	color: rgb(255,255,255) !important;
-	border-radius: .25rem;
+	border-radius: 6px;
 }
 .input_field_container ::placeholder
 {
@@ -872,11 +1064,23 @@ a.act:before
 {
 	color: rgb(255,255,255) !important;
 }
+.frst-input-row ::-webkit-input-placeholder
+{
+	font-style: italic !important;
+}
+.frst-input-row ::-webkit-input-placeholder
+{
+	font-style: italic !important;
+}
+.frst-input-row ::placeholder
+{
+	font-style: italic !important;
+}
 
 
 .input_field_container .custom-checkbox .custom-control-label::before
 {
-	border: 1px solid #bd00ff;
+	border: 1.8px solid #bd00ff;
     width: 20px;
     height: 20px;
     border-radius: 3px;
@@ -894,6 +1098,10 @@ a.act:before
     background-color: white;
     box-shadow: none;
 }
+.custom-control-input:focus:not(:checked)~.custom-control-label::before
+{
+	border-color: #bd00ff;
+}
 .input_field_container .custom-checkbox.text_input .custom-control-input:checked~.custom-control-label::after
 
 {
@@ -905,21 +1113,22 @@ a.act:before
 	top: 0.35rem;
     left: -1.4rem;
 } */
-.input_field_container .col-xl-7:before
+.input_field_container .frst-input-row .custom-checkbox:before
 {
 	content: "";
 	position: absolute;
-	left: 0;
-	top: 0;
-	width: 1px;
-	height: 100%;
-	background-color: #898989;
+	left: -20px;
+    top: -6px;
+    width: 1px;
+    height: 38px;
+    background-color: #898989;
 }
 .custom-control-input:not(:disabled):active~.custom-control-label::before
 {
 	color: #fff;
     background-color: transparent;
-    border-color: #bd00ff;
+	border-color: #bd00ff;
+	border-width: 2px solid #bd00ff;
 }
 
 /*---------Custom select input CSS----------------*/
@@ -1881,7 +2090,7 @@ input.timepicki-input
         z-index: -1;
         left: -15px;
         width: 125%;
-        height: 2px;
+        height: 3px;
       }
       .input_bx-cont .form-group .input-field
       {
@@ -2122,6 +2331,7 @@ h2.display-2
 	border: none;
 	padding: 12px 50px;      
   }
+
   .round
   {
 	border-radius: 10px !important;
@@ -2647,17 +2857,18 @@ width: 378px;
 }
 /* end */
 /* datepicker css */
-.react-datepicker-wrapper{
+/* .react-datepicker-wrapper{
 	
     float: right;
-}
+} */
 .react-datepicker__input-container, input {
     background-color: #2a2a2a;
     border: #2a2a2a;
     color: whitesmoke;
     font-size: 23px;	
     width: 100%;
-    position: relative;
+	position: relative;
+	border-radius: 6px;
 }
 .react-datepicker{
 	background-color: #424141 !important;
@@ -2683,6 +2894,10 @@ width: 378px;
 .react-datepicker__day-name:hover, .react-datepicker__day:hover, .react-datepicker__time-name:hover {
    
     color: #000000 !important;
+}
+.react-datepicker-popper
+{
+	z-index: 999 !important;
 }
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
     border-bottom-color: #bd00ff !important;
@@ -2726,7 +2941,9 @@ width: 378px;
     color: #fff;
 }
 .parent-row .react-datepicker-wrapper .react-datepicker__input-container input{
-	background-color: #7c11a2 !important;
+	background-color: #492158 !important;
+	padding: 19px;
+	width: 125px;
 }
 .react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus {
     background-color: #5d067c !important;

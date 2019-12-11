@@ -139,10 +139,15 @@ return (
 
                 <div className = "form-group mt-4 mb-0">
                     <span className="text-danger">{errors.password}{errors.passwordincorrect}</span>
+                  
                     <label>Password</label>
                     <input type="password"  id="password" onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} className = "form-control"  />
-                    <img src="/images/login-user.png" className="user-login" />
+                    <img src="/images/password1.png" className="user-login" />
                 </div>
+                {/* <div class="form-group"><span class="cover-border bg_gray_clr">
+                  </span><label class="label">Enter First Name</label>
+                <input type="text" id="" class="input-field" value=""><span class="signedup_2" />
+                </span></div> */}
                 
                 <div className = "form-group mt-4 mb-0 pl-0">
                 <div className="custom-control custom-checkbox">

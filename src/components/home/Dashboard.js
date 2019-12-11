@@ -87,6 +87,41 @@ $(".parent-row").hide();
 	
 	}
 
+	setStartDate1 =(date)=>{
+		let date1=date;
+		let upcomingSession=[];
+		console.log('----------------',new Date(date).getMonth(),new Date(date).getDate());
+		let dateofMonth = new Date(date).getDate();
+		 let timeSelection =  (new Date (date).getMonth()) ;
+		 console.log(timeSelection);
+		  date = new Date(Date.UTC(2019, timeSelection, 1));
+		 var days = [];
+		 var dayofWeek=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+		console.log('date.getMonth()',date.getMonth());
+		 while (date.getMonth() === timeSelection) {
+			//days.push(new Date(date).getDate());
+			 let n ={date:new Date(date).getDate(),
+				day:dayofWeek[new Date(date).getDay()],
+				timestamp:new Date(date).getTime(),
+			}
+			 days.push(n);
+			 //days.push(new Date(date).getDay());
+			 date.setDate(date.getDate() + 1);
+		  }
+		console.log(days)
+		  for (let i=dateofMonth-1 ;i<days.length;i++){
+			  console.log(days[i])
+			  upcomingSession.push(days[i]);
+		  } 
+		
+		this.setState({
+			startDate1:date1,
+			daysOfMonth:days,
+			upcomingSession:upcomingSession,
+		},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
+		
+		}
+	
 
  customChecked=(e)=>{
 	console.log(e.target.id)
@@ -154,13 +189,13 @@ $(".parent-row").hide();
 		<div className="slider-header pt-4">
 			<div className="row">
 				<div className="col-md-5">
-					<h1 className="logo-text text-center text-md-left">Virdio</h1>
+					<h1 className="logo-text text-center text-md-left"><img src="/images/login-logo.png" className="logo" alt="logo" /></h1>
 				</div>
 				<div className="col-md-7">
 					<div className="d-flex justify-content-md-end justify-content-center align-items-center flex-wrap">
-						<p>Sign Up It's Free</p>
-						<button className="btn btn-primary text-uppercase mr-3" onClick={e=>browserHistory.push("/signUp")}>Sign Up</button>
-						<button className="btn btn-outline-secondary">Login</button>
+						<p>Sign Up, It's Free</p>
+						<button className="btn btn-primary text-uppercase mr-3 font-weight-bold radius-8" onClick={e=>browserHistory.push("/signUp")}>Sign Up</button>
+						<button className="btn btn-outline-secondary font-weight-bold radius-8">LOG IN</button>
 					</div>
 				</div>
 			</div>	
@@ -234,55 +269,85 @@ $(".parent-row").hide();
 	</div>
 	
 	<div className="container-fluid px-3 px-md-5 slides_sec py-4">
-		<div className="d-flex flex-wrap">
+	
+			<div className="d-flex flex-wrap">
 			<h2>Interest</h2>
-			<div className="flex-grow-1 input_field_container">
-				<div className="row mx-0">
-					<div className="col-xl-5 pr-lg-0">
-			    		<input type="text" className="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
-					</div>
-					<div className="col-xl-7 pl-4">
-						<div className="row mx-0 mt-3 mt-xl-0">
-							<div className="col-md-12">
-								<div className="custom-control custom-checkbox mb-3 text_input">
-							      <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={this.state.customCheck1} onChange={this.customChecked} name="example1" />
-							      <label className="custom-control-label" htmlFor="customCheck1">Advance</label>
-							    </div>
+				<div className="flex-grow-1 input_field_container py-0 radius-8">
+					<div className="row mx-0 frst-input-row shadow-1 py-3 align-items-center radius-8">
+						<div className="flex-grow-1">
+							<input type="text" className="form-control" placeholder="Search for interest channels, hosts or keywords" name="" />
+						</div>
+						<div className="">
+							<div className="">
+								<div className="px-4 d-flex justify-content-end align-items-center">				
+									<div class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" id="customCheck1" value="false" checked={this.state.customCheck1} onChange={this.customChecked} name="example1" />
+										<label class="custom-control-label" for="customCheck1"><p className="pl-2 p-top-3 mb-0">ADVANCED</p></label>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div className="parent-row">
-			    			<div className="row mx-0 row1 d-flex">
-			    				<div className="col-lg-4 col-md-6">
-			    					<p>On a specific date</p>
-			    					{/* <input type="text" name="" className="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" /> */}
-									<DatePicker className="form-control dt_input" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
-			    				</div>
-			    				<div className="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
-			    					<p>On Demand</p>
-			    					<div className="custom-control custom-checkbox mb-3">
-								     <input type="checkbox" className="custom-control-input" id="customCheck" name="" />
-								      <label className="custom-control-label" htmlFor="customCheck"></label>
-								    </div>
-			    				</div>
-			    				<div className="col-lg-4 col-md-6">
-			    					<p>Length of session</p>
-			    					<div className="custom-select1">
-				    					<select name="">
-									      <option value="3600">Any length</option>
-									      <option value="29">Less than 30 minutes</option>
-									      <option value="59">Less than an hour </option>
-									      <option value="119">Less than 2 hours</option>
-										  <option value="120">More than 2 hours</option>
-									    </select>
-									</div>
-			    				</div>
-			    			</div>
-			    		</div>
-			    			
-		    			</div>
 					</div>
+					{/* <div className="parent-row my-3">
+						<div className="row mx-0 row1 d-flex">
+							<div className="col-lg-4 col-md-6">								
+								<p>On a specific date</p>			    					
+								<DatePicker className="form-control dt_input" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
+							</div>
+							<div className="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
+								<p>On Demand</p>
+								<div className="custom-control custom-checkbox mb-3">
+									<input type="checkbox" className="custom-control-input" id="customCheck" name="" />
+									<label className="custom-control-label" htmlFor="customCheck"></label>
+								</div>
+							</div>
+							<div className="col-lg-4 col-md-6">
+								<p>Length of session</p>
+								<div className="custom-select1">
+									<select name="">
+										<option value="30">30 min</option>
+										<option value="40">40 min</option>
+										<option value="30">30 min</option>
+										<option value="30">30 min</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					</div>	    			 */}
+					<div className="parent-row my-3">				
+						<div className="row mx-0 row1 d-flex">
+							<div className="col-lg-5 col-md-12 d-flex d-flex align-items-center">								
+								<p className="mr-3 mb-0">On a specific date</p>		    					
+								<DatePicker className="form-control dt_input" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
+								<p className="mx-2 mb-0">To</p>
+								<DatePicker className="form-control dt_input" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate1} onChange={date => this.setStartDate1(date)} />
+							</div>
+							<div className="col-lg-3 col-sm-6 mt-4 mt-lg-0 d-flex justify-content-center align-items-center">
+								<p className="mr-3 mb-0">On Demand</p>
+								<div className="custom-control custom-checkbox mb-0">
+									<input type="checkbox" className="custom-control-input" id="customCheck" name="" />
+									<label className="custom-control-label" htmlFor="customCheck"></label>
+								</div>
+							</div>
+							<div className="col-lg-4 col-sm-6 mt-4 mt-lg-0 d-flex pr-lg-4 align-items-center">
+								<p className="mr-3 mb-0">Length of session</p>
+								<div className="custom-select1 flex-grow-1">
+									<select name="">
+									<option value="3600">Any length</option>
+									<option value="29">Less than 30 minutes</option>
+									<option value="59">Less than an hour </option>
+									<option value="119">Less than 2 hours</option>
+									<option value="120">More than 2 hours</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
 					<div className="right-small-box">
-						<i className="fa fa-search"></i>
+						<img src="/images/search.png" alt="search" />
 					</div>
 				</div>
 			</div>
@@ -393,7 +458,7 @@ $(".parent-row").hide();
 	<div className="footer_sec px-3 px-md-5 py-4">
 		<div className="row">
 			<div className="col-lg-3 col-sm-6">
-				<h1 className="logo-text text-center mt-5">Virdio</h1>
+				<h1 className="logo-text text-center mt-5"><img src="/images/login-logo.png" className="logo" alt="logo" /></h1>
 				<div className="social_icons text-center mt-4">
 					<Link to="/"><i className="fa fa-facebook"></i></Link>
 					<Link to="/"><i className="fa fa-twitter"></i></Link>
