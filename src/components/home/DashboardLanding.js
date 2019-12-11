@@ -185,7 +185,40 @@ componentDidMount(){
 	},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
 	
 	}
-	
+	setStartDate1 =(date)=>{
+		let date1=date;
+		let upcomingSession=[];
+		console.log('----------------',new Date(date).getMonth(),new Date(date).getDate());
+		let dateofMonth = new Date(date).getDate();
+		 let timeSelection =  (new Date (date).getMonth()) ;
+		 console.log(timeSelection);
+		  date = new Date(Date.UTC(2019, timeSelection, 1));
+		 var days = [];
+		 var dayofWeek=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+		console.log('date.getMonth()',date.getMonth());
+		 while (date.getMonth() === timeSelection) {
+			//days.push(new Date(date).getDate());
+			 let n ={date:new Date(date).getDate(),
+				day:dayofWeek[new Date(date).getDay()],
+				timestamp:new Date(date).getTime(),
+			}
+			 days.push(n);
+			 //days.push(new Date(date).getDay());
+			 date.setDate(date.getDate() + 1);
+		  }
+		console.log(days)
+		  for (let i=dateofMonth-1 ;i<days.length;i++){
+			  console.log(days[i])
+			  upcomingSession.push(days[i]);
+		  } 
+		
+		this.setState({
+			startDate1:date1,
+			daysOfMonth:days,
+			upcomingSession:upcomingSession,
+		},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
+		
+		}
 
 	
 
@@ -369,7 +402,8 @@ mail=e=>{
 										<div className="row mx-0 row1 d-flex">
 											<div className="col-lg-4 col-md-6">
 												<p>On a specific date</p>
-												<input type="text" name="" className="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" />
+												{/* <input type="text" name="" className="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" /> */}
+												<DatePicker className="form-control dt_input" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate1} onChange={date => this.setStartDate1(date)} />
 											</div>
 											<div className="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
 												<p>On Demand</p>
@@ -485,7 +519,7 @@ mail=e=>{
 						    <ul className="nav nav-tabs mx-0" role="tablist">
 							{this.state.upcomingSession.length>0?
 							(this.state.upcomingSession.map((row,i)=>
-							    <li className="nav-item flex-fill">
+							    <li className="nav-item flex-fill" key={i}>
 							      <Link to="#dt1" className="nav-link active act" data-toggle="tab" id = {i} name={row.timestamp} onClick={this.scriptOnDate} >{row.date}<br /><span>{row.day}</span></Link>
 							    </li>
 								)):''}
