@@ -81,7 +81,9 @@ class DashboardLanding extends Component {
 		mail:'',
 		hostMail:[{mail:''},{mail:'ak@gmail.com'},{mail:'ak1@gmail.com'}],
 		customRadio3:false,
-		customRadio4:true
+		customRadio4:true,
+		customCheck1:false,
+		searchContainer:false
 			
 
 	}
@@ -340,10 +342,12 @@ mail=e=>{
 						<div className="col-lg-4 datepick d-flex justify-content-start flex-wrap justify-content-md-between align-items-center">
 							{/* <input type="text" name="" class="form-control" id="datepicker" /> */}
 							<DatePicker className="form-control" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
-							<div className="c_icon position-relative"><img src="/images/cal.png" className=""  alt="" /><img src="images/angle-down.png" className="mr-4"  alt="" /></div>
-							<div className="c_icon position-relative"><img src="/images/search1.png" className="mr-4"  alt="" /></div>
+							<div className="c_icon position-relative"><img src="/images/cal.png" className=""  alt="" /><img src="/images/angle-down.png" className="mr-4"  alt=""  /></div>
+							<div className="c_icon position-relative"><img src="/images/search1.png" className="mr-4"  alt="" id="searchContainer" onClick={(e)=>this.setState({[e.target.id]:!this.state.searchContainer},()=>console.log(this.state.searchContainer))} /></div>
 						</div>
 					</div>
+					{/* search Container */}
+					{this.state.searchContainer ?
 					<div className="parent_field_cont pb-4">
 						<div className="input_field_container round">
 							<div className="row">
@@ -354,11 +358,13 @@ mail=e=>{
 									<div className="row mx-0 mt-3 mt-xl-0">
 										<div className="col-md-12">
 											<div className="custom-control custom-checkbox mb-3 text_input">
-											<input type="checkbox" className="custom-control-input" id="customCheck1" name="example1" />
+											<input type="checkbox" className="custom-control-input" id="customCheck1" name="example1" defaultChecked={this.state.customCheck1} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.customCheck1},()=>console.log('customCheck1',this.state.customCheck1))}} />
 											<label className="custom-control-label" htmlFor="customCheck1">Advance</label>
 											</div>
 										</div>
 									</div>
+									{/* Advance search start */}
+									{this.state.customCheck1 ?
 									<div className="parent-row">
 										<div className="row mx-0 row1 d-flex">
 											<div className="col-lg-4 col-md-6">
@@ -384,7 +390,9 @@ mail=e=>{
 												</div>
 											</div>
 										</div>
-									</div>									
+									</div>
+									:''}
+									{/* Advance Search end  */}
 								</div>
 							</div>
 							<div className="right-small-box">
@@ -393,76 +401,78 @@ mail=e=>{
 						</div>
 						<div className="row mt-4">
 							<div className="col-md-3">
-								<h4 class="white mt-3 mb-3 font-22">Channel</h4>
+								<h4 className="white mt-3 mb-3 font-22">Channel</h4>
 								<div className="">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 							</div>
 							<div className="col-md-5">
-								<h4 class="white mt-3 mb-3 font-22">Hosts</h4>								
+								<h4 className="white mt-3 mb-3 font-22">Hosts</h4>								
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 							</div>
 							<div className="col-md-4">
-								<h4 class="white mt-3 mb-3 font-22">Interest</h4>						
+								<h4 className="white mt-3 mb-3 font-22">Interest</h4>						
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 							</div>														
 						</div>							
 					</div>
+					:''}
+					{/* Search container end */}
 				</div>
 
 				

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SimpleReactValidator from 'simple-react-validator';
 import { Link } from 'react-router'
 import $ from 'jquery'
+import axios from "axios";
 
 class hostSignUp extends Component {
   constructor(props) {
@@ -16,9 +17,10 @@ class hostSignUp extends Component {
     verify:false,
     signup:true,
     sms:false,
-    byEmail:false,
+    byEmail:true,
     message:'',
-    passwordText:''
+    passwordText:'',
+    otp:''
 
   }
   this.validator = new SimpleReactValidator({autoForceUpdate: this});
@@ -35,15 +37,52 @@ sessionInfo=(e)=>{
 verify=(e)=>{
     if (this.validator.allValid()) {
       if(this.state.password===this.state.rePassword){
-        let ak='';
-        for(let i=0;i<this.state.password.length;i++){
-          ak = ak+'*';
-        }
+        //let ak='';
+      //   for(let i=0;i<this.state.password.length;i++){
+      //     ak = ak+'*';
+      //   }
+      // this.setState({
+      //   verify:true,
+      //   signup:false,
+      //   passwordText:ak
+      // })
+      let ak='';
+      const participentDetail = {
+        firstName:this.state.firstName,
+        lastName:this.state.lastName,
+        email:this.state.email,
+        password:this.state.password,
+        address1:"sector3",
+        address2:"noida",
+        city:"noida",
+        state:"UP",
+        zip:"123456",
+        image:"ASD",
+        phone:this.state.phone
+        
+    }
+    console.log('>>>>>>>>>>>>>>>>',participentDetail);
+      axios.post("http://192.168.1.177:8001/api/v1/user/register", {participentDetail})
+      .then(res => {
+       if(res.data.responseMessage == "success")
+      {
+      console.log('=============lallittiwari12345===================>',res.data);
+      for(let i=0;i<this.state.password.length;i++){
+        ak = ak+'*';
+      }
       this.setState({
-        verify:true,
-        signup:false,
-        passwordText:ak
-      })
+      verify:true,
+      signup:false,
+      passwordText:ak,
+      
+    })
+      }else{
+       console.log('=============There Is an Error===================>'); 
+      }
+      }).catch(err =>{
+      console.log('----------there is problem------------',err);
+      });
+
     }
       } else {
       this.validator.showMessages();
@@ -54,12 +93,39 @@ verify=(e)=>{
  }
  submitHost=(e)=>{
   if(this.state.sms || this.state.byEmail){
-    console.log('nextPage');
-    $("#registration_popup").attr({'style':'display:block'});
-    this.setState({
-      message:'',
+    // console.log('nextPage');
+    // $("#registration_popup").attr({'style':'display:block'});
+    // this.setState({
+    //   message:'',
       
-    })
+    // })
+    let otpDetail={ 
+      email : this.state.email,
+      code:this.state.otp
+      } 
+      axios.get("http://192.168.1.177:8001/api/v1/user/verify-otp", {otpDetail})
+        .then(res => {
+         if(res.data.responseMessage == "success"){
+        console.log('=============lallittiwari12345===================>',res.data);
+  
+        $("#registration_popup").attr({'style':'display:block'});
+        this.setState({
+        message:'',
+        })
+  
+        }else{
+         console.log('=============There Is an Error===================>'); 
+        }
+        }).catch(err =>{
+        console.log('----------there is problem------------',err);
+        });
+  
+      // $("#registration_popup").attr({'style':'display:block'});
+      // this.setState({
+      //   message:'',
+        
+      // })
+  
   }else{
     this.setState({
       message:'Choose either sms or email'
@@ -201,7 +267,11 @@ render() {
                   <p className="pick mt-4 mb-4 font-18">ENTER THE CODE</p>
                   <div className="o-hidden">
                     <div className="float-left">
-                      <p className="sml_input_box d-inline">
+                      <p className="sml_input_box_ak d-inline">
+                        {/* <input type="text" maxLength="1"/> */}
+                        <input type="text" maxLength="4" id ="otp" value={this.state.otp} onChange={(e)=>this.setState({[e.target.id]:e.target.value})}/>
+                      </p>
+                      {/* <p className="sml_input_box d-inline">
                         <input type="text" maxLength="1"/>
                       </p>
                       <p className="sml_input_box d-inline">
@@ -209,10 +279,7 @@ render() {
                       </p>
                       <p className="sml_input_box d-inline">
                         <input type="text" maxLength="1"/>
-                      </p>
-                      <p className="sml_input_box d-inline">
-                        <input type="text" maxLength="1"/>
-                      </p>
+                      </p> */}
                     </div>
                     <div className="float-left ml-4">
                       <p className="checktxt font-18 mt-2 mb-0">Didnt receive?</p>

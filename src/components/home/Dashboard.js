@@ -12,7 +12,8 @@ constructor(props) {
 	carouselData :[{path:"/images/banner1.jpg"},{path:"/images/banner2.jpg"},{path:"/images/banner3.jpg"}],
 	fitnessData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
 	wineData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
-    cookingData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}]
+	cookingData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
+	customCheck1:false
 	}
 	
 }
@@ -47,7 +48,7 @@ componentDidMount(){
 //   } 
   
 //   console.log(days[29],days.length,'DAYS**************************************',days);
-
+$(".parent-row").hide();
  }
 
 
@@ -244,7 +245,7 @@ componentDidMount(){
 						<div className="row mx-0 mt-3 mt-xl-0">
 							<div className="col-md-12">
 								<div className="custom-control custom-checkbox mb-3 text_input">
-							      <input type="checkbox" className="custom-control-input" id="customCheck1" value="false" checked={this.state.customCheck1} onChange={this.customChecked} name="example1" />
+							      <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={this.state.customCheck1} onChange={this.customChecked} name="example1" />
 							      <label className="custom-control-label" htmlFor="customCheck1">Advance</label>
 							    </div>
 							</div>
@@ -267,10 +268,11 @@ componentDidMount(){
 			    					<p>Length of session</p>
 			    					<div className="custom-select1">
 				    					<select name="">
-									      <option value="30">30 min</option>
-									      <option value="40">40 min</option>
-									      <option value="30">30 min</option>
-									      <option value="30">30 min</option>
+									      <option value="3600">Any length</option>
+									      <option value="29">Less than 30 minutes</option>
+									      <option value="59">Less than an hour </option>
+									      <option value="119">Less than 2 hours</option>
+										  <option value="120">More than 2 hours</option>
 									    </select>
 									</div>
 			    				</div>
