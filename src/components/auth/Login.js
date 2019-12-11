@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
+//import PropTypes from "prop-types";@ak
+//import { connect } from "react-redux";@ak
+//import { loginUser } from "../../actions/authActions";@ak
 import classnames from "classnames";
 
 import $ from 'jquery';
@@ -26,7 +26,7 @@ class Login extends Component {
   
   });
     // If logged in and user navigates to Login page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
+    // if (this.props.auth.isAuthenticated) {@ak
       // this.props.history.push("/home");
       var localstoragedata=JSON.parse(localStorage.getItem('userData'));
 
@@ -39,12 +39,12 @@ class Login extends Component {
       // }
 
       if(localstoragedata && localstoragedata.sessionData && localstoragedata.sessionData.id != undefined){
-        this.props.history.push("/pre-screen");
+        // this.props.history.push("/pre-screen");@ak
       } else {
-        this.props.history.push("/home");
+        // this.props.history.push("/home");@ak
       }
       
-    } else {
+    // } else { @ak
       if (localStorage.chkbx && localStorage.chkbx != '') {
           $('#remember_me').attr('checked', 'checked');
           // $('#email').val(localStorage.email);
@@ -54,7 +54,7 @@ class Login extends Component {
           // $('#email').val('');
           this.setState({email:''})
       }
-    }
+    // }@ak
   }
 
   componentWillReceiveProps(nextProps) {
@@ -225,18 +225,20 @@ return (
   }
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
+// Login.propTypes = {
+//   loginUser: PropTypes.func.isRequired,
+//   auth: PropTypes.object.isRequired,
+//   errors: PropTypes.object.isRequired
+// };@ak
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.user
-});
+// const mapStateToProps = state => ({
+//   auth: state.auth,
+//   errors: state.user
+// });@ak
 
-export default connect(
-  mapStateToProps,
-  { loginUser }
-)(Login);
+// export default connect(
+//   mapStateToProps,
+//   { loginUser }
+// )(Login);@ak
+
+export default Login;

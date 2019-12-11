@@ -207,10 +207,10 @@ componentDidMount(){
 	}
 	uneditableMode=(e)=>{
 		console.log(e.target.id);
-		browserHistory.push("/sessiondetail/"+e.target.id);
+		browserHistory.push("/fitnessdetail");
 	}
 	pastSession=(e)=>{
-		browserHistory.push("/sessiondetail/"+1);
+		browserHistory.push("/fitnessdetail");
 		console.log(new Date().getTime())
 		this.setState({
 			sessionInformation:'-1'
