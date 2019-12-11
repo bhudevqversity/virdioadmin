@@ -850,7 +850,7 @@ mail=e=>{
 												<div className="form-group">
 													<span className="cover-border bg_gray_clr"></span>
 													<label className="label">Enter First Name</label>
-													<input type="text" id="" class="input-field" value="" />
+													<input type="text" id="" className="input-field" placeholder="First namedasdsadsadasdasdsad" />
 													<span className="signedup_2"></span>
 												</div>
 											</div>
@@ -866,7 +866,7 @@ mail=e=>{
 												<div className="form-group">
 													<span className="cover-border bg_gray_clr"></span>
 													<label className="label">Enter Last Name</label>
-													<input type="text" id="" class="input-field" value="" />
+													<input type="text" id="" className="input-field" placeholder="Last name" />
 													<span className="signedup_2"></span>
 												</div>
 											</div>
@@ -882,7 +882,7 @@ mail=e=>{
 											<div className="form-group">
 												<span className="cover-border bg_gray_clr"></span>
 												<label className="label">Email Address</label>
-												<input type="text" id="" class="input-field" value="" />
+												<input type="text" id="" className="input-field" placeholder="Enter email" />
 												<span className="dashboard_land"></span>
 											</div>
 										</div>
