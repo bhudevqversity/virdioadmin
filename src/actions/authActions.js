@@ -1,6 +1,6 @@
 import axios from "axios";
 //import header from '../config.js';
-import setAuthToken from "../utils/setAuthToken";
+//import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import $ from 'jquery';
 import React from 'react'
@@ -69,7 +69,7 @@ export const loginUser = userData => dispatch => {
       
 
       // Set token to Auth header
-      setAuthToken(token);
+      //setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // console.log('decoded ===========',decoded)
@@ -115,7 +115,7 @@ export const logoutUser = () => dispatch => {
  // leave();
   localStorage.removeItem("userData");
   // Remove auth header for future requests
-  setAuthToken(false);
+  //setAuthToken(false);
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
   
