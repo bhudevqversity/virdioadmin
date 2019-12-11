@@ -1662,7 +1662,7 @@ submitForm = (event) => {
                       <div className="col-lg-7 pr-0">
                         <div className="form-group input-txt">
                           <label className="switch">
-                          <input type="checkbox" id = "demandWine" defaultChecked = {this.state.demandWine} onChange = {(e)=>this.setState({[e.target.id]:!this.state.demandWine},()=>console.log("demandWine",this.state.demandWine))} />
+                          <input type="checkbox" id = "onDemand" defaultChecked = {this.state.onDemand} onChange = {(e)=>this.setState({[e.target.id]:!this.state.onDemand},()=>console.log("onDemand",this.state.onDemand))} />
                           <span className="slider round"></span>
                           </label>
                           <span>Allow Participants on Demand</span>

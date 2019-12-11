@@ -93,7 +93,9 @@ class DemoSessionWine extends Component {
         showParticipant:false,
         amountCharge: '',
         orderWine:false,
-        orderWineDemand:false,
+
+        onDemand:false,
+        
         hostSessionStart:'',
         participantSessionStart:'',
         minimumNotMet: '',
@@ -2446,7 +2448,7 @@ submitForm = (event) => {
                     </div>
                     <div className="form-group input-txt">
                         <label className="switch">
-                        <input type="checkbox" id = "orderWineDemand" defaultChecked = {this.state.orderWineDemand} onChange = {(e)=>this.setState({[e.target.id]:!this.state.orderWineDemand},()=>console.log("orderWineDemand",this.state.orderWineDemand))} />
+                        <input type="checkbox" id = "onDemand" defaultChecked = {this.state.onDemand} onChange = {(e)=>this.setState({[e.target.id]:!this.state.onDemand},()=>console.log("onDemand",this.state.onDemand))} />
                         <span className="slider round"></span>
                         </label>
                         <span>Allow Participants on Demand</span>
