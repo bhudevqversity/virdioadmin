@@ -847,11 +847,11 @@ mail=e=>{
 													<input type="text" className="input-field"  placeholder="First namedasdsadsadasdasdsad" />
 													<span className="signedup_2"></span>
 												</div> */}
-												<div class="form-group">
-													<span class="cover-border bg_gray_clr"></span>
-													<label class="label">Enter First Name</label>
+												<div className="form-group">
+													<span className="cover-border bg_gray_clr"></span>
+													<label className="label">Enter First Name</label>
 													<input type="text" id="" class="input-field" value="" />
-													<span class="signedup_2"></span>
+													<span className="signedup_2"></span>
 												</div>
 											</div>
 											:''}
@@ -863,11 +863,11 @@ mail=e=>{
 													<input type="text" className="input-field" placeholder="Last name" />
 													<span className="signedup_2"></span>
 												</div> */}
-												<div class="form-group">
-													<span class="cover-border bg_gray_clr"></span>
-													<label class="label">Enter Last Name</label>
+												<div className="form-group">
+													<span className="cover-border bg_gray_clr"></span>
+													<label className="label">Enter Last Name</label>
 													<input type="text" id="" class="input-field" value="" />
-													<span class="signedup_2"></span>
+													<span className="signedup_2"></span>
 												</div>
 											</div>
 											:''}
@@ -879,11 +879,11 @@ mail=e=>{
 												<input type="email" className="input-field" placeholder="Last name" />
 												<span className="dashboard_land"></span>
 											</div> */}
-											<div class="form-group">
-												<span class="cover-border bg_gray_clr"></span>
-												<label class="label">Email Address</label>
+											<div className="form-group">
+												<span className="cover-border bg_gray_clr"></span>
+												<label className="label">Email Address</label>
 												<input type="text" id="" class="input-field" value="" />
-												<span class="dashboard_land"></span>
+												<span className="dashboard_land"></span>
 											</div>
 										</div>
 										:''}
