@@ -16,8 +16,9 @@ class hostSignUp extends Component {
     verify:false,
     signup:true,
     sms:false,
-    byEmail:false,
-    message:''
+    byEmail:true,
+    message:'',
+    passwordText:''
 
   }
   this.validator = new SimpleReactValidator({autoForceUpdate: this});
@@ -34,9 +35,14 @@ sessionInfo=(e)=>{
 verify=(e)=>{
     if (this.validator.allValid()) {
       if(this.state.password===this.state.rePassword){
+        let ak='';
+        for(let i=0;i<this.state.password.length;i++){
+          ak = ak+'*';
+        }
       this.setState({
         verify:true,
-        signup:false
+        signup:false,
+        passwordText:ak
       })
     }
       } else {
@@ -94,9 +100,9 @@ render() {
                 <span className="form_email"></span>
               </div>
               <div className="form-group">
-                <label className="label">Mobile Number<sup>*</sup><span className="inp_cover-border"></span></label>
+                <label className="label">Mobile Number<span className="inp_cover-border"></span></label>
                 <input type="text" className="input-field"  value={this.state.phone} id ='phone' onChange={this.sessionInfo}/>
-                {this.validator.message('phone', this.state.phone, 'required|phone|size:10')}
+                {this.validator.message('phone', this.state.phone, 'phone|size:10')}
                 <span className="mobile_phone1"></span>
               </div>
               <div className="form-group">
@@ -145,11 +151,11 @@ render() {
                   </div>
                   <div className="mb-30">
                     <p className="checktxt">Create A Password</p>
-                    <p className="checktxt_name border border-0 mb-0"><img src="/images/passwrd.png" className="mr-3" alt="user-icon" />{this.state.password}</p>
+                    <p className="checktxt_name border border-0 mb-0"><img src="/images/passwrd.png" className="mr-3" alt="user-icon" />{this.state.passwordText}</p>
                   </div>
                   <div className="mb-30">
                     <p className="checktxt">Retype Password</p>
-                    <p className="checktxt_name border border-0 mb-0"><img src="/images/passwrd.png" className="mr-3" alt="user-icon" />{this.state.rePassword}</p>
+                    <p className="checktxt_name border border-0 mb-0"><img src="/images/passwrd.png" className="mr-3" alt="user-icon" />{this.state.passwordText}</p>
                   </div>
                 </div>
               </div>

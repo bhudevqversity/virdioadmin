@@ -12,7 +12,8 @@ constructor(props) {
 	carouselData :[{path:"/images/banner1.jpg"},{path:"/images/banner2.jpg"},{path:"/images/banner3.jpg"}],
 	fitnessData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
 	wineData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
-    cookingData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}]
+	cookingData:[{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"},{path:"/images/wine.jpg"}],
+	customCheck1:false
 	}
 	
 }
@@ -47,7 +48,7 @@ componentDidMount(){
 //   } 
   
 //   console.log(days[29],days.length,'DAYS**************************************',days);
-
+$(".parent-row").hide();
  }
 
 
@@ -279,9 +280,9 @@ componentDidMount(){
 						<div className="">
 							<div className="">
 								<div className="px-4 d-flex justify-content-end align-items-center">				
-									<div class="custom-control custom-checkbox mb-0">
-										<input type="checkbox" class="custom-control-input" id="customCheck1" value="false" checked={this.state.customCheck1} onChange={this.customChecked} name="example1" />
-										<label class="custom-control-label" for="customCheck1"><p className="pl-2 p-top-3 mb-0">ADVANCED</p></label>
+									<div className="custom-control custom-checkbox mb-0">
+										<input type="checkbox" className="custom-control-input" id="customCheck1" value="false" checked={this.state.customCheck1} onChange={this.customChecked} name="example1" />
+										<label className="custom-control-label" htmlFor="customCheck1"><p className="pl-2 p-top-3 mb-0">ADVANCED</p></label>
 									</div>
 								</div>
 							</div>
@@ -333,10 +334,11 @@ componentDidMount(){
 								<p className="mr-3 mb-0">Length of session</p>
 								<div className="custom-select1 flex-grow-1">
 									<select name="">
-										<option value="30">30 min</option>
-										<option value="40">40 min</option>
-										<option value="30">30 min</option>
-										<option value="30">30 min</option>
+									<option value="3600">Any length</option>
+									<option value="29">Less than 30 minutes</option>
+									<option value="59">Less than an hour </option>
+									<option value="119">Less than 2 hours</option>
+									<option value="120">More than 2 hours</option>
 									</select>
 								</div>
 							</div>

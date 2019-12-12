@@ -2155,6 +2155,19 @@ input.timepicki-input
         margin-right: 12px;
         font-size: 26px;
         text-align: center;
+	  }
+	  .sml_input_box_ak input
+      {
+        width: 150px;
+        height: 60px;
+        background: transparent;
+        border:1px solid #bd00ff;
+        border-radius: 5px;
+        color: white;
+        padding: 5px;
+        margin-right: 12px;
+        font-size: 26px;
+        text-align: center;
       }
       .o-hidden
       {
