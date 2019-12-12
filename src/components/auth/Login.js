@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 //import { connect } from "react-redux";@ak
 //import { loginUser } from "../../actions/authActions";@ak
 import classnames from "classnames";
+import axios from "axios";
 
 import $ from 'jquery';
 
@@ -105,11 +106,21 @@ onSubmit = e => {
       email: this.state.email,
       password: this.state.password,
       // name: this.state.name,
-      type: this.state.type
     };
    console.log('------------userData1111---------------',this.state.email)
    console.log('------------userData111134---------------',userData)
-    this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+    //this.props.loginUser(userData);@ak // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+    axios.get("http://192.168.1.177:8001/api/v1/user/adminLogin", {userData})
+    .then(res => {
+     if(res.data.responseMessage == "success"){
+    console.log('=============lallittiwari12345===================>',res.data);
+    localStorage.setItem("userData", JSON.stringify(res));
+    }else{
+     console.log('=============There Is an Error===================>'); 
+    }
+    }).catch(err =>{
+    console.log('----------there is problem------------',err);
+    });
   };
   
 render() {

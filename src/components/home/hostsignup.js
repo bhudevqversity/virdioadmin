@@ -16,7 +16,7 @@ class hostSignUp extends Component {
     verify:false,
     signup:true,
     sms:false,
-    byEmail:false,
+    byEmail:true,
     message:'',
     passwordText:''
 
