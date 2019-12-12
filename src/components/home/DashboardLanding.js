@@ -265,6 +265,7 @@ componentDidMount(){
 		//browserHistory.push("/sessiondetail/"+e.target.id);
 		if(e.target.id%2===0){
 		browserHistory.push("/fitnessdetail");
+		//browserHistory.push("/sessiondetail/"+e.target.id);
 		}else{
 		browserHistory.push("/winedetail");	
 		}
@@ -272,7 +273,7 @@ componentDidMount(){
 	// wineUneditableMode=(e)=>{
 	// browserHistory.push("/winedetail/"+e.target.id);		
 	// }
-	editableMode=(e)=>{
+	editableMode=(e)=>{	
 		if(e.target.id%2===0){
 		browserHistory.push("/FitnessSessionCreation");
 		}else{

@@ -61,7 +61,7 @@ class VerifyUser extends Component {
         };
 
          axios
-         .post("http://192.168.1.177:8001/api/v1/session/verifyuser",userData)                
+         .post("/api/v1/session/verifyuser",userData)                
          .then(res => {
 
           console.log('---------verifyuser123333--------------',res.data)
