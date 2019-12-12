@@ -51,9 +51,9 @@ verify=(e)=>{
   if(this.state.sms || this.state.byEmail){
     $("#registration_popup").attr({'style':'display:block'});
     this.setState({
-      message:'',
-      
+      message:'',      
     })
+    
   }else{
     this.setState({
       message:'Choose either sms or email',

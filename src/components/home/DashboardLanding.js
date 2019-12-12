@@ -218,7 +218,7 @@ componentDidMount(){
 	// wineUneditableMode=(e)=>{
 	// browserHistory.push("/winedetail/"+e.target.id);		
 	// }
-	editableMode=(e)=>{
+	editableMode=(e)=>{	
 		if(e.target.id%2===0){
 		browserHistory.push("/FitnessSessionCreation");
 		}else{

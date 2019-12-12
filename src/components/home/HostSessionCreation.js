@@ -83,7 +83,7 @@ fetchAttributesList() {
 
       axios      
       
-      .get("http://192.168.1.177:8001/api/v1/session/"+interestId+"/attributeList")          
+      .get("/api/v1/session/"+interestId+"/attributeList")          
       .then(res => {
         console.log('---------interestIdproduct--------------',res.data.responseData);
 
