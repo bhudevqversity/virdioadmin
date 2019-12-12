@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 //import { loginUser } from "../../actions/authActions";@ak
 import classnames from "classnames";
 import axios from "axios";
-
 import $ from 'jquery';
+import {  browserHistory} from 'react-router'
+
 
 class Login extends Component {
   constructor() {
@@ -107,14 +108,21 @@ onSubmit = e => {
       password: this.state.password,
       // name: this.state.name,
     };
-   console.log('------------userData1111---------------',this.state.email)
-   console.log('------------userData111134---------------',userData)
-    //this.props.loginUser(userData);@ak // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
-    axios.get("http://192.168.1.177:8001/api/v1/user/adminLogin", {userData})
+    localStorage.setItem("userData", JSON.stringify(userData));
+  //  console.log('------------userData1111---------------',this.state.email,JSON.parse(localStorage.getItem('userData')))
+  //  console.log('------------userData111134---------------',userData)
+  //   //this.props.loginUser(userData);@ak // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+    axios.post("http://192.168.1.177:8001/api/v1/user/adminLogin", userData)
     .then(res => {
+      console.log(res);
      if(res.data.responseMessage == "success"){
-    console.log('=============lallittiwari12345===================>',res.data);
+    // console.log('=============lallittiwari12345===================>',res.data.responseData.type);
     localStorage.setItem("userData", JSON.stringify(res));
+    if(res.data.responseData.type===2){
+    browserHistory.push("/DashboardLanding");
+    }
+    if(res.data.responseData.type===1)
+    browserHistory.push("/participent-dashboard");
     }else{
      console.log('=============There Is an Error===================>'); 
     }

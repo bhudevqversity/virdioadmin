@@ -195,7 +195,7 @@ $(".parent-row").hide();
 					<div className="d-flex justify-content-md-end justify-content-center align-items-center flex-wrap">
 						<p>Sign Up, It's Free</p>
 						<button className="btn btn-primary text-uppercase mr-3 font-weight-bold radius-8" onClick={e=>browserHistory.push("/signUp")}>Sign Up</button>
-						<button className="btn btn-outline-secondary font-weight-bold radius-8">LOG IN</button>
+						<button className="btn btn-outline-secondary font-weight-bold radius-8" onClick={e=>browserHistory.push("/login")}>LOG IN</button>
 					</div>
 				</div>
 			</div>	

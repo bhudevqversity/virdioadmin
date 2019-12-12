@@ -1607,11 +1607,11 @@ div.overflow-hidden p:nth-child(1) a:after
 {
 	height: 55px;
 }
-#calenderModel1 .modal-dialog .modal-content:nth-child(1)
+#calenderModel1 .modal-dialog .modal-content:nth-child(1), #signUpCalenderModel1 .modal-dialog .modal-content:nth-child(1)
 {
 	width: 50%;
 }
-#calenderModel1 .modal-dialog .modal-content:nth-child(3)
+#calenderModel1 .modal-dialog .modal-content:nth-child(3), #signUpCalenderModel1 .modal-dialog .modal-content:nth-child(3)
 {
 	width: 50%;
 }

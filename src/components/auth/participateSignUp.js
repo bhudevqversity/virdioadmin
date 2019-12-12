@@ -59,10 +59,11 @@ verify=(e)=>{
         state:"UP",
         zip:"123456",
         image:"ASD",
+        type:2,
         phone:this.state.phone
         
     }
-    console.log('>>>>>>>>>>>>>>>>',participentDetail);
+    console.log('>>>>>>>>>gf>>>>>>>',participentDetail);
       axios.post("http://192.168.1.177:8001/api/v1/user/register", {participentDetail})
       .then(res => {
        if(res.data.responseMessage == "success")

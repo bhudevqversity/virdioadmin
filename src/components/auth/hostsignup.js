@@ -57,6 +57,7 @@ verify=(e)=>{
         city:"noida",
         state:"UP",
         zip:"123456",
+        type:1,
         image:"ASD",
         phone:this.state.phone
         
