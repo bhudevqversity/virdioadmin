@@ -317,20 +317,20 @@ $(".parent-row").hide();
 					</div>	    			 */}
 					<div className="parent-row my-3">				
 						<div className="row mx-0 row1 d-flex">
-							<div className="col-lg-5 col-md-12 d-flex d-flex align-items-center">								
-								<p className="mr-3 mb-0">On a specific date</p>		    					
-								<DatePicker className="form-control dt_input" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
+							<div className="col-xl-6 col-lg-8 col-md-12 d-flex d-flex align-items-center">								
+								<p className="mr-3 mb-0 w-143">On a specific date</p>		    					
+								<DatePicker className="form-control dt_input flex-grow-1" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
 								<p className="mx-2 mb-0">To</p>
-								<DatePicker className="form-control dt_input" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate1} onChange={date => this.setStartDate1(date)} />
+								<DatePicker className="form-control dt_input flex-grow-1" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate1} onChange={date => this.setStartDate1(date)} />
 							</div>
-							<div className="col-lg-3 col-sm-6 mt-4 mt-lg-0 d-flex justify-content-center align-items-center">
+							<div className="col-xl-2 col-lg-4 col-sm-6 mt-4 mt-lg-0 d-flex justify-content-center align-items-center">
 								<p className="mr-3 mb-0">On Demand</p>
 								<div className="custom-control custom-checkbox mb-0">
 									<input type="checkbox" className="custom-control-input" id="customCheck" name="" />
 									<label className="custom-control-label" htmlFor="customCheck"></label>
 								</div>
 							</div>
-							<div className="col-lg-4 col-sm-6 mt-4 mt-lg-0 d-flex pr-lg-4 align-items-center">
+							<div className="col-xl-4 col-lg-6 col-sm-6 mt-4 mt-xl-0 d-flex pr-lg-4 align-items-center">
 								<p className="mr-3 mb-0">Length of session</p>
 								<div className="custom-select1 flex-grow-1">
 									<select name="">

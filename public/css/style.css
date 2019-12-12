@@ -1052,7 +1052,7 @@ a.act:before
 .input_field_container input.dt_input
 {
 	background-color: transparent;
-	border: 1.8px solid #bd00ff;
+	border: 1.8px solid #bd00ff !important;
 	color: rgb(255,255,255) !important;
 	border-radius: 6px;
 }
@@ -1177,6 +1177,7 @@ a.act:before
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
   cursor: pointer;
   user-select: none;
+  min-width: 100px;
 }
 
 /*style items (options):*/
@@ -2943,7 +2944,11 @@ width: 378px;
 .parent-row .react-datepicker-wrapper .react-datepicker__input-container input{
 	background-color: #492158 !important;
 	padding: 19px;
-	width: 125px;
+	width: 140px;
+}
+.w-143
+{
+	width: 143px !important;
 }
 .react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus {
     background-color: #5d067c !important;
