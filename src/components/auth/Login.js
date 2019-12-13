@@ -119,10 +119,10 @@ onSubmit = e => {
     // console.log('=============lallittiwari12345===================>',res.data.responseData.type);
     localStorage.setItem("userData", JSON.stringify(res));
     if(res.data.responseData.type===2){
-    browserHistory.push("/DashboardLanding");
+    browserHistory.push("/participent-dashboard");
     }
     if(res.data.responseData.type===1)
-    browserHistory.push("/participent-dashboard");
+    browserHistory.push("/DashboardLanding");
     }else{
      console.log('=============There Is an Error===================>'); 
     }
