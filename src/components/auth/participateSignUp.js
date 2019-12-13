@@ -64,7 +64,7 @@ verify=(e)=>{
         
     }
     console.log('>>>>>>>>>gf>>>>>>>',participentDetail);
-      axios.post("http://192.168.1.177:8001/api/v1/user/register", {participentDetail})
+      axios.post("/api/v1/user/register", participentDetail)
       .then(res => {
        if(res.data.responseMessage == "success")
       {
@@ -109,7 +109,7 @@ verify=(e)=>{
     code:this.state.otp
     } 
     console.log('----------------',otpDetail);
-    axios.get("http://192.168.1.177:8001/api/v1/user/verify-otp", {otpDetail})
+    axios.post("/api/v1/user/verify-otp", otpDetail)
       .then(res => {
        if(res.data.responseMessage == "success"){
       console.log('=============lallittiwari12345===================>',res.data);
