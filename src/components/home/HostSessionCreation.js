@@ -66,7 +66,7 @@ class HostSessionCreation extends Component {
 }
  
 componentDidMount(){
-	
+$("#pick_channel").attr({'style':'display:block'});	
 this.setChannelInterest();
 this.setChannelHost();
 //this.addToProductList();
@@ -1145,6 +1145,36 @@ return(
             </div>
         </div> 
     </div>
+    {/* shivani channel creation */}
+    <div className="modal" id="pick_channel">
+        <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content bg-black">
+                <div className="modal-header">
+                    <button type="button" className="close white closepopup" onClick={e=>{$("#pick_channel").attr({'style':'display:none'})}} data-dismiss="modal">×</button>
+                </div>
+                <div className="modal-body pb-5">
+                    <div className="py-5">
+                        <h4 className="white text-center">Pick Channel Type</h4>
+                        <div className="d-flex justify-content-center align-items-center flex-wrap">
+                            <div className="f_box">
+                                <div className="b-image">
+                                    <img src="/images/business.png" />
+                                </div>
+                                <p className="white text-center mt-3" onClick={e=>{$("#pick_channel").attr({'style':'display:none'})}}>Business</p>
+                            </div>
+                            <div className="f_box">
+                                <div className="b-image">
+                                    <img src="/images/individual.png" />
+                                </div>
+                                <p className="white text-center mt-3" onClick={e=>{$("#pick_channel").attr({'style':'display:none'})}}>Individual</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/* shivani channel creation */}
     </div>
 )
   }

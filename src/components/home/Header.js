@@ -210,7 +210,7 @@ componentDidMount(){
     let  interestId=2;   
     console.log('-----c----------',interestId);              
       axios      
-      .get("/api/v1/session/"+interestId+"/activityType")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+interestId+"/activityType")          
       .then(res => {
         console.log('---------Interestactivity--------------',res.data.responseData);
 
@@ -234,7 +234,7 @@ componentDidMount(){
     console.log('-----asdfghjkl----------',channelId);              
       axios      
       //.get("/api/v1/session/"+channelId+"/host")      
-      .get("/api/v1/session/"+channelId+"/hosts-list1")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+channelId+"/hosts-list1")          
       .then(res => {
         console.log('---------channelHost--------------',res.data.responseData);
 
@@ -271,7 +271,7 @@ componentDidMount(){
 
     console.log('-----a----------',interestId);              
       axios            
-      .get("/api/v1/session/"+interestId+"/equipments")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+interestId+"/equipments")          
       .then(res => {
         console.log('---------channelEquipments--------------',res.data.responseData);
 
@@ -316,7 +316,7 @@ componentDidMount(){
 
     console.log('-----b----------',interestId);              
       axios      
-      .get("/api/v1/session/"+interestId+"/shoppinglist")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+interestId+"/shoppinglist")          
       .then(res => {
         console.log('---------channelShopping--------------',res.data.responseData);
 
@@ -345,7 +345,7 @@ componentDidMount(){
       let  channelId=1;   
       console.log(channelId);              
         axios      
-        .get("/api/v1/session/"+channelId+"/channel")        
+        .get(process.env.REACT_APP_NAME+"/api/v1/session/"+channelId+"/channel")        
         .then(res => {
           console.log('---------forgotpasswd--------------',res.data.responseData)
 
@@ -371,7 +371,7 @@ componentDidMount(){
       console.log('-------hi-----',sessionId)
 
       axios      
-      .get("/api/v1/session/"+sessionId+"/sess")        
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+sessionId+"/sess")        
       .then(res => {
         console.log('---------SessionId--------------',res.data)
 
@@ -1372,7 +1372,7 @@ submitForm = (event) => {
 
 
       let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU3MTg0NTI0MiwiZXhwIjoxNTcxOTMxNjQyfQ.bt7j269i43_73TiyzrFOFWM6sTizdcaHn6i4Sjdwb3w";
-      axios.post("/api/v1/session/create", {shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
+      axios.post(process.env.REACT_APP_NAME+"/api/v1/session/create", {shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
         //console.log(res);

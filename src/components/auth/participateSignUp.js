@@ -24,11 +24,12 @@ class participentSignup extends Component {
 
   }
   this.validator = new SimpleReactValidator({autoForceUpdate: this});
+  console.log('constructor',this.state.phone)
 }
  
 componentDidMount(){
-}
-
+  console.log('this.state.phone>>>>>>>>>>',this.state.phone);
+  }
 sessionInfo=(e)=>{
   this.setState({
     [e.target.id]:e.target.value
@@ -37,9 +38,9 @@ sessionInfo=(e)=>{
 verify=(e)=>{
     if (this.validator.allValid()) {
       if(this.state.password===this.state.rePassword){
-      //   var reg = /^[A-Za-z]\w{7,14}$/;
-      //   // To validate the said format we use the regular expression ^[A-Za-z]\w{7,15}$, where \w matches any word character (alphanumeric) including the underscore (equivalent to [A-Za-z0-9_]).
-      //   var test = reg.test(this.state.password);
+        //var reg = /^[A-Za-z]\w{7,14}$/;
+       // To validate the said format we use the regular expression ^[A-Za-z]\w{7,15}$, where \w matches any word character (alphanumeric) including the underscore (equivalent to [A-Za-z0-9_]).
+      //  var test = reg.test(this.state.password);
       //  if (test) {
       //     alert('pass');
       //     //this.setState({value: event.target.value});
@@ -64,7 +65,7 @@ verify=(e)=>{
         
     }
     console.log('>>>>>>>>>gf>>>>>>>',participentDetail);
-      axios.post("/api/v1/user/register", participentDetail)
+      axios.post(process.env.REACT_APP_NAME+"/api/v1/user/register", participentDetail)
       .then(res => {
        if(res.data.responseMessage == "success")
       {
@@ -109,7 +110,7 @@ verify=(e)=>{
     code:this.state.otp
     } 
     console.log('----------------',otpDetail);
-    axios.post("/api/v1/user/verify-otp", otpDetail)
+    axios.post(process.env.REACT_APP_NAME+"/api/v1/user/verify-otp", otpDetail)
       .then(res => {
        if(res.data.responseMessage == "success"){
       console.log('=============lallittiwari12345===================>',res.data);
@@ -144,6 +145,7 @@ closePopUp=(e)=>{
   $("#registration_popup").attr({'style':'display:none'});
 }
 render() {
+  console.log('>>>>sdsd>>>>>>',this.state.phone);
     return (
       <div id="root">
       <div className="App">

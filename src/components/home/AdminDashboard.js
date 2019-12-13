@@ -9,7 +9,8 @@ class AdminDashboard extends Component {
 	this.state={
 		startDate:new Date(),
 		daysOfMonth:[],
-		upcomingSession:[]
+    upcomingSession:[],
+    groupName:'',
 
 	}
 	
@@ -309,9 +310,10 @@ render() {
                 <div className="modal-inner_part h-100 w-100 d-flex justify-content-center align-items-center">
                     <div className="modal-content modl_bg_drk1 small_width">
                         <div className="modal-body px-4 pt-5 pb-4"> 
-                            <div className="form-group mb-2 mt-3"><label className="label">Mobile Number<span className="inp_cover-border"></span></label><input type="text" className="input-field" id="phone" value="" /></div>
+                            <div className="form-group mb-2 mt-3"><label className="label">Mobile Number<span className="inp_cover-border"></span></label>
+                            <input type="text" className="input-field" id="groupName" value="" /></div>
                                 <div className="text-center mb-3">
-                                    <button type="button" className="custom_btn" onClick={this.closeGroup}>save</button>
+                                    <button type="button" className="custom_btn" onClick={this.closeGroup}>saddfve</button>
                                 </div>   
                             </div>
                         </div>

@@ -748,6 +748,7 @@ a.act:before
 }
 .srv-validation-message{
 	color:#dc0f0fde !important;
+	transform: translateY(-18px);
 }
 #dasboard_myModal2 .modal-body
 {

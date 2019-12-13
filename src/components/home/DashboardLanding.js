@@ -143,25 +143,25 @@ checkHost4=(e)=>{
 
 componentDidMount(){
 	// $("#dash_land_block :input").attr("disabled", true);
-	// let ak = JSON.parse(localStorage.getItem('userData'));
-	// console.log(ak)
-	// const userData ={
-	// 	email : ak.data.responseData.email,
-	// 	 type:ak.data.responseData.type}
-	// 	 console.log(userData,'>>>>>>>>>>>>>>>>>>',ak.data.responseData.type);	 
-	// axios.post("http://192.168.1.177:8001/api/v1/user/adminDashboardData",userData)
-    // .then(res => {
-    //   console.log(res.data.responseData.sessionData);
-    //  if(res.data.responseMessage == "success"){
-    // this.setState({
-	// 	sessionData:res.data.responseData.sessionData
-	// },()=>console.log(Intl.DateTimeFormat().resolvedOptions().timeZonethis.state.sessionData))
-    // }else{
-    //  console.log('=============There Is an Error===================>'); 
-    // }
-    // }).catch(err =>{
-    // console.log('----------there is problem------------',err);
-    // });
+	let ak = JSON.parse(localStorage.getItem('userData'));
+	console.log(ak)
+	const userData ={
+		email : ak.data.responseData.email,
+		 type:ak.data.responseData.type}
+		 console.log(userData,'http://192.168.1.177:8001>>>>>>>>>>>>>>>>>>',ak.data.responseData.type);	 
+	axios.post(process.env.REACT_APP_NAME+"/api/v1/user/adminDashboardData",userData)
+    .then(res => {
+      console.log(res.data.responseData.sessionData);
+     if(res.data.responseMessage == "success"){
+    this.setState({
+		sessionData:res.data.responseData.sessionData
+	},()=>console.log(Intl.DateTimeFormat().resolvedOptions().timeZonethis.state.sessionData))
+    }else{
+     console.log('=============There Is an Error===================>'); 
+    }
+    }).catch(err =>{
+    console.log('----------there is problem------------',err);
+    });
   }
 
 

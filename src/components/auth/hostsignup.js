@@ -27,6 +27,7 @@ class hostSignUp extends Component {
 }
  
 componentDidMount(){
+  console.log(this.state.phone);
 }
 
 sessionInfo=(e)=>{
@@ -63,7 +64,7 @@ verify=(e)=>{
         
     }
     console.log('>>>>>>>>>>>>>>>>',participentDetail);
-      axios.post("/api/v1/user/register", participentDetail)
+      axios.post(process.env.REACT_APP_NAME+"/api/v1/user/register", participentDetail)
       .then(res => {
        if(res.data.responseMessage == "success")
       {
@@ -104,7 +105,7 @@ verify=(e)=>{
       email : this.state.email,
       code:this.state.otp
       } 
-      axios.post("/api/v1/user/verify-otp", otpDetail)
+      axios.post(process.env.REACT_APP_NAME+"/api/v1/user/verify-otp", otpDetail)
         .then(res => {
          if(res.data.responseMessage == "success"){
         console.log('=============lallittiwari12345===================>',res.data);
@@ -138,7 +139,8 @@ closePopUp=(e)=>{
   $("#registration_popup").attr({'style':'display:none'});
 }
 render() {
-    return (
+  console.log('>>>>>>>>>>',this.state.phone);
+     return (
       <div id="root">
       <div className="App">
         <div className="container-fluid pb-5">
@@ -167,9 +169,9 @@ render() {
                 <span className="form_email"></span>
               </div>
               <div className="form-group">
-                <label className="label">Mobile Number<span className="inp_cover-border"></span></label>
+                <label className="label">Mobile Number<sup>*</sup><span className="inp_cover-border"></span></label>
                 <input type="text" className="input-field"  value={this.state.phone} id ='phone' onChange={this.sessionInfo}/>
-                {this.validator.message('phone', this.state.phone, 'phone|size:10')}
+                {this.validator.message('phone', this.state.phone, 'required|phone|size:10')}
                 <span className="mobile_phone1"></span>
               </div>
               <div className="form-group">

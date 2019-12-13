@@ -104,15 +104,14 @@ onSubmit = e => {
 
     console.log('---------hello---------------')
       const userData = {
-      email: this.state.email,
-      password: this.state.password,
-      // name: this.state.name,
-    };
+        email: this.state.email,
+        password: this.state.password
+      };
     localStorage.setItem("userData", JSON.stringify(userData));
   //  console.log('------------userData1111---------------',this.state.email,JSON.parse(localStorage.getItem('userData')))
   //  console.log('------------userData111134---------------',userData)
   //   //this.props.loginUser(userData);@ak // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
-    axios.post("https://api.virdio.com/api/v1/user/adminLogin", userData)
+    axios.post(process.env.REACT_APP_NAME+"/api/v1/user/adminLogin", userData)
     .then(res => {
       console.log(res);
      if(res.data.responseMessage == "success"){

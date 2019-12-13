@@ -19,6 +19,7 @@ constructor(props) {
 }
  
 componentDidMount(){
+	console.log(process.env.REACT_APP_NAME);
 //   console.log('Ak');
 //   console.log('new Date().getTime()',new Date().getTime());
 //   let ka= new Date();
