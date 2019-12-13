@@ -112,17 +112,20 @@ onSubmit = e => {
   //  console.log('------------userData1111---------------',this.state.email,JSON.parse(localStorage.getItem('userData')))
   //  console.log('------------userData111134---------------',userData)
   //   //this.props.loginUser(userData);@ak // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
-    axios.post("http://192.168.1.177:8001/api/v1/user/adminLogin", userData)
+    axios.post("https://api.virdio.com/api/v1/user/adminLogin", userData)
     .then(res => {
       console.log(res);
      if(res.data.responseMessage == "success"){
     // console.log('=============lallittiwari12345===================>',res.data.responseData.type);
     localStorage.setItem("userData", JSON.stringify(res));
-    if(res.data.responseData.type===2){
-    browserHistory.push("/participent-dashboard");
-    }
-    if(res.data.responseData.type===1)
+    if(res.data.responseData.type===1){
     browserHistory.push("/DashboardLanding");
+    }
+    if(res.data.responseData.type===3){
+      browserHistory.push("/AdminDashboard");
+      }
+    if(res.data.responseData.type===2)
+    browserHistory.push("/participent-dashboard");
     }else{
      console.log('=============There Is an Error===================>'); 
     }

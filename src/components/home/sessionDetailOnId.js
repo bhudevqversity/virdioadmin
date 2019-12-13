@@ -310,7 +310,7 @@ componentDidMount(){
     let  interestId=2;   
     console.log('-----c----------',interestId);              
       axios      
-      .get("/api/v1/session/"+interestId+"/activityType")          
+      .get("https://api.virdio.com/api/v1/session/"+interestId+"/activityType")          
       .then(res => {
         console.log('---------Interestactivity--------------',res.data.responseData);
 
