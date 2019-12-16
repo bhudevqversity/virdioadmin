@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import $ from 'jquery';
 import { Link } from 'react-router';
+import axios from "axios";
 
 
 class AdminDashboard extends Component {
@@ -94,7 +95,12 @@ submitHost=(e)=>{
     {
       $("#bigg_cont").attr({'style':'display:none'});
     }else{
-    let  arr ;
+     //--------------------------------------------------------
+     axios.post('https://api.virdio.com/api/v1/user/createGroup ',  {group_name: this.state.groupName})
+    .then(res => {
+      console.log('----------------------->',res);
+     if(res.data.responseMessage === "success"){
+      let  arr ;
     arr={
     groupName:this.state.groupName,
     interestName:[],
@@ -117,6 +123,39 @@ submitHost=(e)=>{
       },()=>{
         $("#bigg_cont").attr({'style':'display:none'});
       })
+    }else{
+     console.log('=============There Is an Error===================>'); 
+    }
+    }).catch(err =>{
+
+    console.log('----------there is problem------------',err);
+
+    });
+
+     //--------------------------------------------------------------------- 
+    // let  arr ;
+    // arr={
+    // groupName:this.state.groupName,
+    // interestName:[],
+    // attendees:[],
+    // virtualRoom:[],
+    // shoppingArray:[],
+    // productArray:[],
+    // EquipmentArray:[],
+    // production:[],
+    // hasShopping:[],
+    // hasEquipment:[],
+    // hasProductList:[],
+    // interestArray:[]
+    // }
+    // let groupArray=[];
+    // groupArray=this.state.InterestArray
+    // groupArray.push(arr);
+    //  this.setState({
+    //       InterestArray:groupArray,
+    //   },()=>{
+    //     $("#bigg_cont").attr({'style':'display:none'});
+    //   })
     } 
   }
 
@@ -143,6 +182,32 @@ submitHost=(e)=>{
       })
   }  
   onInterestSave = e =>{
+    let interest= { interestCode: 202,
+    title: this.state.interestName,
+    groupId: 1, 
+    description: "sdfasd", 
+    image: "ccc", 
+    video: "vid", 
+    haveShoppingList: this.state.hasShopping,
+    haveEquipment:this.state.hasEquipment,
+    haveProductList:this.state.hasProductList,
+    attendeesAreCalled:this.state.attendees,
+    virtualRoomIsCalled:this.state.virtualRoom,
+    inProduction:"1" }
+    console.log('>>>>>>>>>>>>>>>',interest); 
+    axios.post('https://api.virdio.com/api/v1/user/addInterest',  interest)
+    .then(res => {
+      console.log('----------------------->',res);
+     if(res.data.responseMessage === "success"){
+     
+    }else{
+     console.log('=============There Is an Error===================>'); 
+    }
+    }).catch(err =>{
+
+    console.log('----------there is problem------------',err);
+
+    });
      let addInterest =  this.state.InterestArray
      if(!this.state.interestName===false && !this.state.attendees===false && !this.state.virtualRoom===false){
      addInterest[this.state.groupIndex].interestName.push(this.state.interestName);
@@ -611,7 +676,7 @@ render() {
              <div className="row align-items-center justify-content-between">
                 <h4 className="text_dark_gray1 font-weight-bold font-18 pr-3">Shopping List</h4>
                 <div className="flex-grow-1 line_custom-purple"></div>
-                <div className="pl-3"><img src="/images/shopping-icon.png" alt="" /></div>
+                <div className="pl-3"><img src="/images/shopping-icon1.png" alt="" /></div>
              </div>
             
              <div className="row">
