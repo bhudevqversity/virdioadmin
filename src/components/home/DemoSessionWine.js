@@ -10,6 +10,7 @@ import { Link } from 'react-router';
 import TimePicker from 'react-time-picker';
 import Calendar from 'react-calendar';
 import $ from 'jquery';
+import {  browserHistory} from 'react-router'
 //import DateTimeField from "react-bootstrap-datetimepicker";
 
 class DemoSessionWine extends Component {
@@ -223,13 +224,17 @@ modalClose = e => {
 }
  
 componentDidMount(){
+  if(localStorage.getItem('userData')){
   this.fetchPrevSessionList();
   this.fetchExistingShopping();
   this.fetchExistingHostList();
   this.fetchExistingEquipments();
   this.fetchEmojiesList();
   this.fetchProductList();
-  this.addToProductList();
+  this.addToProductList();}
+	else{
+	browserHistory.push("/login");
+	}
   }
 
   fetchProductList() {  

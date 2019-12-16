@@ -143,27 +143,43 @@ checkHost4=(e)=>{
 
 componentDidMount(){
 	// $("#dash_land_block :input").attr("disabled", true);
-	let ak = JSON.parse(localStorage.getItem('userData'));
-	console.log(ak)
-	const userData ={
-		email : ak.data.responseData.email,
-		 type:ak.data.responseData.type}
-		 console.log(userData,'http://192.168.1.177:8001>>>>>>>>>>>>>>>>>>',ak.data.responseData.type);	 
-	axios.post(process.env.REACT_APP_NAME+"/api/v1/user/adminDashboardData",userData)
-    .then(res => {
-      console.log(res.data.responseData.sessionData);
-     if(res.data.responseMessage == "success"){
-    this.setState({
-		sessionData:res.data.responseData.sessionData
-	},()=>console.log(Intl.DateTimeFormat().resolvedOptions().timeZonethis.state.sessionData))
-    }else{
-     console.log('=============There Is an Error===================>'); 
-    }
-    }).catch(err =>{
-    console.log('----------there is problem------------',err);
-    });
+	if(localStorage.getItem('userData')){
+		let ak = JSON.parse(localStorage.getItem('userData'));
+		console.log(new Date('2019-12-12T21:30:00.000Z').getHours())
+		const userData ={
+			email : ak.data.responseData.email,
+			 type:ak.data.responseData.type}
+			 console.log(JSON.stringify(userData),process.env.REACT_APP_NAME+'>>>>>>>>>>>>>>>>>>',ak.data.responseData.type);	 
+		axios.post(process.env.REACT_APP_NAME+"/api/v1/user/adminDashboardData",userData)
+		.then(res => {
+		  console.log('----------------------->',res.data.responseData.sessionData);
+		 if(res.data.responseMessage === "success"){
+		this.setState({
+			sessionData:res.data.responseData.sessionData
+		},()=>console.log(Intl.DateTimeFormat().resolvedOptions().timeZonethis.state.sessionData))
+		}else{
+		 console.log('=============There Is an Error===================>'); 
+		}
+		}).catch(err =>{
+		console.log('----------there is problem------------',err);
+		});
+	}else{
+	  browserHistory.push("/login");
+  	}
+	
   }
-
+ getSessionDate=(e)=>{
+	let day=new Date('2019-12-12T21:30:00.000Z').getDate();
+	let month=(new Date('2019-12-12T21:30:00.000Z').getMonth())+1;
+	let year=new Date('2019-12-12T21:30:00.000Z').getFullYear();
+	let sessionDate= day+'/'+month+'/'+year;
+	let ak= <p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {sessionDate}</p>
+	//arr.push(<option key={i} value={i}>{i}</option>)
+	return sessionDate; 
+	  
+	
+	
+}
 
   getInitialState=()=>{
     return {
@@ -452,7 +468,7 @@ mail=e=>{
 								</div>
 							</div>
 							<div className="right-small-box">
-								<img src="images/search.png" />
+								<img src="images/search.png" alt=''/>
 							</div>						
 						</div>
 						<div className="row mt-4">
@@ -577,8 +593,9 @@ mail=e=>{
 						    				<p><img src="/images/gray-icons/clock.png" className="mr-3"  alt="" />{row.oTime}</p>
 						    				<p><img src="/images/gray-icons/teamwork.png" className="mr-3"  alt="" />Signid Up {row.oId} (max)</p>
 						    				<p><img src="/images/gray-icons/dollar.png" className="mr-3"  alt="" />${row.oPrice} per session</p>
-						    				<p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {row.oCutDate}</p>
-						    				<div className="d-flex flex-wrap justify-content-between">
+						    				<p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {this.getSessionDate()}</p>
+						    				{/* {this.getSessionDate()} */}
+											<div className="d-flex flex-wrap justify-content-between">
 						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id={i} onClick={this.uneditableMode}>Session details</button></div>
 						    					
 												{/* <div className="mt-3 mr-4"><img src="/images/invite.png" className="mt-2"  alt="" /></div> */}
@@ -850,7 +867,7 @@ mail=e=>{
 												<div class="form-group">
 													<span class="cover-border bg_gray_clr"></span>
 													<label class="label">Enter First Name</label>
-													<input type="text" id="" class="input-field" value="" />
+													<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} placeholder="First name" disabled/>
 													<span class="signedup_2"></span>
 												</div>
 											</div>
@@ -866,7 +883,7 @@ mail=e=>{
 												<div class="form-group">
 													<span class="cover-border bg_gray_clr"></span>
 													<label class="label">Enter Last Name</label>
-													<input type="text" id="" class="input-field" value="" />
+													<input type="text" className="input-field" placeholder="Last name" disabled/>
 													<span class="signedup_2"></span>
 												</div>
 											</div>
@@ -887,8 +904,12 @@ mail=e=>{
 											<div class="form-group">
 												<span class="cover-border bg_gray_clr"></span>
 												<label class="label">Email Address</label>
-												<input type="text" id="" class="input-field" value="" />
-												<span class="dashboard_land"></span>
+												<select className="input-field" id="mail" value={this.state.mail} onChange={this.mail}>                     
+												{this.state.hostMail.map((row,i)=>
+												<option key={i} value={row.mail}>{row.mail}</option>
+												)}  
+												</select>
+												{/* <span class="dashboard_land"></span> */}
 											</div>
 										</div>
 										:''}

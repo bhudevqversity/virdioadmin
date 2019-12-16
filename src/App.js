@@ -19,6 +19,7 @@ import AdminDashboard from './components/home/AdminDashboard'
 import WineSessionOnId from './components/home/wineSessionOnId'
 import NoAdmin from './components/home/NoAdmin'
 import Login from './components/auth/Login'
+import PrivateRoute from './components/helper/PrivateRoute'
 /*function App() {
   return (
     <div className="App">

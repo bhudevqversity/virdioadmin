@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import Slider from "react-slick";
+import axios from "axios";
+import {  browserHistory} from 'react-router'
 
 
 //import $ from 'jquery';
@@ -21,8 +23,31 @@ class PDashboard extends Component {
     
 }
  
+
 componentDidMount(){
-	
+	if(localStorage.getItem('userData')){
+	let ak = JSON.parse(localStorage.getItem('userData'));
+	const userData ={
+		email : ak.data.responseData.email,
+		 type:ak.data.responseData.type}
+		 console.log(JSON.stringify(userData),process.env.REACT_APP_NAME+'>>>>>>>>>>>>>>>>>>',ak.data.responseData.type);	 
+	axios.post(process.env.REACT_APP_NAME+"/api/v1/user/adminDashboardData",userData)
+    .then(res => {
+      console.log('----------------------->',res.data.responseData.sessionData);
+     if(res.data.responseMessage === "success"){
+    // this.setState({
+	// 	sessionData:res.data.responseData.sessionData
+	// },()=>console.log(Intl.DateTimeFormat().resolvedOptions().timeZonethis.state.sessionData))
+    }else{
+     console.log('=============There Is an Error===================>'); 
+    }
+    }).catch(err =>{
+    console.log('----------there is problem------------',err);
+	});}
+	else{
+	browserHistory.push("/login");
+	}
+
 
   }
 

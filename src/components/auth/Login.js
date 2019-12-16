@@ -107,7 +107,7 @@ onSubmit = e => {
         email: this.state.email,
         password: this.state.password
       };
-    localStorage.setItem("userData", JSON.stringify(userData));
+   // localStorage.setItem("userData", JSON.stringify(userData));
   //  console.log('------------userData1111---------------',this.state.email,JSON.parse(localStorage.getItem('userData')))
   //  console.log('------------userData111134---------------',userData)
   //   //this.props.loginUser(userData);@ak // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
