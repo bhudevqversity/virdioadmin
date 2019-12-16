@@ -11,13 +11,14 @@ import DemoSessionWine from "./components/home/DemoSessionWine"
 import HostSessionCreation from './components/home/HostSessionCreation'
 import verifyuser from "./components/auth/VerifyUser";
 import DashboardLanding from './components/home/DashboardLanding'
-import hostSignUp from './components/home/hostsignup'
-import signUp from './components/home/signup'
-import participentSignup from './components/home/participateSignUp'
+import hostSignUp from './components/auth/hostsignup'
+import signUp from './components/auth/signup'
+import participentSignup from './components/auth/participateSignUp'
 import SessionDetailOnId from './components/home/sessionDetailOnId'
 import AdminDashboard from './components/home/AdminDashboard'
 import WineSessionOnId from './components/home/wineSessionOnId'
 import NoAdmin from './components/home/NoAdmin'
+import Login from './components/auth/Login'
 /*function App() {
   return (
     <div className="App">
@@ -54,6 +55,7 @@ class App extends Component {
       <Route  path="/winedetail" component={WineSessionOnId} />
       <Route  path="/noAdmin" component={NoAdmin} />
       <Route  path="/wineSessionEditable/:id" component={DemoSessionWine} />
+      <Route  path="/login" component={Login} />
 		</div>
      </Router>
    );

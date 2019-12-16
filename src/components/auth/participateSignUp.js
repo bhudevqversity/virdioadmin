@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SimpleReactValidator from 'simple-react-validator';
 import $ from 'jquery'
 import { Link } from 'react-router'
-
+import axios from "axios";
 
 class participentSignup extends Component {
   constructor(props) {
@@ -17,9 +17,10 @@ class participentSignup extends Component {
     verify:false,
     signup:true,
     sms:false,
-    byEmail:false,
+    byEmail:true,
     message:'',
-    passwordText:''
+    passwordText:'',
+    otp:''
 
   }
   this.validator = new SimpleReactValidator({autoForceUpdate: this});
@@ -36,17 +37,63 @@ sessionInfo=(e)=>{
 verify=(e)=>{
     if (this.validator.allValid()) {
       if(this.state.password===this.state.rePassword){
-        console.log(this.state.password.length);
-        let ak='';
-        for(let i=0;i<this.state.password.length;i++){
-          ak = ak+'*';
-        }
-        this.setState({
-        verify:true,
-        signup:false,
-        passwordText:ak,
+      //   var reg = /^[A-Za-z]\w{7,14}$/;
+      //   // To validate the said format we use the regular expression ^[A-Za-z]\w{7,15}$, where \w matches any word character (alphanumeric) including the underscore (equivalent to [A-Za-z0-9_]).
+      //   var test = reg.test(this.state.password);
+      //  if (test) {
+      //     alert('pass');
+      //     //this.setState({value: event.target.value});
+      //  }else{
+      //    alert('fail');
+      //  }  		
+      //   console.log(this.state.password.length);
+         let ak='';
+      const participentDetail = {
+        firstName:this.state.firstName,
+        lastName:this.state.lastName,
+        email:this.state.email,
+        password:this.state.password,
+        address1:"sector3",
+        address2:"noida",
+        city:"noida",
+        state:"UP",
+        zip:"123456",
+        image:"ASD",
+        type:2,
+        phone:this.state.phone
         
-      })
+    }
+    console.log('>>>>>>>>>gf>>>>>>>',participentDetail);
+      axios.post("/api/v1/user/register", participentDetail)
+      .then(res => {
+       if(res.data.responseMessage == "success")
+      {
+      console.log('=============lallittiwari12345===================>',res.data);
+      for(let i=0;i<this.state.password.length;i++){
+        ak = ak+'*';
+      }
+      this.setState({
+      verify:true,
+      signup:false,
+      passwordText:ak,
+      
+    })
+      }else{
+       console.log('=============There Is an Error===================>'); 
+      }
+      }).catch(err =>{
+      console.log('----------there is problem------------',err);
+      });
+
+      //   for(let i=0;i<this.state.password.length;i++){
+      //     ak = ak+'*';
+      //   }
+      //   this.setState({
+      //   verify:true,
+      //   signup:false,
+      //   passwordText:ak,
+        
+      // })
     }
       } else {
       this.validator.showMessages();
@@ -57,11 +104,34 @@ verify=(e)=>{
  }
  submitHost=(e)=>{
   if(this.state.sms || this.state.byEmail){
-    $("#registration_popup").attr({'style':'display:block'});
-    this.setState({
-      message:'',      
-    })
-    
+   let otpDetail={ 
+    email :this.state.email,
+    code:this.state.otp
+    } 
+    console.log('----------------',otpDetail);
+    axios.post("/api/v1/user/verify-otp", otpDetail)
+      .then(res => {
+       if(res.data.responseMessage == "success"){
+      console.log('=============lallittiwari12345===================>',res.data);
+
+      $("#registration_popup").attr({'style':'display:block'});
+      this.setState({
+      message:'',
+      })
+
+      }else{
+       console.log('=============There Is an Error===================>'); 
+      }
+      }).catch(err =>{
+      console.log('----------there is problem------------',err);
+      });
+
+    // $("#registration_popup").attr({'style':'display:block'});
+    // this.setState({
+    //   message:'',
+      
+    // })
+
   }else{
     this.setState({
       message:'Choose either sms or email',
@@ -135,27 +205,27 @@ render() {
               <div className="col-lg-6">
                 <div className="left_innr_cont h-100">
                   <div className="mb-30">
-                    <p className="checktxt">Enter First Name<sup>*</sup></p>
+                    <p className="checktxt">Enter First Name</p>
                     <p className="checktxt_name border border-0 mb-0"><img src="/images/signedup.png" className="mr-3" alt="user-icon" />{this.state.firstName}</p>
                   </div>
                   <div className="mb-30">
-                    <p className="checktxt">Enter Last Name<sup>*</sup></p>
+                    <p className="checktxt">Enter Last Name</p>
                     <p className="checktxt_name border border-0 mb-0"><img src="/images/signedup.png" className="mr-3" alt="user-icon" />{this.state.lastName}</p>
                   </div>
                   <div className="mb-30">
-                    <p className="checktxt">Email Address<sup>*</sup></p>
+                    <p className="checktxt">Email Address</p>
                     <p className="checktxt_name border border-0 mb-0"><img src="/images/form-email.png" className="mr-3" alt="user-icon" />{this.state.email}</p>
                   </div>
-                  <div className="mb-30">
+                  {/* <div className="mb-30">
                     <p className="checktxt">Mobile Number</p>
                     <p className="checktxt_name border border-0 mb-0"><img src="/images/phone.png" className="mr-3" alt="user-icon" />{this.state.phone}</p>
-                  </div>
+                  </div> */}
                   <div className="mb-30">
-                    <p className="checktxt">Create A Password<sup>*</sup></p>
+                    <p className="checktxt">Create A Password</p>
                     <p className="checktxt_name border border-0 mb-0"><img src="/images/passwrd.png" className="mr-3" alt="user-icon" />{this.state.passwordText}</p>
                   </div>
                   <div className="mb-30">
-                    <p className="checktxt">Retype Password<sup>*</sup></p>
+                    <p className="checktxt">Retype Password</p>
                     <p className="checktxt_name border border-0 mb-0"><img src="/images/passwrd.png" className="mr-3" alt="user-icon" />{this.state.passwordText}</p>
                   </div>
                 </div>
@@ -202,7 +272,10 @@ render() {
                   <p className="pick mt-4 mb-4 font-18">ENTER THE CODE</p>
                   <div className="o-hidden">
                     <div className="float-left">
-                      <p className="sml_input_box d-inline">
+                      <p className="sml_input_box_ak d-inline">
+                        <input type="text" maxLength="4" id ="otp" value={this.state.otp} onChange={(e)=>this.setState({[e.target.id]:e.target.value})}/>
+                      </p>
+                      {/* <p className="sml_input_box d-inline">
                         <input type="text" maxLength="1"/>
                       </p>
                       <p className="sml_input_box d-inline">
@@ -210,10 +283,7 @@ render() {
                       </p>
                       <p className="sml_input_box d-inline">
                         <input type="text" maxLength="1"/>
-                      </p>
-                      <p className="sml_input_box d-inline">
-                        <input type="text" maxLength="1"/>
-                      </p>
+                      </p> */}
                     </div>
                     <div className="float-left ml-4">
                       <p className="checktxt font-18 mt-2 mb-0">Didn't receive?</p>

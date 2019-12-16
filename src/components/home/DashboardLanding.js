@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import { Link } from 'react-router';
 import "react-datepicker/dist/react-datepicker.css";
 // import $ from 'jquery';
+import axios from "axios";
 
 class DashboardLanding extends Component {
    constructor(props) {
@@ -81,7 +82,9 @@ class DashboardLanding extends Component {
 		mail:'',
 		hostMail:[{mail:''},{mail:'ak@gmail.com'},{mail:'ak1@gmail.com'}],
 		customRadio3:false,
-		customRadio4:true
+		customRadio4:true,
+		customCheck1:false,
+		searchContainer:false
 			
 
 	}
@@ -140,6 +143,25 @@ checkHost4=(e)=>{
 
 componentDidMount(){
 	// $("#dash_land_block :input").attr("disabled", true);
+	// let ak = JSON.parse(localStorage.getItem('userData'));
+	// console.log(ak)
+	// const userData ={
+	// 	email : ak.data.responseData.email,
+	// 	 type:ak.data.responseData.type}
+	// 	 console.log(userData,'>>>>>>>>>>>>>>>>>>',ak.data.responseData.type);	 
+	// axios.post("http://192.168.1.177:8001/api/v1/user/adminDashboardData",userData)
+    // .then(res => {
+    //   console.log(res.data.responseData.sessionData);
+    //  if(res.data.responseMessage == "success"){
+    // this.setState({
+	// 	sessionData:res.data.responseData.sessionData
+	// },()=>console.log(Intl.DateTimeFormat().resolvedOptions().timeZonethis.state.sessionData))
+    // }else{
+    //  console.log('=============There Is an Error===================>'); 
+    // }
+    // }).catch(err =>{
+    // console.log('----------there is problem------------',err);
+    // });
   }
 
 
@@ -183,7 +205,40 @@ componentDidMount(){
 	},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
 	
 	}
-	
+	setStartDate1 =(date)=>{
+		let date1=date;
+		let upcomingSession=[];
+		console.log('----------------',new Date(date).getMonth(),new Date(date).getDate());
+		let dateofMonth = new Date(date).getDate();
+		 let timeSelection =  (new Date (date).getMonth()) ;
+		 console.log(timeSelection);
+		  date = new Date(Date.UTC(2019, timeSelection, 1));
+		 var days = [];
+		 var dayofWeek=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+		console.log('date.getMonth()',date.getMonth());
+		 while (date.getMonth() === timeSelection) {
+			//days.push(new Date(date).getDate());
+			 let n ={date:new Date(date).getDate(),
+				day:dayofWeek[new Date(date).getDay()],
+				timestamp:new Date(date).getTime(),
+			}
+			 days.push(n);
+			 //days.push(new Date(date).getDay());
+			 date.setDate(date.getDate() + 1);
+		  }
+		console.log(days)
+		  for (let i=dateofMonth-1 ;i<days.length;i++){
+			  console.log(days[i])
+			  upcomingSession.push(days[i]);
+		  } 
+		
+		this.setState({
+			startDate1:date1,
+			daysOfMonth:days,
+			upcomingSession:upcomingSession,
+		},()=>console.log('this.state.daysOfMonth',this.state.upcomingSession));
+		
+		}
 
 	
 
@@ -210,6 +265,7 @@ componentDidMount(){
 		//browserHistory.push("/sessiondetail/"+e.target.id);
 		if(e.target.id%2===0){
 		browserHistory.push("/fitnessdetail");
+		//browserHistory.push("/sessiondetail/"+e.target.id);
 		}else{
 		browserHistory.push("/winedetail");	
 		}
@@ -217,7 +273,7 @@ componentDidMount(){
 	// wineUneditableMode=(e)=>{
 	// browserHistory.push("/winedetail/"+e.target.id);		
 	// }
-	editableMode=(e)=>{
+	editableMode=(e)=>{	
 		if(e.target.id%2===0){
 		browserHistory.push("/FitnessSessionCreation");
 		}else{
@@ -225,7 +281,7 @@ componentDidMount(){
 		}
 	}
 	pastSession=(e)=>{
-		browserHistory.push("/sessiondetail/"+1);
+		browserHistory.push("/fitnessdetail");
 		console.log(new Date().getTime())
 		this.setState({
 			sessionInformation:'-1'
@@ -337,13 +393,15 @@ mail=e=>{
 							    </li>
 						    </ul>
 						</div>
-						<div className="col-lg-4 datepick d-flex justify-content-start flex-wrap justify-content-md-between align-items-center">
+						<div className="col-lg-4 datepick pr-4 d-flex justify-content-start flex-wrap justify-content-md-between align-items-center">
 							{/* <input type="text" name="" class="form-control" id="datepicker" /> */}
-							<DatePicker className="form-control" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} />
-							<div className="c_icon position-relative"><img src="/images/cal.png" className=""  alt="" /><img src="images/angle-down.png" className="mr-4"  alt="" /></div>
-							<div className="c_icon position-relative"><img src="/images/search1.png" className="mr-4"  alt="" /></div>
+							<div><DatePicker className="form-control" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} /></div>
+							<div className="c_icon position-relative ml-4"><img src="/images/cal.png" className=""  alt="" /><img src="images/angle-down.png" className=""  alt="" /></div>
+							<div className="nc_icon position-relative"><img src="/images/search1.png" className="mr-4"  alt="" id = "searchContainer" onClick={(e)=> this.setState({[e.target.id]:!this.state.searchContainer})}/></div>
 						</div>
 					</div>
+					{/* search Container */}
+					{this.state.searchContainer ?
 					<div className="parent_field_cont pb-4">
 						<div className="input_field_container round">
 							<div className="row">
@@ -354,16 +412,19 @@ mail=e=>{
 									<div className="row mx-0 mt-3 mt-xl-0">
 										<div className="col-md-12">
 											<div className="custom-control custom-checkbox mb-3 text_input">
-											<input type="checkbox" className="custom-control-input" id="customCheck1" name="example1" />
+											<input type="checkbox" className="custom-control-input" id="customCheck1" name="example1" defaultChecked={this.state.customCheck1} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.customCheck1},()=>console.log('customCheck1',this.state.customCheck1))}} />
 											<label className="custom-control-label" htmlFor="customCheck1">Advance</label>
 											</div>
 										</div>
 									</div>
+									{/* Advance search start */}
+									{this.state.customCheck1 ?
 									<div className="parent-row">
 										<div className="row mx-0 row1 d-flex">
 											<div className="col-lg-4 col-md-6">
 												<p>On a specific date</p>
-												<input type="text" name="" className="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" />
+												{/* <input type="text" name="" className="form-control dt_input" id="datepicker1" placeholder="mm/dd/yy" /> */}
+												<DatePicker className="form-control dt_input" placeholderText="mm/dd/yy" id="datepicker" selected={this.state.startDate1} onChange={date => this.setStartDate1(date)} />
 											</div>
 											<div className="col-lg-4 col-md-6 text-md-center mt-3 mt-md-0">
 												<p>On Demand</p>
@@ -376,15 +437,18 @@ mail=e=>{
 												<p>Length of session</p>
 												<div className="custom-select1">
 													<select name="">
-													<option value="30">30 min</option>
-													<option value="40">40 min</option>
-													<option value="30">30 min</option>
-													<option value="30">30 min</option>
+													<option value="30">Any length</option>
+													<option value="40">Less than 30 minutes</option>
+													<option value="30">Less than an hour</option>
+													<option value="30">Less than 2 hours</option>
+													<option value="30">More than 2 hours</option>
 													</select>
 												</div>
 											</div>
 										</div>
-									</div>									
+									</div>
+									:''}
+									{/* Advance Search end  */}
 								</div>
 							</div>
 							<div className="right-small-box">
@@ -393,76 +457,78 @@ mail=e=>{
 						</div>
 						<div className="row mt-4">
 							<div className="col-md-3">
-								<h4 class="white mt-3 mb-3 font-22">Channel</h4>
+								<h4 className="white mt-3 mb-3 font-22">Channel</h4>
 								<div className="">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 							</div>
 							<div className="col-md-5">
-								<h4 class="white mt-3 mb-3 font-22">Hosts</h4>								
+								<h4 className="white mt-3 mb-3 font-22">Hosts</h4>								
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 							</div>
 							<div className="col-md-4">
-								<h4 class="white mt-3 mb-3 font-22">Interest</h4>						
+								<h4 className="white mt-3 mb-3 font-22">Interest</h4>						
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 								<div className="w-50 d-inline-block">								
-									<label class="custom-control custom-checkbox lebelheight d-flex pl-0">
-										<input type="checkbox" class="form-radio" />                                    
-										<p class="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
+									<label className="custom-control custom-checkbox lebelheight d-flex pl-0">
+										<input type="checkbox" className="form-radio" />                                    
+										<p className="text-white mt-1 pt-1 font-14 mb-0">Boisset Wines</p>
 									</label>
 								</div>
 							</div>														
 						</div>							
 					</div>
+					:''}
+					{/* Search container end */}
 				</div>
 
 				
@@ -474,7 +540,7 @@ mail=e=>{
 						    <ul className="nav nav-tabs mx-0" role="tablist">
 							{this.state.upcomingSession.length>0?
 							(this.state.upcomingSession.map((row,i)=>
-							    <li className="nav-item flex-fill">
+							    <li className="nav-item flex-fill" key={i}>
 							      <Link to="#dt1" className="nav-link active act" data-toggle="tab" id = {i} name={row.timestamp} onClick={this.scriptOnDate} >{row.date}<br /><span>{row.day}</span></Link>
 							    </li>
 								)):''}
@@ -748,98 +814,136 @@ mail=e=>{
 						{/* Select add channel host Start */}
 							
 						<div className="modal" id="dasboard_myModal2">
-						<div className="modal-dialog modal-dialog-centered">
+						<div className="modal-dialog">
 						<div className="modal-content">
 							<div className="text-center">
 								<img src="/images/host.png" alt="" />
-								<p className="white">Invite Someone to be a Host</p>
+								<p className="white mt-3">Invite Someone to be a Host</p>
 							</div>
-							<div className="modal-body ">
+							<div className="modal-body round p-4 mt-3">
 								<div className="card cardbg">
-								<div className="form-group ">
+								<div className="px-3">
 									<div className="row">
-										<div className="col-md-6 pr-md-2">
+										<div className="col-md-6 mt-4 mt-4">
 											<div className="custom-control custom-radio">
 												<input type="radio" className="custom-control-input" id="customRadio1" value="true"   name="example1" checked={this.state.customRadio1} onChange={this.checkHost1} />
-												<label className="custom-control-label" htmlFor="customRadio1">New Host </label>
+												<label className="custom-control-label" htmlFor="customRadio1">
+													<p className="ml-2 mb-0 p-top-3">New Host</p>
+												</label>
 											</div>    
 										</div>
-										<div className="col-md-6 pr-md-2">
+										<div className="col-md-6 mt-4 mt-4">
 											<div className="custom-control custom-radio mb-20">
 												<input type="radio" className="custom-control-input" id="customRadio2" value="false" name="example1" checked={this.state.customRadio2} onChange={this.checkHost2}  />
-												<label className="custom-control-label" htmlFor="customRadio2">Existing Host</label>
+												<label className="custom-control-label" htmlFor="customRadio2">
+												<p className="ml-2 mb-0 p-top-3">Existing Host</p></label>
 											</div>  
-										</div>
-										<div className="clearfix"></div>
+										</div>								
 											{this.state.customRadio2 ?
-											<div className="col-md-6 pr-md-2" id="dash_land_block">
-												<span className="cover-border "></span>
+											<div className="col-md-6 mt-4 mt-4" id="dash_land_block">
+												{/* <span className="cover-border "></span>
 												<label className="label">Enter First Name</label>
 												<div className="">
 													<input type="text" className="input-field" value={this.state.boissetWine[this.state.channelPopup].upComing} placeholder="First name" disabled/>
 													<span className="signedup_2"></span>
+												</div> */}
+												<div class="form-group">
+													<span class="cover-border bg_gray_clr"></span>
+													<label class="label">Enter First Name</label>
+													<input type="text" id="" class="input-field" value="" />
+													<span class="signedup_2"></span>
 												</div>
 											</div>
 											:''}    
 											{this.state.customRadio2 ?
-											<div className="col-md-6 pr-md-2" id="dash_land_block">
-												<span className="cover-border "></span>
+											<div className="col-md-6 mt-4 mt-4" id="dash_land_block">
+												{/* <span className="cover-border "></span>
 												<label className="label">Enter Last Name</label>
 												<div className="">
 													<input type="text" className="input-field" placeholder="Last name" disabled/>
 													<span className="signedup_2"></span>
+												</div> */}
+												<div class="form-group">
+													<span class="cover-border bg_gray_clr"></span>
+													<label class="label">Enter Last Name</label>
+													<input type="text" id="" class="input-field" value="" />
+													<span class="signedup_2"></span>
 												</div>
 											</div>
 											:''}
 										{this.state.customRadio2 ?
-										<div className="col-md-12 pr-md-2">
-											<span className="cover-border "></span>
+										<div className="col-md-12 mt-4 mt-4">
+											{/* <span className="cover-border "></span>
 											<label className="label">Email Address</label>
 											<div className="">
-												{/* <input type="email" className="input-field" value={this.state.email} placeholder="Email Address" /> */}
+												
 												<select className="input-field" id="mail" value={this.state.mail} onChange={this.mail}>                     
 												{this.state.hostMail.map((row,i)=>
 												<option key={i} value={row.mail}>{row.mail}</option>
 												)}  
 												</select>
-												{/* <span className="dashboard_land"></span> */}
+												
+											</div> */}
+											<div class="form-group">
+												<span class="cover-border bg_gray_clr"></span>
+												<label class="label">Email Address</label>
+												<input type="text" id="" class="input-field" value="" />
+												<span class="dashboard_land"></span>
 											</div>
 										</div>
 										:''}
 										{/* XYZ */}
 										{/* new user*/}
 										{this.state.customRadio1 ?
-											<div className="col-md-6 pr-md-2">
-												<span className="cover-border "></span>
+											<div className="col-md-6 mt-4">
+												{/* <span className="cover-border "></span>
 												<label className="label">Enter First Name</label>
 												<div className="">
 													<input type="text" className="input-field"  placeholder="First namedasdsadsadasdasdsad" />
+													<span className="signedup_2"></span>
+												</div> */}
+												<div className="form-group">
+													<span className="cover-border bg_gray_clr"></span>
+													<label className="label">Enter First Name</label>
+													<input type="text" id="" className="input-field" placeholder="First namedasdsadsadasdasdsad" />
 													<span className="signedup_2"></span>
 												</div>
 											</div>
 											:''}
 											{this.state.customRadio1 ?
-											<div className="col-md-6 pr-md-2">
-												<span className="cover-border "></span>
+											<div className="col-md-6 mt-4">
+												{/* <span className="cover-border "></span>
 												<label className="label">Enter Last Name</label>
 												<div className="">
 													<input type="text" className="input-field" placeholder="Last name" />
+													<span className="signedup_2"></span>
+												</div> */}
+												<div className="form-group">
+													<span className="cover-border bg_gray_clr"></span>
+													<label className="label">Enter Last Name</label>
+													<input type="text" id="" className="input-field" placeholder="Last name" />
 													<span className="signedup_2"></span>
 												</div>
 											</div>
 											:''}
 										{this.state.customRadio1 ?
-										<div className="col-md-12 pr-md-2">
-											<span className="cover-border "></span>
+										<div className="col-md-12 pr-md-2 mt-4">
+											{/* <span className="cover-border "></span>
 											<label className="label">Email Address</label>
 											<div className="">
 												<input type="email" className="input-field" placeholder="Last name" />
+												<span className="dashboard_land"></span>
+											</div> */}
+											<div className="form-group">
+												<span className="cover-border bg_gray_clr"></span>
+												<label className="label">Email Address</label>
+												<input type="text" id="" className="input-field" placeholder="Enter email" />
 												<span className="dashboard_land"></span>
 											</div>
 										</div>
 										:''}
 										{/* new user end */}
-										<div className="col-md-4 pr-md-2">
+										<div className="col-md-4">
 											<h3 className="info">
 												<img src="images/testing.png" className="mr-3 text_lft_icon" alt="script-icon" />Role
 											</h3>
@@ -847,18 +951,20 @@ mail=e=>{
 											<div className="col-md-4 px-4">
 												<div className="custom-control custom-radio">
 													<input type="radio" className="custom-control-input" id="customRollRadio1" value="true"   name="example2" checked={this.state.customRollRadio1} onChange={this.checkRoll1} />
-													<label className="custom-control-label" htmlFor="customRollRadio1">  Adminstration & host</label>
+													<label className="custom-control-label" htmlFor="customRollRadio1"> 
+													<p className="ml-2 mb-0 p-top-3">Adminstration & host</p> </label>
 												</div> <br/>
 												<div className="custom-control custom-radio">
 													<input type="radio" className="custom-control-input" id="customRollRadio2" value="false"  name="example2" checked={this.state.customRollRadio2} onChange={this.checkRoll2} />
-													<label className="custom-control-label" htmlFor="customRollRadio2">  Host</label>
+													<label className="custom-control-label" htmlFor="customRollRadio2">
+													<p className="ml-2 mb-0 p-top-3">host</p></label>
 												</div>  
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div className="donebg"><button type="button" data-toggle="modal" data-dismiss="modal"  className="done" id="checkHost" >Invite</button></div>
+							<div className="donebg"><button type="button" data-toggle="modal" data-dismiss="modal"  className="done mt-5" id="checkHost" >Invite</button></div>
 						</div>
 						</div>
 						</div>

@@ -48,7 +48,7 @@ button:focus
     border-color: #bd00ff !important;
     font-family: Avenir-Book;
     font-size: 16px;
-    padding: 10px 15px;
+    padding: 11px 15px;
 }
 .btn-primary:hover {
     color: #fff;
@@ -69,7 +69,7 @@ button:focus
     font-family: Avenir-Medium;
     letter-spacing: 0.5px;
         font-size: 16px;
-    padding: 10px 15px;
+    padding: 11px 15px;
 
 }
 .btn-outline-secondary:hover {
@@ -109,7 +109,7 @@ input:focus{
 
 
 img.logo{
-	width:120px;
+	width:135px;
 }
 .top-header{
 	align-items: center;	
@@ -293,17 +293,39 @@ img.logo{
     font-size: 18px;
     position: relative;
 }
-.input-field:-webkit-autofill, .input-field:-webkit-autofill:hover, .input-field:-webkit-autofill:focus, .input-field:-webkit-autofill:active
+/* .input-field:-webkit-autofill,
+ .input-field:-webkit-autofill:hover,
+  .input-field:-webkit-autofill:focus, .input-field:-webkit-autofill:active
 {
     -webkit-box-shadow: 0 0 0 1000px #34213b inset;
     -moz-box-shadow: 0 0 0 1000px #34213b inset;
     box-shadow: 0 0 0 1000px #34213b inset;
-    /* -webkit-transition: all 0.7s ease 0s;
-    -moz-transition: all 0.7s ease 0s;
-    -o-transition: all 0.7s ease 0s;
-    transition: all 0.7s ease 0s; */
     -webkit-text-fill-color: #eee !important;
+} */
+
+
+.input-field:-webkit-autofill,
+ .input-field:-webkit-autofill:hover,
+  .input-field:-webkit-autofill:focus, .input-field:-webkit-autofill:active {
+-webkit-animation: autofill11 0s forwards;
+    animation: autofill11 0s forwards;
+	-webkit-text-fill-color: #fff !important;
 }
+@keyframes autofill11 {
+    100% {
+        background: #34213b;
+        color: inherit;
+    }
+}
+
+@-webkit-keyframes autofill11 {
+    100% {
+        background: #34213b;
+        color: inherit;
+    }
+}
+
+
 textarea.input-field{
     height: 168px;
     padding: 20px 18px;
@@ -454,7 +476,7 @@ select.input-field{
     float: right;
     position: absolute;
     right: 10px;
-    top: 15px;
+    top: 18px;
 
 }
 .form_email{
@@ -466,7 +488,7 @@ select.input-field{
     float: right;
     position: absolute;
     right: 12px;
-    top: 15px;
+    top: 18px;
     background-size: 22px;
 
 }
@@ -479,7 +501,7 @@ select.input-field{
     float: right;
     position: absolute;
     right: 12px;
-    top: 15px;
+    top: 18px;
     background-size: 22px;
 
 }
