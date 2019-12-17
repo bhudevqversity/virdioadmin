@@ -146,10 +146,10 @@ $(".parent-row").hide();
 		infinite: true,
 		slidesToShow: 4,
 		slidesToScroll: 1,
-		autoplay: true,
+		autoplay: false,//true
 		speed: 2000,
 		autoplaySpeed: 3000,
-		arrows:false,
+		arrows:true,//false
   		pauseOnHover:true,
 		cssEase: "linear",
 		responsive: [
@@ -165,7 +165,7 @@ $(".parent-row").hide();
 		  settings: {
 			slidesToShow: 2,
 			slidesToScroll: 1,
-			arrows:false
+			arrows:true//false
 		  }
 		},
 		{
@@ -173,7 +173,7 @@ $(".parent-row").hide();
 		  settings: {
 			slidesToShow: 1,
 			slidesToScroll: 1,
-			arrows:false
+			arrows:true//false
 		  }
 		}
 		]
@@ -353,7 +353,7 @@ $(".parent-row").hide();
 				</div>
 			</div>
 		<div className="small_img_part mt-4">
-			<h3 className="my-3">FITNESS<sup className="ml-2">(24)</sup></h3>
+			<h3 className="my-3">FITNESS<sup className="ml-2">({this.state.fitnessData.length})</sup></h3>
 			{/* <div className="slides_inner_part"> */}
 			<Slider {...settings}>
 				{this.state.fitnessData.map((row,i)=>
@@ -386,7 +386,7 @@ $(".parent-row").hide();
 			{/* </div> */}
 		</div>
 		<div className="small_img_part">
-			<h3 className="my-3">WINE<sup className="ml-2">(24)</sup></h3>
+			<h3 className="my-3">WINE<sup className="ml-2">({this.state.wineData.length})</sup></h3>
 			{/* <div className="slides_inner_part"> */}
 			<Slider {...settings}>
 				{this.state.wineData.map((row,i)=>
@@ -419,7 +419,7 @@ $(".parent-row").hide();
 			{/* </div> */}
 		</div>
 		<div className="small_img_part">
-			<h3 className="my-3">COOKING<sup className="ml-2">(24)</sup></h3>
+			<h3 className="my-3">COOKING<sup className="ml-2">({this.state.cookingData.length})</sup></h3>
 			{/* <div className="slides_inner_part"> */}
 			<Slider {...settings}>
 				{this.state.cookingData.map((row,i)=>
