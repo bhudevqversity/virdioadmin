@@ -482,13 +482,13 @@ $(".parent-row").hide();
 					<li><Link to="/">About</Link></li>
 					<li><Link to="/">News</Link></li>
 					<li><Link to="/">Contact</Link></li>
-					<li><Link to="/">Privacy</Link></li>
-					<li><Link to="/">Terms of service</Link></li>
+					<li><Link to="https://virdiocom-my.sharepoint.com/:w:/g/personal/brent_platt_virdio_com/ERsXhJYzFupOqAF_FvriYioBNW4LaLdolU-smHNPaKvOrw?e=gvOamt" target="_blank">Privacy</Link></li>
+					<li><Link to="https://virdiocom-my.sharepoint.com/:w:/g/personal/brent_platt_virdio_com/EX1he8BB3wVAkLIjiuJ9Wf4BnzuHsQr2HXOFqfwffgUnJg?e=3qfkmZ" target="_blank">Terms of service</Link></li>
 				</ul>
 			</div>
 			<div className="col-lg-3 col-sm-6 px-lg-0">
 				<p>SUBSCRIBE TO OUR NEWSLETTER FOR UPDATES</p>
-				<p className="foot_txt">By giving us your email you agree to our <Link to ="/">Terms of service</Link> and <Link to ="/">Terms of privacy</Link></p>
+				<p className="foot_txt">By giving us your email you agree to our <Link to ="https://virdiocom-my.sharepoint.com/:w:/g/personal/brent_platt_virdio_com/EX1he8BB3wVAkLIjiuJ9Wf4BnzuHsQr2HXOFqfwffgUnJg?e=3qfkmZ" target="_blank">Terms of service</Link> and <Link to ="https://virdiocom-my.sharepoint.com/:w:/g/personal/brent_platt_virdio_com/ERsXhJYzFupOqAF_FvriYioBNW4LaLdolU-smHNPaKvOrw?e=gvOamt" target="_blank">Terms of privacy</Link></p>
 				<div className="input-group mb-3 mt-4">
 				    <input type="text" className="form-control" placeholder="Email Address" name="" />
 				    <div className="input-group-append">

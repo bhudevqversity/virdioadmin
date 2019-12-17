@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 //import PropTypes from "prop-types";@ak
 //import { connect } from "react-redux";@ak
 //import { loginUser } from "../../actions/authActions";@ak
 import classnames from "classnames";
 import axios from "axios";
 import $ from 'jquery';
-import {  browserHistory} from 'react-router'
+import {  browserHistory,Link} from 'react-router'
 
 
 class Login extends Component {
@@ -16,7 +16,8 @@ class Login extends Component {
       email:"",     
       password:"",
       type:"1",
-      errors: {}
+      errors: {},
+      rememberMe:false
     };
   }
 
@@ -47,16 +48,24 @@ class Login extends Component {
       }
       
     // } else { @ak
-      if (localStorage.chkbx && localStorage.chkbx != '') {
-          $('#remember_me').attr('checked', 'checked');
-          // $('#email').val(localStorage.email);
-          this.setState({email:localStorage.email})
-      } else {
-          $('#remember_me').removeAttr('checked');
-          // $('#email').val('');
-          this.setState({email:''})
-      }
+      // if (localStorage.chkbx && localStorage.chkbx != '') {
+      //     $('#remember_me').attr('checked', 'checked');
+      //     // $('#email').val(localStorage.email);
+      //     this.setState({email:localStorage.email})
+      // } else {
+      //     $('#remember_me').removeAttr('checked');
+      //     // $('#email').val('');
+      //     this.setState({email:''})
+      // }//@ak
     // }@ak
+    if(localStorage.getItem('chk') && localStorage.getItem('userData')){
+      let ak =JSON.parse(localStorage.getItem('userData'));
+      $('#remember_me').attr('checked', 'checked');
+      console.log(ak);
+      this.setState({
+        email:ak.data.responseData.email
+      })
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,16 +116,16 @@ onSubmit = e => {
         email: this.state.email,
         password: this.state.password
       };
-   // localStorage.setItem("userData", JSON.stringify(userData));
-  //  console.log('------------userData1111---------------',this.state.email,JSON.parse(localStorage.getItem('userData')))
-  //  console.log('------------userData111134---------------',userData)
-  //   //this.props.loginUser(userData);@ak // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     axios.post(process.env.REACT_APP_NAME+"/api/v1/user/adminLogin", userData)
     .then(res => {
       console.log(res);
      if(res.data.responseMessage == "success"){
     // console.log('=============lallittiwari12345===================>',res.data.responseData.type);
     localStorage.setItem("userData", JSON.stringify(res));
+    console.log('this.state.rememberMe',$('#remember_me').is(':checked'))
+    if ($('#remember_me').is(':checked')) {
+      localStorage.setItem("chk", 'true');
+    }
     if(res.data.responseData.type===1){
     browserHistory.push("/DashboardLanding");
     }
@@ -172,7 +181,8 @@ return (
                 
                 <div className = "form-group mt-4 mb-0 pl-0">
                 <div className="custom-control custom-checkbox">
-                  <input type="checkbox" className="custom-control-input" value="remember-me" id="remember_me" name="example1" />
+                  <input type="checkbox"  className="custom-control-input" value="remember-me" id="remember_me" name="example1" />
+                  {/* <input type="checkbox" id = "rememberMe"  checked={this.state.rememberMe} onChange = {(e)=>{this.setState({[e.target.id]:!this.state.rememberMe},()=>console.log('rememberMe',this.state.rememberMe))}}/> */}
                     <label className="custom-control-label" htmlFor="remember_me">Remember me</label>
                   </div>
                 </div>
@@ -193,7 +203,7 @@ return (
                     <div className = "d-flex flex-wrap justify-content-between align-items-center">
                     
 
-                      <button type = "button" className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
+                      <button type = "button" onClick={(e)=>this.setState({email:'',password:''})} className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
                       <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Log in</button>
                       <a href="/forgot-password"  className="open-list" className="forgot-password mt-sm-0 mt-3">Forgot password?</a>
                     </div>
@@ -206,7 +216,7 @@ return (
 
             </div>
             </div>
-            <a href="/privacy-policy.html" target="_blank" className="privacy-link">Click to view the virdio privacy policy</a>
+            <Link to="https://virdiocom-my.sharepoint.com/:w:/g/personal/brent_platt_virdio_com/ERsXhJYzFupOqAF_FvriYioBNW4LaLdolU-smHNPaKvOrw?e=gvOamt" target="_blank" className="privacy-link">Click to view the virdio privacy policy</Link>
           </div>
           
         </div>

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import $ from 'jquery';
-import { Link } from 'react-router';
+import { Link , browserHistory} from 'react-router';
 import axios from "axios";
-import {  browserHistory} from 'react-router'
-
 
 class AdminDashboard extends Component {
   
@@ -19,15 +17,21 @@ class AdminDashboard extends Component {
     attendees:'',
     virtualRoom:'',
     shoppingArray:[],
-    productArray:['A','B'],
+    productArray:[],
     EquipmentArray:[],
     production:false,
     hasShopping:false,
     hasEquipment:false,
     hasProductList:false,
     shoppingProductName:'',
+    productName:'',
     equipmentProductName:'',
     groupIndex:0,
+    mycustomFile1:'',
+    mycustomFile2:'',
+    mycustomFile3:'',
+    mycustomFile4:'',
+    imageOfFile:''
    // interestArray:['weight Lifting','Cardio','Yoga','Squats','Rock Climbing'], groupIndex:0, groupArray:[],
 
 	}
@@ -36,12 +40,6 @@ class AdminDashboard extends Component {
 }
  
 componentDidMount(){
-  if(localStorage.getItem('userData')){
-    
-  }else{
-    browserHistory.push("/login");
-
-  }
 //   var interestArray1=[{
 //     groupName:'Fitness',
 //   interestName:['weight Lifting','Cardio','Yoga','Squats','Rock Climbing'],
@@ -76,6 +74,11 @@ componentDidMount(){
   // this.setState({
   //   InterestArray:interestArray1
   // },()=>console.log(this.state.interestArray))
+  if(localStorage.getItem('userData')){
+  }
+	else{
+	browserHistory.push("/login");
+	}
 }
 submitHost=(e)=>{
   $("#bigg_cont").attr({'style':'display:block'});
@@ -232,6 +235,7 @@ submitHost=(e)=>{
       InterestArray:addInterest,
       shoppingArray:[],
       EquipmentArray:[],
+      productArray:[],
       interestName:'',
       attendees:'',
       virtualRoom:'',
@@ -239,7 +243,8 @@ submitHost=(e)=>{
       hasEquipment:false,
       hasProductList:false,
       shoppingProductName:'',
-      equipmentProductName:''
+      equipmentProductName:'',
+      productName:''
      },()=>
      {
       $("#interestDashboard").attr({'style':'display:none'});
@@ -247,14 +252,26 @@ submitHost=(e)=>{
       })
     }
   }
+  saveVideoFile = event=>{
+    console.log(event.target.files[0]);
+    const data = new FormData() 
+      data.append('file', event.target.files[0]);
+      console.log('----------------------',data);
+      this.setState({
+          [event.target.id]:data,
+          imageOfFile:event.target.files[0].name
+    },()=>console.log(this.state.imageOfFile,'Preview---------',this.state.mycustomFile2))
+  }
         
     addShoppingProduct=(e)=>{
       let ak=[];
+      if(!this.state.shoppingProductName===false){
       ak = this.state.shoppingArray;
       ak.push({shoppingProductName:this.state.shoppingProductName});
       this.setState({
         shoppingArray:ak
       },()=>console.log(this.state.shoppingArray))
+    }
     }
     removeShoppingProduct=(e)=>{
       let ak = [];
@@ -266,11 +283,31 @@ submitHost=(e)=>{
     }
     addEquipmentProduct=(e)=>{
       let ak=[];
+      if(!this.state.equipmentProductName===false){
       ak = this.state.EquipmentArray;
       ak.push({equipmentProductName:this.state.equipmentProductName});
       this.setState({
         EquipmentArray:ak
       },()=>console.log(this.state.EquipmentArray))
+    }
+    }
+    addProduct=(e)=>{
+      let ak=[];
+      if(!this.state.productName===false){
+      ak = this.state.productArray;
+      ak.push({productName:this.state.productName});
+      this.setState({
+        productArray:ak
+      },()=>console.log(this.state.productArray))
+    }
+    }
+    removeProductName=(e)=>{
+      let ak = [];
+      ak = this.state.productArray;
+      ak.splice(e.target.id,1);
+      this.setState({
+        productArray:ak
+      },()=>console.log('remove product item',this.state.productArray))
     }
     removeEquipmentProduct=(e)=>{
       let ak = [];
@@ -294,7 +331,7 @@ render() {
 
     return (
         <div>
-            <div id="root">
+            {/* <div id="root"> */}
                 <div className="App">
                 <div className="container-fluid px-4 py-5">
                     <div className="top_boxx pb-4">
@@ -579,6 +616,9 @@ render() {
                         </div>
                     </div>
                 </div>
+
+                {/* test modal */}
+                {/*  */}
             <div className="container-fluid1 px-4 py-5" id="interestDashboard">
 			        <div className="bg-gray-shade radius-10 p-4">
                     <div className="outer-container pb-4">
@@ -654,18 +694,26 @@ render() {
                             </label>                    
                             <div className="input-field position-relative d-lg-flex d-block px-3">                      
                             <div className="one flex-fill mr-3 position-relative">                                  
-                                <div className="custom-file mb-3">
-                                <input type="file" accept="video/*" className="custom-file-input" id="mycustomFile1" name="filename" />
-                                <label className="custom-file-label px-1" for="mycustomFile1">
+                                {/* <div className="custom-file mb-3">
+                                <input type="file" accept="video/*" className="custom-file-input" id="mycustomFile1" name="filename" onChange = {this.saveVideoFile}/>
+                                <label className="custom-file-label px-1" htmlFor="mycustomFile1">
                                     <img src="/images/video.png" className="browse_image1" alt='#' />
                                     <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
                                     </label>
-                                </div>
+                                </div> */}
+                            <div className="custom-file mb-3">
+                              <input type="file" className="custom-file-input" id="mycustomFile1" name="filename" onChange={this.saveVideoFile} />
+                              <label className="custom-file-label px-1" htmlFor="mycustomFile1">
+                              <img src="/images/video2.png" className="browse_image1" alt='#'/>
+                              <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
+                              <Link to="/AdminDashboard" className="bg-circle position-absolute"><i className="fa fa-minus" id="0" aria-hidden="true"></i></Link>
+                              </label>
+                            </div>
                             </div>
                             <div className="one flex-fill position-relative">
                                 <div className="custom-file mb-3">
-                                <input type="file" accept="image/*" className="custom-file-input" id="mycustomFile2" name="filename1" />
-                                <label className="custom-file-label px-1" for="mycustomFile2">
+                                <input type="file" accept="image/*" className="custom-file-input" id="mycustomFile2" name="filename1" onChange = {this.saveVideoFile} />
+                                <label className="custom-file-label px-1" htmlFor="mycustomFile2">
                                     <img src="/images/browse-img.png" className="browse_image1" alt='#'/>
                                     <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
                                 </label>
@@ -758,7 +806,44 @@ render() {
         :''}
         {this.state.hasProductList?
         <div className="bg-gray-shade radius-10 py-4 mt-4">
-            <div className="outer-container px-4">
+
+          {/* Equipment Code */}
+          <div className="outer-container px-4">
+             <div className="row align-items-center justify-content-between">
+                <h4 className="text_dark_gray1 font-weight-bold font-18 pr-3">Product List</h4>
+                <div className="flex-grow-1 line_custom-purple"></div>
+                <div className="pl-3"><img src="/images/equipment-list.png" alt="" /></div>
+             </div>
+           
+             <div className="row" >
+             {this.state.productArray.map((row,i)=>
+              <div className="col-md-4" key={i}>
+                <div className="px-2 py-3">
+                  <p className="gray_text mb-1">Product Name</p>
+                  <div className="d-flex align-items-center justify-content-between">
+                  <h4 className="white mb-0 font-book font-18 pr-3">{row.productName}</h4>
+                    <div className="flex-grow-1 line_custom-purple"></div>
+                    <Link to="/AdminDashboard" className="bg-circle text-white" id={i} onClick={this.removeProductName} ><i className="fa fa-minus" aria-hidden="true"></i></Link>
+                 </div>
+                </div>
+              </div>
+               )}
+
+             </div>
+           </div>
+           <div className="outer-container pl-4">
+             <div className="row align-items-center input-fld-outer mt-2">
+              <div className="form-group mb-2 mt-4">
+                <label className="label">Product Name<span className="inp_cover-border bg-gray-shade"></span></label>
+                <input type="text" id="productName" value={this.state.productName} onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.productName))} className="input-field mb-0" />
+                <Link to="/AdminDashboard" className="bg-circle text-white position-absolute minus"><i className="fa fa-minus" aria-hidden="true"></i></Link>
+                <span className="span1">text</span>
+              </div>
+              <div className="mt-4 mb-2"><Link to="/AdminDashboard" className="bg-circle text-white" onClick={this.addProduct}><i className="fa fa-plus" aria-hidden="true"></i></Link></div>
+            </div>
+          </div> 
+          {/* Equipment Code ENds Here */}
+            {/* <div className="outer-container px-4">
               <div className="px-4">
                  <div className="row align-items-center justify-content-between">
                     <h4 className="text_dark_gray1 font-weight-bold font-18 pr-3">Product List</h4>
@@ -792,8 +877,9 @@ render() {
                   </div>
                  </div>
               </div>
-           </div>
-           <div className="outer-container pl-4">
+           </div> */}
+           {/*  */}
+           {/* <div className="outer-container pl-4">
             <div className="px-4">
             <div className="row align-items-center input-fld-outer mt-2">
               <div className="px-3 py-3 w-300">
@@ -893,7 +979,7 @@ render() {
                     </div>
                   </div>
                 </div>
-            </div>
+            </div> */}
              {/* <div className="row align-items-center input-fld-outer mt-2">
                 <div className="pl-4 py-3 mt-4 pr-4 w-300">
                   <p className="gray_text mb-1">Field#3 - varchar</p>
@@ -935,7 +1021,8 @@ render() {
                 </div>
               <div className="mt-4 mb-2"><a href="#" className="bg-circle text-white"><i className="fa fa-plus" aria-hidden="true"></i></a></div>
             </div> */}
-          </div>
+          {/* </div> */}
+          {/* Add Media code */}
           <div className="outer-container1 mt-4 px-4">
             <div className="video_img position-relative px-2">
               <label className="label">Add Media Type<span className="inp_cover-border bg-gray-shade"></span></label>
@@ -944,8 +1031,8 @@ render() {
                 <div className="one flex-fill mr-4 position-relative">
                 
                   <div className="custom-file mb-3">
-                    <input type="file" className="custom-file-input" id="mycustomFile3" name="filename" />
-                    <label className="custom-file-label px-1" for="mycustomFile3">
+                    <input type="file" className="custom-file-input" id="mycustomFile3" name="filename" onChange={this.saveVideoFile} />
+                    <label className="custom-file-label px-1" htmlFor="mycustomFile3">
                         <img src="/images/video2.png" className="browse_image1" alt='#'/>
                         <p className="purple_text browse_text"><span className="white">VIDEO</span><br />Browse File</p>
                         <Link to="/AdminDashboard" className="bg-circle position-absolute"><i className="fa fa-minus" id="0" aria-hidden="true"></i></Link>
@@ -954,8 +1041,8 @@ render() {
                 </div>
                 <div className="one flex-fill position-relative">
                   <div className="custom-file mb-3">
-                    <input type="file" className="custom-file-input" id="mycustomFile4" name="filename1" />
-                    <label className="custom-file-label px-1" for="mycustomFile4">
+                    <input type="file" className="custom-file-input" id="mycustomFile4" name="filename1" onChange={this.saveVideoFile} />
+                    <label className="custom-file-label px-1" htmlFor="mycustomFile4">
                         <img src="/images/image1.png" className="browse_image1" alt='#' />
                         <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
                         <Link to="/AdminDashboard" className="bg-circle position-absolute"><i className="fa fa-minus" id="0" aria-hidden="true"></i></Link>
@@ -964,14 +1051,15 @@ render() {
                 </div>
               </div>
             </div>
-          </div>      
+          </div>
+          {/* Add Media Ends Here  */}
         </div>
         :''}
         <div className="text-center">
           <button type="button" className="done mt-5" onClick={this.onInterestSave}>Done</button>
         </div>
       </div>
-            </div>
+            {/* </div> */}
         </div>
     )
 }

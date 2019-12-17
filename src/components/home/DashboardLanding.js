@@ -173,7 +173,7 @@ componentDidMount(){
 	let month=(new Date('2019-12-12T21:30:00.000Z').getMonth())+1;
 	let year=new Date('2019-12-12T21:30:00.000Z').getFullYear();
 	let sessionDate= day+'/'+month+'/'+year;
-	let ak= <p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {sessionDate}</p>
+	//let ak= <p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {sessionDate}</p>
 	//arr.push(<option key={i} value={i}>{i}</option>)
 	return sessionDate; 
 	  
@@ -411,7 +411,7 @@ mail=e=>{
 						</div>
 						<div className="col-lg-4 datepick pr-4 d-flex justify-content-start flex-wrap justify-content-md-between align-items-center">
 							{/* <input type="text" name="" class="form-control" id="datepicker" /> */}
-							<div><DatePicker className="form-control" id="datepicker" selected={this.state.startDate} onChange={date => this.setStartDate(date)} /></div>
+							<div><DatePicker className="form-control" id="datepicker"  selected={this.state.startDate} onChange={date => this.setStartDate(date)} /></div>
 							<div className="c_icon position-relative ml-4"><img src="/images/cal.png" className=""  alt="" /><img src="images/angle-down.png" className=""  alt="" /></div>
 							<div className="nc_icon position-relative"><img src="/images/search1.png" className="mr-4"  alt="" id = "searchContainer" onClick={(e)=> this.setState({[e.target.id]:!this.state.searchContainer})}/></div>
 						</div>

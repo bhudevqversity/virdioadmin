@@ -66,11 +66,17 @@ class HostSessionCreation extends Component {
 }
  
 componentDidMount(){
-$("#pick_channel").attr({'style':'display:block'});	
-this.setChannelInterest();
-this.setChannelHost();
-//this.addToProductList();
-this.fetchAttributesList();
+    if(localStorage.getItem('userData')){
+        $("#pick_channel").attr({'style':'display:block'});	
+        this.setChannelInterest();
+        this.setChannelHost();
+        //this.addToProductList();
+        this.fetchAttributesList();
+    }
+    else{
+      browserHistory.push("/login");
+      }
+
 }
 
 
@@ -556,7 +562,7 @@ return(
                                             id ="ss"
                                             value = {this.state.ss}
                                             onChange={(e)=>this.setState({[e.target.id]:e.target.value},()=>console.log(this.state.ss))}
-                                            className="input-field" placeholder="" />
+                                            className="input-field" placeholder="" disabled={!this.state.sessionCharge}/>
                                         </div>   
                                     </div>
                                 </div>
@@ -615,7 +621,7 @@ return(
                                             <div className="custom-file mb-3">
                                               <input type="file" className="custom-file-input" id="customFile" name="file" onChange = {this.onChangeHandler} />
                                               <label className="custom-file-label input-field position-relative" htmlFor="customFile">
-                                                  <img src="images/browse-img.png" className="browse_image" alt= ''/>
+                                                  <img src="/images/browse-img.png" className="browse_image" alt= ''/>
                                                   <p className="purple_text browse_text"><span className="white">IMAGE</span><br />Browse File</p>
                                               </label>
                                             </div>
