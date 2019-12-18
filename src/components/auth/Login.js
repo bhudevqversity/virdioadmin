@@ -205,7 +205,7 @@ return (
 
                       <button type = "button" onClick={(e)=>this.setState({email:'',password:''})} className="btn-cancel btn btn-large btn-outline-secondary waves-effect waves-light hoverable blue accent-3 rounded p-3 px-4">Cancel</button>
                       <button type = "submit" className="btn-login btn btn-large btn-primary waves-effect waves-light hoverable blue accent-3 p-3 px-4 rounded">Log in</button>
-                      <a href="/forgot-password"  className="open-list" className="forgot-password mt-sm-0 mt-3">Forgot password?</a>
+                      <Link to="/forgotpassword"  className="open-list" className="forgot-password mt-sm-0 mt-3">Forgot password?</Link>
                     </div>
                 </div>
                 

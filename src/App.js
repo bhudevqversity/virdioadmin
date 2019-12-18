@@ -19,6 +19,7 @@ import AdminDashboard from './components/home/AdminDashboard'
 import WineSessionOnId from './components/home/wineSessionOnId'
 import NoAdmin from './components/home/NoAdmin'
 import Login from './components/auth/Login'
+import Forgotpassword from './components/auth/Forgotpassword'
 import PrivateRoute from './components/helper/PrivateRoute'
 /*function App() {
   return (
@@ -57,6 +58,7 @@ class App extends Component {
       <Route  path="/noAdmin" component={NoAdmin} />
       <Route  path="/wineSessionEditable/:id" component={DemoSessionWine} />
       <Route  path="/login" component={Login} />
+      <Route  path="/forgotpassword" component={Forgotpassword} />
 		</div>
      </Router>
    );

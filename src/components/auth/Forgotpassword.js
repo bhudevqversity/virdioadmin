@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
@@ -147,7 +147,7 @@ class Forgotpassword extends Component {
     
                 </div>
                 </div>
-                <a href="#" className="privacy-link">Click to view the virdio privacy policy</a>
+                <Link to="https://virdiocom-my.sharepoint.com/:w:/g/personal/brent_platt_virdio_com/ERsXhJYzFupOqAF_FvriYioBNW4LaLdolU-smHNPaKvOrw?e=gvOamt" target="_blank" className="privacy-link">Click to view the virdio privacy policy</Link>
               </div>
               
             </div>
@@ -165,5 +165,8 @@ const container = {
   
   };
 
-export default connect()(Forgotpassword);
+// export default connect()(Forgotpassword);@ak
+export default Forgotpassword;
+
+
 
