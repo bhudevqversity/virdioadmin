@@ -285,7 +285,7 @@ componentDidMount(){
 
       axios      
       
-      .get("/api/v1/session/"+channelId+"/product-list")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+channelId+"/product-list")          
       .then(res => {
         console.log('---------channelproduct--------------',res.data.responseData);
 
@@ -334,7 +334,7 @@ componentDidMount(){
     console.log('-----asdfghjkl----------',interestId);              
       axios      
       //.get("/api/v1/session/"+channelId+"/host")      
-      .get("/api/v1/session/"+interestId+"/emojiesList")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+interestId+"/emojiesList")          
       .then(res => {
 
         console.log('---------InterestEmojies--------------',res.data.responseData);
@@ -399,7 +399,7 @@ componentDidMount(){
     console.log('-----asdfghjkl----------',channelId);              
       axios      
       //.get("/api/v1/session/"+channelId+"/host")      
-      .get("/api/v1/session/"+channelId+"/hosts-list1")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+channelId+"/hosts-list1")          
       .then(res => {
         console.log('---------channelHost--------------',res.data.responseData);
 
@@ -426,7 +426,7 @@ componentDidMount(){
     let  interestId=2;  
     console.log('-----a----------',interestId);              
       axios            
-      .get("/api/v1/session/"+interestId+"/equipments")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+interestId+"/equipments")          
       .then(res => {
         console.log('---------channelEquipments--------------',res.data.responseData);
 
@@ -468,7 +468,7 @@ componentDidMount(){
 
     console.log('-----b----------',interestId);              
       axios      
-      .get("/api/v1/session/"+interestId+"/shoppinglist")          
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+interestId+"/shoppinglist")          
       .then(res => {
         console.log('---------channelShopping--------------',res.data.responseData);
 
@@ -497,7 +497,7 @@ componentDidMount(){
       let  channelId=1;   
       console.log(channelId);              
         axios      
-        .get("/api/v1/session/"+channelId+"/channel")        
+        .get(process.env.REACT_APP_NAME+"/api/v1/session/"+channelId+"/channel")        
         .then(res => {
           console.log('---------forgotpasswd--------------',res.data.responseData)
 
@@ -523,7 +523,7 @@ componentDidMount(){
       console.log('-------hi-----',sessionId)
 
       axios      
-      .get("/api/v1/session/"+sessionId+"/sess")        
+      .get(process.env.REACT_APP_NAME+"/api/v1/session/"+sessionId+"/sess")        
       .then(res => {
         console.log('---------SessionId--------------',res.data)
 
@@ -2168,7 +2168,7 @@ alert('hi');
 
         if(this.state.minimumParticipants>=1 && this.state.maximumParticipants<=50 ){  
         
-      axios.post("/api/v1/session/createwineSession", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
+      axios.post(process.env.REACT_APP_NAME+"/api/v1/session/createwineSession", { shopping_list,equipment_list, activities,reminder,privacy,session,groups,script,host_list})
       .then(res => {
 
         console.log('=============lallittiwari12345===================>',res.data);;

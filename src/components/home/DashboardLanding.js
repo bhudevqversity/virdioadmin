@@ -142,7 +142,7 @@ checkHost4=(e)=>{
 
 
 componentDidMount(){
-	// $("#dash_land_block :input").attr("disabled", true);
+	// $("#dash_land_block :input").attr("disabled", true);	
 	if(localStorage.getItem('userData')){
 		let ak = JSON.parse(localStorage.getItem('userData'));
 		console.log(new Date('2019-12-12T21:30:00.000Z').getHours())
