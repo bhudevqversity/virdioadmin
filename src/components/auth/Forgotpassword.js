@@ -59,7 +59,7 @@ class Forgotpassword extends Component {
               console.log('-------------userData--------------',userData)
 
                 axios
-                .post("/api/v1/user/forgotpassword",userData)                
+                .post(process.env.REACT_APP_NAME+"/api/v1/user/forgotpassword",userData)                
                 .then(res => {
 
               console.log('---------forgotpasswd--------------',res.data)

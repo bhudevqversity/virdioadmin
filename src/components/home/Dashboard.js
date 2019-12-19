@@ -470,7 +470,7 @@ $(".parent-row").hide();
 			<div className="col-lg-3 col-sm-6">
 				<p>GET STARTED</p>
 				<ul className="list">
-					<li><Link to="/">Sign In</Link></li>
+					<li><Link to="/login">Sign In</Link></li>
 					<li><Link to="/signUp">Sign Up</Link></li>
 					<li><Link to="/">Learn More</Link></li>
 					<li><Link to="/">Session Guidelines</Link></li>

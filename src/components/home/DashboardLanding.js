@@ -3,7 +3,7 @@ import {  browserHistory} from 'react-router'
 import DatePicker from "react-datepicker";
 import { Link } from 'react-router';
 import "react-datepicker/dist/react-datepicker.css";
-// import $ from 'jquery';
+import $ from 'jquery';
 import axios from "axios";
 
 class DashboardLanding extends Component {
@@ -84,7 +84,10 @@ class DashboardLanding extends Component {
 		customRadio3:false,
 		customRadio4:true,
 		customCheck1:false,
-		searchContainer:false
+		searchContainer:false,
+		exampleFormControlSelect1:'',
+		sessionType:'',
+		sessionTypeRedirectTo:''
 			
 
 	}
@@ -145,7 +148,7 @@ componentDidMount(){
 	// $("#dash_land_block :input").attr("disabled", true);	
 	if(localStorage.getItem('userData')){
 		let ak = JSON.parse(localStorage.getItem('userData'));
-		console.log(new Date('2019-12-12T21:30:00.000Z').getHours())
+		// console.log(new Date('2019-12-12T21:30:00.000Z').getHours())
 		const userData ={
 			email : ak.data.responseData.email,
 			type:ak.data.responseData.type}
@@ -243,7 +246,7 @@ componentDidMount(){
 		// this.setState({
 		// 	sessionData:ak1
 		// },()=>console.log(this.state.sessionData))	
-		console.log(JSON.stringify(userData),process.env.REACT_APP_NAME+'>>>>>>>>>>>>>>>>>>',ak.data.responseData.type);	 
+		// console.log(JSON.stringify(userData),process.env.REACT_APP_NAME+'>>>>>>>>>>>>>>>>>>',ak.data.responseData.type);	 
 		axios.post(process.env.REACT_APP_NAME+"/api/v1/user/adminDashboardData",userData)
 		.then(res => {
 		  console.log('----------------------->',res.data.responseData.sessionData);
@@ -450,7 +453,25 @@ mail=e=>{
 		[e.target.id]:e.target.value
 	})
 } 
- 
+goToSessionPage =(e)=>{
+	$("#pick_channel").attr({'style':'display:block'});	
+}
+sessionType=(e)=>{
+	if(e.target.value==="Channel1"){
+		this.setState({
+			[e.target.id]:e.target.value,
+			sessionType:'Fitness Session',
+			sessionTypeRedirectTo:'FitnessSessionCreation'
+		})
+	}
+	if(e.target.value==="Channel2"){
+		this.setState({
+			[e.target.id]:e.target.value,
+			sessionType:'Wine Session',
+			sessionTypeRedirectTo:'wineSessionCreation'
+		})
+	}
+} 
  render() {
 
 	
@@ -465,7 +486,7 @@ mail=e=>{
                 <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
                     <div className="user-info d-flex align-items-center"><img src="/images/attendee.png" className="user-avtar pic" alt="" />
                         <div className="pl-4">
-                            <h3>Welcome Arjun</h3>
+                            <h3>Welcome Atul</h3>
                             <p>You have no sessions this week</p>
                             {/* <p>Next Session, Wednesday, 24 July 2019</p> */}
                         </div>
@@ -765,7 +786,7 @@ mail=e=>{
 						    			</div>
 						    		</div> */}
 						    		<div className="col-12 col-lg-4 col-sm-6 mt-4 px-2">
-						    			<div className="plus_icnn">+</div>
+						    			<div className="plus_icnn" onClick={this.goToSessionPage}>+</div>
 						    		</div>
 						    	</div>
 						    	
@@ -1020,7 +1041,7 @@ mail=e=>{
 												<div className="form-group">
 													<span className="cover-border bg_gray_clr"></span>
 													<label className="label">Enter First Name</label>
-													<input type="text" id="" className="input-field" placeholder="First namedasdsadsadasdasdsad" />
+													<input type="text"  className="input-field" placeholder="First name" />
 													<span className="signedup_2"></span>
 												</div>
 											</div>
@@ -1036,7 +1057,7 @@ mail=e=>{
 												<div className="form-group">
 													<span className="cover-border bg_gray_clr"></span>
 													<label className="label">Enter Last Name</label>
-													<input type="text" id="" className="input-field" placeholder="Last name" />
+													<input type="text"  className="input-field" placeholder="Last name" />
 													<span className="signedup_2"></span>
 												</div>
 											</div>
@@ -1206,6 +1227,47 @@ mail=e=>{
 								
 							</div>
 							{/* Select add participient End */}
+
+							{/* Pick session by nitin  */}
+							<div className="modal" id="pick_channel">
+							<div className="modal-dialog modal-dialog-centered">
+								<div className="modal-content bg-black">
+									<div className="modal-header">
+										<button type="button" className="close white closepopup" onClick={e=>{$("#pick_channel").attr({'style':'display:none'})}} data-dismiss="modal">×</button>
+									</div>
+									<div className="modal-body pb-5">
+										<div className="py-5">
+											<h4 className="white text-center">Pick Session Type</h4>
+											<div className="d-flex justify-content-center align-items-center flex-wrap">
+												<div className="f_box">
+													<div className="form-group">													
+													<span className="cover-border bg_gray_clr"></span>
+													<label className="label">Channel Type</label>														
+													<select
+														className="input-field chnel_type"
+														id="exampleFormControlSelect1"
+														value = {this.state.exampleFormControlSelect1}
+														onChange = {this.sessionType}
+													>
+														<option>Channel Type</option>											
+														<option>Channel1</option>
+														<option>Channel2</option>
+														
+														{/* <option>5</option> */}
+													</select>
+                         							</div>
+												</div>
+												<div className="f_box">
+													<input type="text" className="input-field chanel1_type" value={this.state.sessionType} placeholder="session type" disabled/>
+												</div>
+											</div>
+											<div className="donebg"><button type="button" className="done"  onClick={e=>browserHistory.push('/'+this.state.sessionTypeRedirectTo)}>Next</button></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+							{/* Pick session by nitin end */}
 
 						</div>
 					    {/* <div id="ps" class="container tab-pane fade"><br />

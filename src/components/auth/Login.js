@@ -61,7 +61,6 @@ class Login extends Component {
     if(localStorage.getItem('chk') && localStorage.getItem('userData')){
       let ak =JSON.parse(localStorage.getItem('userData'));
       $('#remember_me').attr('checked', 'checked');
-      console.log(ak);
       this.setState({
         email:ak.data.responseData.email
       })
@@ -111,18 +110,15 @@ onChange = e => {
 onSubmit = e => {
     e.preventDefault();
 
-    console.log('---------hello---------------')
       const userData = {
         email: this.state.email,
         password: this.state.password
       };
     axios.post(process.env.REACT_APP_NAME+"/api/v1/user/adminLogin", userData)
     .then(res => {
-      console.log(res);
      if(res.data.responseMessage == "success"){
     // console.log('=============lallittiwari12345===================>',res.data.responseData.type);
     localStorage.setItem("userData", JSON.stringify(res));
-    console.log('this.state.rememberMe',$('#remember_me').is(':checked'))
     if ($('#remember_me').is(':checked')) {
       localStorage.setItem("chk", 'true');
     }

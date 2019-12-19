@@ -459,7 +459,7 @@ timeset = time => {
     let b = time.split(':')[1];
     let a = parseInt(time.split(':')[0]);
     b= parseInt(time.split(':')[1]);
-    if(a==12 && b>0){
+    if(a==12 && b>=0){
       a=a+ ' PM';
     }
     if(a>12 ){
@@ -490,7 +490,7 @@ timeset2 = time2 => {
     let b = time2.split(':')[1];
     let a = parseInt(time2.split(':')[0]);
     b= parseInt(time2.split(':')[1]);
-    if(a==12 && b>0){
+    if(a==12 && b>=0){
       a=a+ ' PM';
     }
     if(a>12 ){
