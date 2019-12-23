@@ -3024,3 +3024,8 @@ abbr[data-original-title], abbr[title] {
    .err_msg{
 	   color:#dc0f0fde !important;
    }
+.kep-login-facebook.metro {
+	background:transparent;
+	border: none;
+	padding: 0;
+}   

@@ -4,6 +4,8 @@ import Slider from "react-slick";
 import DatePicker from "react-datepicker";
 import $ from 'jquery';
 import {browserHistory} from 'react-router'
+import FacebookLogin from 'react-facebook-login';
+
 
 class Dashboard extends Component {
 constructor(props) {
@@ -137,7 +139,13 @@ $(".parent-row").hide();
 		})
 }
 
-  
+responseFacebook = (response) => {
+	console.log(response.accessToken);
+	if(response.accessToken){
+		console.log(response.email)
+		browserHistory.push('/DashboardLanding');
+	}
+}  
 
   render() {
 
@@ -461,7 +469,16 @@ $(".parent-row").hide();
 			<div className="col-lg-3 col-sm-6">
 				<h1 className="logo-text text-center mt-5"><img src="/images/login-logo.png" className="logo" alt="logo" /></h1>
 				<div className="social_icons text-center mt-4">
-					<Link to="/"><i className="fa fa-facebook"></i></Link>
+					{/* <Link to="/"><i className="fa fa-facebook"></i></Link> */}
+					<FacebookLogin
+					appId="2468127960075530"
+					autoLoad={false}
+					fields="name,email,picture"
+					callback={this.responseFacebook}
+					//cssClass="my-facebook-button-class"
+					icon="fa fa-facebook" 
+					textButton=""
+					/>
 					<Link to="/"><i className="fa fa-twitter"></i></Link>
 					<Link to="/"><i className="fa fa-instagram"></i></Link>
 					<Link to="/"><i className="fa fa-envelope-o"></i></Link>

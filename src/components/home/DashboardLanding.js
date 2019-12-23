@@ -265,10 +265,13 @@ componentDidMount(){
   	}
 	
   }
- getSessionDate=(e)=>{
-	let day=new Date('2019-12-12T21:30:00.000Z').getDate();
-	let month=(new Date('2019-12-12T21:30:00.000Z').getMonth())+1;
-	let year=new Date('2019-12-12T21:30:00.000Z').getFullYear();
+ getSessionDate=(date1)=>{
+	// let ab = new Date(date1).getTime();
+	 
+	// console.log(new Date (ab+19800000),">>>>>>>>>>>",new Date(date1).getTime());
+	let day=new Date(date1).getDate();
+	let month=(new Date(date1).getMonth())+1;
+	let year=new Date(date1).getFullYear();
 	let sessionDate= day+'/'+month+'/'+year;
 	//let ak= <p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {sessionDate}</p>
 	//arr.push(<option key={i} value={i}>{i}</option>)
@@ -708,7 +711,7 @@ sessionType=(e)=>{
 						    				<p><img src="/images/gray-icons/clock.png" className="mr-3"  alt="" />{row.oTime}</p>
 						    				<p><img src="/images/gray-icons/teamwork.png" className="mr-3"  alt="" />Signid Up {row.oId} (max)</p>
 						    				<p><img src="/images/gray-icons/dollar.png" className="mr-3"  alt="" />${row.oPrice} per session</p>
-						    				<p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {this.getSessionDate()}</p>
+						    				<p className="mb-4"><img src="/images/gray-icons/date.png" className="mr-3"  alt="" />Cut off date {this.getSessionDate('2019-12-12T21:30:00.000Z')}</p>
 						    				{/* {this.getSessionDate()} */}
 											<div className="d-flex flex-wrap justify-content-between">
 						    					<div className="mt-3 flex-grow-1"><button className="session_btn text-uppercase" id={i} onClick={this.uneditableMode}>Session details</button></div>
