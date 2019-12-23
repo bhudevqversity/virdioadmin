@@ -147,6 +147,7 @@ checkHost4=(e)=>{
 componentDidMount(){
 	// $("#dash_land_block :input").attr("disabled", true);	
 	if(localStorage.getItem('userData')){
+		console.log(this.props.location)
 		let ak = JSON.parse(localStorage.getItem('userData'));
 		// console.log(new Date('2019-12-12T21:30:00.000Z').getHours())
 		const userData ={
@@ -489,7 +490,7 @@ sessionType=(e)=>{
                 <div className="col-lg-4 d-flex d-md-block justify-content-center p-4">
                     <div className="user-info d-flex align-items-center"><img src="/images/attendee.png" className="user-avtar pic" alt="" />
                         <div className="pl-4">
-                            <h3>Welcome Atul</h3>
+                            <h3>Welcome {JSON.parse(localStorage.getItem('userData')).data.responseData.firstName}</h3>
                             <p>You have no sessions this week</p>
                             {/* <p>Next Session, Wednesday, 24 July 2019</p> */}
                         </div>

@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import { Link } from 'react-router';
 import "react-datepicker/dist/react-datepicker.css";
 // import $ from 'jquery';
+import queryString from 'query-string';
 
 class NoAdmin extends Component {
    constructor(props) {
@@ -140,6 +141,8 @@ checkHost4=(e)=>{
 
 componentDidMount(){
 	// $("#dash_land_block :input").attr("disabled", true);
+	console.log(this.props.location)
+	console.log(queryString.parse(this.props.location.search))
   }
 
 
